@@ -18,6 +18,7 @@ namespace gip.vb.mobile
         public void SetValue<T>(string key, T value)
         {
             Application.Current.Properties[key] = (T)value;
+            Application.Current.SavePropertiesAsync();
         }
     }
 }

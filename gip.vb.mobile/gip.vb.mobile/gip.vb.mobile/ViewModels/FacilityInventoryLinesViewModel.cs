@@ -138,14 +138,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public async Task<bool> SetInputCode(string inputCode)
-        {
-            bool isCodeFounded = await ApplyInputCode(inputCode);
-            if (isCodeFounded)
-                await ExecuteGetFacilityInventoryPosesAsync();
-            return isCodeFounded;
-        }
-
         #endregion
 
         #region ctor's

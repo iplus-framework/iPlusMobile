@@ -4,6 +4,7 @@ using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -150,14 +151,17 @@ namespace gip.vb.mobile.ViewModels
                     WSResponse<List<MDFacilityInventoryState>> wSResponsemDFacilityInventoryState = await _WebService.GetMDFacilityInventoryStatesAsync();
                     MDFacilityInventoryStates = wSResponsemDFacilityInventoryState.Data;
 
-                    short? stateIndex = null;
+                    // At first load only in progress inventories
+                    short stateIndex = (short)MDFacilityInventoryState.FacilityInventoryStates.InProgress;
                     if (FilterFacilityInventoryState != null)
                         stateIndex = (short)FilterFacilityInventoryState.MDFacilityInventoryStateIndex;
                     WSResponse<List<FacilityInventory>> wsResponseFacilityInventories = await _WebService.GetFacilityInventoriesAsync(
-                        stateIndex != null ? stateIndex.Value.ToString() : "", 
-                        FilterInventoryStartDate.ToString("o", CultureInfo.InvariantCulture), 
+                        stateIndex.ToString(),
+                        FilterInventoryStartDate.ToString("o", CultureInfo.InvariantCulture),
                         FilterInventoryEndDate.ToString("o", CultureInfo.InvariantCulture));
                     FacilityInventories = wsResponseFacilityInventories.Data;
+
+                    FilterFacilityInventoryState = MDFacilityInventoryStates.FirstOrDefault(c => c.MDFacilityInventoryStateIndex == (short)MDFacilityInventoryState.FacilityInventoryStates.InProgress);
 
                     success = wsResponseFacilityInventories.Suceeded
                                 && wSResponsemDFacilityInventoryState.Suceeded;

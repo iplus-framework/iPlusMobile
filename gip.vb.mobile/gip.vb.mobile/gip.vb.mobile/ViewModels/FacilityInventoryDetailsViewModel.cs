@@ -3,6 +3,7 @@ using gip.core.datamodel;
 using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -107,6 +108,7 @@ namespace gip.vb.mobile.ViewModels
                 {
                     if (FacilityInventoryPos != null)
                     {
+                        FacilityInventoryPos.MDFacilityInventoryPosState = MDFacilityInventoryPosStates.FirstOrDefault(c => c.MDFacilityInventoryPosStateIndex == (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress);
                         WSResponse<bool> wSResponse = await _WebService.UpdateFacilityInventoryPosAsync(FacilityInventoryPos);
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;

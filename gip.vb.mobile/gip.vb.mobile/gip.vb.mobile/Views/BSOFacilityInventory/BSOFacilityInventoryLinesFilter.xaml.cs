@@ -46,16 +46,6 @@ namespace gip.vb.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityInventoryLines() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
         }
-        private async void InputCode_Completed(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(_ViewModel.InputCode))
-            {
-                bool isCodeFounded = await _ViewModel.SetInputCode(_ViewModel.InputCode);
-                if (isCodeFounded)
-                    await Navigation.PushAsync(new BSOFacilityInventoryLines() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
-
-            }
-        }
 
         async void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
