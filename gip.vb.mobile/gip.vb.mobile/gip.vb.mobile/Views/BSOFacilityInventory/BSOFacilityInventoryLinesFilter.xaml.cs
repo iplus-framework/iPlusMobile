@@ -1,0 +1,74 @@
+﻿using gip.vb.mobile.Strings;
+using gip.vb.mobile.ViewModels;
+using System;
+using Xamarin.Forms.Xaml;
+
+namespace gip.vb.mobile.Views
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class BSOFacilityInventoryLinesFilter : BSOPageBase
+    {
+        #region Properteis
+        FacilityInventoryLinesViewModel _ViewModel;
+        #endregion
+
+        #region ctor's
+        public BSOFacilityInventoryLinesFilter()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (NavParam.Arguments is FacilityInventoryLinesViewModel)
+            {
+                _ViewModel = (FacilityInventoryLinesViewModel)NavParam.Arguments;
+            }
+            else
+            {
+                _ViewModel = new FacilityInventoryLinesViewModel(NavParam.Arguments.ToString());
+            }
+
+            if (_ViewModel.MDFacilityInventoryPosStates == null)
+            {
+                _ViewModel.GetListsCommand.Execute(null);
+            }
+            _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
+            BindingContext = _ViewModel;
+            this.PageState = PageStateEnum.View;
+        }
+        #endregion
+
+        #region Event handlers
+        private async void InventoryPosSearch_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOFacilityInventoryLines() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+        }
+        private async void InputCode_Completed(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_ViewModel.InputCode))
+            {
+                bool isCodeFounded = await _ViewModel.SetInputCode(_ViewModel.InputCode);
+                if (isCodeFounded)
+                    await Navigation.PushAsync(new BSOFacilityInventoryLines() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+
+            }
+        }
+
+        async void TBItemRefresh_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MoreFilterCommand_Clicked(object sender, EventArgs e)
+        {
+            FilterMore.IsVisible = !FilterMore.IsVisible;
+            MoreFilterCommand.Text = FilterMore.IsVisible ? AppStrings.BtnLes_Text : AppStrings.BtnMore_Text;
+        }
+
+        #endregion
+
+    }
+}

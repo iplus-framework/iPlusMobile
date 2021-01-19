@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton_Label" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
+    <value>Scan or Enter the process function Barcode</value>
+  </data>
+  <data name="BarcodeScan_Text" xml:space="preserve">
+    <value>Barcode Scannen oder Eingeben</value>
+  </data>
+  <data name="BookingHistory_Header" xml:space="preserve">
+    <value>Buchungshistorie</value>
+  </data>
+  <data name="BookingQuantity_Text" xml:space="preserve">
+    <value>Buchungsmenge</value>
+  </data>
+  <data name="BtnBlockQuant_Text" xml:space="preserve">
+    <value>Sperren</value>
+  </data>
+  <data name="BtnDoBooking_Text" xml:space="preserve">
+    <value>Buchen</value>
+  </data>
+  <data name="BtnDoZeroStock_Text" xml:space="preserve">
+    <value>Quant nicht verfügbar</value>
+  </data>
+  <data name="BtnLocationOverview_Text" xml:space="preserve">
+    <value>Zur Lagerortübersicht</value>
+  </data>
+  <data name="BtnOccupyMachine_Text" xml:space="preserve">
+    <value>Auftrag Anmelden an Maschine</value>
+  </data>
+  <data name="BtnReleaseMachine_Text" xml:space="preserve">
+    <value>Auftrag Abmelden an Maschine</value>
+  </data>
+  <data name="BtnReleaseQuant_Text" xml:space="preserve">
+    <value>Freigeben</value>
+  </data>
+  <data name="BtnRelocate_Text" xml:space="preserve">
+    <value>Umlagern</value>
+  </data>
+  <data name="BtnSearch_Text" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
+  <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
+    <value>Quant verfügbar</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ButtonNo" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="ButtonYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="DateFrom_Text" xml:space="preserve">
+    <value>Von</value>
+  </data>
+  <data name="DateTo_Text" xml:space="preserve">
+    <value>Bis</value>
+  </data>
+  <data name="DoPickingPivot_Header" xml:space="preserve">
+    <value>Kommissionieren</value>
+  </data>
+  <data name="FacilityName_Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FacilityNo_Text" xml:space="preserve">
+    <value>Lagerplatz-Nr.</value>
+  </data>
+  <data name="FacilityPivot_Header" xml:space="preserve">
+    <value>Lagerplatz</value>
+  </data>
+  <data name="FacilitySearch_Text" xml:space="preserve">
+    <value>Lagerplatz-Nr. oder Name eingeben</value>
+  </data>
+  <data name="InputMaterials_Header" xml:space="preserve">
+    <value>Eingesetzte Materialien</value>
+  </data>
+  <data name="Input_Text" xml:space="preserve">
+    <value>Einsatz</value>
+  </data>
+  <data name="Intermediate_Text" xml:space="preserve">
+    <value>Zwischenprodukt</value>
+  </data>
+  <data name="LightTheme_Text" xml:space="preserve">
+    <value>Helles Design</value>
+  </data>
+  <data name="LocationPivot_Header" xml:space="preserve">
+    <value>Lagerort</value>
+  </data>
+  <data name="LocationSearch_Text" xml:space="preserve">
+    <value>Lagerort-Nr. oder Name eingeben</value>
+  </data>
+  <data name="LocationSelect_Text" xml:space="preserve">
+    <value>Lagerort auswählen:</value>
+  </data>
+  <data name="LotPivot_Header" xml:space="preserve">
+    <value>Los/Charge</value>
+  </data>
+  <data name="LotSearch_Text" xml:space="preserve">
+    <value>Los./Chargennummer eingeben</value>
+  </data>
+  <data name="MaterialPivot_Header" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="MaterialSearch_Text" xml:space="preserve">
+    <value>Material-Nr. oder Name eingeben</value>
+  </data>
+  <data name="Output_Text" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="PartslistName_Label" xml:space="preserve">
+    <value>Name der Stückliste</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="PickingPosPivot_Header" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="PostingFCPivot_Header" xml:space="preserve">
+    <value>Buchen</value>
+  </data>
+  <data name="ProdOrderInOutBookingHistory_Header" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="ProdOrderInOutBooking_Header" xml:space="preserve">
+    <value>Buchen</value>
+  </data>
+  <data name="ProdOrderInOutInfo_Header" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="QuantPivot_Header" xml:space="preserve">
+    <value>Quanten</value>
+  </data>
+  <data name="ScanBarcodePivot_Header" xml:space="preserve">
+    <value>Barcode/RFID</value>
+  </data>
+  <data name="SelectBatch_Text" xml:space="preserve">
+    <value>Wählen Sie die Zielcharge aus:</value>
+  </data>
+  <data name="SelectIntermediate_Text" xml:space="preserve">
+    <value>Wählen Sie das Zwischenprodukt aus:</value>
+  </data>
+  <data name="SelectPartslist_Text" xml:space="preserve">
+    <value>oder wählen Sie die Stückliste:</value>
+  </data>
+  <data name="SelectTargetFacility_Text" xml:space="preserve">
+    <value>oder wählen Sie den Zielspeicher:</value>
+  </data>
+  <data name="StockQuantity_Text" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="SumBlockedAbsolute_Text" xml:space="preserve">
+    <value>Abs. Gesperrt</value>
+  </data>
+  <data name="SumBlocked_Text" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="SumFree_Text" xml:space="preserve">
+    <value>Frei</value>
+  </data>
+  <data name="SumTotal_Text" xml:space="preserve">
+    <value>Summe Ges.</value>
+  </data>
+  <data name="TimeRangeFilter_Header" xml:space="preserve">
+    <value>Zeitbereich</value>
+  </data>
+  <data name="UseMockDataStore_Text" xml:space="preserve">
+    <value>Offline-Demodaten verwenden</value>
+  </data>
+  <data name="Username_Text" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="IPlusBackendUrl_Text" xml:space="preserve">
+    <value>iPlus Url</value>
+  </data>
+  <data name="WarehousePivot_Header" xml:space="preserve">
+    <value>Lager</value>
+  </data>
+  <data name="ZXingOverlay_Text" xml:space="preserve">
+    <value>Barcode auf Linie vollständig positionieren</value>
+  </data>
+</root>

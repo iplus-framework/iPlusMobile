@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilityInventoryFilter"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOFacilityInventoryFilter">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView Orientation="Vertical">
+        <StackLayout>
+            <Label Text="{i18n:Translate Text=BFI_SearchInventory_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
+            <Label Text="{i18n:Translate Text=DateFrom_Text}"/>
+            <DatePicker x:Name="FilterDateFrom" Date="{Binding FilterInventoryStartDate, Mode=TwoWay}" />
+            <Label Text="{i18n:Translate Text=DateTo_Text}"/>
+            <DatePicker x:Name="FilterDateTo" Date="{Binding FilterInventoryEndDate, Mode=TwoWay}" />
+            <Label Text="{i18n:Translate Text=InventoryState_Text}"/>
+            <Picker  x:Name="InventoryStatusCombo" 
+                    SelectedItem="{Binding FilterFacilityInventoryState, Mode=TwoWay}" 
+                    ItemsSource="{Binding MDFacilityInventoryStates}" 
+                    HorizontalOptions="CenterAndExpand"
+                    MinimumWidthRequest="50"
+                    WidthRequest="200"
+                    ItemDisplayBinding="{Binding MDFacilityInventoryStateName}"/>
+            <Button x:Name="ButtonInventorySearch" Text="{i18n:Translate Text=BtnSearch_Text}" Clicked="ButtonInventorySearch_Clicked" />
+        </StackLayout>
+    </ScrollView>
+</v:BSOPageBase>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilityInventoryLines"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOFaciilityInventoryLinesFilter">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Label Text="{i18n:Translate Text=BFI_InventoryPositions_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
+        <Button x:Name="InventoryPosOpenFilter" Text="{i18n:Translate Text=Filter_Text}" Clicked="InventoryPosOpenFilter_Clicked" />
+        <ScrollView Orientation="Vertical">
+            <ListView x:Name="InventoryPosListView"
+                    ItemsSource="{Binding FacilityInventoryPoses}"
+                    ItemTemplate="{StaticResource FacilityInventoryPosTemplate}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="true"
+                    RefreshCommand="{Binding GetFacilityInventoryPosesCommand}"
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="InventoryPosListView_ItemSelected"
+                    ItemTapped="InventoryPosListView_ItemTapped">
+            </ListView>
+        </ScrollView>
+    </StackLayout>
+</v:BSOPageBase>

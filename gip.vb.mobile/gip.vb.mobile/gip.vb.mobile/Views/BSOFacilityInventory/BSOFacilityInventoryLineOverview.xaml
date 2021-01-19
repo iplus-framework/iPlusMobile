@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilityInventoryLineOverview"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOFacilityInventoryLineOverview">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView Orientation="Vertical">
+        <StackLayout>
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.MaterialNo}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.MaterialName1}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.FacilityName}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.LotNo}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.StockQuantity}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.NewStockQuantity}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.Comment}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityInventoryPos, Text=UpdateDate}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.UpdateDate}" Style="{StaticResource LabelForData}" />
+            <Label Text="{i18n:Translate FullQName=gip.variobatch.webservices.FacilityInventoryPos, Text=UpdateName}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding FacilityInventoryPos.UpdateName}" Style="{StaticResource LabelForData}" />
+            <Button x:Name="ItemEditCommand" Text="{i18n:Translate Text=BFI_PositionEdit_Header}" Clicked="ItemEditCommand_Clicked"/>
+            <Button x:Name="BackToList" Text="{i18n:Translate Text=BFI_InventoryPositions_Header}" Clicked="BackToList_Clicked"/>
+        </StackLayout>
+    </ScrollView>
+</v:BSOPageBase>

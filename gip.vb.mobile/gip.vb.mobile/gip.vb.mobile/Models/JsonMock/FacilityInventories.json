@@ -1,0 +1,19 @@
+{
+  "Message": null,
+  "Data": [
+    {
+      "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+      "FIN": "00000003",
+      "FINM": "Test inventory",
+      "MFIS": {
+        "ID": "0287ba4a-94c8-4515-9631-574126376d4c",
+        "MDNT": "en{'In Progress'}de{'In Arbeit'}",
+        "SI": 2,
+        "IDF": false,
+        "MDFII": 2
+      },
+      "IN": "Test inventory",
+      "IND": "2020-12-18T12:40:39.09"
+    }
+  ]
+}

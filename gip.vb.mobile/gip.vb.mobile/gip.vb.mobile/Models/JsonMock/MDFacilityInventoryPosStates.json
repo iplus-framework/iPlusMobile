@@ -1,0 +1,33 @@
+{
+  "Message": null,
+  "Data": [
+    {
+      "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+      "MDNT": "en{'New'}de{'Neu'}",
+      "SI": 1,
+      "IDF": true,
+      "MDFII": 1
+    },
+    {
+      "ID": "aadfc14c-e79d-45d1-b513-d44604491c71",
+      "MDNT": "en{'In Progress'}de{'In Arbeit'}",
+      "SI": 2,
+      "IDF": false,
+      "MDFII": 2
+    },
+    {
+      "ID": "f8b68e7f-6047-4bcd-9275-90853c0818f6",
+      "MDNT": "en{'Paused'}de{'Angehalten'}",
+      "SI": 3,
+      "IDF": false,
+      "MDFII": 3
+    },
+    {
+      "ID": "bb36738f-0669-4dd7-985c-385aaec92c8e",
+      "MDNT": "en{'Finished'}de{'Fertig'}",
+      "SI": 4,
+      "IDF": false,
+      "MDFII": 4
+    }
+  ]
+}

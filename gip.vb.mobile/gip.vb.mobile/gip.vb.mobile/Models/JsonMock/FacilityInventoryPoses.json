@@ -1,0 +1,842 @@
+{
+  "Message": null,
+  "Data": [
+    {
+      "ID": "5299fab0-e75e-4126-bbcd-3ccc525508c9",
+      "FC": "ec92ac1e-1850-4522-9c45-ebda4e61258e",
+      "SQ": 3,
+      "CM": "komentar",
+      "LT": "FL00001318",
+      "FCNo": "Silo102",
+      "FCN": "Silo102",
+      "MNo": "002",
+      "MN": "Weizenmehl Typ 1050",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bb36738f-0669-4dd7-985c-385aaec92c8e",
+        "MDNT": "en{'Finished'}de{'Fertig'}",
+        "SI": 4,
+        "IDF": false,
+        "MDFII": 4
+      },
+      "StQ": 19300.0,
+      "NStQ": 19000.0,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-21T16:24:38.45"
+    },
+    {
+      "ID": "75bc8197-452f-467d-b51c-a30719e50702",
+      "FC": "182fe11c-17c6-416c-b428-25f4e8f7bedf",
+      "SQ": 2,
+      "CM": null,
+      "LT": "FL00001317",
+      "FCNo": "Silo101",
+      "FCN": "Silo101",
+      "MNo": "001",
+      "MN": "Weizenmehl Typ 550",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 19029.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.09"
+    },
+    {
+      "ID": "be7c95db-74f6-4e13-82a5-4d70a3adc01b",
+      "FC": "07a5f3e3-8f9e-4fd6-8561-947379073ba1",
+      "SQ": 6,
+      "CM": null,
+      "LT": "FL00001320",
+      "FCNo": "G01R01E02",
+      "FCN": "Gang 1, Regal1, Ebene 2",
+      "MNo": "003",
+      "MN": "Salz",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 1000.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "9a8518c6-5a90-4bd3-841d-188ee7fbceb7",
+      "FC": "b95ec08a-0083-4002-a5a5-0db0e9a648b0",
+      "SQ": 8,
+      "CM": null,
+      "LT": "FL00001322",
+      "FCNo": "WaterCity",
+      "FCN": "Stadtwasser",
+      "MNo": "0001",
+      "MN": "Stadtwasser",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 998680.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "1f7bca80-639c-46d9-87fb-1db4d4fa9036",
+      "FC": "943def6c-8c4e-437b-b507-3c5f9d922e91",
+      "SQ": 11,
+      "CM": null,
+      "LT": "FL00001325",
+      "FCNo": "LPDough",
+      "FCN": "Teigmacherei Rohwaren (Eingang)",
+      "MNo": "0004",
+      "MN": "Trockeneis (Wasser)",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 2000.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "5d730fb7-32e3-4199-8b01-23b20b19aef8",
+      "FC": "3ae1e5d7-0507-419a-b623-577ddade57a2",
+      "SQ": 5,
+      "CM": null,
+      "LT": "FL00001319",
+      "FCNo": "G01R01E01",
+      "FCN": "Gang 1, Regal1, Ebene 1",
+      "MNo": "003",
+      "MN": "Salz",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "aadfc14c-e79d-45d1-b513-d44604491c71",
+        "MDNT": "en{'In Progress'}de{'In Arbeit'}",
+        "SI": 2,
+        "IDF": false,
+        "MDFII": 2
+      },
+      "StQ": 800.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-21T11:35:12.673"
+    },
+    {
+      "ID": "61a18e88-ce36-4a7a-84c1-250ff84c0a0d",
+      "FC": "75a42a3d-78ac-4e63-8502-26c6fb36937b",
+      "SQ": 12,
+      "CM": null,
+      "LT": "FL00001326",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 199.99977777777781,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "0e45ca48-2631-469d-bd5d-f1e2d83bcb3f",
+      "FC": "a94cd425-eeba-44df-8266-8ea9cc2b57d8",
+      "SQ": 9,
+      "CM": null,
+      "LT": "FL00001323",
+      "FCNo": "WaterWarm",
+      "FCN": "Warmwasser",
+      "MNo": "0003",
+      "MN": "Warmwasser",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 1000000.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "271b5745-9026-4c79-b322-f3827a89ebfc",
+      "FC": "4d301e8d-e916-44ad-9e59-32e5c55a17f9",
+      "SQ": 4,
+      "CM": null,
+      "LT": "FL00001319",
+      "FCNo": "LPDough",
+      "FCN": "Teigmacherei Rohwaren (Eingang)",
+      "MNo": "003",
+      "MN": "Salz",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 198.6017258852259,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "6643303a-998c-4d9c-a4bb-fa6cd2379479",
+      "FC": "0118070e-4973-4e27-8da1-5cee47a096de",
+      "SQ": 7,
+      "CM": "New comment",
+      "LT": "FL00001321",
+      "FCNo": "WaterCold",
+      "FCN": "Kaltwasser",
+      "MNo": "0002",
+      "MN": "Kaltwasser",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bb36738f-0669-4dd7-985c-385aaec92c8e",
+        "MDNT": "en{'Finished'}de{'Fertig'}",
+        "SI": 4,
+        "IDF": false,
+        "MDFII": 4
+      },
+      "StQ": 999999.0,
+      "NStQ": 500.0,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T15:44:08.737"
+    },
+    {
+      "ID": "362c2185-aa68-4c5e-a9ff-fff8e532c8d2",
+      "FC": "27c1a575-642c-4ffd-a610-44bfb58b8932",
+      "SQ": 10,
+      "CM": null,
+      "LT": "FL00001324",
+      "FCNo": "Sauer1",
+      "FCN": "Sauerteig 1 Lagebehälter",
+      "MNo": "456",
+      "MN": "Sauerteig",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 274.8446392513481,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.093"
+    },
+    {
+      "ID": "ab38877e-7ea5-44c1-82d9-f7ed4051435b",
+      "FC": "07bbb76b-f55d-4905-adf4-03d4c2425e8d",
+      "SQ": 13,
+      "CM": null,
+      "LT": "FL00001327",
+      "FCNo": "Sauer1",
+      "FCN": "Sauerteig 1 Lagebehälter",
+      "MNo": "456",
+      "MN": "Sauerteig",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 27.967032958021083,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "b3aacb5e-3cb2-4ea8-90e2-b19572e7c115",
+      "FC": "77f082ab-851f-4e38-b6fe-47125f6a0572",
+      "SQ": 14,
+      "CM": null,
+      "LT": "FL00001328",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 149.99961538461537,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "7a87baa7-ab5e-4b10-bafd-104bc50402a0",
+      "FC": "ce2d7a3b-2c54-4838-b211-6367e792ecf4",
+      "SQ": 18,
+      "CM": null,
+      "LT": "FL00001332",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "2075",
+      "MN": "Schoko Muffin m.Milka",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 90.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "2c4919c9-ab47-405f-b75c-cbf03b1a1a8b",
+      "FC": "eb7a9202-b24b-4dfc-a7a7-a72a63e1f069",
+      "SQ": 19,
+      "CM": null,
+      "LT": "FL00001333",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 200.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "c68ae2b4-f4b2-40e8-9542-20e52b729286",
+      "FC": "c5db646a-0cb0-4234-adc7-848973db60ee",
+      "SQ": 17,
+      "CM": null,
+      "LT": "FL00001331",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 200.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "395ee896-9aa2-4ad4-97be-486dcf66bc61",
+      "FC": "709ffc1a-7e29-4b5b-896a-5ac0e90d6789",
+      "SQ": 22,
+      "CM": null,
+      "LT": "FL00001335",
+      "FCNo": "G01R01E04",
+      "FCN": "Gang 1, Regal1, Ebene 4",
+      "MNo": "004",
+      "MN": "Zucker",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 799.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "542c2464-e952-4a3e-88aa-292a0a06411c",
+      "FC": "3b80c55b-f3bf-4d65-bbc0-3e0fb65db56a",
+      "SQ": 15,
+      "CM": "This is test commnet",
+      "LT": "FL00001329",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 199.99971428571431,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T14:46:05.493"
+    },
+    {
+      "ID": "567be901-3cc2-4dbe-a938-73130cdf6671",
+      "FC": "1c9e80e1-fd34-4a08-b576-f1b3a371c1b7",
+      "SQ": 20,
+      "CM": null,
+      "LT": "FL00001334",
+      "FCNo": "G01R01E03",
+      "FCN": "Gang 1, Regal1, Ebene 3",
+      "MNo": "101",
+      "MN": "Palmöl",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 800.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "04c60dfe-4c93-4a08-864e-87a9210823b3",
+      "FC": "91a8f45c-8eda-4e6a-b407-ec920fbd9a18",
+      "SQ": 23,
+      "CM": null,
+      "LT": "FL00001335",
+      "FCNo": "LPDough",
+      "FCN": "Teigmacherei Rohwaren (Eingang)",
+      "MNo": "004",
+      "MN": "Zucker",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 165.00029411764706,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "c1d46cd8-181a-4c8d-a523-9e49237ca035",
+      "FC": "aa4db803-88a3-48b8-a709-26c2c8f2f2d4",
+      "SQ": 16,
+      "CM": null,
+      "LT": "FL00001330",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 199.99966666666668,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "47d6e27f-91b3-44c7-a75d-9e81200d2bbd",
+      "FC": "31483ed9-573c-42ec-a742-61c19159b841",
+      "SQ": 21,
+      "CM": null,
+      "LT": "FL00001334",
+      "FCNo": "LPDough",
+      "FCN": "Teigmacherei Rohwaren (Eingang)",
+      "MNo": "101",
+      "MN": "Palmöl",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 175.00000000000003,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.097"
+    },
+    {
+      "ID": "447252fc-d223-4488-bae3-a02fbd69c350",
+      "FC": "fb05f931-9f64-4d7d-a3b3-610ef8b2de12",
+      "SQ": 27,
+      "CM": null,
+      "LT": "FL00001342",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "2075",
+      "MN": "Schoko Muffin m.Milka",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 250.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.1"
+    },
+    {
+      "ID": "f4eb24ba-45bf-4215-bda1-764e2e55ed42",
+      "FC": "84423b18-3452-42ed-96ed-0fe65d98ef3b",
+      "SQ": 25,
+      "CM": null,
+      "LT": "FL00001339",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "2075",
+      "MN": "Schoko Muffin m.Milka",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 95.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.1"
+    },
+    {
+      "ID": "e85649d9-7adc-44a3-8ff9-a80c48eda226",
+      "FC": "620be7f0-0735-46a2-85fa-95a98da69db1",
+      "SQ": 26,
+      "CM": null,
+      "LT": "FL00001341",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "2075",
+      "MN": "Schoko Muffin m.Milka",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 149.99970588235294,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.1"
+    },
+    {
+      "ID": "71014733-ca8b-4b3f-9ed4-35b97a16ae36",
+      "FC": "74af80c2-d77f-442a-a65e-f6badf80a102",
+      "SQ": 28,
+      "CM": null,
+      "LT": "FL00001344",
+      "FCNo": "LPProd",
+      "FCN": "Teigmacherei Halbfabrikate (Ausgang)",
+      "MNo": "171",
+      "MN": "Laugenbrezel ",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 199.9995,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.1"
+    },
+    {
+      "ID": "3b0988e8-c7f8-4fae-b357-b982dad15ce6",
+      "FC": "c9eb4be1-8792-4350-a5f3-055e104f6f55",
+      "SQ": 24,
+      "CM": null,
+      "LT": "FL00001337",
+      "FCNo": "LPFinishedHalf",
+      "FCN": "Halbfertigwaren",
+      "MNo": "171T",
+      "MN": "Laugenbrezel Teigling",
+      "cFI": {
+        "ID": "019a3f67-ff0d-4fdc-83bf-0c5998c60f43",
+        "FIN": "00000003",
+        "FINM": null,
+        "MFIS": null,
+        "IN": null,
+        "IND": "0001-01-01T00:00:00"
+      },
+      "MDFIPosS": {
+        "ID": "bdeceaf2-7113-4cf3-9bde-2be22df6aa23",
+        "MDNT": "en{'New'}de{'Neu'}",
+        "SI": 1,
+        "IDF": true,
+        "MDFII": 1
+      },
+      "StQ": 20.0,
+      "NStQ": null,
+      "NA": false,
+      "UN": "aagincic",
+      "UD": "2020-12-18T12:40:39.1"
+    }
+  ]
+}

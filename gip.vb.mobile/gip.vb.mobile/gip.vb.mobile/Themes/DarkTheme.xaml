@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="gip.vb.mobile.Themes.DarkTheme">
+
+    <Color x:Key="PageBackgroundColor">Black</Color>
+    <Color x:Key="SecondaryPageBackgroundColor">#FF303030</Color>
+    <Color x:Key="NavigationBarColor">#FF333333</Color>
+    <Color x:Key="NavigationBarTextColor">#FFFF0020</Color>
+    <Color x:Key="PrimaryColor">#FFDFADAD</Color>
+    <Color x:Key="SecondaryColor">White</Color>
+    <Color x:Key="PrimaryTextColor">White</Color>
+    <Color x:Key="SecondaryTextColor">LightGray</Color>
+    <Color x:Key="ControlBackgroundColor">#FF505050</Color>
+    <Color x:Key="SelectedBackgroundColor">#FFDFADAD</Color>
+    <Color x:Key="SelectedTextColor">#FF0064C8</Color>
+    <Color x:Key="UnSelectedTextColor">#FF282828</Color>
+    <Color x:Key="DgBorderColor">#FF505050</Color>
+    <Color x:Key="DgHeaderBackgroundColor">#FFCCCCCC</Color>
+</ResourceDictionary>

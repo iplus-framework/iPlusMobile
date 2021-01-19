@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Class="gip.vb.mobile.Controls.BoxViewButton">
+  <ContentView.Content>
+        <Grid>
+            <ctl:RoundedBoxView x:Name="ctlBoxView" />
+            <Image x:Name="ctlImage" Aspect="AspectFit" />
+        </Grid>
+  </ContentView.Content>
+</ContentView>

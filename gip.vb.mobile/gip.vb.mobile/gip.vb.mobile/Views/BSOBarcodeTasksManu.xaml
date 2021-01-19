@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vb.mobile.Views.BSOBarcodeTasksManu">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
+        </ToolbarItem>
+    </v:BSOPageBase.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid x:Name="BgPAnel" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding Item.CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+                    <Label x:Name="ScanMessageLabel" Text="{Binding Item.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Medium">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="ScanAgain">
+                                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Completed">
+                                <Setter Property="TextColor" Value="Lime" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Cancelled">
+                                <Setter Property="TextColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Question">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
+                <ListView Grid.Row="1" x:Name="BarcodeListView" 
+                        ItemsSource="{Binding BarcodeSequence}" 
+                        SelectedItem="{Binding SelectedSequence}"                         
+                        ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                        RowHeight="60"
+                        IsGroupingEnabled="false"
+                        HasUnevenRows="true"
+                        IsPullToRefreshEnabled="false"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        ItemSelected="BarcodeListView_ItemSelected"/>
+                <Button Grid.Row="2" x:Name="BtnDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="BtnDoBooking_Clicked" />
+                <Button Grid.Row="3" x:Name="BtnOccupyMachine" Text="{i18n:Translate Text=BtnOccupyMachine_Text}" Clicked="BtnOccupyMachine_Clicked" />
+                <Button Grid.Row="4" x:Name="BtnReleaseMachine" Text="{i18n:Translate Text=BtnReleaseMachine_Text}" Clicked="BtnReleaseMachine_Clicked" />
+            </Grid>
+            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <zxing:ZXingScannerView x:Name="scanView"
+                                                OnScanResult="scanView_OnScanResult"
+                                                IsScanning="{Binding ZXingIsScanning}"
+                                                WidthRequest="300"
+                                                HeightRequest="300"
+                                                VerticalOptions="CenterAndExpand"
+                                                HorizontalOptions="CenterAndExpand"
+                                                IsVisible="{Binding ZXingIsScanning}" />
+                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
+                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</v:BSOPageBase>

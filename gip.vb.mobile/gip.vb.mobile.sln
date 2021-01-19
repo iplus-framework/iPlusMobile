@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gip.vb.mobile.Android", "gip.vb.mobile\gip.vb.mobile.Android\gip.vb.mobile.Android.csproj", "{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gip.vb.mobile", "gip.vb.mobile\gip.vb.mobile\gip.vb.mobile.csproj", "{696B90F8-EE0A-431D-8FB0-2E3449DE1749}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.core.webservices.shared", "..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.shproj", "{0C232936-48B8-4CCD-951E-8AD3D439D264}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.mes.facility.shared", "..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.shproj", "{47F013C1-E869-419E-8B17-C56313ACC34B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.core.datamodel.shared", "..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.shproj", "{FE279FBA-181F-4D15-BBE8-8820CAF186B2}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.core.autocomponent.shared", "..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.shproj", "{6D353DD2-970B-45BB-9AB6-D23A28E0233F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gip.vb.mobile.tools", "gip.vb.mobile.tools\gip.vb.mobile.tools.csproj", "{292F2714-2BDC-48BE-B03F-44160541F55C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.mes.datamodel.shared", "..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.shproj", "{AE832FBC-6E4E-4AD5-A2D6-04B45C1B1B5E}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.mes.webservices.shared", "..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.shproj", "{1131F03B-F0F7-4AB7-AD22-8207D49C2E24}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems*{0c232936-48b8-4ccd-951e-8ad3d439d264}*SharedItemsImports = 13
+		..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems*{1131f03b-f0f7-4ab7-ad22-8207d49c2e24}*SharedItemsImports = 13
+		..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems*{47f013c1-e869-419e-8b17-c56313acc34b}*SharedItemsImports = 13
+		..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems*{6d353dd2-970b-45bb-9ab6-d23a28e0233f}*SharedItemsImports = 13
+		..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems*{ae832fbc-6e4e-4ad5-a2d6-04b45c1b1b5e}*SharedItemsImports = 13
+		..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.projitems*{fe279fba-181f-4d15-bbe8-8820caf186b2}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugDatalogic|Any CPU = DebugDatalogic|Any CPU
+		DebugEmulator|Any CPU = DebugEmulator|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugDatalogic|Any CPU.ActiveCfg = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugDatalogic|Any CPU.Build.0 = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugDatalogic|Any CPU.Deploy.0 = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugEmulator|Any CPU.ActiveCfg = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugEmulator|Any CPU.Build.0 = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.DebugEmulator|Any CPU.Deploy.0 = DebugDatalogic|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.DebugDatalogic|Any CPU.ActiveCfg = DebugDatalogic|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.DebugDatalogic|Any CPU.Build.0 = DebugDatalogic|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.DebugEmulator|Any CPU.ActiveCfg = DebugEmulator|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.DebugEmulator|Any CPU.Build.0 = DebugEmulator|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{696B90F8-EE0A-431D-8FB0-2E3449DE1749}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.DebugDatalogic|Any CPU.ActiveCfg = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.DebugDatalogic|Any CPU.Build.0 = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.DebugEmulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.DebugEmulator|Any CPU.Build.0 = Debug|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292F2714-2BDC-48BE-B03F-44160541F55C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08AFC4C2-22BE-4B93-BD78-33DC2C700CB4}
+	EndGlobalSection
+EndGlobal

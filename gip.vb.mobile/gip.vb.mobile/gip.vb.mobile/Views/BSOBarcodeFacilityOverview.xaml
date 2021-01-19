@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               BarBackgroundColor="{DynamicResource NavigationBarColor}"
+               BarTextColor="{DynamicResource NavigationBarTextColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vb.mobile.Views.BSOBarcodeFacilityOverview">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase Title="{i18n:Translate Text=ScanBarcodePivot_Header}" x:Name="ScanBarcodePivotItem">
+        <Grid>
+            <ScrollView x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+                <StackLayout>
+                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+                    <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50"
+                            ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                            HasUnevenRows="true"
+                            RefreshCommand="{Binding LoadBarcodeEntityCommand}"
+                            IsPullToRefreshEnabled="false"
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            ItemSelected="BarcodeListView_ItemSelected"
+                               ItemTapped="BarcodeListView_ItemTapped"/>
+                </StackLayout>
+            </ScrollView>
+            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <zxing:ZXingScannerView x:Name="scanView"
+                                                OnScanResult="scanView_OnScanResult"
+                                                IsScanning="{Binding ZXingIsScanning}"
+                                                WidthRequest="300"
+                                                HeightRequest="300"
+                                                VerticalOptions="CenterAndExpand"
+                                                HorizontalOptions="CenterAndExpand"
+                                                IsVisible="{Binding ZXingIsScanning}" />
+                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
+                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
+            </Grid>
+        </Grid>
+    </v:BSOPageBase>
+    <v:BSOPageBase Title="{i18n:Translate Text=MaterialPivot_Header}" x:Name="MaterialPivotItem">
+        <StackLayout>
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <SearchBar x:Name="MaterialSearchBar" Placeholder="{i18n:Translate Text=MaterialSearch_Text}" Text="{Binding MaterialSearch}"
+                       TextChanged="MaterialSearchBar_TextChanged" 
+                       SearchButtonPressed="MaterialSearchBar_SearchButtonPressed" />
+            <ListView  x:Name="MaterialListView" ItemsSource="{Binding FilteredMaterials}" IsGroupingEnabled="false" RowHeight="50"
+                        ItemTemplate="{StaticResource MaterialItemTemplate}"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding LoadFilteredMaterialsCommand}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                       ItemSelected="MaterialListView_ItemSelected"
+                        ItemTapped="MaterialListView_ItemTapped" />
+        </StackLayout>
+    </v:BSOPageBase>
+    <v:BSOPageBase Title="{i18n:Translate Text=WarehousePivot_Header}" x:Name="FacilityPivotItem">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ctl:MsgLabel Grid.Row="0" Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <Label Grid.Row="1" Text="{i18n:Translate Text=LocationSelect_Text}" Style="{StaticResource LabelForDesc}" />
+            <Picker Grid.Row="2" x:Name="LocationCombo" 
+                    SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" 
+                    ItemsSource="{Binding Locations}" 
+                    HorizontalOptions="CenterAndExpand"
+                    MinimumWidthRequest="50"
+                    WidthRequest="200"
+                    ItemDisplayBinding="{Binding FacilityName}"/>
+            <Button Grid.Row="3" x:Name="ButtonLocation" Text="{i18n:Translate Text=BtnLocationOverview_Text}" Clicked="ButtonLocation_Clicked" HorizontalOptions="CenterAndExpand" />
+            <SearchBar Grid.Row="4" x:Name="FacilitySearchBar" Placeholder="{i18n:Translate Text=FacilitySearch_Text}" Text="{Binding FacilitySearch}"
+                       TextChanged="FacilitySearchBar_TextChanged"
+                       SearchButtonPressed="FacilitySearchBar_SearchButtonPressed" />
+            <ListView Grid.Row="5" x:Name="FacilityListView" ItemsSource="{Binding FilteredFacilites}" IsGroupingEnabled="false" RowHeight="50"
+                        ItemTemplate="{StaticResource FacilityItemTemplate}"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding LoadFilteredFacilitiesCommand}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="FacilityListView_ItemSelected"
+                        ItemTapped="FacilityListView_ItemTapped" />
+        </Grid>
+    </v:BSOPageBase>
+    <v:BSOPageBase Title="{i18n:Translate Text=LotPivot_Header}" x:Name="LotPivotItem">
+        <StackLayout>
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <SearchBar x:Name="LotSearchBar" Placeholder="{i18n:Translate Text=LotSearch_Text}" Text="{Binding LotSearch}"
+                       TextChanged="LotSearchBar_TextChanged" 
+                       SearchButtonPressed="LotSearchBar_SearchButtonPressed" />
+            <ListView  x:Name="LotListView" ItemsSource="{Binding FilteredLots}" IsGroupingEnabled="false" RowHeight="50"
+                        ItemTemplate="{StaticResource FacilityLotItemTemplate}"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding LoadFilteredLotsCommand}"
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemSelected="LotListView_ItemSelected"
+                        ItemTapped="LotListView_ItemTapped" />
+        </StackLayout>
+    </v:BSOPageBase>
+    <!--<ContentPage.Content>
+        <ctl:Pivot x:Name="PivotExplorer" Margin="0,15,0,0">
+            <ctl:PivotButtons Orientation="Horizontal">
+                <ctl:PivotButton x:Name="ScanBarcodePivotButton" Text="{i18n:Translate Text=ScanBarcodePivot_Header}" FontSize="Small" WidthRequest="120" HeightRequest="40" >
+                </ctl:PivotButton>
+                <ctl:PivotButton x:Name="MaterialPivotButton" Text="{i18n:Translate Text=MaterialPivot_Header}" FontSize="Small" WidthRequest="120" HeightRequest="40" >
+                </ctl:PivotButton>
+                <ctl:PivotButton x:Name="FacilityPivotButton" Text="{i18n:Translate Text=FacilityPivot_Header}" FontSize="Small" WidthRequest="120" HeightRequest="40" >
+                </ctl:PivotButton>
+                <ctl:PivotButton x:Name="LotPivotButton" Text="{i18n:Translate Text=LotPivot_Header}" FontSize="Small" WidthRequest="120" HeightRequest="40" >
+                </ctl:PivotButton>
+            </ctl:PivotButtons>
+            <ctl:PivotItem x:Name="ScanBarcodePivotItem" IsVisible="True" Margin="0,5,0,0">
+                <StackLayout>
+                    <Label Text="Scanned Barcode:" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+                    <Label x:Name="Barcode" HorizontalOptions="CenterAndExpand" Text="{Binding CurrentBarcode}"/>
+                </StackLayout>
+            </ctl:PivotItem>
+            <ctl:PivotItem x:Name="MaterialPivotItem" IsVisible="False" Margin="0,5,0,0">
+                <Label Text="MaterialPivotItem" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            </ctl:PivotItem>
+            <ctl:PivotItem x:Name="FacilityPivotItem" IsVisible="False"  Margin="0,5,0,0">
+                <Label Text="FacilityPivotItem" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            </ctl:PivotItem>
+            <ctl:PivotItem x:Name="LotPivotItem" IsVisible="False"  Margin="0,5,0,0">
+                <Label Text="LotPivotItem" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            </ctl:PivotItem>
+        </ctl:Pivot>
+    </ContentPage.Content>-->
+</v:BSOTabbedPageBase>
