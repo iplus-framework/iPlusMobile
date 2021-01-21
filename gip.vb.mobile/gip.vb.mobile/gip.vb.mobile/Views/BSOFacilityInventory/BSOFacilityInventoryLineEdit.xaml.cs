@@ -10,7 +10,7 @@ namespace gip.vb.mobile.Views
     {
         #region Properties
 
-        FacilityInventoryDetailsViewModel _ViewModel;
+        FacilityInventoryLineViewModel _ViewModel;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            BindingContext = _ViewModel = (FacilityInventoryDetailsViewModel)NavParam.Arguments;
+            BindingContext = _ViewModel = (FacilityInventoryLineViewModel)NavParam.Arguments;
             if (_ViewModel.MDFacilityInventoryPosStates == null)
                 _ViewModel.GetListsCommand.Execute(null);
             _ViewModel.Title = AppStrings.BFI_PositionEdit_Header;

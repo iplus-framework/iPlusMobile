@@ -4,22 +4,23 @@ using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class FacilityInventoryDetailsViewModel : BaseViewModel
+    public class FacilityInventoryLineViewModel : BaseViewModel
     {
         #region ctor's
-        public FacilityInventoryDetailsViewModel(FacilityInventoryPos facilityInventoryPos, FacilityInventoryLinesViewModel facilityInventoryLinesViewModel = null)
+
+        public FacilityInventoryLineViewModel(FacilityInventoryPos facilityInventoryPos, FacilityInventoryLinesViewModel facilityInventoryLinesViewModel = null)
         {
             FacilityInventoryPos = facilityInventoryPos;
 
             GetListsCommand = new Command(async () => await ExecuteGetListsAsync());
             FacilityInventoryLinesViewModel = facilityInventoryLinesViewModel;
         }
+
         #endregion
 
         #region Properties

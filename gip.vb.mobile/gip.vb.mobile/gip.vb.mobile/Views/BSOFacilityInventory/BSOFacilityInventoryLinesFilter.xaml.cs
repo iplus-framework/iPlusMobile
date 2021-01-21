@@ -21,16 +21,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (NavParam.Arguments is FacilityInventoryLinesViewModel)
-            {
-                _ViewModel = (FacilityInventoryLinesViewModel)NavParam.Arguments;
-            }
-            else
-            {
-                _ViewModel = new FacilityInventoryLinesViewModel(NavParam.Arguments.ToString());
-            }
-
+            _ViewModel = (FacilityInventoryLinesViewModel)NavParam.Arguments;
             if (_ViewModel.MDFacilityInventoryPosStates == null)
             {
                 _ViewModel.GetListsCommand.Execute(null);

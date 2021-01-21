@@ -57,13 +57,19 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedFacilityInventory = inventory;
         }
 
+        FacilityInventory lastTappedInventory = null;
+
         private async void InventoryListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             FacilityInventory inventory = e.Item as FacilityInventory;
             if (inventory == null)
                 return;
-            _ViewModel.SelectedFacilityInventory = inventory;
-            await Navigation.PushAsync(new BSOFacilityInventoryLinesFilter() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.SelectedFacilityInventory.FacilityInventoryNo } });
+            if(inventory != lastTappedInventory)
+            {
+                _ViewModel.SelectedFacilityInventory = inventory;
+                await Navigation.PushAsync(new BSOFacilityInventoryLinesFilter() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new FacilityInventoryLinesViewModel(_ViewModel.SelectedFacilityInventory.FacilityInventoryNo) } });
+                lastTappedInventory = inventory;
+            }
         }
 
         async void TBItemRefresh_Clicked(object sender, EventArgs e)
