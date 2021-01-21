@@ -39,7 +39,7 @@ namespace gip.vb.mobile.Views
         {
             bool success = await _ViewModel.ExecuteUpdateFacilityInventoryPosAsync();
             if(success)
-                await Navigation.PushAsync(new BSOFacilityInventoryLineOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+                await Navigation.PushAsync(new BSOFacilityInventoryLineOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel }});
         }
 
         private void TBItemRefresh_Clicked(object sender, System.EventArgs e)

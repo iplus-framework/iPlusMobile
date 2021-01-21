@@ -28,20 +28,20 @@ namespace gip.vb.mobile.Views
             this.PageState = PageStateEnum.View;
         }
 
-
         #endregion
 
         #region Event handlers
         private async void ButtonInventorySearch_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(
-                    new BSOFacilityInventory()
+                new BSOFacilityInventory()
+                {
+                    NavParam = new NavParameter(PageStateEnum.View)
                     {
-                        NavParam = new NavParameter(PageStateEnum.View)
-                        {
-                            Arguments = _ViewModel
-                        }
-                    });
+                        Arguments = _ViewModel
+                    }
+                }
+                );
         }
         #endregion
 

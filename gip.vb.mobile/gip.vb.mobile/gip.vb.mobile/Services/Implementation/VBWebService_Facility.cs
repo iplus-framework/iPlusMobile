@@ -248,7 +248,7 @@ namespace gip.vb.mobile.Services
         //public const string UrlInventory_InventoryPos_Update = "FacilityInventoryPos/Update";
         public async Task<WSResponse<bool>> UpdateFacilityInventoryPosAsync(FacilityInventoryPos facilityInventoryPos)
         {
-            if (facilityInventoryPos != null)
+            if (facilityInventoryPos == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
             return await Post<bool, FacilityInventoryPos>(facilityInventoryPos, VBWebServiceConst.UrlInventory_InventoryPos_Update);
         }

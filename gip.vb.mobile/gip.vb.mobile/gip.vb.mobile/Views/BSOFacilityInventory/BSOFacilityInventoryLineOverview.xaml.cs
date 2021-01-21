@@ -12,11 +12,9 @@ namespace gip.vb.mobile.Views
     {
 
         #region Properties
-
         FacilityInventoryLineViewModel _ViewModel;
 
         #endregion
-
 
         #region ctor's
 
@@ -45,6 +43,7 @@ namespace gip.vb.mobile.Views
         {
             base.OnDisappearing();
         }
+
         #endregion
 
         #region Event handlers

@@ -223,7 +223,6 @@ namespace gip.vb.mobile.ViewModels
                     WSResponse<List<FacilityInventoryPos>> wSResponse = await _WebService.GetFacilityInventoryPosesAsync(FilterFacilityInventoryNo, InputCode, facilityNo,
                         FilterInventoryPosLotNo, materialNo, mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "", null, null);
                     FacilityInventoryPoses = wSResponse.Data;
-                    WSResponse = wSResponse;
                     success = wSResponse.Suceeded;
                 }
                 catch (Exception ex)

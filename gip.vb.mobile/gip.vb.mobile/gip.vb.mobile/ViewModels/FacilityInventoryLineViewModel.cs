@@ -109,7 +109,7 @@ namespace gip.vb.mobile.ViewModels
                 {
                     if (FacilityInventoryPos != null)
                     {
-                        FacilityInventoryPos.MDFacilityInventoryPosState = MDFacilityInventoryPosStates.FirstOrDefault(c => c.MDFacilityInventoryPosStateIndex == (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress);
+                        FacilityInventoryPos.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
                         WSResponse<bool> wSResponse = await _WebService.UpdateFacilityInventoryPosAsync(FacilityInventoryPos);
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;

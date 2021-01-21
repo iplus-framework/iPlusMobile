@@ -298,7 +298,7 @@ namespace gip.vb.mobile.Services
         public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock)
         {
             if (_GetFacilityInventoryPosesAsync == null)
-                _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json"));
+            _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json"));
             // make filtering
             Guid? inputCodeVal = null;
             if (!string.IsNullOrEmpty(inputCode))
@@ -316,14 +316,14 @@ namespace gip.vb.mobile.Services
             if (!string.IsNullOrEmpty(zeroStock))
                 zeroStockVal = bool.Parse(zeroStock);
 
-            _GetFacilityInventoryPosesAsync.Data = _GetFacilityInventoryPosesAsync.Data.Where(c => 
+            _GetFacilityInventoryPosesAsync.Data = _GetFacilityInventoryPosesAsync.Data.Where(c =>
             1 == 1
-            && c.FacilityInventory.FacilityInventoryNo == facilityInventoryNo
+            && c.FacilityInventoryNo == facilityInventoryNo
             && (inputCodeVal == null || c.FacilityChargeID == inputCodeVal)
             && (facilityNo == null || c.FacilityNo == facilityNo)
             && (lotNo == null || c.LotNo == lotNo)
             && (materialNo == null || c.MaterialNo == materialNo)
-            && (inventoryPosStateVal == null || c.MDFacilityInventoryPosState.MDFacilityInventoryPosStateIndex == inventoryPosStateVal)
+            && (inventoryPosStateVal == null || c.MDFacilityInventoryPosStateIndex == inventoryPosStateVal)
             && (notAvailableVal == null || c.NotAvailable == notAvailableVal)
             && (zeroStockVal == null || c.StockQuantity == 0 && (zeroStockVal ?? false))
             ).ToList();
@@ -360,11 +360,11 @@ namespace gip.vb.mobile.Services
             if (_GetFacilityInventoryPosesAsync != null && _GetFacilityInventoryPosesAsync.Data != null)
             {
                 Guid facilityChargeIDVal = Guid.Parse(facilityChargeID);
-                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryPosesAsync.Data.FirstOrDefault(c => c.FacilityInventory.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
+                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryPosesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
                 if (facilityInventoryPos != null)
                 {
                     MDFacilityInventoryPosState inProgressState = MDFacilityInventoryPosStates.Data.FirstOrDefault(c => c.FacilityInventoryPosState == MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress);
-                    facilityInventoryPos.MDFacilityInventoryPosState = inProgressState;
+                    facilityInventoryPos.MDFacilityInventoryPosStateIndex = (short)inProgressState.MDFacilityInventoryPosStateIndex;
                     response.Data = true;
                 }
             }
@@ -379,11 +379,11 @@ namespace gip.vb.mobile.Services
             if (_GetFacilityInventoryPosesAsync != null && _GetFacilityInventoryPosesAsync.Data != null)
             {
                 Guid facilityChargeIDVal = Guid.Parse(facilityChargeID);
-                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryPosesAsync.Data.FirstOrDefault(c => c.FacilityInventory.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
+                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryPosesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
                 if (facilityInventoryPos != null)
                 {
                     MDFacilityInventoryPosState finishedState = MDFacilityInventoryPosStates.Data.FirstOrDefault(c => c.FacilityInventoryPosState == MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished);
-                    facilityInventoryPos.MDFacilityInventoryPosState = finishedState;
+                    facilityInventoryPos.MDFacilityInventoryPosStateIndex = (short)finishedState.MDFacilityInventoryPosStateIndex;
                     response.Data = true;
                 }
             }

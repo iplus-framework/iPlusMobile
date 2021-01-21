@@ -39,7 +39,6 @@ namespace gip.vb.mobile.Views
             this.PageState = PageStateEnum.View;
         }
 
-
         #endregion
 
         #region Event handlers
@@ -64,7 +63,7 @@ namespace gip.vb.mobile.Views
             FacilityInventory inventory = e.Item as FacilityInventory;
             if (inventory == null)
                 return;
-            if(inventory != lastTappedInventory)
+            if (inventory != lastTappedInventory)
             {
                 _ViewModel.SelectedFacilityInventory = inventory;
                 await Navigation.PushAsync(new BSOFacilityInventoryLinesFilter() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new FacilityInventoryLinesViewModel(_ViewModel.SelectedFacilityInventory.FacilityInventoryNo) } });

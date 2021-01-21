@@ -19,7 +19,7 @@
     <StackLayout>
         <Label Text="{i18n:Translate Text=BFI_InventoryPositionsFilter_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
         <Label Text="{i18n:Translate Text=BarcodeScan_Text}"/>
-        <Entry Text="{Binding InputCode, Mode=TwoWay}" />
+        <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
         <Button x:Name="MoreFilterCommand" Text="{i18n:Translate Text=BtnMore_Text}" Clicked="MoreFilterCommand_Clicked" />
         <ScrollView Orientation="Vertical"  x:Name="FilterMore" IsVisible="false">
             <StackLayout>

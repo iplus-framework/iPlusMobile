@@ -30,6 +30,8 @@ namespace gip.vb.mobile.Views
             BindingContext = _ViewModel;
             this.PageState = PageStateEnum.View;
         }
+
+
         #endregion
 
         #region Event handlers
@@ -49,7 +51,13 @@ namespace gip.vb.mobile.Views
             MoreFilterCommand.Text = FilterMore.IsVisible ? AppStrings.BtnLes_Text : AppStrings.BtnMore_Text;
         }
 
+        private async void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOFacilityInventoryLines() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+        }
+
         #endregion
+
 
     }
 }
