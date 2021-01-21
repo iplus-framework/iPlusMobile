@@ -26,10 +26,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (NavParam != null && NavParam.Arguments != null)
-                _ViewModel = (FacilityInventoryLinesViewModel)NavParam.Arguments;
-            else
-                _ViewModel = new FacilityInventoryLinesViewModel("00000008");
+            _ViewModel = (FacilityInventoryLinesViewModel)NavParam.Arguments;
             _ViewModel.GetFacilityInventoryPosesCommand.Execute(null);
             _ViewModel.Title = AppStrings.BFI_InventoryPositions_Header;
             BindingContext = null;
