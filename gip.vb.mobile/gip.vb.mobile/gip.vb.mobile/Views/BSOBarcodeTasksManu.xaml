@@ -71,8 +71,6 @@
                 <zxing:ZXingScannerView x:Name="scanView"
                                                 OnScanResult="scanView_OnScanResult"
                                                 IsScanning="{Binding ZXingIsScanning}"
-                                                WidthRequest="300"
-                                                HeightRequest="300"
                                                 VerticalOptions="CenterAndExpand"
                                                 HorizontalOptions="CenterAndExpand"
                                                 IsVisible="{Binding ZXingIsScanning}" />

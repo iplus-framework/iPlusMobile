@@ -31,12 +31,40 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             SubcribeToBarcodeService();
             EnableButtons();
+            InitZXing();
         }
+
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             UnSubcribeToBarcodeService();
+        }
+
+        #region Barcode
+        private void InitZXing()
+        {
+            if (scanView.Options != null)
+            {
+                //scanView.Options.AutoRotate = false;
+                scanView.Options.TryHarder = true;
+                scanView.Options.UseNativeScanning = true;
+                scanView.Options.PossibleFormats = new ZXing.BarcodeFormat[] { ZXing.BarcodeFormat.CODE_128,
+                                                                               ZXing.BarcodeFormat.CODE_39,
+                                                                               ZXing.BarcodeFormat.EAN_13,
+                                                                               ZXing.BarcodeFormat.EAN_8,
+                                                                               ZXing.BarcodeFormat.QR_CODE};
+                if (scanView.Options.CameraResolutionSelector == null)
+                {
+                    scanView.Options.CameraResolutionSelector = SelectCameraResolution;
+                }
+            }
+        }
+
+        ZXing.Mobile.CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
+        {
+            var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
+            return highestResolution;
         }
 
         private void SubcribeToBarcodeService()
@@ -98,6 +126,7 @@ namespace gip.vb.mobile.Views
         {
             SendScanRequest();
         }
+        #endregion
 
         private void SendScanRequest()
         {
