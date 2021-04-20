@@ -445,7 +445,7 @@ namespace gip.vb.mobile.ViewModels
             if (IntermOrIntermBatch != null)
             {
                 var result = await _WebService.GetPOBatchTargetFacilitiesAsync(IntermOrIntermBatch.ProdOrderPartslistPosID.ToString());
-                if (result.Suceeded)
+                if (result.Suceeded && result.Data != null)
                 {
                     TargetFacilities = result.Data;
                     if (TargetFacilities.Count == 1)
