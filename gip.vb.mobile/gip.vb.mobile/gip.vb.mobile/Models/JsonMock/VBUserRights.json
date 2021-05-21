@@ -17,13 +17,8 @@
       },
       {
         "Label": "Inventur",
-        "PageClassName": "BSOFacilityInventory"
-      },
-      {
-        "Label": "Inventur-Test",
-        "PageClassName": "BSOFacilityInventoryLines"
+        "PageClassName": "BSOInventory"
       }
-
     ],
     "SessionID": "b55bb340-64b0-4604-a88c-dd6b60cf8af4",
     "Translation": {

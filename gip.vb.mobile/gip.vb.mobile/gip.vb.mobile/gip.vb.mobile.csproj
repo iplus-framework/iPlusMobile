@@ -137,15 +137,6 @@
     <Compile Update="Themes\LightTheme.xaml.cs">
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\BSOFacilityInventory\BSOFacilityInventoryLineOverview.xaml.cs">
-      <DependentUpon>BSOFacilityInventoryLineOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacilityInventory\BSOFacilityInventoryLineEdit.xaml.cs">
-      <DependentUpon>BSOFacilityInventoryLineEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacilityInventory\BSOFacilityInventoryLinesFilter.xaml.cs">
-      <DependentUpon>BSOFacilityInventoryLinesFilter.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>
@@ -166,6 +157,9 @@
     </Compile>
     <Compile Update="Views\BSOFacilityBookingHistory.xaml.cs">
       <DependentUpon>BSOFacilityBookingHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BSOInventory\BSOInventoryLines.xaml.cs">
+      <DependentUpon>BSOInventoryLines.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\BSOPickingPosDetail.xaml.cs">
       <DependentUpon>BSOPickingPosDetail.xaml</DependentUpon>
@@ -207,22 +201,13 @@
     <EmbeddedResource Update="Views\BSOFacilityChargeOverview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventory.xaml">
+    <EmbeddedResource Update="Views\BSOInventory\BSOInventory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventoryLineOverview.xaml">
+    <EmbeddedResource Update="Views\BSOInventory\BSOInventoryLineEdit.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventoryLineEdit.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventoryFilter.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventoryLines.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacilityInventory\BSOFacilityInventoryLinesFilter.xaml">
+    <EmbeddedResource Update="Views\BSOInventory\BSOInventoryMode.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrder.xaml">

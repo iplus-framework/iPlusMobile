@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gip.vb.mobile.Views.BSOFacilityInventory"
+             x:Class="gip.vb.mobile.Views.BSOInventoryLines"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Name="BrowseBSOFacilityInventory">
+             x:Name="PageBSOInventoryLines">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
@@ -16,21 +16,21 @@
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ScrollView Orientation="Vertical">
-        <StackLayout>
-            <Label Text="{i18n:Translate Text=BFI_InventoryList_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
-            <Button x:Name="ButtonInventoryFilter" Text="{i18n:Translate Text=Filter_Text}" Clicked="ButtonInventoryFilter_Clicked" />
-            <ListView x:Name="InventoryListView"
-                    ItemsSource="{Binding FacilityInventories}"
-                    ItemTemplate="{StaticResource FacilityInventoryTemplate}"
+   
+    <StackLayout>
+        <Label Text="{i18n:Translate Text=BFI_InventoryPositions_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
+        <ListView x:Name="lstOpenLines"
+                    ItemsSource="{Binding OpenLines}"
+                    ItemTemplate="{StaticResource FacilityInventoryPosTemplate}"
                     VerticalOptions="FillAndExpand"
                     HasUnevenRows="true"
-                    RefreshCommand="{Binding GetFacilityInventoriesCommand}"
+                    RefreshCommand="{Binding GetOpenLinesCOmmand}"
                     IsPullToRefreshEnabled="true"
                     IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                     CachingStrategy="RecycleElement"
-                    ItemSelected="InventoryListView_ItemSelected"
-                    ItemTapped="InventoryListView_ItemTapped" />
-        </StackLayout>
-    </ScrollView>
+                    ItemSelected="lstOpenLines_ItemSelected"
+                    ItemTapped="lstOpenLines_ItemTapped" 
+                  VerticalScrollBarVisibility="Default" />
+    </StackLayout>
+
 </v:BSOPageBase>

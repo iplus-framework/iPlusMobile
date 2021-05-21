@@ -360,4 +360,22 @@
   <data name="ZXingOverlay_Text" xml:space="preserve">
     <value>Fully position barcode on line</value>
   </data>
+  <data name="ValidateAndComplete_Text" xml:space="preserve">
+    <value>Validatate and complete</value>
+  </data>
+  <data name="GoAndCount_Text" xml:space="preserve">
+    <value>1. Go and count</value>
+  </data>
+  <data name="ViewOpenLines_Text" xml:space="preserve">
+    <value>2. View open lines</value>
+  </data>
+  <data name="FC_NotExist_Text" xml:space="preserve">
+    <value>Batch location not exist!</value>
+  </data>
+  <data name="FC_Match_Text" xml:space="preserve">
+    <value>Batch location match!</value>
+  </data>
+  <data name="FC_NotMatch_Text" xml:space="preserve">
+    <value>Scaned batch location (ID: {0}) not match selected (ID: {1})!</value>
+  </data>
 </root>

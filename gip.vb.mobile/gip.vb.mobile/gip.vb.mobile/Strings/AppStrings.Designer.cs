@@ -403,11 +403,47 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Batch location match!.
+        /// </summary>
+        internal static string FC_Match_Text {
+            get {
+                return ResourceManager.GetString("FC_Match_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch location not exist!.
+        /// </summary>
+        internal static string FC_NotExist_Text {
+            get {
+                return ResourceManager.GetString("FC_NotExist_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scaned batch location (ID: {0}) not match selected (ID: {1})!.
+        /// </summary>
+        internal static string FC_NotMatch_Text {
+            get {
+                return ResourceManager.GetString("FC_NotMatch_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         internal static string Filter_Text {
             get {
                 return ResourceManager.GetString("Filter_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1. Go and count.
+        /// </summary>
+        internal static string GoAndCount_Text {
+            get {
+                return ResourceManager.GetString("GoAndCount_Text", resourceCulture);
             }
         }
         
@@ -471,6 +507,15 @@ namespace gip.vb.mobile.Strings {
         internal static string InventoryState_Text {
             get {
                 return ResourceManager.GetString("InventoryState_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to iPlus Url.
+        /// </summary>
+        internal static string IPlusBackendUrl_Text {
+            get {
+                return ResourceManager.GetString("IPlusBackendUrl_Text", resourceCulture);
             }
         }
         
@@ -763,11 +808,20 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to iPlus Url.
+        ///   Looks up a localized string similar to Validatate and complete.
         /// </summary>
-        internal static string IPlusBackendUrl_Text {
+        internal static string ValidateAndComplete_Text {
             get {
-                return ResourceManager.GetString("IPlusBackendUrl_Text", resourceCulture);
+                return ResourceManager.GetString("ValidateAndComplete_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2. View open lines.
+        /// </summary>
+        internal static string ViewOpenLines_Text {
+            get {
+                return ResourceManager.GetString("ViewOpenLines_Text", resourceCulture);
             }
         }
         

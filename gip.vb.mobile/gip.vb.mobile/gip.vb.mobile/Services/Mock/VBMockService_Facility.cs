@@ -188,7 +188,7 @@ namespace gip.vb.mobile.Services
         {
             get
             {
-                if(_MDFacilityInventoryStates == null)
+                if (_MDFacilityInventoryStates == null)
                     _MDFacilityInventoryStates = JsonConvert.DeserializeObject<WSResponse<List<MDFacilityInventoryState>>>(ReadJsonFile("Models.JsonMock.MDFacilityInventoryStates.json"));
                 return _MDFacilityInventoryStates;
             }
@@ -225,7 +225,7 @@ namespace gip.vb.mobile.Services
         //public const string UrlInventory_Inventories = "FacilityInventory/FacilityInventories/InventoryState/{inventoryState}/from/{dateFrom}/to/{dateTo}";
         public async Task<WSResponse<List<FacilityInventory>>> GetFacilityInventoriesAsync(string inventoryState, string dateFrom, string dateTo)
         {
-            if(_GetFacilityInventoriesAsync == null)
+            if (_GetFacilityInventoriesAsync == null)
                 _GetFacilityInventoriesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventory>>>(ReadJsonFile("Models.JsonMock.FacilityInventories.json"));
             return await Task.FromResult(_GetFacilityInventoriesAsync);
         }
@@ -257,10 +257,10 @@ namespace gip.vb.mobile.Services
         public async Task<WSResponse<bool>> StartFacilityInventoryAsync(string facilityInventoryNo)
         {
             WSResponse<bool> response = new WSResponse<bool>() { Data = false };
-            if(_GetFacilityInventoriesAsync != null && _GetFacilityInventoriesAsync.Data != null)
+            if (_GetFacilityInventoriesAsync != null && _GetFacilityInventoriesAsync.Data != null)
             {
                 FacilityInventory facilityInventory = _GetFacilityInventoriesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo);
-                if(facilityInventory != null)
+                if (facilityInventory != null)
                 {
                     MDFacilityInventoryState inProgressState = MDFacilityInventoryStates.Data.FirstOrDefault(c => c.FacilityInventoryState == MDFacilityInventoryState.FacilityInventoryStates.InProgress);
                     facilityInventory.MDFacilityInventoryState = inProgressState;
@@ -298,7 +298,10 @@ namespace gip.vb.mobile.Services
         public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock)
         {
             if (_GetFacilityInventoryPosesAsync == null)
-            _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json"));
+            {
+                string jsonContent = ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json");
+                _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(jsonContent);
+            }
             // make filtering
             Guid? inputCodeVal = null;
             if (!string.IsNullOrEmpty(inputCode))

@@ -3,33 +3,34 @@ using gip.core.datamodel;
 using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace gip.vb.mobile.ViewModels
+namespace gip.vb.mobile.ViewModels.Inventory
 {
-    public class FacilityInventoryViewModel : BaseViewModel
+    public class InventoryModel : BaseViewModel
     {
 
         #region ctor's
-        public FacilityInventoryViewModel()
+        
+        public InventoryModel()
         {
             FilterInventoryEndDate = DateTime.Now.Date.AddDays(1);
             FilterInventoryStartDate = FilterInventoryEndDate.AddYears(-1);
-            MDFacilityInventoryStates = new List<MDFacilityInventoryState>();
 
             // Commands
-            GetListsCommand = new Command(async () => await ExecuteGetListsAsync());
             GetFacilityInventoriesCommand = new Command(async () => await ExecuteGetFacilityInventoriesAsync());
-
         }
+
+        #endregion
+
+        #region Overrides
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
-
+            
         }
+
         #endregion
 
         #region Properties -> Filter
@@ -50,8 +51,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-
-
         private DateTime _FilterInventoryEndDate;
         public DateTime FilterInventoryEndDate
         {
@@ -64,7 +63,6 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _FilterInventoryEndDate, value);
             }
         }
-
 
 
         private MDFacilityInventoryState _FilterFacilityInventoryState;
@@ -86,18 +84,6 @@ namespace gip.vb.mobile.ViewModels
 
         #region Properties -> Model
 
-        private List<MDFacilityInventoryState> _MDFacilityInventoryStates;
-        public List<MDFacilityInventoryState> MDFacilityInventoryStates
-        {
-            get
-            {
-                return _MDFacilityInventoryStates;
-            }
-            set
-            {
-                SetProperty(ref _MDFacilityInventoryStates, value);
-            }
-        }
 
         private List<FacilityInventory> _FacilityInventories;
         public List<FacilityInventory> FacilityInventories
@@ -129,54 +115,11 @@ namespace gip.vb.mobile.ViewModels
         #endregion
 
         #region Commands
-        public Command GetListsCommand { get; set; }
         public Command GetFacilityInventoriesCommand { get; private set; }
 
         #endregion
 
         #region Tasks
-        /// <summary>
-        /// Calling ExecuteGetListsAsync
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> ExecuteGetListsAsync()
-        {
-            bool success = false;
-            Message = null;
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                try
-                {
-                    WSResponse<List<MDFacilityInventoryState>> wSResponsemDFacilityInventoryState = await _WebService.GetMDFacilityInventoryStatesAsync();
-                    MDFacilityInventoryStates = wSResponsemDFacilityInventoryState.Data;
-
-                    // At first load only in progress inventories
-                    short stateIndex = (short)MDFacilityInventoryState.FacilityInventoryStates.InProgress;
-                    if (FilterFacilityInventoryState != null)
-                        stateIndex = (short)FilterFacilityInventoryState.MDFacilityInventoryStateIndex;
-                    WSResponse<List<FacilityInventory>> wsResponseFacilityInventories = await _WebService.GetFacilityInventoriesAsync(
-                        stateIndex.ToString(),
-                        FilterInventoryStartDate.ToString("o", CultureInfo.InvariantCulture),
-                        FilterInventoryEndDate.ToString("o", CultureInfo.InvariantCulture));
-                    FacilityInventories = wsResponseFacilityInventories.Data;
-
-                    FilterFacilityInventoryState = MDFacilityInventoryStates.FirstOrDefault(c => c.MDFacilityInventoryStateIndex == (short)MDFacilityInventoryState.FacilityInventoryStates.InProgress);
-
-                    success = wsResponseFacilityInventories.Suceeded
-                                && wSResponsemDFacilityInventoryState.Suceeded;
-                }
-                catch (Exception ex)
-                {
-                    Message = new Msg(eMsgLevel.Exception, ex.Message);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-            }
-            return success;
-        }
 
         /// <summary>
         /// Calling GetFacilityInventoriesAsync
@@ -191,12 +134,12 @@ namespace gip.vb.mobile.ViewModels
                 IsBusy = true;
                 try
                 {
-                    short? mdFacilityInventoryStateIndex = null;
-                    if (FilterFacilityInventoryState != null)
-                        mdFacilityInventoryStateIndex = (short)FilterFacilityInventoryState.MDFacilityInventoryStateIndex;
-
-                    WSResponse<List<FacilityInventory>> wSResponse = await _WebService.GetFacilityInventoriesAsync(mdFacilityInventoryStateIndex != null ? mdFacilityInventoryStateIndex.Value.ToString() : "",
-                        FilterInventoryStartDate.ToString(), FilterInventoryEndDate.ToString());
+                    short? mdFacilityInventoryStateIndex = (short)MDFacilityInventoryState.FacilityInventoryStates.InProgress;;
+                    WSResponse<List<FacilityInventory>> wSResponse = 
+                        await _WebService.GetFacilityInventoriesAsync(
+                            mdFacilityInventoryStateIndex != null ? mdFacilityInventoryStateIndex.Value.ToString() : "",
+                            FilterInventoryStartDate.ToString(), 
+                            FilterInventoryEndDate.ToString());
                     FacilityInventories = wSResponse.Data;
                     WSResponse = wSResponse;
                     success = wSResponse.Suceeded;
@@ -213,6 +156,5 @@ namespace gip.vb.mobile.ViewModels
             return success;
         }
         #endregion
-
     }
 }

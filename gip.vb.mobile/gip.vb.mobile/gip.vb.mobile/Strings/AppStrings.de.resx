@@ -300,4 +300,22 @@
   <data name="ZXingOverlay_Text" xml:space="preserve">
     <value>Barcode auf Linie vollständig positionieren</value>
   </data>
+  <data name="ValidateAndComplete_Text" xml:space="preserve">
+    <value>Validieren und vervollständigen</value>
+  </data>
+  <data name="GoAndCount_Text" xml:space="preserve">
+    <value>1. Geh und zähle</value>
+  </data>
+  <data name="ViewOpenLines_Text" xml:space="preserve">
+    <value>2. Offene Zeilen anzeigen</value>
+  </data>
+  <data name="FC_NotExist_Text" xml:space="preserve">
+    <value>Chargenplatz existiert nicht!</value>
+  </data>
+  <data name="FC_Match_Text" xml:space="preserve">
+    <value>Chargenplatz passt!</value>
+  </data>
+  <data name="FC_NotMatch_Text" xml:space="preserve">
+    <value>Gescannt Chargenplatz (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
+  </data>
 </root>
