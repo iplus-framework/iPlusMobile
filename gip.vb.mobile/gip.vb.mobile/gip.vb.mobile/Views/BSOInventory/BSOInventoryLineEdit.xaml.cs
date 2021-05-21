@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.vb.mobile.Strings;
 using gip.vb.mobile.ViewModels.Inventory;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,18 @@ namespace gip.vb.mobile.Views
 
         #region Event
 
+
         private void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
+            if (_ViewModel.EditMode == EditModeEnum.GoAndCount)
+                CleanUpForm();
+        }
 
+        public void CleanUpForm()
+        {
+            _ViewModel.InputCode = "";
+            _ViewModel.SelectedInventoryLine = null;
+            spEditor.IsVisible = false;
         }
         protected override void OnAppearing()
         {
@@ -48,7 +58,7 @@ namespace gip.vb.mobile.Views
                 spEditor.IsVisible = true;
             }
 
-            BarcodeSearchBar.Placeholder = "";
+            BarcodeSearchBar.Placeholder = _ViewModel.EditMode == EditModeEnum.GoAndCount ? AppStrings.FC_Scan_Go : AppStrings.FC_Scan_Check;
         }
 
         private async void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
@@ -74,9 +84,7 @@ namespace gip.vb.mobile.Views
             bool succes = await _ViewModel.ExecuteUpdateFacilityInventoryPosAsync();
             if (succes)
             {
-                _ViewModel.InputCode = "";
-                spEditor.IsVisible = false;
-                _ViewModel.SelectedInventoryLine = null;
+                CleanUpForm();
             }
             switch (_ViewModel.EditMode)
             {

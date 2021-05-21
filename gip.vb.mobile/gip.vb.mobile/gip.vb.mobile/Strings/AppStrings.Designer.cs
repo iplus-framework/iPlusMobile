@@ -430,6 +430,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scan selected batch location match....
+        /// </summary>
+        internal static string FC_Scan_Check {
+            get {
+                return ResourceManager.GetString("FC_Scan_Check", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan next batch location....
+        /// </summary>
+        internal static string FC_Scan_Go {
+            get {
+                return ResourceManager.GetString("FC_Scan_Go", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         internal static string Filter_Text {

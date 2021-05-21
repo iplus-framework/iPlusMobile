@@ -302,6 +302,7 @@ namespace gip.vb.mobile.Services
                 string jsonContent = ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json");
                 _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(jsonContent);
             }
+            
             // make filtering
             Guid? inputCodeVal = null;
             if (!string.IsNullOrEmpty(inputCode))

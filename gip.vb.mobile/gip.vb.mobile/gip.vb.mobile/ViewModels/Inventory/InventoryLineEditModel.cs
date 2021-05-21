@@ -91,7 +91,14 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
             set
             {
-                SetProperty(ref _SelectedInventoryLine, value);
+                if (_SelectedInventoryLine != value)
+                {
+                    if(value != null)
+                    {
+                        value.proper
+                    }
+                    SetProperty(ref _SelectedInventoryLine, value);
+                }
             }
         }
         #endregion
@@ -135,7 +142,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                         FacilityInventoryNo,
                         InputCode,
                         facilityNo,
-                        "",
+                        null,
                         materialNo,
                         mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "", null, null);
                     WSResponse = wSResponse;

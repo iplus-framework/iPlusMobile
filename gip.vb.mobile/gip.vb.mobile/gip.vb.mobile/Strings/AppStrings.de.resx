@@ -318,4 +318,10 @@
   <data name="FC_NotMatch_Text" xml:space="preserve">
     <value>Gescannt Chargenplatz (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
   </data>
+  <data name="FC_Scan_Go" xml:space="preserve">
+    <value>Scan nächste Chargenplatz...</value>
+  </data>
+  <data name="FC_Scan_Check" xml:space="preserve">
+    <value>Scan ausgewählt Chargenplatz...</value>
+  </data>
 </root>
