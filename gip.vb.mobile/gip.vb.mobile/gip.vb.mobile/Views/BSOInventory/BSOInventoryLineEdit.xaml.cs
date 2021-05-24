@@ -70,7 +70,14 @@ namespace gip.vb.mobile.Views
                     case EditModeEnum.GoAndCount:
                         bool success = await _ViewModel.ExecuteGetFacilityInventoryPosesAsync();
                         if (success)
+                        {
+                            if (
+                                _ViewModel.SelectedInventoryLine != null 
+                                    &&!_ViewModel.SelectedInventoryLine.NotAvailable 
+                                    && _ViewModel.SelectedInventoryLine.NewStockQuantity == null)
+                                _ViewModel.SelectedInventoryLine.NewStockQuantity = _ViewModel.SelectedInventoryLine.StockQuantity;
                             spEditor.IsVisible = true;
+                        }
                         break;
                     case EditModeEnum.Confirm:
                         await _ViewModel.ExecuteGetFacilityInventoryPosesAsync();
@@ -101,6 +108,7 @@ namespace gip.vb.mobile.Views
                                 Arguments = new object[]
                                 {
                                     _ViewModel.FacilityInventoryNo,
+                                    _ViewModel.EditMode,
                                     _ViewModel.SelectedStorageLocation,
                                     _ViewModel.SelectedFacility
                                 }

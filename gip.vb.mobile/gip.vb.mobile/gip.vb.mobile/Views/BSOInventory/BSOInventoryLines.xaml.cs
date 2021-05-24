@@ -29,10 +29,11 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             object[] parameters = NavParam.Arguments as object[];
             _ViewModel.FacilityInventoryNo = parameters[0].ToString();
-            if (parameters[1] != null)
-                _ViewModel.SelectedStorageLocation = parameters[1] as Facility;
+            _ViewModel.EditMode = (EditModeEnum)parameters[1];
             if (parameters[2] != null)
-                _ViewModel.SelectedFacility = parameters[2] as Facility;
+                _ViewModel.SelectedStorageLocation = parameters[2] as Facility;
+            if (parameters[3] != null)
+                _ViewModel.SelectedFacility = parameters[3] as Facility;
 
             if (_ViewModel.OpenLines == null || !_ViewModel.OpenLines.Any())
                 _ViewModel.GetOpenLinesCommand.Execute(null);

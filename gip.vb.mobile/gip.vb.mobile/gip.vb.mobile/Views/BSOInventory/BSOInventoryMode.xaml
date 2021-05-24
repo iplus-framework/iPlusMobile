@@ -28,7 +28,7 @@
                         ItemDisplayBinding="{Binding FacilityNo}"/>
         <Label Text="{i18n:Translate Text=FacilityPivot_Header}"/>
         <Picker x:Name="FacilityCombo" 
-                        SelectedItem="{Binding SelecteFacility, Mode=TwoWay}" 
+                        SelectedItem="{Binding SelectedFacility, Mode=TwoWay}" 
                         ItemsSource="{Binding Facilities}" 
                         HorizontalOptions="CenterAndExpand"
                         MinimumWidthRequest="50"
@@ -37,8 +37,8 @@
 
         <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
         <CheckBox IsChecked="{Binding IsValidateAndComplete}" />
-        <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
-        <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
+        <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
+        <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
 
     </StackLayout>
 

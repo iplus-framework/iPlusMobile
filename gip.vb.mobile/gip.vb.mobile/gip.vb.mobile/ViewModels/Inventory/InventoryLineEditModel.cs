@@ -93,12 +93,28 @@ namespace gip.vb.mobile.ViewModels.Inventory
             {
                 if (_SelectedInventoryLine != value)
                 {
-                    if(value != null)
-                    {
-                        value.proper
-                    }
                     SetProperty(ref _SelectedInventoryLine, value);
+                    if (_SelectedInventoryLine != null)
+                    {
+                        _SelectedInventoryLine.PropertyChanged -= _SelectedInventoryLine_PropertyChanged;
+                        _SelectedInventoryLine.PropertyChanged += _SelectedInventoryLine_PropertyChanged;
+                    }
                 }
+            }
+        }
+
+        private void _SelectedInventoryLine_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            FacilityInventoryPos pos = sender as FacilityInventoryPos;
+            switch (e.PropertyName)
+            {
+                case "NotAvailable":
+                    pos.NewStockQuantity = null;
+                    break;
+                case "NewStockQuantity":
+                    if (pos.NewStockQuantity != null)
+                        pos.NotAvailable = false;
+                    break;
             }
         }
         #endregion
@@ -144,7 +160,11 @@ namespace gip.vb.mobile.ViewModels.Inventory
                         facilityNo,
                         null,
                         materialNo,
-                        mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "", null, null);
+                        mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "", 
+                        null, 
+                        null,
+                        "false" // notProcessed = true - all open lines, otherwise all lines
+                       );
                     WSResponse = wSResponse;
                     success = WSResponse.Suceeded;
                     if (wSResponse.Suceeded)

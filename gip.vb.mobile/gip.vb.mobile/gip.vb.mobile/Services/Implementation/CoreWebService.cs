@@ -56,7 +56,10 @@ namespace gip.vb.mobile.Services
                 if (_DefaultTimeOut.HasValue)
                     _Client.Timeout = DefaultTimeOut;
             }
-            _Client.BaseAddress = new Uri($"{App.SettingsViewModel.IPlusBackendUrl}/");
+            var url=  App.SettingsViewModel.IPlusBackendUrl;
+            if(url == null)
+                url = @"http://192.168.0.13:8730";
+            _Client.BaseAddress = new Uri(url);
         }
 
         #region Properties

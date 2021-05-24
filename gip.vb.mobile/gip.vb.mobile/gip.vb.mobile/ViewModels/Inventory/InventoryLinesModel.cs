@@ -32,6 +32,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Params
+
+        public EditModeEnum EditMode { get; set; }
+
         private string _FacilityInventoryNo;
         public string FacilityInventoryNo
         {
@@ -118,13 +121,15 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     WSResponse<List<FacilityInventoryPos>> wSResponse =
                         await _WebService.GetFacilityInventoryPosesAsync(
                             FacilityInventoryNo,
-                            "",
+                            null,
                             SelectedFacility?.FacilityNo,
-                            "",
-                            "",
-                            "",
-                            "",
-                            "");
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            (EditMode == EditModeEnum.GoAndCount).ToString()// notProcessed = true fetch all open lines
+                     );
                     OpenLines = wSResponse.Data;
                     WSResponse = wSResponse;
                     success = wSResponse.Suceeded;

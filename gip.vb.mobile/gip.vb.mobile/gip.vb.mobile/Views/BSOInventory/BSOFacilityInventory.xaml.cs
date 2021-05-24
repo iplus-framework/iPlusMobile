@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BSOInventory : BSOPageBase
+    public partial class BSOFacilityInventory : BSOPageBase
     {
         InventoryModel _ViewModel;
 
-        public BSOInventory()
+        public BSOFacilityInventory()
         {
             _ViewModel = new InventoryModel();
             BindingContext = _ViewModel;

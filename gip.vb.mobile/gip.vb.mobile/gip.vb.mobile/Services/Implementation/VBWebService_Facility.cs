@@ -228,7 +228,7 @@ namespace gip.vb.mobile.Services
         // WSResponse<List<FacilityInventoryPos>> GetFacilityInventoryPoses (string facilityInventoryNo, Guid? inputCode, string facilityNo, string lotNo, string materialNo, short? inventoryPosState, bool? notAvailable, bool?zeroStock)
         //public const string UrlInventory_InventoryPoses = "FacilityInventory/FacilityInventoryNo/{facilityInventoryNo}/InputCode/{inputCode}/FacilityNo/{facilityNo}/LotNo/{lotNo}" +
         //    "/MaterialNo/{materialNo}/InventoryPosState/{inventoryPosState}/NotAvailable/{notAvailable}/ZeroStock/{zeroStock}";
-        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock)
+        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
         {
             inputCode = inputCode.CorrectEmptyUrlString();
             facilityNo = facilityNo.CorrectEmptyUrlString();
@@ -238,7 +238,7 @@ namespace gip.vb.mobile.Services
             notAvailable = notAvailable.CorrectEmptyUrlString();
             zeroStock = zeroStock.CorrectEmptyUrlString();
 
-            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock));
+            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
         }
 
         #endregion

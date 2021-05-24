@@ -26,8 +26,8 @@ namespace gip.vb.mobile.tools
             Console.ReadLine();
         }
 
-        private const string IPlusBackendUrl = "http://localhost:8730/";
-        private const string JsonMockFolder = @"C:\Devel\iPlusMES\V4\trunk\Mobile\gip.vb.mobile\gip.vb.mobile\gip.vb.mobile\Models\JsonMock\";
+        private const string IPlusBackendUrl = "http://192.168.0.13:8730";
+        private const string JsonMockFolder = @"C:\Aleksandar\gipSoft\Source\iPlusV4\trunk\Mobile\gip.vb.mobile\gip.vb.mobile\gip.vb.mobile\Models\JsonMock\";
         //private const string JsonMockFolder = @"C:\Devel\gipSoft\iPlusMES\V4\trunk\Mobile\gip.vb.mobile\gip.vb.mobile\gip.vb.mobile\Models\JsonMock\";
 
         static async Task DownloadMockJson()
@@ -147,6 +147,23 @@ namespace gip.vb.mobile.tools
 
             //json = await vbWebService.Client.GetStringAsync(new Uri(string.Format(VBWebServiceConst.UriProdOrderPosFacilityBooking_F, "6ffd630a-97d9-4ce7-b362-eb59a365a4a1"), UriKind.Relative));
             //File.WriteAllText(JsonMockFolder + "POPosFB-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json", json);
+
+            #endregion
+
+            #region Faciliy Inventory 
+
+            MDFacilityInventoryState.FacilityInventoryStates inventoryState = MDFacilityInventoryState.FacilityInventoryStates.InProgress;
+            DateTime inventoryStartDate = new DateTime(DateTime.Now.Year, 1, 1);
+            DateTime inventoryEndDate = inventoryStartDate.AddYears(1);
+            string inventoryUrl = string.Format(VBWebServiceConst.UrlInventory_Inventories_F, (short)inventoryState, inventoryStartDate.ToString("o"), inventoryEndDate.ToString("o"));
+            json = await vbWebService.Client.GetStringAsync(new Uri(inventoryUrl, UriKind.Relative));
+            File.WriteAllText(JsonMockFolder + "FacilityInventories.json", json);
+
+            string facilityInventoryNo = "00000003";
+            string inventoryPosUrl = string.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo,
+                CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam);
+            json = await vbWebService.Client.GetStringAsync(new Uri(inventoryPosUrl, UriKind.Relative));
+            File.WriteAllText(JsonMockFolder + "FacilityInventoryPoses.json", json);
 
             #endregion
 

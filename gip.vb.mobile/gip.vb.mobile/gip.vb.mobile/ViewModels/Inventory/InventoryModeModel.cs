@@ -137,6 +137,15 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set
             {
                 SetProperty(ref _SelectedFacility, value);
+                OnPropertyChanged("IsEnabledModeMoveForward");
+            }
+        }
+
+        public bool IsEnabledModeMoveForward
+        {
+            get
+            {
+                return SelectedFacility != null;
             }
         }
 

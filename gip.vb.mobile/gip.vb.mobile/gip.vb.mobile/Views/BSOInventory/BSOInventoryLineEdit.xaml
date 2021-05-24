@@ -25,20 +25,32 @@
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
         <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+        
         <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="false">
-            <Label Text="{Binding SelectedInventoryLine.MaterialNo}" TextColor="{DynamicResource NavigationBarTextColor}"/>
-            <Label Text="{Binding SelectedInventoryLine.MaterialName}" TextColor="{DynamicResource NavigationBarTextColor}"/>
-            <Label Text="{Binding SelectedInventoryLine.FacilityNo}" TextColor="{DynamicResource NavigationBarTextColor}"/>
-            <Label Text="{Binding SelectedInventoryLine.FacilityName}" TextColor="{DynamicResource NavigationBarTextColor}"/>
+            <BoxView HeightRequest="1" Color="Red" />
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.MaterialNo}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.MaterialName}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.FacilityNo}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Faciltiy, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.FacilityName}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.StockQuantity, StringFormat='\{0:0.#}'}" Style="{StaticResource LabelForData}"/>
+            <BoxView HeightRequest="1" Color="Red" />
             <StackLayout Orientation="Horizontal">
                 <Label Text="{i18n:Translate Text=InventoryPosNotAvailable_Text}"/>
                 <CheckBox IsChecked="{Binding SelectedInventoryLine.NotAvailable}" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}" />
             </StackLayout>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
             <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" HorizontalTextAlignment="End">
                 <Entry.Behaviors>
                     <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="True" Precision="2"/>
                 </Entry.Behaviors>
             </ctl:NumericEntry>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
+            <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" VerticalOptions="FillAndExpand" Keyboard="Chat"/>
             <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
         </StackLayout>
     </StackLayout>

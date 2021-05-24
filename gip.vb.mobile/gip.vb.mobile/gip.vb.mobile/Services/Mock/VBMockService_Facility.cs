@@ -295,14 +295,14 @@ namespace gip.vb.mobile.Services
         // WSResponse<List<FacilityInventoryPos>> GetFacilityInventoryPoses (string facilityInventoryNo, Guid? inputCode, string facilityNo, string lotNo, string materialNo, short? inventoryPosState, bool? notAvailable, bool?zeroStock)
         //public const string UrlInventory_InventoryPoses = "FacilityInventory/FacilityInventoryNo/{facilityInventoryNo}/InputCode/{inputCode}/FacilityNo/{facilityNo}/LotNo/{lotNo}" +
         //    "/MaterialNo/{materialNo}/InventoryPosState/{inventoryPosState}/NotAvailable/{notAvailable}/ZeroStock/{zeroStock}";
-        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock)
+        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
         {
             if (_GetFacilityInventoryPosesAsync == null)
             {
                 string jsonContent = ReadJsonFile("Models.JsonMock.FacilityInventoryPoses.json");
                 _GetFacilityInventoryPosesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(jsonContent);
             }
-            
+
             // make filtering
             Guid? inputCodeVal = null;
             if (!string.IsNullOrEmpty(inputCode))
@@ -320,9 +320,12 @@ namespace gip.vb.mobile.Services
             if (!string.IsNullOrEmpty(zeroStock))
                 zeroStockVal = bool.Parse(zeroStock);
 
-            _GetFacilityInventoryPosesAsync.Data = _GetFacilityInventoryPosesAsync.Data.Where(c =>
-            1 == 1
-            && c.FacilityInventoryNo == facilityInventoryNo
+            bool notProcessedVal = false;
+            if (!string.IsNullOrEmpty(notProcessed))
+                notProcessedVal = bool.Parse(notProcessed);
+
+            List<FacilityInventoryPos> facilityInventoryPoses = _GetFacilityInventoryPosesAsync.Data.Where(c =>
+            c.FacilityInventoryNo == facilityInventoryNo
             && (inputCodeVal == null || c.FacilityChargeID == inputCodeVal)
             && (facilityNo == null || c.FacilityNo == facilityNo)
             && (lotNo == null || c.LotNo == lotNo)
@@ -330,8 +333,10 @@ namespace gip.vb.mobile.Services
             && (inventoryPosStateVal == null || c.MDFacilityInventoryPosStateIndex == inventoryPosStateVal)
             && (notAvailableVal == null || c.NotAvailable == notAvailableVal)
             && (zeroStockVal == null || c.StockQuantity == 0 && (zeroStockVal ?? false))
+            && (!notProcessedVal || (!c.NotAvailable && c.NewStockQuantity == null))
             ).ToList();
-            return await Task.FromResult(_GetFacilityInventoryPosesAsync);
+            WSResponse<List<FacilityInventoryPos>> wSResponse = new WSResponse<List<FacilityInventoryPos>>(facilityInventoryPoses);
+            return await Task.FromResult(wSResponse);
         }
 
         #endregion
@@ -347,10 +352,11 @@ namespace gip.vb.mobile.Services
                 FacilityInventoryPos dbFaciltiyInventoryPos = _GetFacilityInventoryPosesAsync.Data.FirstOrDefault(c => c.FacilityInventoryPosID == facilityInventoryPos.FacilityInventoryPosID);
                 if (dbFaciltiyInventoryPos != null)
                 {
-
+                    _GetFacilityInventoryPosesAsync.Data.Remove(dbFaciltiyInventoryPos);
                     dbFaciltiyInventoryPos.NewStockQuantity = facilityInventoryPos.NewStockQuantity;
                     dbFaciltiyInventoryPos.Comment = facilityInventoryPos.Comment;
                     dbFaciltiyInventoryPos.NotAvailable = facilityInventoryPos.NotAvailable;
+                    _GetFacilityInventoryPosesAsync.Data.Add(dbFaciltiyInventoryPos);
                     response.Data = true;
                 }
             }

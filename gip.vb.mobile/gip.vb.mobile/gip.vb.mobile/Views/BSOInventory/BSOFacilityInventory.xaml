@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gip.vb.mobile.Views.BSOInventory"
+             x:Class="gip.vb.mobile.Views.BSOFacilityInventory"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Name="PageBSOInventory">
+             x:Name="PageBSOFacilityInventory">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />

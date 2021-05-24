@@ -30,6 +30,8 @@ namespace gip.vb.mobile.Helpers
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (Nullable.GetUnderlyingType(targetType) != null && value == null)
+                return null;
             int precision = -1;
             if (parameter != null)
             {

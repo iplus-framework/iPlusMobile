@@ -65,6 +65,7 @@ namespace gip.vb.mobile.Views
                         Arguments = new object[] 
                         { 
                             _ViewModel.FacilityInventoryNo,
+                            _ViewModel.IsValidateAndComplete ? EditModeEnum.Confirm : EditModeEnum.GoAndCount,
                             _ViewModel.SelectedStorageLocation,
                             _ViewModel.SelectedFacility
                         } 
