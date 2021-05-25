@@ -160,10 +160,10 @@ namespace gip.vb.mobile.tools
             File.WriteAllText(JsonMockFolder + "FacilityInventories.json", json);
 
             string facilityInventoryNo = "00000003";
-            string inventoryPosUrl = string.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo,
+            string inventoryPosUrl = string.Format(VBWebServiceConst.UrlInventory_InventoryLines_F, facilityInventoryNo,
                 CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam);
             json = await vbWebService.Client.GetStringAsync(new Uri(inventoryPosUrl, UriKind.Relative));
-            File.WriteAllText(JsonMockFolder + "FacilityInventoryPoses.json", json);
+            File.WriteAllText(JsonMockFolder + "FacilityInventoryLines.json", json);
 
             #endregion
 

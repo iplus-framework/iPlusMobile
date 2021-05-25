@@ -32,7 +32,7 @@ namespace gip.vb.mobile.Views
 
         private void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel.EditMode == EditModeEnum.GoAndCount)
+            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                 CleanUpForm();
         }
 
@@ -45,44 +45,35 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            object[] parameters = NavParam.Arguments as object[];
-            _ViewModel.FacilityInventoryNo = parameters[0].ToString();
-            _ViewModel.EditMode = (EditModeEnum)parameters[1];
-            if (parameters[2] != null)
-                _ViewModel.SelectedStorageLocation = parameters[2] as Facility;
-            if (parameters[3] != null)
-                _ViewModel.SelectedFacility = parameters[3] as Facility;
-            if (parameters[4] != null)
+
+            _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
+            if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
             {
-                _ViewModel.SelectedInventoryLine = parameters[4] as FacilityInventoryPos;
+                _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
+                WriteNewStockQuantity();
                 spEditor.IsVisible = true;
             }
 
-            BarcodeSearchBar.Placeholder = _ViewModel.EditMode == EditModeEnum.GoAndCount ? AppStrings.FC_Scan_Go : AppStrings.FC_Scan_Check;
+            BarcodeSearchBar.Placeholder = _ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount ? AppStrings.FC_Scan_Go : AppStrings.FC_Scan_Check;
         }
 
         private async void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_ViewModel.InputCode))
+            bool success = false;
+            switch (_ViewModel.InventoryNavArgument.EditMode)
             {
-                switch (_ViewModel.EditMode)
-                {
-                    case EditModeEnum.GoAndCount:
-                        bool success = await _ViewModel.ExecuteGetFacilityInventoryPosesAsync();
-                        if (success)
-                        {
-                            if (
-                                _ViewModel.SelectedInventoryLine != null 
-                                    &&!_ViewModel.SelectedInventoryLine.NotAvailable 
-                                    && _ViewModel.SelectedInventoryLine.NewStockQuantity == null)
-                                _ViewModel.SelectedInventoryLine.NewStockQuantity = _ViewModel.SelectedInventoryLine.StockQuantity;
-                            spEditor.IsVisible = true;
-                        }
-                        break;
-                    case EditModeEnum.Confirm:
-                        await _ViewModel.ExecuteGetFacilityInventoryPosesAsync();
-                        break;
-                }
+                case EditModeEnum.GoAndCount:
+                    if (!string.IsNullOrEmpty(_ViewModel.InputCode))
+                        success = await _ViewModel.ExecuteGetFacilityInventoryLinesAsync();
+                    if (success)
+                    {
+                        WriteNewStockQuantity();
+                        spEditor.IsVisible = true;
+                    }
+                    break;
+                case EditModeEnum.Confirm:
+                    success = await _ViewModel.ExecuteGetFacilityInventoryLinesAsync();
+                    break;
             }
         }
 
@@ -93,7 +84,7 @@ namespace gip.vb.mobile.Views
             {
                 CleanUpForm();
             }
-            switch (_ViewModel.EditMode)
+            switch (_ViewModel.InventoryNavArgument.EditMode)
             {
                 case EditModeEnum.GoAndCount:
                     // nothing stay there
@@ -105,19 +96,20 @@ namespace gip.vb.mobile.Views
                         {
                             NavParam = new NavParameter(PageStateEnum.View)
                             {
-                                Arguments = new object[]
-                                {
-                                    _ViewModel.FacilityInventoryNo,
-                                    _ViewModel.EditMode,
-                                    _ViewModel.SelectedStorageLocation,
-                                    _ViewModel.SelectedFacility
-                                }
+                                Arguments = _ViewModel.InventoryNavArgument
                             }
                         });
                     break;
             }
         }
 
+        public void WriteNewStockQuantity()
+        {
+            if (_ViewModel.SelectedInventoryLine != null
+                                && !_ViewModel.SelectedInventoryLine.NotAvailable
+                                && _ViewModel.SelectedInventoryLine.NewStockQuantity == null)
+                _ViewModel.SelectedInventoryLine.NewStockQuantity = _ViewModel.SelectedInventoryLine.StockQuantity;
+        }
         #endregion
 
     }

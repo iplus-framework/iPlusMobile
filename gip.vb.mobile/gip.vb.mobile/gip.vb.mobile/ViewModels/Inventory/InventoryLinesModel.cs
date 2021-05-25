@@ -33,46 +33,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Params
 
-        public EditModeEnum EditMode { get; set; }
+        public InventoryNavArgument InventoryNavArgument { get; set; }
 
-        private string _FacilityInventoryNo;
-        public string FacilityInventoryNo
-        {
-            get
-            {
-                return _FacilityInventoryNo;
-            }
-            set
-            {
-                SetProperty(ref _FacilityInventoryNo, value);
-            }
-        }
-
-        private Facility _SelectedStorageLocation;
-        public Facility SelectedStorageLocation
-        {
-            get
-            {
-                return _SelectedStorageLocation;
-            }
-            set
-            {
-                SetProperty(ref _SelectedStorageLocation, value);
-            }
-        }
-
-        private Facility _SelectedFacility;
-        public Facility SelectedFacility
-        {
-            get
-            {
-                return _SelectedFacility;
-            }
-            set
-            {
-                SetProperty(ref _SelectedFacility, value);
-            }
-        }
         #endregion
 
         #region Data
@@ -118,17 +80,19 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsBusy = true;
                 try
                 {
+                    short? mdFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
+
                     WSResponse<List<FacilityInventoryPos>> wSResponse =
-                        await _WebService.GetFacilityInventoryPosesAsync(
-                            FacilityInventoryNo,
+                        await _WebService.GetFacilityInventoryLinesAsync(
+                            InventoryNavArgument.FacilityInventoryNo,
                             null,
-                            SelectedFacility?.FacilityNo,
-                            null,
-                            null,
+                            InventoryNavArgument.SelectedFacility?.FacilityNo,
                             null,
                             null,
+                            mdFacilityInventoryPosStateIndex.ToString(),
                             null,
-                            (EditMode == EditModeEnum.GoAndCount).ToString()// notProcessed = true fetch all open lines
+                            null,
+                            (!InventoryNavArgument.IsValidateAndComplete).ToString()
                      );
                     OpenLines = wSResponse.Data;
                     WSResponse = wSResponse;

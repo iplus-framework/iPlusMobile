@@ -15,7 +15,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         
         public InventoryModel()
         {
-            FilterInventoryEndDate = DateTime.Now.Date.AddDays(1);
+            FilterInventoryEndDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
             FilterInventoryStartDate = FilterInventoryEndDate.AddYears(-1);
 
             // Commands
@@ -138,8 +138,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     WSResponse<List<FacilityInventory>> wSResponse = 
                         await _WebService.GetFacilityInventoriesAsync(
                             mdFacilityInventoryStateIndex != null ? mdFacilityInventoryStateIndex.Value.ToString() : "",
-                            FilterInventoryStartDate.ToString(), 
-                            FilterInventoryEndDate.ToString());
+                            FilterInventoryStartDate.ToString("o"), 
+                            FilterInventoryEndDate.ToString("o"));
                     FacilityInventories = wSResponse.Data;
                     WSResponse = wSResponse;
                     success = wSResponse.Suceeded;

@@ -43,14 +43,14 @@ namespace gip.vb.mobile.Views
                 { 
                     NavParam = new NavParameter(PageStateEnum.View) 
                     {
-                        Arguments = new object[] 
-                        { 
-                            _ViewModel.FacilityInventoryNo, 
-                            _ViewModel.IsValidateAndComplete ? EditModeEnum.Confirm : EditModeEnum.GoAndCount,
-                            _ViewModel.SelectedStorageLocation,
-                            _ViewModel.SelectedFacility,
-                            null
-                        } 
+                        Arguments = new InventoryNavArgument()
+                        {
+                            FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
+                            EditMode = EditModeEnum.GoAndCount,
+                            IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
+                            SelectedFacility = _ViewModel.SelectedFacility,
+                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation
+                        }
                     } 
                 });
         }
@@ -62,13 +62,14 @@ namespace gip.vb.mobile.Views
                 { 
                     NavParam = new NavParameter(PageStateEnum.View) 
                     { 
-                        Arguments = new object[] 
-                        { 
-                            _ViewModel.FacilityInventoryNo,
-                            _ViewModel.IsValidateAndComplete ? EditModeEnum.Confirm : EditModeEnum.GoAndCount,
-                            _ViewModel.SelectedStorageLocation,
-                            _ViewModel.SelectedFacility
-                        } 
+                        Arguments = new InventoryNavArgument()
+                        {
+                            FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
+                            EditMode = EditModeEnum.Confirm,
+                            IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
+                            SelectedFacility = _ViewModel.SelectedFacility,
+                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation
+                        }
                     } 
                 });
         }

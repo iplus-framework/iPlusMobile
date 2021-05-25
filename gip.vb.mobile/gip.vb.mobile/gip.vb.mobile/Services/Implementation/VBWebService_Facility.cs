@@ -225,10 +225,7 @@ namespace gip.vb.mobile.Services
 
         #region Inventory -> Pos
         #region Inventory -> Pos - Get
-        // WSResponse<List<FacilityInventoryPos>> GetFacilityInventoryPoses (string facilityInventoryNo, Guid? inputCode, string facilityNo, string lotNo, string materialNo, short? inventoryPosState, bool? notAvailable, bool?zeroStock)
-        //public const string UrlInventory_InventoryPoses = "FacilityInventory/FacilityInventoryNo/{facilityInventoryNo}/InputCode/{inputCode}/FacilityNo/{facilityNo}/LotNo/{lotNo}" +
-        //    "/MaterialNo/{materialNo}/InventoryPosState/{inventoryPosState}/NotAvailable/{notAvailable}/ZeroStock/{zeroStock}";
-        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryPosesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
+        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryLinesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
         {
             inputCode = inputCode.CorrectEmptyUrlString();
             facilityNo = facilityNo.CorrectEmptyUrlString();
@@ -239,7 +236,7 @@ namespace gip.vb.mobile.Services
             zeroStock = zeroStock.CorrectEmptyUrlString();
             notProcessed = notProcessed.CorrectEmptyUrlString();
 
-            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
+            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryLines_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
         }
 
         #endregion

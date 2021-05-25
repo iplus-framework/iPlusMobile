@@ -18,7 +18,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryLineEditModel()
         {
             // Commands
-            GetFacilityInventoryPosesCommand = new Command(async () => await ExecuteGetFacilityInventoryPosesAsync());
+            GetFacilityInventoryLinesCommand = new Command(async () => await ExecuteGetFacilityInventoryLinesAsync());
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
         }
 
@@ -34,53 +34,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Commands
-        public Command GetFacilityInventoryPosesCommand { get; set; }
+        public Command GetFacilityInventoryLinesCommand { get; set; }
         public Command UpdateFacilityInventoryPosCommand { get; set; }
         #endregion
 
         #region Parameters
 
-        private string _FacilityInventoryNo;
-        public string FacilityInventoryNo
-        {
-            get
-            {
-                return _FacilityInventoryNo;
-            }
-            set
-            {
-                SetProperty(ref _FacilityInventoryNo, value);
-            }
-        }
-
-        public EditModeEnum EditMode { get; set; }
-
-
-        private Facility _SelectedStorageLocation;
-        public Facility SelectedStorageLocation
-        {
-            get
-            {
-                return _SelectedStorageLocation;
-            }
-            set
-            {
-                SetProperty(ref _SelectedStorageLocation, value);
-            }
-        }
-
-        private Facility _SelectedFacility;
-        public Facility SelectedFacility
-        {
-            get
-            {
-                return _SelectedFacility;
-            }
-            set
-            {
-                SetProperty(ref _SelectedFacility, value);
-            }
-        }
+        public InventoryNavArgument InventoryNavArgument { get; set; }
 
         private FacilityInventoryPos _SelectedInventoryLine;
         public FacilityInventoryPos SelectedInventoryLine
@@ -136,10 +96,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Tasks
         /// <summary>
-        /// Calling GetFacilityInventoryPosesAsync
+        /// Calling ExecuteGetFacilityInventoryLinesAsync
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> ExecuteGetFacilityInventoryPosesAsync()
+        public async Task<bool> ExecuteGetFacilityInventoryLinesAsync()
         {
             bool success = false;
             Message = null;
@@ -148,30 +108,28 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsBusy = true;
                 try
                 {
-                    string facilityNo = null;
-
                     string materialNo = null;
+                    short? mdFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
 
-                    short? mdFacilityInventoryPosStateIndex = null;
-
-                    WSResponse<List<FacilityInventoryPos>> wSResponse = await _WebService.GetFacilityInventoryPosesAsync(
-                        FacilityInventoryNo,
+                    WSResponse<List<FacilityInventoryPos>> wSResponse = await _WebService.GetFacilityInventoryLinesAsync(
+                        InventoryNavArgument.FacilityInventoryNo,
                         InputCode,
-                        facilityNo,
+                        InventoryNavArgument.SelectedFacility.FacilityNo,
                         null,
                         materialNo,
-                        mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "", 
-                        null, 
+                        mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "",
+                        null,
                         null,
                         "false" // notProcessed = true - all open lines, otherwise all lines
                        );
+
                     WSResponse = wSResponse;
                     success = WSResponse.Suceeded;
                     if (wSResponse.Suceeded)
                     {
-                        List<FacilityInventoryPos> poses = wSResponse.Data;
-                        FacilityInventoryPos findedPos = poses.FirstOrDefault();
-                        switch (EditMode)
+                        List<FacilityInventoryPos> lines = wSResponse.Data;
+                        FacilityInventoryPos findedPos = lines.FirstOrDefault();
+                        switch (InventoryNavArgument.EditMode)
                         {
                             case EditModeEnum.GoAndCount:
                                 SelectedInventoryLine = findedPos;
@@ -237,7 +195,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 {
                     if (SelectedInventoryLine != null)
                     {
+                        SelectedInventoryLine.UpdateName = App.SettingsViewModel.LastUser;
                         SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
+                        if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
+                            SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished;
                         WSResponse<bool> wSResponse = await _WebService.UpdateFacilityInventoryPosAsync(SelectedInventoryLine);
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;

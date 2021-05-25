@@ -27,13 +27,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            object[] parameters = NavParam.Arguments as object[];
-            _ViewModel.FacilityInventoryNo = parameters[0].ToString();
-            _ViewModel.EditMode = (EditModeEnum)parameters[1];
-            if (parameters[2] != null)
-                _ViewModel.SelectedStorageLocation = parameters[2] as Facility;
-            if (parameters[3] != null)
-                _ViewModel.SelectedFacility = parameters[3] as Facility;
+            _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
 
             if (_ViewModel.OpenLines == null || !_ViewModel.OpenLines.Any())
                 _ViewModel.GetOpenLinesCommand.Execute(null);
@@ -57,19 +51,13 @@ namespace gip.vb.mobile.Views
             if (inventoryPos == null)
                 return;
             _ViewModel.SelectedLine = inventoryPos;
+            _ViewModel.InventoryNavArgument.SelectedInventoryLine = _ViewModel.SelectedLine;
             await Navigation.PushAsync(
                 new BSOInventoryLineEdit()
                 {
                     NavParam = new NavParameter(PageStateEnum.View)
                     {
-                        Arguments = new object[]
-                        {
-                            _ViewModel.FacilityInventoryNo,
-                            EditModeEnum.Confirm,
-                            _ViewModel.SelectedStorageLocation,
-                            _ViewModel.SelectedFacility,
-                            _ViewModel.SelectedLine
-                        }
+                        Arguments = _ViewModel.InventoryNavArgument
                     }
                 });
         }

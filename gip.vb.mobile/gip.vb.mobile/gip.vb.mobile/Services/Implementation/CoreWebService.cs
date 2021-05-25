@@ -56,10 +56,7 @@ namespace gip.vb.mobile.Services
                 if (_DefaultTimeOut.HasValue)
                     _Client.Timeout = DefaultTimeOut;
             }
-            var url=  App.SettingsViewModel.IPlusBackendUrl;
-            if(url == null)
-                url = @"http://192.168.0.13:8730";
-            _Client.BaseAddress = new Uri(url);
+            _Client.BaseAddress = new Uri(App.SettingsViewModel.IPlusBackendUrl);
         }
 
         #region Properties
@@ -96,7 +93,7 @@ namespace gip.vb.mobile.Services
         #region HTTP-Methods
 
         protected async Task<WSResponse<TResult>> Get<TResult>(string uriString)
-        {           
+        {
             return await Get<TResult>(new Uri(uriString, UriKind.Relative));
         }
 
@@ -231,7 +228,7 @@ namespace gip.vb.mobile.Services
         public async Task<VBUserRights> Login(VBUser user)
         {
             _VBUser = user;
-            _Client.DefaultRequestHeaders.Authorization = 
+            _Client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                 "Basic", Convert.ToBase64String(
                     System.Text.ASCIIEncoding.ASCII.GetBytes(
