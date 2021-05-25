@@ -237,6 +237,7 @@ namespace gip.vb.mobile.Services
             inventoryPosState = inventoryPosState.CorrectEmptyUrlString();
             notAvailable = notAvailable.CorrectEmptyUrlString();
             zeroStock = zeroStock.CorrectEmptyUrlString();
+            notProcessed = notProcessed.CorrectEmptyUrlString();
 
             return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryPoses_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
         }
