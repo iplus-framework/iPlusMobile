@@ -203,25 +203,25 @@ namespace gip.vb.mobile.Services
 
         #endregion
 
-        #region Inventory -> Lifecycle
-        // WSResponse<bool> StartFacilityInventory (string facilityInventoryNo)
-        //public const string UrlInventory_Start = "FacilityInventory/Start/FacilityInventoryNo/{facilityInventoryNo}";
-        public async Task<WSResponse<bool>> StartFacilityInventoryAsync(string facilityInventoryNo)
-        {
-            if (string.IsNullOrEmpty(facilityInventoryNo))
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Start_F, facilityInventoryNo));
-        }
+            #region Inventory -> Lifecycle
+            // WSResponse<bool> StartFacilityInventory (string facilityInventoryNo)
+            //public const string UrlInventory_Start = "FacilityInventory/Start/FacilityInventoryNo/{facilityInventoryNo}";
+            public async Task<WSResponse<bool>> StartFacilityInventoryAsync(string facilityInventoryNo)
+            {
+                if (string.IsNullOrEmpty(facilityInventoryNo))
+                    return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
+                return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Start_F, facilityInventoryNo));
+            }
 
-        // WSResponse<bool> CloseFacilityInventory (string facilityInventoryNo)
-        //public const string UrlInventory_Close = "FacilityInventory/Close/FacilityInventoryNo/{facilityInventoryNo}";
-        public async Task<WSResponse<bool>> CloseFacilityInventoryAsync(string facilityInventoryNo)
-        {
-            if (string.IsNullOrEmpty(facilityInventoryNo))
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Close_F, facilityInventoryNo));
-        }
-        #endregion
+            // WSResponse<bool> CloseFacilityInventory (string facilityInventoryNo)
+            //public const string UrlInventory_Close = "FacilityInventory/Close/FacilityInventoryNo/{facilityInventoryNo}";
+            public async Task<WSResponse<bool>> CloseFacilityInventoryAsync(string facilityInventoryNo)
+            {
+                if (string.IsNullOrEmpty(facilityInventoryNo))
+                    return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
+                return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Close_F, facilityInventoryNo));
+            }
+            #endregion
 
         #region Inventory -> Pos
         #region Inventory -> Pos - Get

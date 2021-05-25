@@ -3,6 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:helpers="clr-namespace:gip.vb.mobile.Helpers"
                     xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+                    xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
                     x:Class="gip.vb.mobile.Themes.SharedDataTemplates">
     <DataTemplate x:Key="ACClassItemTemplate">
         <ctl:ExtendedViewCell>
@@ -337,9 +338,12 @@
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding FacilityNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="1" Grid.Column="2" Text="{Binding FacilityName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Text="{Binding NotAvailable}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="2" Grid.Column="1" Text="{Binding StockQuantity, StringFormat='{0:0.#}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Red"/>
-                <Label Grid.Row="2" Grid.Column="2" Text="{Binding NewStockQuantity, StringFormat='{0:0.#}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Green"/>
+                <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding NotAvailable}" IsEnabled="False"/>
+                    <Label Text="{i18n:Translate Text=InventoryPosNotAvailable_Text}"/>
+                </StackLayout>
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding StockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Red"/>
+                <Label Grid.Row="2" Grid.Column="2" Text="{Binding NewStockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Green"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Text="{Binding UpdateDate}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="3" Grid.Column="1" Text="{Binding UpdateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
