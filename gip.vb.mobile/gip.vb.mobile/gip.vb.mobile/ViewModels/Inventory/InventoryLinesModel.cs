@@ -84,6 +84,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
                     WSResponse<List<FacilityInventoryPos>> wSResponse =
                         await _WebService.GetFacilityInventoryLinesAsync(
+                            InventoryNavArgument.StorageLocationNo,
                             InventoryNavArgument.FacilityInventoryNo,
                             null,
                             InventoryNavArgument.SelectedFacility?.FacilityNo,

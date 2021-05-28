@@ -310,18 +310,18 @@
     <value>2. Offene Zeilen anzeigen</value>
   </data>
   <data name="FC_NotExist_Text" xml:space="preserve">
-    <value>Chargenplatz existiert nicht!</value>
+    <value>Quant existiert nicht!</value>
   </data>
   <data name="FC_Match_Text" xml:space="preserve">
-    <value>Chargenplatz passt!</value>
+    <value>Quant passt!</value>
   </data>
   <data name="FC_NotMatch_Text" xml:space="preserve">
-    <value>Gescannt Chargenplatz (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
+    <value>Gescannt Quant (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
   </data>
   <data name="FC_Scan_Go" xml:space="preserve">
-    <value>Scan nächste Chargenplatz...</value>
+    <value>Scan nächste Quant...</value>
   </data>
   <data name="FC_Scan_Check" xml:space="preserve">
-    <value>Scan ausgewählt Chargenplatz...</value>
+    <value>Scan ausgewählt Quant...</value>
   </data>
 </root>

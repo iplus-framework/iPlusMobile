@@ -184,50 +184,15 @@ namespace gip.vb.mobile.Services
 
         #endregion
 
-        #region Inventory -> New
-        // WSResponse<string> GetFacilityInventoryNo ()
-        //public const string UrlInventory_GetInventoryNo = "FacilityInventory/Get/FacilityInventoryNo";
-        public async Task<WSResponse<string>> GetFacilityInventoryNoAsync()
-        {
-            return await Get<string>(VBWebServiceConst.UrlInventory_GetInventoryNo_F);
-        }
-
-        // WSResponse NewFacilityInventory (string facilityInventoryNo, string facilityInventoryName)
-        // public const string UrlInventory_New = "FacilityInventory/New/FacilityInventoryNo/{facilityInventoryNo}/FacilityInventoryName/{facilityInventoryName}";
-        public async Task<WSResponse<bool>> NewFacilityInventoryAsync(string facilityInventoryNo, string facilityInventoryName)
-        {
-            if (string.IsNullOrEmpty(facilityInventoryNo) || string.IsNullOrEmpty(facilityInventoryName))
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_New_F, facilityInventoryNo, facilityInventoryName));
-        }
-
+        #region Inventory -> Lifecycle
         #endregion
-
-            #region Inventory -> Lifecycle
-            // WSResponse<bool> StartFacilityInventory (string facilityInventoryNo)
-            //public const string UrlInventory_Start = "FacilityInventory/Start/FacilityInventoryNo/{facilityInventoryNo}";
-            public async Task<WSResponse<bool>> StartFacilityInventoryAsync(string facilityInventoryNo)
-            {
-                if (string.IsNullOrEmpty(facilityInventoryNo))
-                    return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-                return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Start_F, facilityInventoryNo));
-            }
-
-            // WSResponse<bool> CloseFacilityInventory (string facilityInventoryNo)
-            //public const string UrlInventory_Close = "FacilityInventory/Close/FacilityInventoryNo/{facilityInventoryNo}";
-            public async Task<WSResponse<bool>> CloseFacilityInventoryAsync(string facilityInventoryNo)
-            {
-                if (string.IsNullOrEmpty(facilityInventoryNo))
-                    return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-                return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_Close_F, facilityInventoryNo));
-            }
-            #endregion
 
         #region Inventory -> Pos
         #region Inventory -> Pos - Get
-        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryLinesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
+        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryLinesAsync(string facilityInventoryNo, string inputCode, string storageLocationNo, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
         {
             inputCode = inputCode.CorrectEmptyUrlString();
+            storageLocationNo = storageLocationNo.CorrectEmptyUrlString();
             facilityNo = facilityNo.CorrectEmptyUrlString();
             lotNo = lotNo.CorrectEmptyUrlString();
             materialNo = materialNo.CorrectEmptyUrlString();
@@ -236,7 +201,7 @@ namespace gip.vb.mobile.Services
             zeroStock = zeroStock.CorrectEmptyUrlString();
             notProcessed = notProcessed.CorrectEmptyUrlString();
 
-            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryLines_F, facilityInventoryNo, inputCode, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
+            return await Get<List<FacilityInventoryPos>>(String.Format(VBWebServiceConst.UrlInventory_InventoryLines_F, facilityInventoryNo, inputCode, storageLocationNo, facilityNo, lotNo, materialNo, inventoryPosState, notAvailable, zeroStock, notProcessed));
         }
 
         #endregion
@@ -250,40 +215,36 @@ namespace gip.vb.mobile.Services
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
             return await Post<bool, FacilityInventoryPos>(facilityInventoryPos, VBWebServiceConst.UrlInventory_InventoryPos_Update);
         }
-        // WSResponse<bool> StartFacilityInventoryPos (string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Start = "FacilityInventoryPos/Start/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
-        public async Task<WSResponse<bool>> StartFacilityInventoryPosAsync(string facilityInventoryNo, string facilityChargeID)
+
+        // WSResponse<SearchFacilityCharge> GetFacilityInventorySearchCharge(string facilityInventoryNo,string storageLocationNo, string facilityNo, string facilityChargeID)
+        // public const string UrlInventory_SearchCharge = "FacilityInventoryPos/FacilityInventoryNo/{facilityInventoryNo}/StorageLocationNo/{storageLocationNo}/FacilityNo/{facilityNo}/FacilityChargeID/{facilityChargeID}";
+        public async Task<WSResponse<SearchFacilityCharge>> GetFacilityInventorySearchCharge(string facilityInventoryNo, string storageLocationNo, string facilityNo, string facilityChargeID)
         {
-            if (string.IsNullOrEmpty(facilityInventoryNo) || string.IsNullOrEmpty(facilityChargeID))
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_InventoryPos_Start_F, facilityInventoryNo, facilityChargeID));
+            if (
+                string.IsNullOrEmpty(facilityInventoryNo) 
+                || string.IsNullOrEmpty(storageLocationNo) 
+                || string.IsNullOrEmpty(facilityChargeID))
+                return await Task.FromResult(new WSResponse<SearchFacilityCharge>(null, new Msg(eMsgLevel.Error, "parameters are empty")));
+            facilityNo = facilityNo.CorrectEmptyUrlString();
+            return await Get<SearchFacilityCharge>(String.Format(VBWebServiceConst.UrlInventory_SearchCharge_F, facilityInventoryNo, storageLocationNo, facilityNo, facilityChargeID));
         }
 
-        // WSResponse<bool> CloseFacilityInventoryPos (string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Close = "FacilityInventoryPos/Close/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
-        public async Task<WSResponse<bool>> CloseFacilityInventoryPosAsync(string facilityInventoryNo, string facilityChargeID)
+        // WSResponse<FacilityInventoryPos> SetFacilityInventoryChargeAvailable (string facilityInventoryNo, string facilityChargeID)
+        // public const string UrlInventory_SetChargeAvailable = "FacilityInventoryChargeAvailable/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
+        public async Task<WSResponse<FacilityInventoryPos>> SetFacilityInventoryChargeAvailable(string facilityInventoryNo, string facilityChargeID)
         {
-            if (string.IsNullOrEmpty(facilityInventoryNo) || string.IsNullOrEmpty(facilityChargeID))
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<bool>(String.Format(VBWebServiceConst.UrlInventory_InventoryPos_Close_F, facilityInventoryNo, facilityChargeID));
+            if (
+                string.IsNullOrEmpty(facilityInventoryNo) 
+                || string.IsNullOrEmpty(facilityChargeID))
+                return await Task.FromResult(new WSResponse<FacilityInventoryPos>(null, new Msg(eMsgLevel.Error, "parameters are empty")));
+            return await Get<FacilityInventoryPos>(String.Format(VBWebServiceConst.UrlInventory_SetChargeAvailable_F, facilityInventoryNo, facilityChargeID));
         }
-        #endregion
-
-        #region Inventory -> Pos -> Booings
-        // WSResponse<PostingOverview> GetFacilityInventoryPosBookings(string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Bookings = "FacilityInventoryPos/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}/Bookings";
-        public async Task<WSResponse<PostingOverview>> GetFacilityInventoryPosBookingsAsync(string facilityInventoryNo, string facilityChargeID)
-        {
-            if (string.IsNullOrEmpty(facilityInventoryNo) || string.IsNullOrEmpty(facilityChargeID))
-                return await Task.FromResult(new WSResponse<PostingOverview>(null, new Msg(eMsgLevel.Error, "parameters are empty")));
-            return await Get<PostingOverview>(String.Format(VBWebServiceConst.UrlInventory_InventoryPos_Bookings_F, facilityInventoryNo, facilityChargeID));
-        }
-        #endregion
-
-        #endregion
 
         #endregion
 
 
+        #endregion
+
+        #endregion
     }
 }

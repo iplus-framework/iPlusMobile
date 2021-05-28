@@ -112,5 +112,10 @@ namespace gip.vb.mobile.Views
         }
         #endregion
 
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                CleanUpForm();
+        }
     }
 }

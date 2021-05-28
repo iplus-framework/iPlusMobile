@@ -232,67 +232,10 @@ namespace gip.vb.mobile.Services
 
         #endregion
 
-        #region Inventory -> New
-        // WSResponse<string> GetFacilityInventoryNo ()
-        //public const string UrlInventory_GetInventoryNo = "FacilityInventory/Get/FacilityInventoryNo";
-        public async Task<WSResponse<string>> GetFacilityInventoryNoAsync()
-        {
-            WSResponse<string> response = new WSResponse<string>() { Data = "0001" };
-            return await Task.FromResult(response);
-        }
-
-        // WSResponse NewFacilityInventory (string facilityInventoryNo, string facilityInventoryName)
-        // public const string UrlInventory_New = "FacilityInventory/New/FacilityInventoryNo/{facilityInventoryNo}/FacilityInventoryName/{facilityInventoryName}";
-        public async Task<WSResponse<bool>> NewFacilityInventoryAsync(string facilityInventoryNo, string facilityInventoryName)
-        {
-            WSResponse<bool> response = new WSResponse<bool>() { Data = true };
-            return await Task.FromResult(response);
-        }
-
-        #endregion
-
-        #region Inventory -> Lifecycle
-        // WSResponse<bool> StartFacilityInventory (string facilityInventoryNo)
-        //public const string UrlInventory_Start = "FacilityInventory/Start/FacilityInventoryNo/{facilityInventoryNo}";
-        public async Task<WSResponse<bool>> StartFacilityInventoryAsync(string facilityInventoryNo)
-        {
-            WSResponse<bool> response = new WSResponse<bool>() { Data = false };
-            if (_GetFacilityInventoriesAsync != null && _GetFacilityInventoriesAsync.Data != null)
-            {
-                FacilityInventory facilityInventory = _GetFacilityInventoriesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo);
-                if (facilityInventory != null)
-                {
-                    MDFacilityInventoryState inProgressState = MDFacilityInventoryStates.Data.FirstOrDefault(c => c.FacilityInventoryState == MDFacilityInventoryState.FacilityInventoryStates.InProgress);
-                    facilityInventory.MDFacilityInventoryState = inProgressState;
-                    response.Data = true;
-                }
-            }
-            return await Task.FromResult(response);
-        }
-
-        // WSResponse<bool> CloseFacilityInventory (string facilityInventoryNo)
-        //public const string UrlInventory_Close = "FacilityInventory/Close/FacilityInventoryNo/{facilityInventoryNo}";
-        public async Task<WSResponse<bool>> CloseFacilityInventoryAsync(string facilityInventoryNo)
-        {
-            WSResponse<bool> response = new WSResponse<bool>() { Data = false };
-            if (_GetFacilityInventoriesAsync != null && _GetFacilityInventoriesAsync.Data != null)
-            {
-                FacilityInventory facilityInventory = _GetFacilityInventoriesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo);
-                if (facilityInventory != null)
-                {
-                    MDFacilityInventoryState finishedState = MDFacilityInventoryStates.Data.FirstOrDefault(c => c.FacilityInventoryState == MDFacilityInventoryState.FacilityInventoryStates.Finished);
-                    facilityInventory.MDFacilityInventoryState = finishedState;
-                    response.Data = true;
-                }
-            }
-            return await Task.FromResult(response);
-        }
-        #endregion
-
         #region Inventory -> Pos
         #region Inventory -> Pos - Get
         private WSResponse<List<FacilityInventoryPos>> _GetFacilityInventoryLinesAsync;
-        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryLinesAsync(string facilityInventoryNo, string inputCode, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
+        public async Task<WSResponse<List<FacilityInventoryPos>>> GetFacilityInventoryLinesAsync(string facilityInventoryNo, string inputCode, string storageLocationNo, string facilityNo, string lotNo, string materialNo, string inventoryPosState, string notAvailable, string zeroStock, string notProcessed)
         {
             if (_GetFacilityInventoryLinesAsync == null)
             {
@@ -324,6 +267,7 @@ namespace gip.vb.mobile.Services
             List<FacilityInventoryPos> facilityInventoryLines = _GetFacilityInventoryLinesAsync.Data.Where(c =>
             c.FacilityInventoryNo == facilityInventoryNo
             && (inputCodeVal == null || c.FacilityChargeID == inputCodeVal)
+            && (storageLocationNo == null || c.ParentFacilityNo == storageLocationNo)
             && (facilityNo == null || c.FacilityNo == facilityNo)
             && (lotNo == null || c.LotNo == lotNo)
             && (materialNo == null || c.MaterialNo == materialNo)
@@ -359,52 +303,77 @@ namespace gip.vb.mobile.Services
             }
             return await Task.FromResult(response);
         }
-        // WSResponse<bool> StartFacilityInventoryPos (string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Start = "FacilityInventoryPos/Start/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
-        public async Task<WSResponse<bool>> StartFacilityInventoryPosAsync(string facilityInventoryNo, string facilityChargeID)
+
+
+        // WSResponse<SearchFacilityCharge> GetFacilityInventorySearchCharge(string facilityInventoryNo, string storageLocationNo, string facilityNo, string facilityChargeID)
+        // public const string UrlInventory_SearchCharge = "FacilityInventoryPos/FacilityInventoryNo/{facilityInventoryNo}/StorageLocationNo/{storageLocationNo}/FacilityNo/{facilityNo}/FacilityChargeID/{facilityChargeID}";
+        public async Task<WSResponse<SearchFacilityCharge>> GetFacilityInventorySearchCharge(string facilityInventoryNo, string storageLocationNo, string facilityNo, string facilityChargeID)
         {
-            WSResponse<bool> response = new WSResponse<bool>() { Data = false };
-            if (_GetFacilityInventoryLinesAsync != null && _GetFacilityInventoryLinesAsync.Data != null)
+            if (_GetFacilityInventoryLinesAsync == null)
             {
-                Guid facilityChargeIDVal = Guid.Parse(facilityChargeID);
-                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryLinesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
-                if (facilityInventoryPos != null)
+                string jsonContent = ReadJsonFile("Models.JsonMock.FacilityInventoryLines.json");
+                _GetFacilityInventoryLinesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(jsonContent);
+            }
+            SearchFacilityCharge result = new SearchFacilityCharge();
+
+            FacilityInventoryPos item = _GetFacilityInventoryLinesAsync.Data.FirstOrDefault(c => c.FacilityChargeID == new Guid(facilityChargeID));
+            if (item == null)
+                result.States = new List<FacilityChargeStateEnum> { FacilityChargeStateEnum.NotExist };
+            else
+            {
+                result.FacilityInventoryPos = item;
+                result.States = new List<FacilityChargeStateEnum>();
+                result.States.Add(FacilityChargeStateEnum.Available);
+                if (item.MDFacilityInventoryPosStateIndex == (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished)
+                    result.States.Add(FacilityChargeStateEnum.AlreadyFinished);
+                if (string.IsNullOrEmpty(facilityNo))
                 {
-                    MDFacilityInventoryPosState inProgressState = MDFacilityInventoryPosStates.Data.FirstOrDefault(c => c.FacilityInventoryPosState == MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress);
-                    facilityInventoryPos.MDFacilityInventoryPosStateIndex = (short)inProgressState.MDFacilityInventoryPosStateIndex;
-                    response.Data = true;
+                    if (item.ParentFacilityNo != storageLocationNo)
+                        result.States.Add(FacilityChargeStateEnum.InDifferentFacility);
+                }
+                else
+                {
+                    if (item.FacilityNo != facilityNo)
+                        result.States.Add(FacilityChargeStateEnum.InDifferentFacility);
                 }
             }
-            return await Task.FromResult(response);
+            WSResponse<SearchFacilityCharge> wSResponse = new WSResponse<SearchFacilityCharge>(result);
+            return await Task.FromResult(wSResponse);
         }
 
-        // WSResponse<bool> CloseFacilityInventoryPos (string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Close = "FacilityInventoryPos/Close/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
-        public async Task<WSResponse<bool>> CloseFacilityInventoryPosAsync(string facilityInventoryNo, string facilityChargeID)
+        // WSResponse<FacilityInventoryPos> SetFacilityInventoryChargeAvailable (string facilityInventoryNo, string facilityChargeID)
+        // public const string UrlInventory_SetChargeAvailable = "FacilityInventoryChargeAvailable/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}";
+        public async Task<WSResponse<FacilityInventoryPos>> SetFacilityInventoryChargeAvailable(string facilityInventoryNo, string facilityChargeID)
         {
-            WSResponse<bool> response = new WSResponse<bool>() { Data = false };
-            if (_GetFacilityInventoryLinesAsync != null && _GetFacilityInventoryLinesAsync.Data != null)
+            FacilityInventoryPos result = new FacilityInventoryPos();
+            WSResponse<FacilityInventoryPos> wSResponse = new WSResponse<FacilityInventoryPos>(result);
+
+            result.FacilityInventoryPosID = Guid.NewGuid();
+            result.FacilityChargeID = Guid.NewGuid();
+            result.Sequence = 0;
+            result.Comment = null;
+            result.LotNo = "FL01010101";
+            result.ParentFacilityNo = "Mixery";
+            result.FacilityNo = "Silo10";
+            result.FacilityName = "Silo 10";
+            result.MaterialNo = "FW01";
+            result.MaterialName = "Finished product 01";
+            result.FacilityInventoryNo = "00000003";
+            result.MDFacilityInventoryPosStateIndex = 2;
+            result.StockQuantity = 10;
+            result.NewStockQuantity = null;
+            result.NotAvailable = false;
+            result.UpdateName = "aagincic";
+            result.UpdateDate = DateTime.Now;
+
+            if (_GetFacilityInventoryLinesAsync == null)
             {
-                Guid facilityChargeIDVal = Guid.Parse(facilityChargeID);
-                FacilityInventoryPos facilityInventoryPos = _GetFacilityInventoryLinesAsync.Data.FirstOrDefault(c => c.FacilityInventoryNo == facilityInventoryNo && c.FacilityChargeID == facilityChargeIDVal);
-                if (facilityInventoryPos != null)
-                {
-                    MDFacilityInventoryPosState finishedState = MDFacilityInventoryPosStates.Data.FirstOrDefault(c => c.FacilityInventoryPosState == MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished);
-                    facilityInventoryPos.MDFacilityInventoryPosStateIndex = (short)finishedState.MDFacilityInventoryPosStateIndex;
-                    response.Data = true;
-                }
+                string jsonContent = ReadJsonFile("Models.JsonMock.FacilityInventoryLines.json");
+                _GetFacilityInventoryLinesAsync = JsonConvert.DeserializeObject<WSResponse<List<FacilityInventoryPos>>>(jsonContent);
             }
-            return await Task.FromResult(response);
-        }
-        #endregion
-
-        #region Inventory -> Pos -> Booings
-        // WSResponse<PostingOverview> GetFacilityInventoryPosBookings(string facilityInventoryNo, Guid facilityChargeID)
-        //public const string UrlInventory_InventoryPos_Bookings = "FacilityInventoryPos/FacilityInventoryNo/{facilityInventoryNo}/FacilityChargeID/{facilityChargeID}/Bookings";
-        public async Task<WSResponse<PostingOverview>> GetFacilityInventoryPosBookingsAsync(string facilityInventoryNo, string facilityChargeID)
-        {
-            WSResponse<PostingOverview> response = new WSResponse<PostingOverview>();
-            return await Task.FromResult(response);
+            result.Sequence = _GetFacilityInventoryLinesAsync.Data.Count() + 1;
+            _GetFacilityInventoryLinesAsync.Data.Add(result);
+            return await Task.FromResult(wSResponse);
         }
         #endregion
 

@@ -370,18 +370,18 @@
     <value>2. View open lines</value>
   </data>
   <data name="FC_NotExist_Text" xml:space="preserve">
-    <value>Batch location not exist!</value>
+    <value>Quant not exist!</value>
   </data>
   <data name="FC_Match_Text" xml:space="preserve">
-    <value>Batch location match!</value>
+    <value>Quant match!</value>
   </data>
   <data name="FC_NotMatch_Text" xml:space="preserve">
-    <value>Scaned batch location (ID: {0}) not match selected (ID: {1})!</value>
+    <value>Scaned quant (ID: {0}) not match selected (ID: {1})!</value>
   </data>
   <data name="FC_Scan_Go" xml:space="preserve">
-    <value>Scan next batch location...</value>
+    <value>Scan next quant...</value>
   </data>
   <data name="FC_Scan_Check" xml:space="preserve">
-    <value>Scan selected batch location match...</value>
+    <value>Scan selected quant match...</value>
   </data>
 </root>

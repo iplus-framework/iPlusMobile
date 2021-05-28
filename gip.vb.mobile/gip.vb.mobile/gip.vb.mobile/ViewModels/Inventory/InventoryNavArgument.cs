@@ -16,6 +16,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties
 
+        public string StorageLocationNo { get; set; }
         public string FacilityInventoryNo { get; set; }
 
         public EditModeEnum EditMode { get; set; }

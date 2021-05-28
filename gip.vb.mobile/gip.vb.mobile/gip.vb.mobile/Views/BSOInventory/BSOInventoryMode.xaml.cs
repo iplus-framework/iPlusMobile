@@ -45,6 +45,7 @@ namespace gip.vb.mobile.Views
                     {
                         Arguments = new InventoryNavArgument()
                         {
+                            StorageLocationNo = _ViewModel.SelectedStorageLocation.FacilityNo,
                             FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
                             EditMode = EditModeEnum.GoAndCount,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
@@ -64,6 +65,7 @@ namespace gip.vb.mobile.Views
                     { 
                         Arguments = new InventoryNavArgument()
                         {
+                            StorageLocationNo = _ViewModel.SelectedStorageLocation.FacilityNo,
                             FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
                             EditMode = EditModeEnum.Confirm,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,

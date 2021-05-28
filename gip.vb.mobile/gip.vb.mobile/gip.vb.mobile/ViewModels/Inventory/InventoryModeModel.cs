@@ -145,7 +145,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             get
             {
-                return SelectedFacility != null;
+                return SelectedStorageLocation != null;
             }
         }
 

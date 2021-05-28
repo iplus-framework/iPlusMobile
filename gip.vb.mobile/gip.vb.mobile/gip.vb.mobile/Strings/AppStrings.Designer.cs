@@ -403,7 +403,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Batch location match!.
+        ///   Looks up a localized string similar to Quant match!.
         /// </summary>
         internal static string FC_Match_Text {
             get {
@@ -412,7 +412,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Batch location not exist!.
+        ///   Looks up a localized string similar to Quant not exist!.
         /// </summary>
         internal static string FC_NotExist_Text {
             get {
@@ -421,7 +421,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scaned batch location (ID: {0}) not match selected (ID: {1})!.
+        ///   Looks up a localized string similar to Scaned quant (ID: {0}) not match selected (ID: {1})!.
         /// </summary>
         internal static string FC_NotMatch_Text {
             get {
@@ -430,7 +430,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan selected batch location match....
+        ///   Looks up a localized string similar to Scan selected quant match....
         /// </summary>
         internal static string FC_Scan_Check {
             get {
@@ -439,7 +439,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan next batch location....
+        ///   Looks up a localized string similar to Scan next quant....
         /// </summary>
         internal static string FC_Scan_Go {
             get {

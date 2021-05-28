@@ -114,6 +114,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     WSResponse<List<FacilityInventoryPos>> wSResponse = await _WebService.GetFacilityInventoryLinesAsync(
                         InventoryNavArgument.FacilityInventoryNo,
                         InputCode,
+                        InventoryNavArgument.SelectedStorageLocation.FacilityNo,
                         InventoryNavArgument.SelectedFacility.FacilityNo,
                         null,
                         materialNo,
@@ -200,6 +201,80 @@ namespace gip.vb.mobile.ViewModels.Inventory
                         if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
                             SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished;
                         WSResponse<bool> wSResponse = await _WebService.UpdateFacilityInventoryPosAsync(SelectedInventoryLine);
+                        WSResponse = wSResponse;
+                        success = wSResponse.Suceeded;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Message = new Msg(eMsgLevel.Exception, ex.Message);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            }
+            return success;
+        }
+
+        public async Task<bool> ExecuteGetFacilityInventorySearchCharge()
+        {
+            bool success = false;
+            Message = null;
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                try
+                {
+                    if (InputCode != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    {
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, InventoryNavArgument.FacilityInventoryNo, InputCode);
+                        WSResponse = wSResponse;
+                        success = wSResponse.Suceeded;
+                        if (success)
+                        {
+                            if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.NotExist))
+                            {
+                                // 
+                            }
+                            else
+                            {
+                                if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.AlreadyFinished))
+                                {
+
+                                }
+                                if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.InDifferentFacility))
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Message = new Msg(eMsgLevel.Exception, ex.Message);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
+            }
+            return success;
+        }
+
+        public async Task<bool> ExecuteSetFacilityInventoryChargeAvailable()
+        {
+            bool success = false;
+            Message = null;
+            if (!IsBusy)
+            {
+                IsBusy = true;
+                try
+                {
+                    if (InputCode != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    {
+                        WSResponse<FacilityInventoryPos> wSResponse = await _WebService.SetFacilityInventoryChargeAvailable(InventoryNavArgument.FacilityInventoryNo, InputCode);
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;
                     }

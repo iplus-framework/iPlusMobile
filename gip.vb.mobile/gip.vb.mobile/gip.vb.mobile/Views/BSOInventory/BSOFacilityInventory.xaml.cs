@@ -29,6 +29,7 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             if (_ViewModel.FacilityInventories == null)
                 _ViewModel.GetFacilityInventoriesCommand.Execute(null);
+            _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             this.PageState = PageStateEnum.View;
         }
 
