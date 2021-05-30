@@ -14,12 +14,34 @@
         <ResourceDictionary>
         </ResourceDictionary>
     </ContentPage.Resources>-->
-    
-    <Grid>
+
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="1" Grid.Column="1" />
+        <StackLayout Spacing="5" Grid.Row="1" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="Version" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
+            <Label x:Name="lblVersion" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
+        </StackLayout>
+        <StackLayout Spacing="5" Grid.Row="1" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="Build" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
+            <Label x:Name="lblBuild" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
+        </StackLayout>
+    </Grid>
+
+
         <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                 <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
@@ -71,5 +93,4 @@
                         TextColor="White" />
             </StackLayout>
         </ScrollView>-->
-    </Grid>
 </v:BSOPageBase>

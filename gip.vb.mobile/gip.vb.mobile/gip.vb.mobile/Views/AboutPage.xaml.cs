@@ -1,7 +1,7 @@
 ﻿using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace gip.vb.mobile.Views
 {
@@ -11,6 +11,18 @@ namespace gip.vb.mobile.Views
         public AboutPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            DisplayVersionInfo();
+            base.OnAppearing();
+        }
+
+        public void DisplayVersionInfo()
+        {
+            lblVersion.Text = VersionTracking.CurrentVersion;
+            lblBuild.Text = VersionTracking.CurrentBuild;
         }
     }
 }
