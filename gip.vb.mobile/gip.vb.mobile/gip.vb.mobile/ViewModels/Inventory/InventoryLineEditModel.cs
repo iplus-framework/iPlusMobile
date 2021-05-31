@@ -18,7 +18,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryLineEditModel()
         {
             // Commands
-            GetFacilityInventoryLinesCommand = new Command(async () => await ExecuteGetFacilityInventoryLinesAsync());
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
         }
 
@@ -34,7 +33,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Commands
-        public Command GetFacilityInventoryLinesCommand { get; set; }
         public Command UpdateFacilityInventoryPosCommand { get; set; }
         #endregion
 
@@ -77,6 +75,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     break;
             }
         }
+
+
+
+
         #endregion
 
         #region Models
@@ -92,98 +94,72 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 SetProperty(ref _InputCode, value);
             }
         }
+
+        private bool _IsEditPanelVisible;
+        public bool IsEditPanelVisible
+        {
+            get
+            {
+                return _IsEditPanelVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsEditPanelVisible, value);
+            }
+        }
+
+        private bool _IsChargeCommandPanelVisible;
+        public bool IsChargeCommandPanelVisible
+        {
+            get
+            {
+                return _IsChargeCommandPanelVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsChargeCommandPanelVisible, value);
+            }
+        }
+
+        private bool _IsChargeAddCommandVisible;
+        public bool IsChargeAddCommandVisible
+        {
+            get
+            {
+                return _IsChargeAddCommandVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsChargeAddCommandVisible, value);
+            }
+        }
+
+        private bool _IsChargeEditCommandVisible;
+        public bool IsChargeEditCommandVisible
+        {
+            get
+            {
+                return _IsChargeEditCommandVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsChargeEditCommandVisible, value);
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        public void HideChargeCommandPanel()
+        {
+            IsChargeCommandPanelVisible = false;
+            IsChargeEditCommandVisible = false;
+            IsChargeAddCommandVisible = false;
+        }
+
         #endregion
 
         #region Tasks
-        /// <summary>
-        /// Calling ExecuteGetFacilityInventoryLinesAsync
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> ExecuteGetFacilityInventoryLinesAsync()
-        {
-            bool success = false;
-            Message = null;
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                try
-                {
-                    string materialNo = null;
-                    short? mdFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
-
-                    WSResponse<List<FacilityInventoryPos>> wSResponse = await _WebService.GetFacilityInventoryLinesAsync(
-                        InventoryNavArgument.FacilityInventoryNo,
-                        InputCode,
-                        InventoryNavArgument.SelectedStorageLocation.FacilityNo,
-                        InventoryNavArgument.SelectedFacility.FacilityNo,
-                        null,
-                        materialNo,
-                        mdFacilityInventoryPosStateIndex != null ? mdFacilityInventoryPosStateIndex.Value.ToString() : "",
-                        null,
-                        null,
-                        "false" // notProcessed = true - all open lines, otherwise all lines
-                       );
-
-                    WSResponse = wSResponse;
-                    success = WSResponse.Suceeded;
-                    if (wSResponse.Suceeded)
-                    {
-                        List<FacilityInventoryPos> lines = wSResponse.Data;
-                        FacilityInventoryPos findedPos = lines.FirstOrDefault();
-                        switch (InventoryNavArgument.EditMode)
-                        {
-                            case EditModeEnum.GoAndCount:
-                                SelectedInventoryLine = findedPos;
-                                if (SelectedInventoryLine != null)
-                                {
-                                    Message = null;
-                                    success = true;
-                                }
-                                else
-                                {
-                                    Message = new Msg() { MessageLevel = eMsgLevel.Error, Message = AppStrings.FC_NotExist_Text };
-                                    success = false;
-                                }
-                                break;
-                            case EditModeEnum.Confirm:
-                                if (findedPos != null)
-                                {
-                                    if (findedPos.FacilityInventoryPosID == SelectedInventoryLine.FacilityInventoryPosID)
-                                    {
-                                        Message = new Msg() { MessageLevel = eMsgLevel.Info, Message = AppStrings.FC_Match_Text };
-                                        success = true;
-                                    }
-                                    else
-                                    {
-                                        Message = new Msg()
-                                        {
-                                            MessageLevel = eMsgLevel.Error,
-                                            Message = string.Format(AppStrings.FC_NotMatch_Text, InputCode, SelectedInventoryLine.FacilityChargeID)
-                                        };
-                                        success = false;
-                                    }
-                                }
-                                else
-                                {
-                                    Message = new Msg() { MessageLevel = eMsgLevel.Error, Message = AppStrings.FC_NotExist_Text };
-                                    success = false;
-                                }
-                                break;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Message = new Msg(eMsgLevel.Exception, ex.Message);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-            }
-            return success;
-        }
-
 
         public async Task<bool> ExecuteUpdateFacilityInventoryPosAsync()
         {
@@ -217,7 +193,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
-        public async Task<bool> ExecuteGetFacilityInventorySearchCharge()
+        public async Task<bool> ExecuteGetFacilityInventorySearchCharge(EditModeEnum editMode)
         {
             bool success = false;
             Message = null;
@@ -228,27 +204,58 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 {
                     if (InputCode != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, InventoryNavArgument.FacilityInventoryNo, InputCode);
-                        WSResponse = wSResponse;
+                        string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, InputCode);
                         success = wSResponse.Suceeded;
+
+                        HideChargeCommandPanel();
+                        IsEditPanelVisible = editMode == EditModeEnum.Confirm;
+
                         if (success)
                         {
-                            if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.NotExist))
+                            List<FacilityChargeStateEnum> responseStates = wSResponse.Data.States;
+                            if (editMode == EditModeEnum.GoAndCount)
                             {
-                                // 
+
+                                if (responseStates.Contains(FacilityChargeStateEnum.NotExist))
+                                    // message not exist - FC_NotExist_Text
+                                    wSResponse.Message = new Msg(eMsgLevel.Error, AppStrings.FC_NotExist_Text);
+                                else
+                                {
+                                    if (responseStates.Contains(FacilityChargeStateEnum.InDifferentFacility))
+                                        wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_QuantOnDifferentFaciltiy, wSResponse.Data.DifferentFacilityNo));
+                                    else if (responseStates.Contains(FacilityChargeStateEnum.QuantNotAvailable))
+                                    {
+                                        // message quant there, can be restored - FC_QuantRestoreNotAvailable
+                                        IsChargeCommandPanelVisible = true;
+                                        IsChargeAddCommandVisible = true;
+                                        wSResponse.Message = new Msg(eMsgLevel.Error, AppStrings.FC_QuantRestoreNotAvailable);
+                                    }
+                                    else if (responseStates.Contains(FacilityChargeStateEnum.AlreadyFinished))
+                                    {
+                                        // Message line already finished can be edited again
+                                        IsChargeCommandPanelVisible = true;
+                                        IsChargeEditCommandVisible = true;
+                                        wSResponse.Message = new Msg(eMsgLevel.Error, AppStrings.FC_QuantAlreadyFinished);
+                                        SelectedInventoryLine = wSResponse.Data.FacilityInventoryPos;
+                                    }
+                                    else
+                                    {
+                                        SelectedInventoryLine = wSResponse.Data.FacilityInventoryPos;
+                                        IsEditPanelVisible = true;
+                                    }
+                                }
                             }
                             else
                             {
-                                if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.AlreadyFinished))
-                                {
-
-                                }
-                                if (wSResponse.Data.States.Contains(FacilityChargeStateEnum.InDifferentFacility))
-                                {
-
-                                }
+                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != new Guid(InputCode))
+                                    wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, InputCode, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
+                                else
+                                    wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
                             }
+
                         }
+                        WSResponse = wSResponse;
                     }
                 }
                 catch (Exception ex)
@@ -277,6 +284,14 @@ namespace gip.vb.mobile.ViewModels.Inventory
                         WSResponse<FacilityInventoryPos> wSResponse = await _WebService.SetFacilityInventoryChargeAvailable(InventoryNavArgument.FacilityInventoryNo, InputCode);
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;
+                        if (success)
+                        {
+                            SelectedInventoryLine = wSResponse.Data;
+                            IsEditPanelVisible = true;
+                        }
+                        else
+                            SelectedInventoryLine = null;
+                        HideChargeCommandPanel();
                     }
                 }
                 catch (Exception ex)

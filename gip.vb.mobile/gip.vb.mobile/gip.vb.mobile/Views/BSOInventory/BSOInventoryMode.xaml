@@ -16,30 +16,31 @@
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-
     <StackLayout Orientation="Vertical">
         <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
-        <Picker x:Name="StorageLocationCombo" 
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />
+            <Picker x:Name="StorageLocationCombo" 
+                
                         SelectedItem="{Binding SelectedStorageLocation, Mode=TwoWay}" 
                         ItemsSource="{Binding StorageLocations}" 
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand"
                         MinimumWidthRequest="50"
-                        WidthRequest="200"
                         ItemDisplayBinding="{Binding FacilityNo}"/>
+        </StackLayout>
         <Label Text="{i18n:Translate Text=FacilityPivot_Header}"/>
-        <Picker x:Name="FacilityCombo" 
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="cmdClearFacility"  WidthRequest="60" Text="X" Clicked="cmdClearFacility_Clicked"/>
+            <Picker x:Name="FacilityCombo" 
                         SelectedItem="{Binding SelectedFacility, Mode=TwoWay}" 
                         ItemsSource="{Binding Facilities}" 
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand"
                         MinimumWidthRequest="50"
-                        WidthRequest="200"
                         ItemDisplayBinding="{Binding FacilityNo}"/>
-
+        </StackLayout>
         <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
         <CheckBox IsChecked="{Binding IsValidateAndComplete}" />
         <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
         <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
-
     </StackLayout>
-
 </v:BSOPageBase>

@@ -26,9 +26,12 @@
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
-        
-        <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="false">
+        <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" TextChanged="BarcodeSearchBar_TextChanged" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+        <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
+            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Clicked="cmdQuantAdd_Clicked" IsVisible="{Binding IsChargeAddCommandVisible}"/>
+            <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
+        </StackLayout>
+        <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">
             <BoxView HeightRequest="1" Color="Red" />
             <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
             <Label Text="{Binding SelectedInventoryLine.MaterialNo}" Style="{StaticResource LabelForData}"/>

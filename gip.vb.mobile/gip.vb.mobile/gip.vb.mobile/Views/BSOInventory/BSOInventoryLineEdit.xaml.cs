@@ -54,27 +54,26 @@ namespace gip.vb.mobile.Views
                 spEditor.IsVisible = true;
             }
 
-            BarcodeSearchBar.Placeholder = _ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount ? AppStrings.FC_Scan_Go : AppStrings.FC_Scan_Check;
         }
 
         private async void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            bool success = false;
-            switch (_ViewModel.InventoryNavArgument.EditMode)
+            if (!string.IsNullOrEmpty(_ViewModel.InputCode))
             {
-                case EditModeEnum.GoAndCount:
-                    if (!string.IsNullOrEmpty(_ViewModel.InputCode))
-                        success = await _ViewModel.ExecuteGetFacilityInventoryLinesAsync();
-                    if (success)
-                    {
-                        WriteNewStockQuantity();
-                        spEditor.IsVisible = true;
-                    }
-                    break;
-                case EditModeEnum.Confirm:
-                    success = await _ViewModel.ExecuteGetFacilityInventoryLinesAsync();
-                    break;
+                switch (_ViewModel.InventoryNavArgument.EditMode)
+                {
+                    case EditModeEnum.GoAndCount:
+
+                        await _ViewModel.ExecuteGetFacilityInventorySearchCharge(EditModeEnum.GoAndCount);
+                        if (_ViewModel.IsChargeEditCommandVisible)
+                            WriteNewStockQuantity();
+                        break;
+                    case EditModeEnum.Confirm:
+                        await _ViewModel.ExecuteGetFacilityInventorySearchCharge(EditModeEnum.Confirm);
+                        break;
+                }
             }
+
         }
 
         private async void cmdUpdate_Clicked(object sender, EventArgs e)
@@ -110,12 +109,32 @@ namespace gip.vb.mobile.Views
                                 && _ViewModel.SelectedInventoryLine.NewStockQuantity == null)
                 _ViewModel.SelectedInventoryLine.NewStockQuantity = _ViewModel.SelectedInventoryLine.StockQuantity;
         }
-        #endregion
-
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                 CleanUpForm();
         }
+
+        private async void cmdQuantAdd_Clicked(object sender, EventArgs e)
+        {
+            await _ViewModel.ExecuteSetFacilityInventoryChargeAvailable();
+        }
+
+        private void cmdQuantEditAgain_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.IsEditPanelVisible = true;
+        }
+
+        private void BarcodeSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.NewTextValue) && _ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+            {
+                _ViewModel.HideChargeCommandPanel();
+                _ViewModel.IsEditPanelVisible = false;
+            }
+        }
+        #endregion
+
+
     }
 }

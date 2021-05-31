@@ -103,6 +103,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     }
                     else
                         SelectedFacility = null;
+                    OnPropertyChanged("IsEnabledModeMoveForward");
                 }
             }
         }

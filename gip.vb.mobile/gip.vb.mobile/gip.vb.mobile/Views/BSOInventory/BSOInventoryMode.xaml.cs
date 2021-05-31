@@ -39,9 +39,9 @@ namespace gip.vb.mobile.Views
         private async void GoAndCount_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(
-                new BSOInventoryLineEdit() 
-                { 
-                    NavParam = new NavParameter(PageStateEnum.View) 
+                new BSOInventoryLineEdit()
+                {
+                    NavParam = new NavParameter(PageStateEnum.View)
                     {
                         Arguments = new InventoryNavArgument()
                         {
@@ -52,17 +52,17 @@ namespace gip.vb.mobile.Views
                             SelectedFacility = _ViewModel.SelectedFacility,
                             SelectedStorageLocation = _ViewModel.SelectedStorageLocation
                         }
-                    } 
+                    }
                 });
         }
 
         private async void ViewOpenLines_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(
-                new BSOInventoryLines() 
-                { 
-                    NavParam = new NavParameter(PageStateEnum.View) 
-                    { 
+                new BSOInventoryLines()
+                {
+                    NavParam = new NavParameter(PageStateEnum.View)
+                    {
                         Arguments = new InventoryNavArgument()
                         {
                             StorageLocationNo = _ViewModel.SelectedStorageLocation.FacilityNo,
@@ -72,11 +72,21 @@ namespace gip.vb.mobile.Views
                             SelectedFacility = _ViewModel.SelectedFacility,
                             SelectedStorageLocation = _ViewModel.SelectedStorageLocation
                         }
-                    } 
+                    }
                 });
+        }
+        private void cmdClearStorageLocation_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedStorageLocation = null;
+        }
+
+        private void cmdClearFacility_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedFacility = null;
         }
 
         #endregion
+
 
     }
 }

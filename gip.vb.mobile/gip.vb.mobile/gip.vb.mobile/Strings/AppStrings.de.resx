@@ -318,10 +318,16 @@
   <data name="FC_NotMatch_Text" xml:space="preserve">
     <value>Gescannt Quant (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
   </data>
-  <data name="FC_Scan_Go" xml:space="preserve">
-    <value>Scan nächste Quant...</value>
+  <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
+    <value>Quant ist nicht verfügbar! Sie können Quant auf Lager wiederherstellen!</value>
   </data>
-  <data name="FC_Scan_Check" xml:space="preserve">
-    <value>Scan ausgewählt Quant...</value>
+  <data name="FC_QuantAlreadyFinished" xml:space="preserve">
+    <value>Quant ist schon fertig! Sie können wieder bearbeiten!</value>
+  </data>
+  <data name="Btn_AddQuantToStock" xml:space="preserve">
+    <value>Quant auf Lager hinzufügen</value>
+  </data>
+  <data name="Btn_EditQuantAgain" xml:space="preserve">
+    <value>Erneut bearbeiten</value>
   </data>
 </root>

@@ -169,6 +169,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add quant to stock.
+        /// </summary>
+        internal static string Btn_AddQuantToStock {
+            get {
+                return ResourceManager.GetString("Btn_AddQuantToStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit again.
+        /// </summary>
+        internal static string Btn_EditQuantAgain {
+            get {
+                return ResourceManager.GetString("Btn_EditQuantAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Block Quant.
         /// </summary>
         internal static string BtnBlockQuant_Text {
@@ -430,20 +448,29 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan selected quant match....
+        ///   Looks up a localized string similar to Quant is already finished! You can edit again!.
         /// </summary>
-        internal static string FC_Scan_Check {
+        internal static string FC_QuantAlreadyFinished {
             get {
-                return ResourceManager.GetString("FC_Scan_Check", resourceCulture);
+                return ResourceManager.GetString("FC_QuantAlreadyFinished", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan next quant....
+        ///   Looks up a localized string similar to Quant is available on different Faciltiy: {0}!.
         /// </summary>
-        internal static string FC_Scan_Go {
+        internal static string FC_QuantOnDifferentFaciltiy {
             get {
-                return ResourceManager.GetString("FC_Scan_Go", resourceCulture);
+                return ResourceManager.GetString("FC_QuantOnDifferentFaciltiy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quant is not available! You can restore quant to stock!.
+        /// </summary>
+        internal static string FC_QuantRestoreNotAvailable {
+            get {
+                return ResourceManager.GetString("FC_QuantRestoreNotAvailable", resourceCulture);
             }
         }
         
