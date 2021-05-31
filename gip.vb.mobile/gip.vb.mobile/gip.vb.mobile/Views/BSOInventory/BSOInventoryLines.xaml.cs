@@ -31,6 +31,7 @@ namespace gip.vb.mobile.Views
 
             if (_ViewModel.OpenLines == null || !_ViewModel.OpenLines.Any())
                 _ViewModel.GetOpenLinesCommand.Execute(null);
+            
             this.PageState = PageStateEnum.View;
         }
 
