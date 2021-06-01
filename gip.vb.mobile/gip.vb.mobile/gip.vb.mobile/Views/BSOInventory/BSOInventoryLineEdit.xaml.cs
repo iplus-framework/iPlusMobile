@@ -25,6 +25,22 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
+            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                _ViewModel.Title = AppStrings.Inv_EditLineS;
+            else
+                _ViewModel.Title = AppStrings.Inv_EditLine;
+            if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
+            {
+                _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
+                WriteNewStockQuantity();
+                spEditor.IsVisible = true;
+            }
+        }
+
         #endregion
 
         #region Event
@@ -41,19 +57,8 @@ namespace gip.vb.mobile.Views
             _ViewModel.InputCode = "";
             _ViewModel.SelectedInventoryLine = null;
             spEditor.IsVisible = false;
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-            if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
-            {
-                _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
-                WriteNewStockQuantity();
-                spEditor.IsVisible = true;
-            }
-
+            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                _ViewModel.Title = AppStrings.Inv_EditLineS;
         }
 
         private async void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)

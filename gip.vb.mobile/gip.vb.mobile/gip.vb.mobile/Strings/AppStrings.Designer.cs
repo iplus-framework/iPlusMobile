@@ -97,24 +97,6 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inventories.
-        /// </summary>
-        internal static string BFI_InventoryList_Header {
-            get {
-                return ResourceManager.GetString("BFI_InventoryList_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inventory positions.
-        /// </summary>
-        internal static string BFI_InventoryPositions_Header {
-            get {
-                return ResourceManager.GetString("BFI_InventoryPositions_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filter Inventory Positions.
         /// </summary>
         internal static string BFI_InventoryPositionsFilter_Header {
@@ -516,6 +498,42 @@ namespace gip.vb.mobile.Strings {
         internal static string Intermediate_Text {
             get {
                 return ResourceManager.GetString("Intermediate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory - Edit line.
+        /// </summary>
+        internal static string Inv_EditLine {
+            get {
+                return ResourceManager.GetString("Inv_EditLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory - Search Line.
+        /// </summary>
+        internal static string Inv_EditLineS {
+            get {
+                return ResourceManager.GetString("Inv_EditLineS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory - open positions.
+        /// </summary>
+        internal static string Inv_OpenPositions {
+            get {
+                return ResourceManager.GetString("Inv_OpenPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory - select storage location / bin.
+        /// </summary>
+        internal static string Inv_SelectStorage {
+            get {
+                return ResourceManager.GetString("Inv_SelectStorage", resourceCulture);
             }
         }
         

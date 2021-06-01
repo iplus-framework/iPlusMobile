@@ -216,6 +216,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             List<FacilityChargeStateEnum> responseStates = wSResponse.Data.States;
                             if (editMode == EditModeEnum.GoAndCount)
                             {
+                                Title = AppStrings.Inv_EditLine;
 
                                 if (responseStates.Contains(FacilityChargeStateEnum.NotExist))
                                     // message not exist - FC_NotExist_Text

@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.vb.mobile.Strings;
 using gip.vb.mobile.ViewModels;
 using gip.vb.mobile.ViewModels.Inventory;
 using System;
@@ -27,6 +28,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _ViewModel.Title = AppStrings.Inv_OpenPositions;
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
 
             if (_ViewModel.OpenLines == null || !_ViewModel.OpenLines.Any())

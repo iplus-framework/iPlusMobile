@@ -18,7 +18,6 @@
     </ContentPage.ToolbarItems>
     <ScrollView Orientation="Vertical">
         <StackLayout>
-            <Label Text="{i18n:Translate Text=BFI_InventoryList_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
             <ListView x:Name="InventoryListView"
                     ItemsSource="{Binding FacilityInventories}"
                     ItemTemplate="{StaticResource FacilityInventoryTemplate}"

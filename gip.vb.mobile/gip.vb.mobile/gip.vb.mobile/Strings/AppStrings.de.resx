@@ -330,4 +330,16 @@
   <data name="Btn_EditQuantAgain" xml:space="preserve">
     <value>Erneut bearbeiten</value>
   </data>
+  <data name="Inv_SelectStorage" xml:space="preserve">
+    <value>Inventur - wahl Lagerort / Platz</value>
+  </data>
+  <data name="Inv_EditLine" xml:space="preserve">
+    <value>Inventur - Linie bearbeiten</value>
+  </data>
+  <data name="Inv_EditLineS" xml:space="preserve">
+    <value>Inventory - Linie suchen</value>
+  </data>
+  <data name="Inv_OpenPositions" xml:space="preserve">
+    <value>Inventur - offene Linien</value>
+  </data>
 </root>

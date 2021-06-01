@@ -1,4 +1,5 @@
-﻿using gip.vb.mobile.ViewModels.Inventory;
+﻿using gip.vb.mobile.Strings;
+using gip.vb.mobile.ViewModels.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _ViewModel.Title = AppStrings.Inv_SelectStorage;
             _ViewModel.FacilityInventoryNo = NavParam.Arguments.ToString();
             if (_ViewModel.AllFacilities == null || !_ViewModel.AllFacilities.Any())
                 _ViewModel.GetFacilitiesCommand.Execute(null);

@@ -18,7 +18,6 @@
     </ContentPage.ToolbarItems>
    
     <StackLayout>
-        <Label Text="{i18n:Translate Text=BFI_InventoryPositions_Header}" FontSize="18" TextColor="{DynamicResource NavigationBarTextColor}"/>
         <ListView x:Name="lstOpenLines"
                     ItemsSource="{Binding OpenLines}"
                     ItemTemplate="{StaticResource FacilityInventoryPosTemplate}"

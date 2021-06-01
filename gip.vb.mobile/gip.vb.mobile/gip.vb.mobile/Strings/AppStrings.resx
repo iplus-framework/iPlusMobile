@@ -129,14 +129,8 @@
   <data name="BFI_Bookings_Header" xml:space="preserve">
     <value>Bookings</value>
   </data>
-  <data name="BFI_InventoryList_Header" xml:space="preserve">
-    <value>Inventories</value>
-  </data>
   <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
     <value>Filter Inventory Positions</value>
-  </data>
-  <data name="BFI_InventoryPositions_Header" xml:space="preserve">
-    <value>Inventory positions</value>
   </data>
   <data name="BFI_PositionEdit_Header" xml:space="preserve">
     <value>Position edit</value>
@@ -392,5 +386,17 @@
   </data>
   <data name="Btn_EditQuantAgain" xml:space="preserve">
     <value>Edit again</value>
+  </data>
+  <data name="Inv_SelectStorage" xml:space="preserve">
+    <value>Inventory - select storage location / bin</value>
+  </data>
+  <data name="Inv_EditLine" xml:space="preserve">
+    <value>Inventory - Edit line</value>
+  </data>
+  <data name="Inv_EditLineS" xml:space="preserve">
+    <value>Inventory - Search Line</value>
+  </data>
+  <data name="Inv_OpenPositions" xml:space="preserve">
+    <value>Inventory - open positions</value>
   </data>
 </root>
