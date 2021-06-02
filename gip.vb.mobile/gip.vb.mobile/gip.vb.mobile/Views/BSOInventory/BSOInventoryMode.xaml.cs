@@ -31,6 +31,16 @@ namespace gip.vb.mobile.Views
             _ViewModel.FacilityInventoryNo = NavParam.Arguments.ToString();
             if (_ViewModel.AllFacilities == null || !_ViewModel.AllFacilities.Any())
                 _ViewModel.GetFacilitiesCommand.Execute(null);
+
+            // Reomove all helping pages
+            var _navigation = Application.Current.MainPage.Navigation;
+            string[] helperNames = new string[] {"BSOInventoryLineEdit", "BSOInventoryLines"};
+            foreach(var helperName in helperNames)
+            {
+                var item = _navigation.NavigationStack.Where(c=> c.GetType().Name.Contains(helperName)).FirstOrDefault();
+                if(item!= null)
+                    _navigation.RemovePage(item);
+            }
         }
 
         async void TBItemRefresh_Clicked(object sender, EventArgs e)

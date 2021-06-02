@@ -18,6 +18,8 @@ namespace gip.vb.mobile.Views
     {
         InventoryLinesModel _ViewModel;
 
+
+        #region ctor's
         public BSOInventoryLines()
         {
             _ViewModel = new InventoryLinesModel();
@@ -30,39 +32,36 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             _ViewModel.Title = AppStrings.Inv_OpenPositions;
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-
-            if (_ViewModel.OpenLines == null || !_ViewModel.OpenLines.Any())
-                _ViewModel.GetOpenLinesCommand.Execute(null);
-            
+            _ViewModel.GetOpenLinesCommand.Execute(null);
             this.PageState = PageStateEnum.View;
         }
 
+        #endregion
+
         #region Event handlers
-
-
 
         async void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
             await _ViewModel.ExecuteGetOpenLines();
         }
 
-        #endregion
-
         private async void lstOpenLines_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             FacilityInventoryPos inventoryPos = e.Item as FacilityInventoryPos;
             if (inventoryPos == null)
                 return;
+
             _ViewModel.SelectedLine = inventoryPos;
             _ViewModel.InventoryNavArgument.SelectedInventoryLine = _ViewModel.SelectedLine;
-            await Navigation.PushAsync(
-                new BSOInventoryLineEdit()
+
+
+            await Navigation.PushAsync(new BSOInventoryLineEdit()
+            {
+                NavParam = new NavParameter(PageStateEnum.View)
                 {
-                    NavParam = new NavParameter(PageStateEnum.View)
-                    {
-                        Arguments = _ViewModel.InventoryNavArgument
-                    }
-                });
+                    Arguments = _ViewModel.InventoryNavArgument
+                }
+            });
         }
 
         private void lstOpenLines_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -72,5 +71,9 @@ namespace gip.vb.mobile.Views
                 return;
             _ViewModel.SelectedLine = inventoryPos;
         }
+
+        #endregion
+
+
     }
 }

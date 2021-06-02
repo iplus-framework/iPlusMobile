@@ -36,11 +36,13 @@ namespace gip.vb.mobile.Views
             if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
             {
                 _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
+                _ViewModel.WriteNewStockQuantity();
                 _ViewModel.IsEditPanelVisible = true;
             }
         }
 
         #endregion
+
 
         #region Event
 
@@ -83,27 +85,28 @@ namespace gip.vb.mobile.Views
             if (succes)
             {
                 CleanUpForm();
-            }
-            switch (_ViewModel.InventoryNavArgument.EditMode)
-            {
-                case EditModeEnum.GoAndCount:
-                    // nothing stay there
-                    break;
-                case EditModeEnum.Confirm:
-                    // back to list
-                    await Navigation.PushAsync(
-                        new BSOInventoryLines()
-                        {
-                            NavParam = new NavParameter(PageStateEnum.View)
-                            {
-                                Arguments = _ViewModel.InventoryNavArgument
-                            }
-                        });
-                    break;
+                switch (_ViewModel.InventoryNavArgument.EditMode)
+                {
+                    case EditModeEnum.GoAndCount:
+                        // nothing stay there
+                        break;
+                    case EditModeEnum.Confirm:
+                        // back to list
+                        //await Navigation.PushAsync(
+                        //    new BSOInventoryLines()
+                        //    {
+                        //        NavParam = new NavParameter(PageStateEnum.View)
+                        //        {
+                        //            Arguments = _ViewModel.InventoryNavArgument
+                        //        }
+                        //    });
+                        Navigation.RemovePage(this);
+                        break;
+                }
             }
         }
 
-        
+
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)

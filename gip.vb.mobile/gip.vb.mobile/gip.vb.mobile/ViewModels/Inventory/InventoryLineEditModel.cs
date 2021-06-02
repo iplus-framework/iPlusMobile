@@ -246,6 +246,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                         IsEditPanelVisible = true;
                                     }
                                 }
+                                WriteNewStockQuantity();
                             }
                             else
                             {
@@ -255,7 +256,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                     wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
                             }
 
-                             WriteNewStockQuantity();
                         }
                         WSResponse = wSResponse;
                     }

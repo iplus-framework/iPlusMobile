@@ -102,7 +102,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             mdFacilityInventoryPosStateIndex.ToString(),
                             null,
                             null,
-                            InventoryNavArgument.IsValidateAndComplete.ToString()
+                            (!InventoryNavArgument.IsValidateAndComplete).ToString()
                      );
                     OpenLines = wSResponse.Data;
                     if (OpenLines != null && OpenLines.Any())
