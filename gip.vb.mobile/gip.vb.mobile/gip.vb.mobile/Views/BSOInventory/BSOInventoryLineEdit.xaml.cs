@@ -36,8 +36,7 @@ namespace gip.vb.mobile.Views
             if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
             {
                 _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
-                WriteNewStockQuantity();
-                spEditor.IsVisible = true;
+                _ViewModel.IsEditPanelVisible = true;
             }
         }
 
@@ -56,7 +55,7 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.InputCode = "";
             _ViewModel.SelectedInventoryLine = null;
-            spEditor.IsVisible = false;
+            _ViewModel.IsEditPanelVisible = false;
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                 _ViewModel.Title = AppStrings.Inv_EditLineS;
         }
@@ -68,10 +67,7 @@ namespace gip.vb.mobile.Views
                 switch (_ViewModel.InventoryNavArgument.EditMode)
                 {
                     case EditModeEnum.GoAndCount:
-
                         await _ViewModel.ExecuteGetFacilityInventorySearchCharge(EditModeEnum.GoAndCount);
-                        if (_ViewModel.IsChargeEditCommandVisible)
-                            WriteNewStockQuantity();
                         break;
                     case EditModeEnum.Confirm:
                         await _ViewModel.ExecuteGetFacilityInventorySearchCharge(EditModeEnum.Confirm);
@@ -107,13 +103,7 @@ namespace gip.vb.mobile.Views
             }
         }
 
-        public void WriteNewStockQuantity()
-        {
-            if (_ViewModel.SelectedInventoryLine != null
-                                && !_ViewModel.SelectedInventoryLine.NotAvailable
-                                && _ViewModel.SelectedInventoryLine.NewStockQuantity == null)
-                _ViewModel.SelectedInventoryLine.NewStockQuantity = _ViewModel.SelectedInventoryLine.StockQuantity;
-        }
+        
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)

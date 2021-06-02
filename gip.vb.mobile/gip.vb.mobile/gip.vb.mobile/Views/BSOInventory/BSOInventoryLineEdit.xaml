@@ -55,7 +55,7 @@
                 </Entry.Behaviors>
             </ctl:NumericEntry>
             <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
-            <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" VerticalOptions="FillAndExpand" Keyboard="Chat"/>
+            <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" HorizontalOptions="FillAndExpand" MinimumHeightRequest="150" />
             <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
         </StackLayout>
     </StackLayout>

@@ -255,6 +255,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                     wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
                             }
 
+                             WriteNewStockQuantity();
                         }
                         WSResponse = wSResponse;
                     }
@@ -307,6 +308,16 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
+        #endregion
+
+        #region Other methods
+        public void WriteNewStockQuantity()
+        {
+            if (SelectedInventoryLine != null
+                                && !SelectedInventoryLine.NotAvailable
+                                && SelectedInventoryLine.NewStockQuantity == null)
+                SelectedInventoryLine.NewStockQuantity = SelectedInventoryLine.StockQuantity;
+        }
         #endregion
     }
 }
