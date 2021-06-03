@@ -19,6 +19,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             // Commands
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
+            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
         }
 
         #endregion
@@ -33,10 +34,29 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Commands
+
         public Command UpdateFacilityInventoryPosCommand { get; set; }
+        public Command LoadBarcodeEntityCommand { get; set; }
+
+
+
         #endregion
 
         #region Parameters
+
+        private bool _ZXingIsScanning;
+        public bool ZXingIsScanning
+        {
+            get
+            {
+                return _ZXingIsScanning;
+            }
+            set
+            {
+                SetProperty(ref _ZXingIsScanning, value);
+                OnPropertyChanged();
+            }
+        }
 
         public InventoryNavArgument InventoryNavArgument { get; set; }
 
@@ -76,22 +96,19 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
-
-
-
         #endregion
 
         #region Models
-        private string _InputCode;
-        public string InputCode
+        private string _CurrentBarcode;
+        public string CurrentBarcode
         {
             get
             {
-                return _InputCode;
+                return _CurrentBarcode;
             }
             set
             {
-                SetProperty(ref _InputCode, value);
+                SetProperty(ref _CurrentBarcode, value);
             }
         }
 
@@ -146,6 +163,29 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 SetProperty(ref _IsChargeEditCommandVisible, value);
             }
         }
+
+        public List<object> _CurrentBarcodeEntity;
+        public List<object> CurrentBarcodeEntity
+        {
+            get
+            {
+                return _CurrentBarcodeEntity;
+            }
+            set
+            {
+                SetProperty(ref _CurrentBarcodeEntity, value);
+            }
+        }
+        public FacilityCharge CurrentFacilityCharge
+        {
+            get
+            {
+                if (CurrentBarcodeEntity == null || !CurrentBarcodeEntity.Any())
+                    return null;
+                return CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -193,7 +233,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
-        public async Task<bool> ExecuteGetFacilityInventorySearchCharge(EditModeEnum editMode)
+        public async Task<bool> ExecuteGetFacilityInventorySearchCharge(EditModeEnum editMode, string facilityChargeID)
         {
             bool success = false;
             Message = null;
@@ -202,10 +242,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsBusy = true;
                 try
                 {
-                    if (InputCode != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, InputCode);
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, facilityChargeID);
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();
@@ -250,8 +290,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             }
                             else
                             {
-                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != new Guid(InputCode))
-                                    wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, InputCode, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
+                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != CurrentFacilityCharge.FacilityChargeID)
+                                    wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, CurrentFacilityCharge.FacilityChargeID, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
                                 else
                                     wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
                             }
@@ -281,9 +321,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsBusy = true;
                 try
                 {
-                    if (InputCode != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
-                        WSResponse<FacilityInventoryPos> wSResponse = await _WebService.SetFacilityInventoryChargeAvailable(InventoryNavArgument.FacilityInventoryNo, InputCode);
+                        WSResponse<FacilityInventoryPos> wSResponse = await _WebService.SetFacilityInventoryChargeAvailable(InventoryNavArgument.FacilityInventoryNo, CurrentFacilityCharge.FacilityChargeID.ToString());
                         WSResponse = wSResponse;
                         success = wSResponse.Suceeded;
                         if (success)
@@ -306,6 +346,32 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 }
             }
             return success;
+        }
+
+        public async Task ExecuteLoadBarcodeEntityCommand()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
+                this.WSResponse = response;
+                if (response.Suceeded)
+                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+                else
+                    CurrentBarcodeEntity = new List<object>();
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         #endregion
