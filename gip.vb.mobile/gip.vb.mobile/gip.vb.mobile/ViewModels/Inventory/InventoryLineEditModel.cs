@@ -18,8 +18,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryLineEditModel()
         {
             // Commands
+            BarcodeScannerModel = new BarcodeScannerModel();
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
         }
 
         #endregion
@@ -36,27 +36,12 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #region Commands
 
         public Command UpdateFacilityInventoryPosCommand { get; set; }
-        public Command LoadBarcodeEntityCommand { get; set; }
-
-
 
         #endregion
 
         #region Parameters
 
-        private bool _ZXingIsScanning;
-        public bool ZXingIsScanning
-        {
-            get
-            {
-                return _ZXingIsScanning;
-            }
-            set
-            {
-                SetProperty(ref _ZXingIsScanning, value);
-                OnPropertyChanged();
-            }
-        }
+        public BarcodeScannerModel BarcodeScannerModel { get; set; }
 
         public InventoryNavArgument InventoryNavArgument { get; set; }
 
@@ -96,21 +81,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
-        #endregion
-
-        #region Models
-        private string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
 
         private bool _IsEditPanelVisible;
         public bool IsEditPanelVisible
@@ -164,25 +134,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
-        public List<object> _CurrentBarcodeEntity;
-        public List<object> CurrentBarcodeEntity
-        {
-            get
-            {
-                return _CurrentBarcodeEntity;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
         public FacilityCharge CurrentFacilityCharge
         {
             get
             {
-                if (CurrentBarcodeEntity == null || !CurrentBarcodeEntity.Any())
+                if (BarcodeScannerModel.CurrentBarcodeEntity == null || !BarcodeScannerModel.CurrentBarcodeEntity.Any())
                     return null;
-                return CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
+                return BarcodeScannerModel.CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
             }
         }
 
@@ -346,32 +304,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 }
             }
             return success;
-        }
-
-        public async Task ExecuteLoadBarcodeEntityCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-                this.WSResponse = response;
-                if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-                else
-                    CurrentBarcodeEntity = new List<object>();
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         #endregion
