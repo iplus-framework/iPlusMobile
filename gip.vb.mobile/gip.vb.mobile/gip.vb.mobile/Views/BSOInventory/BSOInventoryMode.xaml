@@ -17,6 +17,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
+        <v:BarcodeScanner x:Name="barcodeScanner" OnCleanUpForm="barcodeScanner_OnCleanUpForm" OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" OnTextChanged="BarcodeSearchBar_TextChanged"/>
         <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
         <StackLayout Orientation="Horizontal">
             <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />

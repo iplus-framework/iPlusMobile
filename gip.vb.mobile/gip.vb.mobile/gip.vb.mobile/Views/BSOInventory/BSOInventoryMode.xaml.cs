@@ -34,11 +34,11 @@ namespace gip.vb.mobile.Views
 
             // Reomove all helping pages
             var _navigation = Application.Current.MainPage.Navigation;
-            string[] helperNames = new string[] {"BSOInventoryLineEdit", "BSOInventoryLines"};
-            foreach(var helperName in helperNames)
+            string[] helperNames = new string[] { "BSOInventoryLineEdit", "BSOInventoryLines" };
+            foreach (var helperName in helperNames)
             {
-                var item = _navigation.NavigationStack.Where(c=> c.GetType().Name.Contains(helperName)).FirstOrDefault();
-                if(item!= null)
+                var item = _navigation.NavigationStack.Where(c => c.GetType().Name.Contains(helperName)).FirstOrDefault();
+                if (item != null)
                     _navigation.RemovePage(item);
             }
         }
@@ -95,6 +95,21 @@ namespace gip.vb.mobile.Views
         private void cmdClearFacility_Clicked(object sender, EventArgs e)
         {
             _ViewModel.SelectedFacility = null;
+        }
+
+        private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
+        {
+
+        }
+
+        private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BarcodeSearchBar_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         #endregion

@@ -1,9 +1,11 @@
 ﻿using gip.core.datamodel;
+using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using static gip.mes.datamodel.BarcodeSequenceBase;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -11,9 +13,14 @@ namespace gip.vb.mobile.ViewModels
     {
 
         #region ctor's
-        public BarcodeScannerModel()
+        public BarcodeScannerModel(BarcodeIssuerEnum? barcodeIssuer)
         {
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            LoadInvokeBarcodeSequence = new Command(async () => await ExecuteInvokeBarcodeSequence());
+
+            BarcodeIssuer = barcodeIssuer;
+            if (BarcodeIssuer != null)
+                BarcodeSequence = new BarcodeSequence() { BarcodeIssuer = barcodeIssuer.Value };
         }
 
         #endregion
@@ -30,10 +37,13 @@ namespace gip.vb.mobile.ViewModels
         #region Commands
 
         public Command LoadBarcodeEntityCommand { get; set; }
+        public Command LoadInvokeBarcodeSequence{ get; set; }
 
         #endregion
 
         #region Parameters
+
+        public BarcodeIssuerEnum? BarcodeIssuer { get; private set; }
 
         private bool _ZXingIsScanning;
         public bool ZXingIsScanning
@@ -75,6 +85,20 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+
+        private BarcodeSequence _BarcodeSequence;
+        public BarcodeSequence BarcodeSequence
+        {
+            get
+            {
+                return _BarcodeSequence;
+            }
+            set
+            {
+                SetProperty(ref _BarcodeSequence, value);
+            }
+        }
+
         #endregion
 
         #region Tasks
@@ -103,6 +127,31 @@ namespace gip.vb.mobile.ViewModels
                 IsBusy = false;
             }
         }
+
+        public async Task ExecuteInvokeBarcodeSequence()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                var response = await _WebService.InvokeBarcodeSequenceAsync(BarcodeSequence);
+                this.WSResponse = response;
+                if (response.Suceeded)
+                    BarcodeSequence = response.Data;
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         #endregion
     }
 }

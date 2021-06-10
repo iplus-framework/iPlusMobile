@@ -3,18 +3,16 @@ using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static gip.mes.datamodel.BarcodeSequenceBase;
 
 namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarcodeScanner : ContentView
     {
-        BarcodeScannerModel _ViewModel;
+        public BarcodeScannerModel _ViewModel;
         IBarcodeService _BarcodeService;
         bool _BarcodeServiceSubcribed;
 
@@ -27,7 +25,7 @@ namespace gip.vb.mobile.Views
         public BarcodeScanner()
         {
             InitializeComponent();
-            _ViewModel = new BarcodeScannerModel();
+            _ViewModel = new BarcodeScannerModel(BarcodeIssuer);
             BindingContext = _ViewModel;
         }
 
@@ -51,8 +49,63 @@ namespace gip.vb.mobile.Views
 
         #endregion
 
+        #region Properties
+
+        public static BindableProperty IsEnabledToFetchBarcodeProperty = BindableProperty.Create(
+             propertyName: "IsEnabledToFetchBarcode",
+             returnType: typeof(bool?),
+             declaringType: typeof(ContentView),
+             defaultValue: false,
+             defaultBindingMode: BindingMode.TwoWay,
+             propertyChanged: HandleValuePropertyChanged);
+
+        public bool IsEnabledToFetchBarcode
+        {
+            get
+            {
+                return (bool)base.GetValue(IsEnabledToFetchBarcodeProperty);
+            }
+            set
+            {
+                if (this.IsEnabledToFetchBarcode != value)
+                {
+                    base.SetValue(IsEnabledToFetchBarcodeProperty, value);
+                }
+            }
+        }
+
+
+        public static BindableProperty BarcodeIssuerProperty = BindableProperty.Create(
+             propertyName: "BarcodeIssuer",
+             returnType: typeof(BarcodeIssuerEnum?),
+             declaringType: typeof(ContentView),
+             defaultValue: false,
+             defaultBindingMode: BindingMode.TwoWay,
+             propertyChanged: HandleValuePropertyChanged);
+
+        public BarcodeIssuerEnum? BarcodeIssuer
+        {
+            get
+            {
+                return (BarcodeIssuerEnum?)base.GetValue(BarcodeIssuerProperty);
+            }
+            set
+            {
+                if (this.BarcodeIssuer != value)
+                {
+                    base.SetValue(BarcodeIssuerProperty, value);
+                }
+            }
+        }
+        #endregion
 
         #region Event
+
+        private static void HandleValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            // ----- Someone changed the full control's Value property. Store
+            //       that new value in the internal Switch's IsToggled property.
+        }
 
         private void BtnCloseZXingPanel_Clicked(object sender, EventArgs e)
         {
@@ -159,9 +212,12 @@ namespace gip.vb.mobile.Views
 
         private void SendScanRequest()
         {
-            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
+            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode) && IsEnabledToFetchBarcode)
             {
-                _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+                if (_ViewModel.BarcodeIssuer != null)
+                    _ViewModel.LoadInvokeBarcodeSequence.Execute(null);
+                else
+                    _ViewModel.LoadBarcodeEntityCommand.Execute(null);
             }
         }
 

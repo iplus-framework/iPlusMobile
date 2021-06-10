@@ -137,11 +137,13 @@ namespace gip.vb.mobile.Views
             }
         }
 
-        private void BarcodeSearchBar_TextChanged(object sender, EventArgs e)
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            CleanUpForm();
+            barcodeScanner.CleanUpForm();
+             barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 
         #endregion
+
     }
 }
