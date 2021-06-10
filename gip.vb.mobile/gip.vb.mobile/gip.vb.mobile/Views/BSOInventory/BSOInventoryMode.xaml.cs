@@ -107,14 +107,29 @@ namespace gip.vb.mobile.Views
 
         private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
         {
-            if(barcodeScanner._ViewModel.CurrentBarcodeEntity != null)
+            if (barcodeScanner._ViewModel.CurrentBarcodeEntity != null)
             {
-                 BarcodeEntity barcodeEntity = barcodeScanner._ViewModel.CurrentBarcodeEntity.FirstOrDefault() as BarcodeEntity
+                Facility facility = barcodeScanner._ViewModel.CurrentBarcodeEntity.FirstOrDefault() as Facility;
+                if (facility != null )
+                {
+                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    {
+                        _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c=>c.FacilityNo == facility.FacilityNo);
+                    }
+                    else if(facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    {
+                        _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c=>c.FacilityNo == facility.ParentFacility.FacilityNo);
+                        _ViewModel.SelectedFacility = _ViewModel.Facilities.FirstOrDefault(c=>c.FacilityNo == facility.FacilityNo);
+                    }
+                    barcodeScanner.CleanUpForm();
+                }
+                else
+                    _ViewModel.Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, AppStrings.SelectTargetFacility_Text);
             }
         }
 
         #endregion
 
-        
+
     }
 }

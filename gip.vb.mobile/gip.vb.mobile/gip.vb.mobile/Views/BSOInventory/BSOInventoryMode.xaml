@@ -19,7 +19,7 @@
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <v:BarcodeScanner x:Name="barcodeScanner" OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
+        <v:BarcodeScanner x:Name="barcodeScanner" IsEnabledToFetchBarcode="True"  OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
         <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
         <StackLayout Orientation="Horizontal">
             <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />

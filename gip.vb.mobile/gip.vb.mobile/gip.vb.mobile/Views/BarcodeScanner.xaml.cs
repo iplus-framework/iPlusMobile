@@ -79,7 +79,7 @@ namespace gip.vb.mobile.Views
              propertyName: "BarcodeIssuer",
              returnType: typeof(BarcodeIssuerEnum?),
              declaringType: typeof(ContentView),
-             defaultValue: false,
+             defaultValue: null,
              defaultBindingMode: BindingMode.TwoWay,
              propertyChanged: HandleValuePropertyChanged);
 
@@ -234,6 +234,7 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.CurrentBarcode = null;
             _ViewModel.CurrentBarcodeEntity = null;
+            _ViewModel.IsListVisible = false;
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
         }

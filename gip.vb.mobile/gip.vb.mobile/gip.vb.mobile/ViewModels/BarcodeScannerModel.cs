@@ -37,7 +37,7 @@ namespace gip.vb.mobile.ViewModels
         #region Commands
 
         public Command LoadBarcodeEntityCommand { get; set; }
-        public Command LoadInvokeBarcodeSequence{ get; set; }
+        public Command LoadInvokeBarcodeSequence { get; set; }
 
         #endregion
 
@@ -69,6 +69,19 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _CurrentBarcode, value);
+            }
+        }
+
+        public bool _IsListVisible;
+        public bool IsListVisible
+        {
+            get
+            {
+                return _IsListVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsListVisible, value);
             }
         }
 
@@ -108,13 +121,16 @@ namespace gip.vb.mobile.ViewModels
                 return;
 
             IsBusy = true;
-
+            IsListVisible = false;
             try
             {
                 var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
                 this.WSResponse = response;
                 if (response.Suceeded)
+                {
                     CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+                    IsListVisible = true;
+                }
                 else
                     CurrentBarcodeEntity = new List<object>();
             }
@@ -137,10 +153,17 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
+                IsListVisible = false;
+                CurrentBarcodeEntity = new List<object>();
                 var response = await _WebService.InvokeBarcodeSequenceAsync(BarcodeSequence);
                 this.WSResponse = response;
                 if (response.Suceeded)
+                {
+                    IsListVisible = true;
                     BarcodeSequence = response.Data;
+                    foreach (BarcodeEntity item in BarcodeSequence.Sequence)
+                        CurrentBarcodeEntity.Add(item.ValidEntity);
+                }
             }
             catch (Exception ex)
             {
