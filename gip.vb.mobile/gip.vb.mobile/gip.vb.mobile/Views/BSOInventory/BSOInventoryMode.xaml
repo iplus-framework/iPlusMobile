@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Class="gip.vb.mobile.Views.BSOInventoryMode"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
@@ -13,11 +14,12 @@
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
-        </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png" />
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
-        <v:BarcodeScanner x:Name="barcodeScanner" OnCleanUpForm="barcodeScanner_OnCleanUpForm" OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" OnTextChanged="BarcodeSearchBar_TextChanged"/>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <v:BarcodeScanner x:Name="barcodeScanner" OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
         <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
         <StackLayout Orientation="Horizontal">
             <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />

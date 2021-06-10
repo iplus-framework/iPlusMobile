@@ -1,5 +1,6 @@
 ﻿using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.datamodel;
 using gip.mes.webservices;
 using gip.vb.mobile.Strings;
 using System;
@@ -18,7 +19,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryLineEditModel()
         {
             // Commands
-            BarcodeScannerModel = new BarcodeScannerModel();
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
         }
 

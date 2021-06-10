@@ -1,4 +1,5 @@
-﻿using gip.vb.mobile.Strings;
+﻿using gip.mes.webservices;
+using gip.vb.mobile.Strings;
 using gip.vb.mobile.ViewModels.Inventory;
 using System;
 using System.Collections.Generic;
@@ -97,23 +98,23 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedFacility = null;
         }
 
-        private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
-        {
 
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            barcodeScanner.CleanUpForm();
+            barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 
         private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
         {
-
-        }
-
-        private void BarcodeSearchBar_TextChanged(object sender, EventArgs e)
-        {
-
+            if(barcodeScanner._ViewModel.CurrentBarcodeEntity != null)
+            {
+                 BarcodeEntity barcodeEntity = barcodeScanner._ViewModel.CurrentBarcodeEntity.FirstOrDefault() as BarcodeEntity
+            }
         }
 
         #endregion
 
-
+        
     }
 }

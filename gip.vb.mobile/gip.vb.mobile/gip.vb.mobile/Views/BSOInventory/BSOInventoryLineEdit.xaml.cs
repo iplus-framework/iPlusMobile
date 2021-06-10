@@ -18,8 +18,6 @@ namespace gip.vb.mobile.Views
     public partial class BSOInventoryLineEdit : BSOPageBase
     {
         InventoryLineEditModel _ViewModel;
-        IBarcodeService _BarcodeService;
-        bool _BarcodeServiceSubcribed;
 
         #region ctor's
         public BSOInventoryLineEdit()
