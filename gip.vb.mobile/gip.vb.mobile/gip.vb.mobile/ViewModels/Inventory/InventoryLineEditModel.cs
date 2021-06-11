@@ -171,7 +171,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
             {
                 if (BarcodeScannerModel.CurrentBarcodeEntity == null || !BarcodeScannerModel.CurrentBarcodeEntity.Any())
                     return null;
-                return BarcodeScannerModel.CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
+                return
+                 BarcodeScannerModel
+                        .BarcodeSequence
+                        .Sequence
+                        .Where(c => c.FacilityCharge != null)
+                        .Select(c => c.FacilityCharge)
+                        .FirstOrDefault();
             }
         }
 
@@ -229,20 +235,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public async Task<bool> ExecuteGetFacilityInventorySearchCharge()
         {
             bool success = false;
-            string facilityChargeID = null;
-            if(BarcodeScannerModel.BarcodeSequence != null)
-            {
-                if(BarcodeScannerModel.BarcodeSequence.Sequence.Any(c=> c.FacilityCharge != null))
-                    facilityChargeID = 
-                        BarcodeScannerModel
-                        .BarcodeSequence
-                        .Sequence
-                        .Where(c=>c.FacilityCharge != null)
-                        .Select(c=>c.FacilityCharge.FacilityChargeID.ToString())
-                        .FirstOrDefault();
-            }
             Message = null;
-            if (!IsBusy && !string.IsNullOrEmpty(facilityChargeID))
+            if (!IsBusy)
             {
                 IsBusy = true;
                 try
@@ -250,7 +244,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, facilityChargeID);
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();

@@ -234,6 +234,7 @@ namespace gip.vb.mobile.ViewModels
                         CurrentBarcodeEntity = null;
                         List<object> barcodeEntryTemp = new List<object>();
                         BarcodeSequence.CurrentBarcode = CurrentBarcode;
+                        BarcodeSequence.Message = null;
                         var response = await _WebService.InvokeBarcodeSequenceAsync(BarcodeSequence);
                         WSResponse = response;
                         if (response.Suceeded && response.Data != null)

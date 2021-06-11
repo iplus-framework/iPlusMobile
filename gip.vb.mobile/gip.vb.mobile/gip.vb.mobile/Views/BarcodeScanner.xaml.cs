@@ -265,28 +265,6 @@ namespace gip.vb.mobile.Views
         }
 
         /// <summary>
-        /// Select camera scan and 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
-        {
-            Clear();
-            _ViewModel.ZXingIsScanning = true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnOpenZXingPanel_Clicked(object sender, EventArgs e)
-        {
-            Clear();
-            _ViewModel.ZXingIsScanning = true;
-        }
-
-        /// <summary>
         /// For selected code obitain result from server: BarcodeEntity or BarcodeSequence
         /// </summary>
         private void SendScanRequest()

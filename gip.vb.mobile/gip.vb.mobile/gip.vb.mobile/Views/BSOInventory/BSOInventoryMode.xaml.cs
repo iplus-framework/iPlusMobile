@@ -159,7 +159,6 @@ namespace gip.vb.mobile.Views
         /// <param name="e"></param>
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner.Clear();
             barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 

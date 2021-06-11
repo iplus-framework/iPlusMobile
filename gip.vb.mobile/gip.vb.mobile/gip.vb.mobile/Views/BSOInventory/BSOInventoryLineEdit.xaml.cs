@@ -59,7 +59,7 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.CleanUpForm();
                 switch (_ViewModel.InventoryNavArgument.EditMode)
-                {
+barcodeScanner_OnSendSelectedCode{
                     case EditModeEnum.GoAndCount:
                         // nothing stay there
                         break;
@@ -84,22 +84,9 @@ namespace gip.vb.mobile.Views
             _ViewModel.IsEditPanelVisible = true;
         }
 
-        private void BarcodeSearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(e.NewTextValue) && _ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
-            {
-                _ViewModel.HideChargeCommandPanel();
-                _ViewModel.IsEditPanelVisible = false;
-            }
-        }
-
         #endregion
 
         #region Barcode Scanner events
-        private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
-        {
-            _ViewModel.CleanUpForm();
-        }
 
         private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
         {
@@ -108,8 +95,7 @@ namespace gip.vb.mobile.Views
 
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner.Clear();
-             barcodeScanner._ViewModel.ZXingIsScanning = true;
+            barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 
         #endregion
