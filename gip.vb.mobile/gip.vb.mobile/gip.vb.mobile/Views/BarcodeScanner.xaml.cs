@@ -12,35 +12,47 @@ namespace gip.vb.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarcodeScanner : ContentView
     {
+        #region DI
         public BarcodeScannerModel _ViewModel;
         IBarcodeService _BarcodeService;
         bool _BarcodeServiceSubcribed;
+        #endregion
+
+        #region events
 
         public event EventHandler OnSendSelectedCode;
         public event EventHandler OnCleanUpForm;
         public event EventHandler OnTextChanged;
 
+        #endregion
 
         #region ctor's
+
         public BarcodeScanner()
         {
             InitializeComponent();
-            _ViewModel = new BarcodeScannerModel(BarcodeIssuer);
+            _ViewModel = new BarcodeScannerModel();
             BindingContext = _ViewModel;
         }
-
-
 
         #endregion
 
         #region Lifecycle
 
+
+        /// <summary>
+        /// OnAppearing - Call in same method name in hosting page
+        /// </summary>
         public void OnAppearing()
         {
             InitZXing();
             SubcribeToBarcodeService();
+            _ViewModel.BarcodeIssuer = BarcodeIssuer;
         }
 
+        /// <summary>
+        /// OnDisappearing - Call in same method name in hosting page
+        /// </summary>
         public void OnDisappearing()
         {
             UnSubcribeToBarcodeService();
@@ -59,6 +71,9 @@ namespace gip.vb.mobile.Views
              defaultBindingMode: BindingMode.TwoWay,
              propertyChanged: HandleValuePropertyChanged);
 
+        /// <summary>
+        /// Option to disable barcode scanner
+        /// </summary>
         public bool IsEnabledToFetchBarcode
         {
             get
@@ -82,7 +97,9 @@ namespace gip.vb.mobile.Views
              defaultValue: null,
              defaultBindingMode: BindingMode.TwoWay,
              propertyChanged: HandleValuePropertyChanged);
-
+        /// <summary>
+        /// Setup for usage in barcode sequence mode - setup issuer type to
+        /// </summary>
         public BarcodeIssuerEnum? BarcodeIssuer
         {
             get
@@ -101,31 +118,63 @@ namespace gip.vb.mobile.Views
 
         #region Event
 
+        /// <summary>
+        /// Additional handling property changes
+        /// </summary>
+        /// <param name="bindable"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
         private static void HandleValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             // ----- Someone changed the full control's Value property. Store
             //       that new value in the internal Switch's IsToggled property.
         }
 
+        /// <summary>
+        /// ZXing panel hide on finish
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCloseZXingPanel_Clicked(object sender, EventArgs e)
         {
             _ViewModel.ZXingIsScanning = false;
         }
 
+        /// <summary>
+        /// Hanlde select some from barcode obtained item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BarcodeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Select some item and call SendSelectedCode()
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             SendSelectedCode();
         }
 
+        /// <summary>
+        /// On search call server side to return result
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
             SendScanRequest();
         }
+
+        /// <summary>
+        /// observe text changed event in search bar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BarcodeSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OnTextChanged != null)
@@ -136,6 +185,9 @@ namespace gip.vb.mobile.Views
 
         #region ZXing
 
+        /// <summary>
+        /// setub ZXing scanner
+        /// </summary>
         private void InitZXing()
         {
             if (scanView.Options != null)
@@ -155,12 +207,20 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        /// <summary>
+        /// event select camera resolution - use higest available
+        /// </summary>
+        /// <param name="availableResolutions"></param>
+        /// <returns></returns>
         ZXing.Mobile.CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
         {
             var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
             return highestResolution;
         }
 
+        /// <summary>
+        /// Subscribe to barcode service
+        /// </summary>
         private void SubcribeToBarcodeService()
         {
             if (_BarcodeService == null)
@@ -172,6 +232,9 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        /// <summary>
+        /// Unsubscribe to barcode service
+        /// </summary>
         private void UnSubcribeToBarcodeService()
         {
             if (_BarcodeService != null && _BarcodeServiceSubcribed)
@@ -190,6 +253,10 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        /// <summary>
+        /// handle returned code from barcoode service 
+        /// </summary>
+        /// <param name="result"></param>
         private void scanView_OnScanResult(ZXing.Result result)
         {
             _ViewModel.CurrentBarcode = result.Text;
@@ -197,19 +264,31 @@ namespace gip.vb.mobile.Views
             SendScanRequest();
         }
 
+        /// <summary>
+        /// Select camera scan and 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            CleanUpForm();
+            Clear();
             _ViewModel.ZXingIsScanning = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnOpenZXingPanel_Clicked(object sender, EventArgs e)
         {
-            CleanUpForm();
+            Clear();
             _ViewModel.ZXingIsScanning = true;
         }
 
-
+        /// <summary>
+        /// For selected code obitain result from server: BarcodeEntity or BarcodeSequence
+        /// </summary>
         private void SendScanRequest()
         {
             if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode) && IsEnabledToFetchBarcode)
@@ -221,6 +300,9 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        /// <summary>
+        /// Send request is BarcodeEntity object selected to parent level
+        /// </summary>
         public async void SendSelectedCode()
         {
             if (OnSendSelectedCode != null)
@@ -230,15 +312,18 @@ namespace gip.vb.mobile.Views
         #endregion
 
         #region Methods
-        public void CleanUpForm()
+
+        /// <summary>
+        /// Clean up forms and prepare for next usage
+        /// </summary>
+        public void Clear()
         {
-            _ViewModel.CurrentBarcode = null;
-            _ViewModel.CurrentBarcodeEntity = null;
-            _ViewModel.IsListVisible = false;
+            _ViewModel.Clean();
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
         }
         #endregion
+
 
 
     }

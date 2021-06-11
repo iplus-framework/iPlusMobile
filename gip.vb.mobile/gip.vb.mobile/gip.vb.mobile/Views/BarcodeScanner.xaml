@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
@@ -15,6 +16,7 @@
         <Grid>
             <ScrollView x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
                 <StackLayout>
+                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                     <SearchBar 
                         x:Name="BarcodeSearchBar" 
                         Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 

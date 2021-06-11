@@ -1,6 +1,5 @@
 ﻿using gip.core.autocomponent;
 using gip.core.datamodel;
-using gip.mes.datamodel;
 using gip.mes.webservices;
 using gip.vb.mobile.Strings;
 using System;
@@ -20,6 +19,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             // Commands
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
+            GetFacilityInventorySearchChargeCommand = new Command(async () => await ExecuteGetFacilityInventorySearchCharge());
+            SetFacilityInventoryChargeAvailableCommand = new Command(async () => await ExecuteSetFacilityInventoryChargeAvailable());
         }
 
         #endregion
@@ -35,17 +36,40 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Commands
 
+        /// <summary>
+        /// Update facility inventory line command
+        /// </summary>
         public Command UpdateFacilityInventoryPosCommand { get; set; }
+
+        public Command GetFacilityInventorySearchChargeCommand { get; set; }
+        public Command SetFacilityInventoryChargeAvailableCommand { get; set; }
+
+        // ExecuteGetFacilityInventorySearchCharge
+
+        // ExecuteSetFacilityInventoryChargeAvailable
+
 
         #endregion
 
-        #region Parameters
+        #region Properties
 
-        public BarcodeScannerModel BarcodeScannerModel { get; set; }
-
+        /// <summary>
+        /// Inventory navigation argument
+        /// </summary>
         public InventoryNavArgument InventoryNavArgument { get; set; }
 
+        /// <summary>
+        /// Copy barcode scanner model of use in Inventory line edit model
+        /// </summary>
+        public BarcodeScannerModel BarcodeScannerModel { get; set; }
+
+
+        #region Properties -> SelectedInventoryLine (and property change handle)
+
         private FacilityInventoryPos _SelectedInventoryLine;
+        /// <summary>
+        /// Selected Inventory line
+        /// </summary>
         public FacilityInventoryPos SelectedInventoryLine
         {
             get
@@ -81,7 +105,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
+        #endregion
 
+        #region Properties -> Visibility properties
         private bool _IsEditPanelVisible;
         public bool IsEditPanelVisible
         {
@@ -134,6 +160,11 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Parse FacilityCharge from 
+        /// </summary>
         public FacilityCharge CurrentFacilityCharge
         {
             get
@@ -148,6 +179,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Methods
 
+        /// <summary>
+        /// Hide  charge command panel and 
+        /// command buttons there
+        /// </summary>
         public void HideChargeCommandPanel()
         {
             IsChargeCommandPanelVisible = false;
@@ -191,11 +226,23 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
-        public async Task<bool> ExecuteGetFacilityInventorySearchCharge(EditModeEnum editMode, string facilityChargeID)
+        public async Task<bool> ExecuteGetFacilityInventorySearchCharge()
         {
             bool success = false;
+            string facilityChargeID = null;
+            if(BarcodeScannerModel.BarcodeSequence != null)
+            {
+                if(BarcodeScannerModel.BarcodeSequence.Sequence.Any(c=> c.FacilityCharge != null))
+                    facilityChargeID = 
+                        BarcodeScannerModel
+                        .BarcodeSequence
+                        .Sequence
+                        .Where(c=>c.FacilityCharge != null)
+                        .Select(c=>c.FacilityCharge.FacilityChargeID.ToString())
+                        .FirstOrDefault();
+            }
             Message = null;
-            if (!IsBusy)
+            if (!IsBusy && !string.IsNullOrEmpty(facilityChargeID))
             {
                 IsBusy = true;
                 try
@@ -207,12 +254,12 @@ namespace gip.vb.mobile.ViewModels.Inventory
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();
-                        IsEditPanelVisible = editMode == EditModeEnum.Confirm;
+                        IsEditPanelVisible = InventoryNavArgument.EditMode == EditModeEnum.Confirm;
 
                         if (success)
                         {
                             List<FacilityChargeStateEnum> responseStates = wSResponse.Data.States;
-                            if (editMode == EditModeEnum.GoAndCount)
+                            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                             {
                                 Title = AppStrings.Inv_EditLine;
 
@@ -246,7 +293,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                 }
                                 WriteNewStockQuantity();
                             }
-                            else
+                            else if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
                             {
                                 if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != CurrentFacilityCharge.FacilityChargeID)
                                     wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, CurrentFacilityCharge.FacilityChargeID, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
@@ -309,12 +356,38 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Other methods
+
+        public void CleanUpForm()
+        {
+            SelectedInventoryLine = null;
+            IsEditPanelVisible = false;
+            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                Title = AppStrings.Inv_EditLineS;
+        }
+
+        /// <summary>
+        /// Copy new stock quantity from selected line Stock Quantity
+        /// </summary>
         public void WriteNewStockQuantity()
         {
             if (SelectedInventoryLine != null
                                 && !SelectedInventoryLine.NotAvailable
                                 && SelectedInventoryLine.NewStockQuantity == null)
                 SelectedInventoryLine.NewStockQuantity = SelectedInventoryLine.StockQuantity;
+        }
+
+        public void Start()
+        {
+            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                Title = AppStrings.Inv_EditLineS;
+            else
+                Title = AppStrings.Inv_EditLine;
+            if (InventoryNavArgument.SelectedInventoryLine != null)
+            {
+                SelectedInventoryLine = InventoryNavArgument.SelectedInventoryLine;
+                WriteNewStockQuantity();
+                IsEditPanelVisible = true;
+            }
         }
         #endregion
     }

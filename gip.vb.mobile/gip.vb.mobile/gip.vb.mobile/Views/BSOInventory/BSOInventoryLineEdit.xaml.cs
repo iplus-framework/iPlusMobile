@@ -25,7 +25,6 @@ namespace gip.vb.mobile.Views
             _ViewModel = new InventoryLineEditModel();
             BindingContext = _ViewModel;
             InitializeComponent();
-            _ViewModel.BarcodeScannerModel = barcodeScanner.BindingContext as BarcodeScannerModel;
         }
 
         protected override void OnAppearing()
@@ -33,16 +32,8 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
-                _ViewModel.Title = AppStrings.Inv_EditLineS;
-            else
-                _ViewModel.Title = AppStrings.Inv_EditLine;
-            if (_ViewModel.InventoryNavArgument.SelectedInventoryLine != null)
-            {
-                _ViewModel.SelectedInventoryLine = _ViewModel.InventoryNavArgument.SelectedInventoryLine;
-                _ViewModel.WriteNewStockQuantity();
-                _ViewModel.IsEditPanelVisible = true;
-            }
+            _ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
+            _ViewModel.Start();
         }
 
         protected override void OnDisappearing()
@@ -53,30 +44,20 @@ namespace gip.vb.mobile.Views
 
         #endregion
 
-
-
         #region Event
 
         private void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
-                CleanUpForm();
+                _ViewModel.CleanUpForm();
         }
 
-        public void CleanUpForm()
+        private void cmdUpdate_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.SelectedInventoryLine = null;
-            _ViewModel.IsEditPanelVisible = false;
-            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
-                _ViewModel.Title = AppStrings.Inv_EditLineS;
-        }
-
-        private async void cmdUpdate_Clicked(object sender, EventArgs e)
-        {
-            bool succes = await _ViewModel.ExecuteUpdateFacilityInventoryPosAsync();
-            if (succes)
+            _ViewModel.UpdateFacilityInventoryPosCommand.Execute(null);
+            if (_ViewModel.WSResponse.Suceeded)
             {
-                CleanUpForm();
+                _ViewModel.CleanUpForm();
                 switch (_ViewModel.InventoryNavArgument.EditMode)
                 {
                     case EditModeEnum.GoAndCount:
@@ -98,11 +79,6 @@ namespace gip.vb.mobile.Views
             }
         }
 
-        private async void cmdQuantAdd_Clicked(object sender, EventArgs e)
-        {
-            await _ViewModel.ExecuteSetFacilityInventoryChargeAvailable();
-        }
-
         private void cmdQuantEditAgain_Clicked(object sender, EventArgs e)
         {
             _ViewModel.IsEditPanelVisible = true;
@@ -122,22 +98,17 @@ namespace gip.vb.mobile.Views
         #region Barcode Scanner events
         private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
         {
-            CleanUpForm();
+            _ViewModel.CleanUpForm();
         }
 
-        private async void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
+        private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
         {
-            if (_ViewModel.BarcodeScannerModel.CurrentBarcodeEntity != null && _ViewModel.BarcodeScannerModel.CurrentBarcodeEntity.Any())
-            {
-                FacilityCharge fc = _ViewModel.BarcodeScannerModel.CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
-                if (fc != null)
-                    await _ViewModel.ExecuteGetFacilityInventorySearchCharge(EditModeEnum.GoAndCount, fc.FacilityChargeID.ToString());
-            }
+            _ViewModel.GetFacilityInventorySearchChargeCommand.Execute(null);
         }
 
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner.CleanUpForm();
+            barcodeScanner.Clear();
              barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 

@@ -26,10 +26,13 @@
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <!--<SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" TextChanged="BarcodeSearchBar_TextChanged" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>-->
-        <v:BarcodeScanner x:Name="barcodeScanner" OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
+        <v:BarcodeScanner 
+            x:Name="barcodeScanner" 
+            IsEnabledToFetchBarcode="True"
+            BarcodeIssuer="Inventory"
+            OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
         <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
-            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Clicked="cmdQuantAdd_Clicked" IsVisible="{Binding IsChargeAddCommandVisible}"/>
+            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
             <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
         </StackLayout>
         <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">
