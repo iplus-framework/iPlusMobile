@@ -190,7 +190,7 @@ namespace gip.vb.mobile.Views
                         _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.ParentFacility.FacilityNo);
                         _ViewModel.SelectedFacility = _ViewModel.Facilities.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
                     }
-                    barcodeScanner.Clear();
+                    barcodeScanner.Clean();
                 }
                 else
                     _ViewModel.Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, AppStrings.SelectedBarcodeEntityNotValidFacility_Text);

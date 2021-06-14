@@ -191,7 +191,7 @@ namespace gip.vb.mobile.ViewModels
                 {
                     var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
                     this.WSResponse = response;
-                    if (response.Suceeded)
+                    if (response.Suceeded && response.Data != null)
                     {
                         CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
                         IsListVisible = true;
@@ -231,7 +231,6 @@ namespace gip.vb.mobile.ViewModels
                        )
                     {
                         IsListVisible = false;
-                        CurrentBarcodeEntity = null;
                         List<object> barcodeEntryTemp = new List<object>();
                         BarcodeSequence.CurrentBarcode = CurrentBarcode;
                         BarcodeSequence.Message = null;
@@ -240,10 +239,7 @@ namespace gip.vb.mobile.ViewModels
                         if (response.Suceeded && response.Data != null)
                         {
                             BarcodeSequence = response.Data;
-                            if (BarcodeSequence.Sequence != null)
-                                foreach (BarcodeEntity item in BarcodeSequence.Sequence)
-                                    barcodeEntryTemp.Add(item.ValidEntity);
-                            CurrentBarcodeEntity = barcodeEntryTemp;
+                            CurrentBarcodeEntity = response.Data.Sequence.Select(c => c.ValidEntity).DefaultIfEmpty().ToList();
                             Message = response.Data.Message; // now use sequence related message
                             IsListVisible = true;
                         }
@@ -278,6 +274,30 @@ namespace gip.vb.mobile.ViewModels
             BarcodeSequence = null;
             if (BarcodeIssuer != null)
                 BarcodeSequence = new BarcodeSequence() { BarcodeIssuer = BarcodeIssuer.Value };
+        }
+
+        public void AddToCurrentBarcodeEntity(object validEntity)
+        {
+            List<object> entityList = new List<object>();
+            if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Any())
+                foreach (var item in CurrentBarcodeEntity)
+                    entityList.Add(item);
+            entityList.Add(validEntity);
+            CurrentBarcodeEntity = entityList;
+        }
+
+
+        /// <summary>
+        /// Add usualy predefined items in sequence
+        /// For example: Faciltiy if user work on this faciltiy
+        /// Predefined faciltiy can be removed later of 
+        /// user scan another faciltiy
+        /// </summary>
+        /// <param name="barcodeEntity"></param>
+        public void AddBarcodeEntity(BarcodeEntity barcodeEntity)
+        {
+            AddToCurrentBarcodeEntity(barcodeEntity.ValidEntity);
+            BarcodeSequence.AddSequence(barcodeEntity);
         }
         #endregion
     }

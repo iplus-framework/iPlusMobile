@@ -294,7 +294,7 @@ namespace gip.vb.mobile.Views
         /// <summary>
         /// Clean up forms and prepare for next usage
         /// </summary>
-        public void Clear()
+        public void Clean()
         {
             _ViewModel.Clean();
             if (OnCleanUpForm != null)

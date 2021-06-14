@@ -33,6 +33,7 @@ namespace gip.vb.mobile.Views
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
             _ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
+            _ViewModel.CleanAndSetFacility();
             _ViewModel.Start();
         }
 
@@ -58,8 +59,9 @@ namespace gip.vb.mobile.Views
             if (_ViewModel.WSResponse.Suceeded)
             {
                 _ViewModel.CleanUpForm();
+                _ViewModel.CleanAndSetFacility();
                 switch (_ViewModel.InventoryNavArgument.EditMode)
-barcodeScanner_OnSendSelectedCode{
+                {
                     case EditModeEnum.GoAndCount:
                         // nothing stay there
                         break;

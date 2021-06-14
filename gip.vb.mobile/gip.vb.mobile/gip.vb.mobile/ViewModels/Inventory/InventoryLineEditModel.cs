@@ -383,6 +383,17 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsEditPanelVisible = true;
             }
         }
+
+        public void CleanAndSetFacility()
+        {
+            BarcodeScannerModel.Clean();
+            if (InventoryNavArgument.SelectedFacility != null)
+            {
+                BarcodeEntity selectedFaciltiyEntity = new BarcodeEntity() { Facility = InventoryNavArgument.SelectedFacility };
+                BarcodeScannerModel.AddBarcodeEntity(selectedFaciltiyEntity);
+            }
+        }
+
         #endregion
     }
 }
