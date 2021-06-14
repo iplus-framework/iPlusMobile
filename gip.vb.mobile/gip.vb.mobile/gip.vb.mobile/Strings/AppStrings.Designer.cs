@@ -88,6 +88,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Barcode sequence already have scanned code!.
+        /// </summary>
+        internal static string BarcodeSequenceAlreadyHaveCode_Text {
+            get {
+                return ResourceManager.GetString("BarcodeSequenceAlreadyHaveCode_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bookings.
         /// </summary>
         internal static string BFI_Bookings_Header {
@@ -768,6 +777,15 @@ namespace gip.vb.mobile.Strings {
         internal static string SelectBatch_Text {
             get {
                 return ResourceManager.GetString("SelectBatch_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected line is not valid facility!.
+        /// </summary>
+        internal static string SelectedBarcodeEntityNotValidFacility_Text {
+            get {
+                return ResourceManager.GetString("SelectedBarcodeEntityNotValidFacility_Text", resourceCulture);
             }
         }
         

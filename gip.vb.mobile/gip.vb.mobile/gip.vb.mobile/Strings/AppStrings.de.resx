@@ -342,4 +342,10 @@
   <data name="Inv_OpenPositions" xml:space="preserve">
     <value>Inventur - offene Linien</value>
   </data>
+  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
+    <value>Ausgewählter Linie ist keine gültige Lagerplatz!</value>
+  </data>
+  <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
+    <value>Barcode-Sequenz hat bereits gescannten Code!</value>
+  </data>
 </root>

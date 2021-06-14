@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="gip.vb.mobile.Views.BarcodeScanner">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <ScrollView x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+                <StackLayout>
+                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                    <SearchBar 
+                        x:Name="BarcodeSearchBar" 
+                        Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
+                        Text="{Binding CurrentBarcode}" 
+                        SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+                    <ListView  
+                        IsVisible="{Binding IsListVisible}"
+                        x:Name="BarcodeListView" 
+                        ItemsSource="{Binding CurrentBarcodeEntity}" 
+                        IsGroupingEnabled="false" 
+                        RowHeight="50"
+                        ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding LoadBarcodeEntityCommand}"
+                        IsPullToRefreshEnabled="false"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        ItemSelected="BarcodeListView_ItemSelected"
+                        ItemTapped="BarcodeListView_ItemTapped"/>
+                </StackLayout>
+            </ScrollView>
+            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <zxing:ZXingScannerView 
+                    x:Name="scanView"
+                    OnScanResult="scanView_OnScanResult"
+                    IsScanning="{Binding ZXingIsScanning}"
+                    WidthRequest="300"
+                    HeightRequest="300"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding ZXingIsScanning}" />
+                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
+                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

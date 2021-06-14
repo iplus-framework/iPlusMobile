@@ -3,7 +3,6 @@ using gip.core.datamodel;
 using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -22,19 +21,31 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Commands
+
+        /// <summary>
+        /// Fetch list of facilities
+        /// </summary>
         public Command GetFacilitiesCommand { get; private set; }
+
         #endregion
 
         #region Overrides
+
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
         }
 
         #endregion
-        #region Params
 
+        #region Properties 
+
+
+        #region Properties -> Params
 
         private string _FacilityInventoryNo;
+        /// <summary>
+        /// FacilityInventoryNo working on
+        /// </summary>
         public string FacilityInventoryNo
         {
             get
@@ -48,6 +59,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
         }
 
         private bool _IsValidateAndComplete;
+        /// <summary>
+        /// Validate and complete mode
+        /// </summary>
         public bool IsValidateAndComplete
         {
             get
@@ -60,13 +74,26 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
+        public bool IsEnabledModeMoveForward
+        {
+            get
+            {
+                return SelectedStorageLocation != null;
+            }
+        }
+
         #endregion
 
-        #region Facility Select&List
+        #region Properties -> Facilities
 
-        #region Facility Select&List -> Facility (Storage place)
+        public List<Facility> AllFacilities { get; set; }
+
+        #region Properties -> Facilities -> StorageLocations
 
         private List<Facility> _StorageLocations;
+        /// <summary>
+        /// Storage location list - dropdown select
+        /// </summary>
         public List<Facility> StorageLocations
         {
             get
@@ -80,6 +107,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
         }
 
         private Facility _SelectedStorageLocation;
+        /// <summary>
+        /// Selected storage location
+        /// </summary>
         public Facility SelectedStorageLocation
         {
             get
@@ -110,10 +140,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #endregion
 
-        #region Facility Select&List -> Facility (Faciliy
-        public List<Facility> AllFacilities { get; set; }
+        #region Properties -> Facilities -> Facilities
+
 
         private List<Facility> _Facilities;
+        /// <summary>
+        /// Facilities (end storage points)
+        /// </summary>
         public List<Facility> Facilities
         {
             get
@@ -129,6 +162,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
         }
 
         private Facility _SelectedFacility;
+        /// <summary>
+        /// Selected facility
+        /// </summary>
         public Facility SelectedFacility
         {
             get
@@ -142,13 +178,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
-        public bool IsEnabledModeMoveForward
-        {
-            get
-            {
-                return SelectedStorageLocation != null;
-            }
-        }
+        #endregion
 
         #endregion
 
@@ -193,6 +223,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
             return success;
         }
+        
         #endregion
 
 

@@ -21,48 +21,18 @@
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
-        </ToolbarItem>
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
-        </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png" />
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" />
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <!--<SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding InputCode}" TextChanged="BarcodeSearchBar_TextChanged" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>-->
-        <StackLayout>
-            <ScrollView x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
-                <StackLayout>
-                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
-                    <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50"
-                            ItemTemplate="{StaticResource BarcodeEntitySelector}"
-                            HasUnevenRows="true"
-                            RefreshCommand="{Binding LoadBarcodeEntityCommand}"
-                            IsPullToRefreshEnabled="false"
-                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                            ItemSelected="BarcodeListView_ItemSelected"
-                               ItemTapped="BarcodeListView_ItemTapped"/>
-                </StackLayout>
-            </ScrollView>
-            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <zxing:ZXingScannerView x:Name="scanView"
-                                                OnScanResult="scanView_OnScanResult"
-                                                IsScanning="{Binding ZXingIsScanning}"
-                                                WidthRequest="300"
-                                                HeightRequest="300"
-                                                VerticalOptions="CenterAndExpand"
-                                                HorizontalOptions="CenterAndExpand"
-                                                IsVisible="{Binding ZXingIsScanning}" />
-                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
-                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
-            </Grid>
-        </StackLayout>
+        <v:BarcodeScanner 
+            x:Name="barcodeScanner" 
+            IsEnabledToFetchBarcode="True"
+            BarcodeIssuer="Inventory"
+            OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
         <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
-            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Clicked="cmdQuantAdd_Clicked" IsVisible="{Binding IsChargeAddCommandVisible}"/>
+            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
             <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
         </StackLayout>
         <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">

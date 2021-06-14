@@ -19,7 +19,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             // Commands
             UpdateFacilityInventoryPosCommand = new Command(async () => await ExecuteUpdateFacilityInventoryPosAsync());
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            GetFacilityInventorySearchChargeCommand = new Command(async () => await ExecuteGetFacilityInventorySearchCharge());
+            SetFacilityInventoryChargeAvailableCommand = new Command(async () => await ExecuteSetFacilityInventoryChargeAvailable());
         }
 
         #endregion
@@ -35,32 +36,40 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Commands
 
+        /// <summary>
+        /// Update facility inventory line command
+        /// </summary>
         public Command UpdateFacilityInventoryPosCommand { get; set; }
-        public Command LoadBarcodeEntityCommand { get; set; }
 
+        public Command GetFacilityInventorySearchChargeCommand { get; set; }
+        public Command SetFacilityInventoryChargeAvailableCommand { get; set; }
+
+        // ExecuteGetFacilityInventorySearchCharge
+
+        // ExecuteSetFacilityInventoryChargeAvailable
 
 
         #endregion
 
-        #region Parameters
+        #region Properties
 
-        private bool _ZXingIsScanning;
-        public bool ZXingIsScanning
-        {
-            get
-            {
-                return _ZXingIsScanning;
-            }
-            set
-            {
-                SetProperty(ref _ZXingIsScanning, value);
-                OnPropertyChanged();
-            }
-        }
-
+        /// <summary>
+        /// Inventory navigation argument
+        /// </summary>
         public InventoryNavArgument InventoryNavArgument { get; set; }
 
+        /// <summary>
+        /// Copy barcode scanner model of use in Inventory line edit model
+        /// </summary>
+        public BarcodeScannerModel BarcodeScannerModel { get; set; }
+
+
+        #region Properties -> SelectedInventoryLine (and property change handle)
+
         private FacilityInventoryPos _SelectedInventoryLine;
+        /// <summary>
+        /// Selected Inventory line
+        /// </summary>
         public FacilityInventoryPos SelectedInventoryLine
         {
             get
@@ -98,20 +107,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #endregion
 
-        #region Models
-        private string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
-
+        #region Properties -> Visibility properties
         private bool _IsEditPanelVisible;
         public bool IsEditPanelVisible
         {
@@ -164,25 +160,24 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
-        public List<object> _CurrentBarcodeEntity;
-        public List<object> CurrentBarcodeEntity
-        {
-            get
-            {
-                return _CurrentBarcodeEntity;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
+        #endregion
+
+        /// <summary>
+        /// Parse FacilityCharge from 
+        /// </summary>
         public FacilityCharge CurrentFacilityCharge
         {
             get
             {
-                if (CurrentBarcodeEntity == null || !CurrentBarcodeEntity.Any())
+                if (BarcodeScannerModel.CurrentBarcodeEntity == null || !BarcodeScannerModel.CurrentBarcodeEntity.Any())
                     return null;
-                return CurrentBarcodeEntity.FirstOrDefault() as FacilityCharge;
+                return
+                 BarcodeScannerModel
+                        .BarcodeSequence
+                        .Sequence
+                        .Where(c => c.FacilityCharge != null)
+                        .Select(c => c.FacilityCharge)
+                        .FirstOrDefault();
             }
         }
 
@@ -190,6 +185,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Methods
 
+        /// <summary>
+        /// Hide  charge command panel and 
+        /// command buttons there
+        /// </summary>
         public void HideChargeCommandPanel()
         {
             IsChargeCommandPanelVisible = false;
@@ -233,7 +232,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
-        public async Task<bool> ExecuteGetFacilityInventorySearchCharge(EditModeEnum editMode, string facilityChargeID)
+        public async Task<bool> ExecuteGetFacilityInventorySearchCharge()
         {
             bool success = false;
             Message = null;
@@ -245,16 +244,16 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, facilityChargeID);
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();
-                        IsEditPanelVisible = editMode == EditModeEnum.Confirm;
+                        IsEditPanelVisible = InventoryNavArgument.EditMode == EditModeEnum.Confirm;
 
                         if (success)
                         {
                             List<FacilityChargeStateEnum> responseStates = wSResponse.Data.States;
-                            if (editMode == EditModeEnum.GoAndCount)
+                            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                             {
                                 Title = AppStrings.Inv_EditLine;
 
@@ -288,7 +287,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                 }
                                 WriteNewStockQuantity();
                             }
-                            else
+                            else if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
                             {
                                 if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != CurrentFacilityCharge.FacilityChargeID)
                                     wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, CurrentFacilityCharge.FacilityChargeID, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
@@ -348,35 +347,21 @@ namespace gip.vb.mobile.ViewModels.Inventory
             return success;
         }
 
-        public async Task ExecuteLoadBarcodeEntityCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-                this.WSResponse = response;
-                if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-                else
-                    CurrentBarcodeEntity = new List<object>();
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         #endregion
 
         #region Other methods
+
+        public void CleanUpForm()
+        {
+            SelectedInventoryLine = null;
+            IsEditPanelVisible = false;
+            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                Title = AppStrings.Inv_EditLineS;
+        }
+
+        /// <summary>
+        /// Copy new stock quantity from selected line Stock Quantity
+        /// </summary>
         public void WriteNewStockQuantity()
         {
             if (SelectedInventoryLine != null
@@ -384,6 +369,31 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                 && SelectedInventoryLine.NewStockQuantity == null)
                 SelectedInventoryLine.NewStockQuantity = SelectedInventoryLine.StockQuantity;
         }
+
+        public void Start()
+        {
+            if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                Title = AppStrings.Inv_EditLineS;
+            else
+                Title = AppStrings.Inv_EditLine;
+            if (InventoryNavArgument.SelectedInventoryLine != null)
+            {
+                SelectedInventoryLine = InventoryNavArgument.SelectedInventoryLine;
+                WriteNewStockQuantity();
+                IsEditPanelVisible = true;
+            }
+        }
+
+        public void CleanAndSetFacility()
+        {
+            BarcodeScannerModel.Clean();
+            if (InventoryNavArgument.SelectedFacility != null)
+            {
+                BarcodeEntity selectedFaciltiyEntity = new BarcodeEntity() { Facility = InventoryNavArgument.SelectedFacility };
+                BarcodeScannerModel.AddBarcodeEntity(selectedFaciltiyEntity);
+            }
+        }
+
         #endregion
     }
 }
