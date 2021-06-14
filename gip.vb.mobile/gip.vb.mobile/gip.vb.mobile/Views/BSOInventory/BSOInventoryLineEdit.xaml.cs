@@ -53,10 +53,10 @@ namespace gip.vb.mobile.Views
                 _ViewModel.CleanUpForm();
         }
 
-        private void cmdUpdate_Clicked(object sender, EventArgs e)
+        private async void cmdUpdate_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.UpdateFacilityInventoryPosCommand.Execute(null);
-            if (_ViewModel.WSResponse.Suceeded)
+            bool success = await _ViewModel.ExecuteUpdateFacilityInventoryPosAsync();
+            if (success)
             {
                 _ViewModel.CleanUpForm();
                 _ViewModel.CleanAndSetFacility();

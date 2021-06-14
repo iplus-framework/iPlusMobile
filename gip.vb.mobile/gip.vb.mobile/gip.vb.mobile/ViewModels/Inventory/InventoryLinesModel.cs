@@ -93,8 +93,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
                     string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
                     short? mdFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
-                    if (InventoryNavArgument.IsValidateAndComplete)
-                        mdFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished;
+
+                    bool notProcessedLines = !InventoryNavArgument.IsValidateAndComplete;
                     WSResponse<List<FacilityInventoryPos>> wSResponse =
                         await _WebService.GetFacilityInventoryLinesAsync(InventoryNavArgument.FacilityInventoryNo, null, InventoryNavArgument.StorageLocationNo, faciltiyNo,
                             null,
@@ -102,7 +102,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             mdFacilityInventoryPosStateIndex.ToString(),
                             null,
                             null,
-                            (!InventoryNavArgument.IsValidateAndComplete).ToString()
+                            notProcessedLines.ToString()
                      );
                     OpenLines = wSResponse.Data;
                     if (OpenLines != null && OpenLines.Any())
