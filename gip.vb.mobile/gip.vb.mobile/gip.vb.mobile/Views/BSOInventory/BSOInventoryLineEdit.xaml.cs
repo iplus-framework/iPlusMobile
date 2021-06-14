@@ -66,15 +66,6 @@ namespace gip.vb.mobile.Views
                         // nothing stay there
                         break;
                     case EditModeEnum.Confirm:
-                        // back to list
-                        //await Navigation.PushAsync(
-                        //    new BSOInventoryLines()
-                        //    {
-                        //        NavParam = new NavParameter(PageStateEnum.View)
-                        //        {
-                        //            Arguments = _ViewModel.InventoryNavArgument
-                        //        }
-                        //    });
                         Navigation.RemovePage(this);
                         break;
                 }

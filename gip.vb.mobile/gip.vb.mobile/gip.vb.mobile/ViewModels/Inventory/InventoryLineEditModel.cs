@@ -355,8 +355,11 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             SelectedInventoryLine = null;
             IsEditPanelVisible = false;
+            IsChargeEditCommandVisible = false;
             if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+            {
                 Title = AppStrings.Inv_EditLineS;
+            }
         }
 
         /// <summary>

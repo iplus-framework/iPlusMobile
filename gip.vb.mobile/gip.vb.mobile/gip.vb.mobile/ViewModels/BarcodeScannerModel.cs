@@ -176,6 +176,7 @@ namespace gip.vb.mobile.ViewModels
 
             IsBusy = true;
             IsListVisible = false;
+            Message = null;
             bool alreadyFetchedBarcode = false;
             try
             {
