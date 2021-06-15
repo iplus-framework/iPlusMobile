@@ -117,7 +117,22 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
             set
             {
+                if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                    IsSearchPanelVisible = !value;
                 SetProperty(ref _IsEditPanelVisible, value);
+            }
+        }
+
+        private bool _IsSearchPanelVisible;
+        public bool IsSearchPanelVisible
+        {
+            get
+            {
+                return _IsSearchPanelVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsSearchPanelVisible, value);
             }
         }
 
@@ -165,21 +180,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         /// <summary>
         /// Parse FacilityCharge from 
         /// </summary>
-        public FacilityCharge CurrentFacilityCharge
-        {
-            get
-            {
-                if (BarcodeScannerModel.CurrentBarcodeEntity == null || !BarcodeScannerModel.CurrentBarcodeEntity.Any())
-                    return null;
-                return
-                 BarcodeScannerModel
-                        .BarcodeSequence
-                        .Sequence
-                        .Where(c => c.FacilityCharge != null)
-                        .Select(c => c.FacilityCharge)
-                        .FirstOrDefault();
-            }
-        }
+        public FacilityCharge CurrentFacilityCharge { get; set; }
 
         #endregion
 
@@ -195,6 +196,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
             IsChargeEditCommandVisible = false;
             IsChargeAddCommandVisible = false;
         }
+
+
 
         #endregion
 
@@ -213,7 +216,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     {
                         SelectedInventoryLine.UpdateName = App.SettingsViewModel.LastUser;
                         SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
-                        if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
+                        if (InventoryNavArgument.EditMode == EditModeEnum.Confirm || InventoryNavArgument.IsValidateAndComplete)
                             SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.Finished;
                         WSResponse<bool> wSResponse = await _WebService.UpdateFacilityInventoryPosAsync(SelectedInventoryLine);
                         WSResponse = wSResponse;
@@ -241,6 +244,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsBusy = true;
                 try
                 {
+                    // CheckIsFacilityChanged();
                     if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
@@ -309,6 +313,39 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 }
             }
             return success;
+        }
+
+        private void CheckIsFacilityChanged()
+        {
+            // reset filter if another facility is selected
+            if (
+                    InventoryNavArgument.SelectedFacility != null
+                    && BarcodeScannerModel.BarcodeSequence != null
+                    && BarcodeScannerModel.BarcodeSequence.Sequence != null
+                )
+            {
+                Facility paramFacility =
+                    BarcodeScannerModel
+                    .BarcodeSequence
+                    .Sequence
+                    .Where(c => c.Facility != null)
+                    .Select(c => c.Facility)
+                    .FirstOrDefault();
+
+                if (paramFacility.FacilityNo != InventoryNavArgument.SelectedFacility.FacilityNo)
+                {
+                    if (paramFacility.ParentFacility != null)
+                    {
+                        InventoryNavArgument.SelectedStorageLocation = paramFacility.ParentFacility;
+                        InventoryNavArgument.SelectedFacility = paramFacility;
+                    }
+                    else
+                    {
+                        InventoryNavArgument.SelectedStorageLocation = paramFacility;
+                        InventoryNavArgument.SelectedFacility = null;
+                    }
+                }
+            }
         }
 
         public async Task<bool> ExecuteSetFacilityInventoryChargeAvailable()
@@ -384,7 +421,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 SelectedInventoryLine = InventoryNavArgument.SelectedInventoryLine;
                 WriteNewStockQuantity();
                 IsEditPanelVisible = true;
+                IsSearchPanelVisible = true;
             }
+            else
+                IsEditPanelVisible = false;
         }
 
         public void CleanAndSetFacility()

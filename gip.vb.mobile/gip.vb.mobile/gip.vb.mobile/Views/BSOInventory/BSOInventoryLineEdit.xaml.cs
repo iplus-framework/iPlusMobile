@@ -29,12 +29,15 @@ namespace gip.vb.mobile.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
             _ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
+            _ViewModel.CleanUpForm();
             _ViewModel.CleanAndSetFacility();
             _ViewModel.Start();
+            base.OnAppearing();
+            barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
         }
 
         protected override void OnDisappearing()
@@ -70,6 +73,7 @@ namespace gip.vb.mobile.Views
                         break;
                 }
             }
+            barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
         }
 
         private void cmdQuantEditAgain_Clicked(object sender, EventArgs e)
@@ -80,10 +84,32 @@ namespace gip.vb.mobile.Views
         #endregion
 
         #region Barcode Scanner events
-
-        private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
+        private async void barcodeScanner_OnBarcodeReceived(object sender, EventArgs e)
         {
-            _ViewModel.GetFacilityInventorySearchChargeCommand.Execute(null);
+            if (_ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence != null)
+            {
+                if (_ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence.Where(c => c.FacilityCharge != null).Count() == 1)
+                {
+                    BarcodeEntity barcodeEntity = _ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
+                    _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
+                    bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
+                    barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
+                }
+            }
+        }
+
+        private async void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
+        {
+            if (sender != null && sender is BarcodeEntity)
+            {
+                BarcodeEntity barcodeEntity = sender as BarcodeEntity;
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
+                    bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
+                    barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
+                }
+            }
         }
 
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)

@@ -26,10 +26,12 @@
     </ContentPage.ToolbarItems>
     <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <v:BarcodeScanner 
+        <v:BarcodeScanner
             x:Name="barcodeScanner" 
             IsEnabledToFetchBarcode="True"
             BarcodeIssuer="Inventory"
+            IsVisible="{Binding IsSearchPanelVisible}"
+            OnBarcodeReceived="barcodeScanner_OnBarcodeReceived"
             OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
         <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
             <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
@@ -37,6 +39,8 @@
         </StackLayout>
         <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">
             <BoxView HeightRequest="1" Color="Red" />
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding SelectedInventoryLine.LotNo}" Style="{StaticResource LabelForData}"/>
             <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
             <Label Text="{Binding SelectedInventoryLine.MaterialNo}" Style="{StaticResource LabelForData}"/>
             <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />

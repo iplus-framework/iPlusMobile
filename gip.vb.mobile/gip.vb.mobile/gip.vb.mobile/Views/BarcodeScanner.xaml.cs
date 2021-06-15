@@ -1,4 +1,5 @@
-﻿using gip.vb.mobile.barcode;
+﻿using gip.mes.webservices;
+using gip.vb.mobile.barcode;
 using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace gip.vb.mobile.Views
 
         #region events
 
+        public event EventHandler OnBarcodeReceived;
         public event EventHandler OnSendSelectedCode;
         public event EventHandler OnCleanUpForm;
         public event EventHandler OnTextChanged;
@@ -157,7 +159,8 @@ namespace gip.vb.mobile.Views
         /// <param name="e"></param>
         private void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            SendSelectedCode();
+            BarcodeEntity item = e.Item as BarcodeEntity;
+            SendSelectedCode(item);
         }
 
         /// <summary>
@@ -267,24 +270,30 @@ namespace gip.vb.mobile.Views
         /// <summary>
         /// For selected code obitain result from server: BarcodeEntity or BarcodeSequence
         /// </summary>
-        private void SendScanRequest()
+        private async void SendScanRequest()
         {
+            bool success = false;
             if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode) && IsEnabledToFetchBarcode)
             {
                 if (_ViewModel.BarcodeIssuer != null)
-                    _ViewModel.LoadInvokeBarcodeSequence.Execute(null);
+                    success = await _ViewModel.ExecuteInvokeBarcodeSequence();
                 else
-                    _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+                    success = await _ViewModel.ExecuteLoadBarcodeEntityCommand();
+            }
+            if(success)
+            {
+                if(OnBarcodeReceived != null)
+                    OnBarcodeReceived(this, new EventArgs(){});
             }
         }
 
         /// <summary>
         /// Send request is BarcodeEntity object selected to parent level
         /// </summary>
-        public async void SendSelectedCode()
+        public async void SendSelectedCode(BarcodeEntity item)
         {
             if (OnSendSelectedCode != null)
-                OnSendSelectedCode(this, new EventArgs() { });
+                OnSendSelectedCode(item, new EventArgs() { });
         }
 
         #endregion
