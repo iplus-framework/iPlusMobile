@@ -169,11 +169,12 @@ namespace gip.vb.mobile.ViewModels
         /// Async serarch barcode 
         /// </summary>
         /// <returns></returns>
-        public async Task ExecuteLoadBarcodeEntityCommand()
+        public async Task<bool> ExecuteLoadBarcodeEntityCommand()
         {
             if (IsBusy)
-                return;
+                return false;
 
+            bool success = false;
             IsBusy = true;
             IsListVisible = false;
             Message = null;
@@ -191,6 +192,7 @@ namespace gip.vb.mobile.ViewModels
                 if (!alreadyFetchedBarcode)
                 {
                     var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
+                    success = response.Suceeded;
                     this.WSResponse = response;
                     if (response.Suceeded && response.Data != null)
                     {
@@ -209,16 +211,18 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = false;
             }
+            return success;
         }
 
         /// <summary>
         /// Async search barcode sequence
         /// </summary>
         /// <returns></returns>
-        public async Task ExecuteInvokeBarcodeSequence()
+        public async Task<bool> ExecuteInvokeBarcodeSequence()
         {
+            bool success = false;
             if (IsBusy)
-                return;
+                return false;
 
             IsBusy = true;
 
@@ -237,6 +241,7 @@ namespace gip.vb.mobile.ViewModels
                         BarcodeSequence.Message = null;
                         var response = await _WebService.InvokeBarcodeSequenceAsync(BarcodeSequence);
                         WSResponse = response;
+                        success = response.Suceeded;
                         if (response.Suceeded && response.Data != null)
                         {
                             BarcodeSequence = response.Data;
@@ -258,6 +263,7 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = false;
             }
+            return success;
         }
 
         #endregion
