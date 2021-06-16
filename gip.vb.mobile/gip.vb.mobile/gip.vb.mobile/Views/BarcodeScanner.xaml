@@ -22,19 +22,23 @@
                         Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
                         Text="{Binding CurrentBarcode}" 
                         SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
-                    <ListView  
-                        IsVisible="{Binding IsListVisible}"
-                        x:Name="BarcodeListView" 
-                        ItemsSource="{Binding CurrentBarcodeEntity}" 
-                        IsGroupingEnabled="false" 
-                        RowHeight="50"
-                        ItemTemplate="{StaticResource BarcodeEntitySelector}"
-                        HasUnevenRows="true"
-                        RefreshCommand="{Binding LoadBarcodeEntityCommand}"
-                        IsPullToRefreshEnabled="false"
-                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                        ItemSelected="BarcodeListView_ItemSelected"
-                        ItemTapped="BarcodeListView_ItemTapped"/>
+                    <StackLayout 
+                        Orientation="Vertical"
+                        IsVisible="{Binding IsListVisible}">
+                        <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" Text="{i18n:Translate Text=ButtonClear}" />
+                        <ListView  
+                            x:Name="BarcodeListView" 
+                            ItemsSource="{Binding CurrentBarcodeEntity}" 
+                            IsGroupingEnabled="false" 
+                            RowHeight="50"
+                            ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                            HasUnevenRows="true"
+                            RefreshCommand="{Binding LoadBarcodeEntityCommand}"
+                            IsPullToRefreshEnabled="false"
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            ItemSelected="BarcodeListView_ItemSelected"
+                            ItemTapped="BarcodeListView_ItemTapped"/>
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
             <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">

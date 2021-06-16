@@ -195,6 +195,9 @@
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ButtonClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>No</value>
   </data>

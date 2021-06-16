@@ -427,7 +427,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 IsEditPanelVisible = false;
         }
 
-        public void CleanAndSetFacility()
+        public void CleanBarcodeAndSetCurrentFacility()
         {
             BarcodeScannerModel.Clean();
             if (InventoryNavArgument.SelectedFacility != null)

@@ -34,7 +34,7 @@ namespace gip.vb.mobile.Views
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
             _ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
             _ViewModel.CleanUpForm();
-            _ViewModel.CleanAndSetFacility();
+            _ViewModel.CleanBarcodeAndSetCurrentFacility();
             _ViewModel.Start();
             base.OnAppearing();
             barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
@@ -62,7 +62,7 @@ namespace gip.vb.mobile.Views
             if (success)
             {
                 _ViewModel.CleanUpForm();
-                _ViewModel.CleanAndSetFacility();
+                _ViewModel.CleanBarcodeAndSetCurrentFacility();
                 switch (_ViewModel.InventoryNavArgument.EditMode)
                 {
                     case EditModeEnum.GoAndCount:
@@ -117,7 +117,13 @@ namespace gip.vb.mobile.Views
             barcodeScanner._ViewModel.ZXingIsScanning = true;
         }
 
+        private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
+        {
+            _ViewModel.CleanBarcodeAndSetCurrentFacility();
+        }
+
         #endregion
+
 
     }
 }

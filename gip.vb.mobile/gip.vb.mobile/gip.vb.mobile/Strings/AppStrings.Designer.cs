@@ -322,6 +322,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ButtonClear {
+            get {
+                return ResourceManager.GetString("ButtonClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string ButtonNo {

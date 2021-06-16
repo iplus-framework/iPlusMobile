@@ -280,10 +280,10 @@ namespace gip.vb.mobile.Views
                 else
                     success = await _ViewModel.ExecuteLoadBarcodeEntityCommand();
             }
-            if(success)
+            if (success)
             {
-                if(OnBarcodeReceived != null)
-                    OnBarcodeReceived(this, new EventArgs(){});
+                if (OnBarcodeReceived != null)
+                    OnBarcodeReceived(this, new EventArgs() { });
             }
         }
 
@@ -309,8 +309,17 @@ namespace gip.vb.mobile.Views
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
         }
-        #endregion
 
+
+        private void btnClearList_Clicked(object sender, EventArgs e)
+        {
+            if (OnCleanUpForm != null)
+                OnCleanUpForm(this, new EventArgs() { });
+            else
+             _ViewModel.Clean();
+        }
+
+        #endregion
 
 
     }

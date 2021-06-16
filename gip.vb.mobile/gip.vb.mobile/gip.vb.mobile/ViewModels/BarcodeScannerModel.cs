@@ -279,6 +279,7 @@ namespace gip.vb.mobile.ViewModels
             ZXingIsScanning = false;
             IsListVisible = false;
             BarcodeSequence = null;
+            Message = null;
             if (BarcodeIssuer != null)
                 BarcodeSequence = new BarcodeSequence() { BarcodeIssuer = BarcodeIssuer.Value };
         }

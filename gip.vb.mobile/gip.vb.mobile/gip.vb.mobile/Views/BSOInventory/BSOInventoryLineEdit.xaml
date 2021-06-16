@@ -32,7 +32,8 @@
             BarcodeIssuer="Inventory"
             IsVisible="{Binding IsSearchPanelVisible}"
             OnBarcodeReceived="barcodeScanner_OnBarcodeReceived"
-            OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
+            OnSendSelectedCode="barcodeScanner_OnSendSelectedCode"
+            OnCleanUpForm="barcodeScanner_OnCleanUpForm"/>
         <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
             <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
             <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
