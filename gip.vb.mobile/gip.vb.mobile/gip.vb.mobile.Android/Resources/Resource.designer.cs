@@ -14,7 +14,7 @@ namespace gip.vb.mobile.Droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.0.99.19")]
 	public partial class Resource
 	{
 		
@@ -13968,13 +13968,16 @@ namespace gip.vb.mobile.Droid
 			public const int position_search = 2131165528;
 			
 			// aapt resource value: 0x7F07015A
-			public const int tooltip_frame_dark = 2131165530;
+			public const int Print = 2131165530;
 			
 			// aapt resource value: 0x7F07015B
-			public const int tooltip_frame_light = 2131165531;
+			public const int tooltip_frame_dark = 2131165531;
 			
 			// aapt resource value: 0x7F07015C
-			public const int xamarin_logo = 2131165532;
+			public const int tooltip_frame_light = 2131165532;
+			
+			// aapt resource value: 0x7F07015D
+			public const int xamarin_logo = 2131165533;
 			
 			static Drawable()
 			{

@@ -8,6 +8,7 @@ using gip.core.datamodel;
 using System.Collections.Generic;
 using gip.core.webservices;
 using System.Linq;
+using gip.core.autocomponent;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -25,6 +26,7 @@ namespace gip.vb.mobile.ViewModels
             BookBlockQuantCommand = new Command(async () => await ExecuteBookBlockQuantCommand());
             BookReleaseQuantCommand = new Command(async () => await ExecuteBookReleaseQuantCommand());
             BookRelocateCommand = new Command(async () => await ExecuteBookRelocateCommand());
+            PrintCommand = new Command(async () => await ExecutePrintCommand());
         }
 
         #region Properties
@@ -284,7 +286,7 @@ namespace gip.vb.mobile.ViewModels
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand()
         {
-            if (   IsBusy 
+            if (IsBusy
                 || Item == null
                 || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
                 return;
@@ -483,7 +485,7 @@ namespace gip.vb.mobile.ViewModels
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ReleaseState_FacilityCharge.ToString();
                 aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
-                aCMethodBooking.ReleaseStateIndex = (int) MDReleaseState.ReleaseStates.Free;
+                aCMethodBooking.ReleaseStateIndex = (int)MDReleaseState.ReleaseStates.Free;
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -555,6 +557,39 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public Command PrintCommand { get; set; }
+        public async Task<bool> ExecutePrintCommand()
+        {
+
+            if (IsBusy
+                || Item == null)
+                return false;
+
+            IsBusy = true;
+            bool success = false;
+            try
+            {
+                PrintEntity printEntity = new PrintEntity();
+                printEntity.CopyCount = 1;
+                printEntity.Sequence = new List<BarcodeEntity>()
+                {
+                    new BarcodeEntity(){ FacilityCharge = Item }
+                };
+                WSResponse<bool> result = await _WebService.Print(printEntity);
+                success = result.Data;
+                Message = result.Message;
+            }
+            catch (Exception ex)
+            {
+                Message = new Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return success;
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)

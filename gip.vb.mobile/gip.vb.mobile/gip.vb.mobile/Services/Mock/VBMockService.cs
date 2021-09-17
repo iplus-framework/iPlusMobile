@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Text;
 using gip.core.datamodel;
+using System.Linq;
 
 namespace gip.vb.mobile.Services
 {
@@ -62,6 +63,13 @@ namespace gip.vb.mobile.Services
         {
             Guid guid = Guid.Parse(barcodeID);
             return await Task.FromResult(new WSResponse<ACClass>(new ACClass() { ACClassID = guid, ACIdentifier = "MockClass", ACUrlComponent = @"\iPlusMES\MockClass", ACCaptionTranslation = "en{'Mock class'}de{'Mock class'}" }));
+        }
+
+        public async Task<WSResponse<bool>> Print(PrintEntity printEntity)
+        {
+            if (printEntity.Sequence == null || !printEntity.Sequence.Any())
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "sequence is null")));
+            return await Task.FromResult(new WSResponse<bool>(true));
         }
 
 

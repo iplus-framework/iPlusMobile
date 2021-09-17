@@ -145,6 +145,13 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        private void Print_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.PrintCommand.Execute(null);
+        }
+
         #endregion
+
+
     }
 }

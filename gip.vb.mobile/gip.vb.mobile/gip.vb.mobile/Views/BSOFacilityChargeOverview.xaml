@@ -22,6 +22,8 @@
     <v:BSOTabbedPageBase.ToolbarItems>
         <ToolbarItem x:Name="TBItemHistory" Order="Primary" Priority="0" Text="History" Clicked="TBItemHistory_Clicked" IconImageSource="NavIconHistory.png">
         </ToolbarItem>
+        <ToolbarItem x:Name="TabPrint" Order="Primary" Priority="1" Text="Print" Clicked="Print_Clicked" IconImageSource="Print.png">
+        </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="LotPivotItem" Title="{i18n:Translate Text=QuantPivot_Header}">
         <ScrollView Orientation="Vertical">

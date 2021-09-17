@@ -2,6 +2,7 @@
 using gip.core.datamodel;
 using gip.mes.webservices;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace gip.vb.mobile.Services
@@ -31,6 +32,13 @@ namespace gip.vb.mobile.Services
             if (String.IsNullOrEmpty(sequence.CurrentBarcode))
                 return await Task.FromResult(new WSResponse<BarcodeSequence>(sequence, new Msg(eMsgLevel.Error, "CurrentBarcode is empty")));
             return await Post<BarcodeSequence, BarcodeSequence>(sequence, VBWebServiceConst.UriBarcodeSequence);
+        }
+
+        public async Task<WSResponse<bool>> Print(PrintEntity printEntity)
+        {
+            if (printEntity.Sequence == null || !printEntity.Sequence.Any())
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "sequence is null")));
+            return await Post<bool, PrintEntity>(printEntity, VBWebServiceConst.UriPrint);
         }
         #endregion
     }
