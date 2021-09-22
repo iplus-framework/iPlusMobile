@@ -28,6 +28,7 @@
     <v:BSOPageBase x:Name="LotPivotItem" Title="{i18n:Translate Text=QuantPivot_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
                 <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
