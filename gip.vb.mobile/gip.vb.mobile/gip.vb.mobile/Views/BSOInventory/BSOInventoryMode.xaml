@@ -11,41 +11,54 @@
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <i18n:BooleanNegationConverter x:Key="BooleanNegationConverter" />
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png" />
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked"/>
     </ContentPage.ToolbarItems>
-    <StackLayout Orientation="Vertical">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <v:BarcodeScanner 
+        
+        <ctl:BarcodeScanner Grid.Row="1"
             x:Name="barcodeScanner" 
-            IsEnabledToFetchBarcode="True"  
-            OnSendSelectedCode="barcodeScanner_OnSendSelectedCode" />
-        <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
-        <StackLayout Orientation="Horizontal">
-            <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />
-            <Picker x:Name="StorageLocationCombo" 
+            IsEnabledToFetchBarcode="True"
+            BarcodeIssuer="Inventory"
+            OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked"
+            OnSelectBarcodeEntity="barcodeScanner_OnSendSelectedCode" />
+
+        <StackLayout Orientation="Vertical" Grid.Row="2" IsVisible="{Binding ScanInventoryModel.ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+
+            <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="cmdClearStorageLocation" WidthRequest="60" Text="X" Clicked="cmdClearStorageLocation_Clicked" />
+                <Picker x:Name="StorageLocationCombo" 
                         SelectedItem="{Binding SelectedStorageLocation, Mode=TwoWay}" 
                         ItemsSource="{Binding StorageLocations}" 
                         HorizontalOptions="FillAndExpand"
                         MinimumWidthRequest="50"
                         ItemDisplayBinding="{Binding FacilityNo}"/>
-        </StackLayout>
-        <Label Text="{i18n:Translate Text=FacilityPivot_Header}"/>
-        <StackLayout Orientation="Horizontal">
-            <Button x:Name="cmdClearFacility"  WidthRequest="60" Text="X" Clicked="cmdClearFacility_Clicked"/>
-            <Picker x:Name="FacilityCombo" 
+            </StackLayout>
+            <Label Text="{i18n:Translate Text=FacilityPivot_Header}"/>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="cmdClearFacility"  WidthRequest="60" Text="X" Clicked="cmdClearFacility_Clicked"/>
+                <Picker x:Name="FacilityCombo" 
                         SelectedItem="{Binding SelectedFacility, Mode=TwoWay}" 
                         ItemsSource="{Binding Facilities}" 
                         HorizontalOptions="FillAndExpand"
                         MinimumWidthRequest="50"
                         ItemDisplayBinding="{Binding FacilityNo}"/>
+            </StackLayout>
+            <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
+            <CheckBox IsChecked="{Binding IsValidateAndComplete}" />
+            <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked"  IsEnabled="{Binding IsEnabledModeMoveForward}"/>
+            <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
         </StackLayout>
-        <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
-        <CheckBox IsChecked="{Binding IsValidateAndComplete}" />
-        <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked"  IsEnabled="{Binding IsEnabledModeMoveForward}"/>
-        <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
-    </StackLayout>
+    </Grid>
 </v:BSOPageBase>

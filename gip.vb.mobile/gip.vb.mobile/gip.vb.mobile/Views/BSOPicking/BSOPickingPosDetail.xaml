@@ -13,7 +13,7 @@
              Title="{Binding Title}">
     <v:BSOTabbedPageBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
             <hp:StringFormatConverter x:Key="StringFormat"/>
             <hp:DecimalConverter x:Key="DecimalConverter" />
             <hp:DoubleConverter x:Key="DoubleConverter" />

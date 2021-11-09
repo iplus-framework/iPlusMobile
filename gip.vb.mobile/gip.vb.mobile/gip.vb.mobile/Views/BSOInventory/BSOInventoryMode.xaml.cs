@@ -36,9 +36,12 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            ViewModels.BarcodeScanInventoryModel scanModel = new ViewModels.BarcodeScanInventoryModel(this);
+            barcodeScanner._ViewModel = scanModel;
             barcodeScanner.OnAppearing();
             _ViewModel.Title = AppStrings.Inv_SelectStorage;
             _ViewModel.FacilityInventoryNo = NavParam.Arguments.ToString();
+            _ViewModel.ScanInventoryModel = scanModel;
 
             // Prepare list of facilities for select working place (storage place or / and facility
             if (_ViewModel.AllFacilities == null || !_ViewModel.AllFacilities.Any())
@@ -174,9 +177,9 @@ namespace gip.vb.mobile.Views
         /// <param name="e"></param>
         private void barcodeScanner_OnSendSelectedCode(object sender, EventArgs e)
         {
-            if (barcodeScanner._ViewModel.CurrentBarcodeEntity != null)
+            if (barcodeScanner._ViewModel.BarcodeSequence != null)
             {
-                Facility facility = barcodeScanner._ViewModel.CurrentBarcodeEntity.FirstOrDefault() as Facility;
+                Facility facility = barcodeScanner._ViewModel.BarcodeSequence.FirstOrDefault() as Facility;
                 if (facility != null)
                 {
                     // Returned facility is Storage Location - only storage location filter is populated
@@ -197,9 +200,37 @@ namespace gip.vb.mobile.Views
             }
         }
 
-        #endregion
+        private void barcodeScanner_OnBarcodeCommandInvoked(object sender, EventArgs e)
+        {
+            if (barcodeScanner._ViewModel.BarcodeSequence != null)
+            {
+                Facility facility = barcodeScanner._ViewModel.BarcodeSequence.FirstOrDefault() as Facility;
+                if (facility != null)
+                {
+                    // Returned facility is Storage Location - only storage location filter is populated
+                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    {
+                        _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
+                        if (barcodeScanner != null)
+                            barcodeScanner._ViewModel.IsListVisible = false;
+                    }
+                    // Barcode is facility - both filter (dropdown selected value) is populated - facility and facility parent as storage location
+                    else if (facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    {
+                        _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.ParentFacility.FacilityNo);
+                        _ViewModel.SelectedFacility = _ViewModel.Facilities.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
+                        if (barcodeScanner != null)
+                            barcodeScanner._ViewModel.IsListVisible = false;
+                    }
+                    barcodeScanner.Clean();
+                }
+                else
+                    _ViewModel.Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, AppStrings.SelectedBarcodeEntityNotValidFacility_Text);
+            }
+        }
 
         #endregion
 
+        #endregion
     }
 }

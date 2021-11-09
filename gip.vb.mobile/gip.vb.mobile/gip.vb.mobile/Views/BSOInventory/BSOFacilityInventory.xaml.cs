@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.vb.mobile.barcode;
 using gip.vb.mobile.ViewModels.Inventory;
 using System;
 using Xamarin.Forms;
@@ -36,9 +37,14 @@ namespace gip.vb.mobile.Views
             PageState = PageStateEnum.View;
         }
 
+        
+
         #endregion
 
         #region Mehtods -> event handlers
+
+
+
 
         /// <summary>
         /// Setup select inventory by selecting on list

@@ -29,10 +29,11 @@ namespace gip.vb.mobile.Views
 
         protected override void OnAppearing()
         {
-
+            _ViewModel.BarcodeScannerModel = new BarcodeScanInventoryModel(this);
+            barcodeScanner._ViewModel = _ViewModel.BarcodeScannerModel;
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-            _ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
+            //_ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
             _ViewModel.CleanUpForm();
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
             _ViewModel.Start();
@@ -86,11 +87,11 @@ namespace gip.vb.mobile.Views
         #region Barcode Scanner events
         private async void barcodeScanner_OnBarcodeReceived(object sender, EventArgs e)
         {
-            if (_ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence != null)
+            if (_ViewModel.BarcodeScannerModel.Item.Sequence != null)
             {
-                if (_ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence.Where(c => c.FacilityCharge != null).Count() == 1)
+                if (_ViewModel.BarcodeScannerModel.Item.Sequence.Where(c => c.FacilityCharge != null).Count() == 1)
                 {
-                    BarcodeEntity barcodeEntity = _ViewModel.BarcodeScannerModel.BarcodeSequence.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
+                    BarcodeEntity barcodeEntity = _ViewModel.BarcodeScannerModel.Item.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
                     _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
                     bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
                     barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;

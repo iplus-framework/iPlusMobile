@@ -13,7 +13,7 @@
              x:Class="gip.vb.mobile.Views.BSOBarcodeFacilityOverview">
     <v:BSOTabbedPageBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
             <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
         </ResourceDictionary>
     </v:BSOTabbedPageBase.Resources>

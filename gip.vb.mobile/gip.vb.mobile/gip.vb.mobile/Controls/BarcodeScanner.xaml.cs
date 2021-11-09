@@ -8,21 +8,21 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static gip.mes.datamodel.BarcodeSequenceBase;
 
-namespace gip.vb.mobile.Views
+namespace gip.vb.mobile.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarcodeScanner : ContentView
     {
         #region DI
-        public BarcodeScannerModel _ViewModel;
+        public BarcodeScanModelBase _ViewModel;
         IBarcodeService _BarcodeService;
         bool _BarcodeServiceSubcribed;
         #endregion
 
         #region events
 
-        public event EventHandler OnBarcodeReceived;
-        public event EventHandler OnSendSelectedCode;
+        public event EventHandler OnBarcodeCommandInvoked;
+        public event EventHandler OnSelectBarcodeEntity;
         public event EventHandler OnCleanUpForm;
         public event EventHandler OnTextChanged;
 
@@ -33,7 +33,7 @@ namespace gip.vb.mobile.Views
         public BarcodeScanner()
         {
             InitializeComponent();
-            _ViewModel = new BarcodeScannerModel();
+            _ViewModel = new BarcodeScanModelBase();
             BindingContext = _ViewModel;
         }
 
@@ -47,9 +47,10 @@ namespace gip.vb.mobile.Views
         /// </summary>
         public void OnAppearing()
         {
-            InitZXing();
             SubcribeToBarcodeService();
-            _ViewModel.BarcodeIssuer = BarcodeIssuer;
+            InitZXing();
+            
+            BindingContext = _ViewModel;
         }
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace gip.vb.mobile.Views
         public void OnDisappearing()
         {
             UnSubcribeToBarcodeService();
+            _IsZXingInitialized = false;
         }
 
 
@@ -160,7 +162,7 @@ namespace gip.vb.mobile.Views
         private void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             BarcodeEntity item = e.Item as BarcodeEntity;
-            SendSelectedCode(item);
+            SelectBarcodeEntity(item);
         }
 
         /// <summary>
@@ -170,7 +172,7 @@ namespace gip.vb.mobile.Views
         /// <param name="e"></param>
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            SendScanRequest();
+            HandleScanProcess();
         }
 
         /// <summary>
@@ -188,14 +190,19 @@ namespace gip.vb.mobile.Views
 
         #region ZXing
 
+        bool _IsZXingInitialized = false;
+
         /// <summary>
-        /// setub ZXing scanner
+        /// setup ZXing scanner
         /// </summary>
         private void InitZXing()
         {
+            if (_IsZXingInitialized)
+                return;
+
             if (scanView.Options != null)
             {
-                scanView.Options.AutoRotate = false;
+                //scanView.Options.AutoRotate = false;
                 scanView.Options.TryHarder = true;
                 scanView.Options.UseNativeScanning = true;
                 scanView.Options.PossibleFormats = new ZXing.BarcodeFormat[] { ZXing.BarcodeFormat.CODE_128,
@@ -207,6 +214,8 @@ namespace gip.vb.mobile.Views
                 {
                     scanView.Options.CameraResolutionSelector = SelectCameraResolution;
                 }
+
+                _IsZXingInitialized = true;
             }
         }
 
@@ -251,8 +260,9 @@ namespace gip.vb.mobile.Views
         {
             if (e != null)
             {
+                _ViewModel.Item.CurrentBarcode = e.Text;
                 _ViewModel.CurrentBarcode = e.Text;
-                SendScanRequest();
+                HandleScanProcess();
             }
         }
 
@@ -264,36 +274,31 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.CurrentBarcode = result.Text;
             _ViewModel.ZXingIsScanning = false;
-            SendScanRequest();
+            HandleScanProcess();
         }
 
         /// <summary>
         /// For selected code obitain result from server: BarcodeEntity or BarcodeSequence
         /// </summary>
-        private async void SendScanRequest()
+        private async void HandleScanProcess()
         {
             bool success = false;
             if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode) && IsEnabledToFetchBarcode)
             {
-                if (_ViewModel.BarcodeIssuer != null)
-                    success = await _ViewModel.ExecuteInvokeBarcodeSequence();
-                else
-                    success = await _ViewModel.ExecuteLoadBarcodeEntityCommand();
+                success = await _ViewModel.ExecuteInvokeBarcode();
             }
             if (success)
             {
-                if (OnBarcodeReceived != null)
-                    OnBarcodeReceived(this, new EventArgs() { });
+                OnBarcodeCommandInvoked?.Invoke(this, new EventArgs() { });
             }
         }
 
         /// <summary>
         /// Send request is BarcodeEntity object selected to parent level
         /// </summary>
-        public async void SendSelectedCode(BarcodeEntity item)
+        public void SelectBarcodeEntity(BarcodeEntity item)
         {
-            if (OnSendSelectedCode != null)
-                OnSendSelectedCode(item, new EventArgs() { });
+            OnSelectBarcodeEntity?.Invoke(item, new EventArgs() { });
         }
 
         #endregion
@@ -305,18 +310,29 @@ namespace gip.vb.mobile.Views
         /// </summary>
         public void Clean()
         {
-            _ViewModel.Clean();
+            _ViewModel.Clear();
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
         }
 
+        public void OpenCameraPanel()
+        {
+            if (_ViewModel != null)
+                _ViewModel.ZXingIsScanning = true;
+        }
+
+        public void CloseCameraPanel()
+        {
+            if (_ViewModel != null)
+                _ViewModel.ZXingIsScanning = false;
+        }
 
         private void btnClearList_Clicked(object sender, EventArgs e)
         {
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
             else
-             _ViewModel.Clean();
+             _ViewModel.Clear();
         }
 
         #endregion

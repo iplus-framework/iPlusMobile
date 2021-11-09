@@ -7,7 +7,7 @@
              Title="{Binding Title}">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <v:BSOPageBase.ToolbarItems>

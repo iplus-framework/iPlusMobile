@@ -39,6 +39,19 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties 
 
+        private BarcodeScanInventoryModel _ScanInventoryModel;
+        public BarcodeScanInventoryModel ScanInventoryModel
+        {
+            get
+            {
+                return _ScanInventoryModel;
+            }
+            set
+            {
+                SetProperty<BarcodeScanInventoryModel>(ref _ScanInventoryModel, value);
+                OnPropertyChanged();
+            }
+        }
 
         #region Properties -> Params
 

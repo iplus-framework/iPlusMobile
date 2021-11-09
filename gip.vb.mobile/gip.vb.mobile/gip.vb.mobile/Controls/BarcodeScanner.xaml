@@ -5,7 +5,7 @@
              xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             x:Class="gip.vb.mobile.Views.BarcodeScanner">
+             x:Class="gip.vb.mobile.Controls.BarcodeScanner">
     <ContentView.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
@@ -28,9 +28,10 @@
                         <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" Text="{i18n:Translate Text=ButtonClear}" />
                         <ListView  
                             x:Name="BarcodeListView" 
-                            ItemsSource="{Binding CurrentBarcodeEntity}" 
+                            ItemsSource="{Binding BarcodeSequence}"
+                            SelectedItem="{Binding SelectedSequence}"    
                             IsGroupingEnabled="false" 
-                            RowHeight="50"
+                            RowHeight="60"
                             ItemTemplate="{StaticResource BarcodeEntitySelector}"
                             HasUnevenRows="true"
                             RefreshCommand="{Binding LoadBarcodeEntityCommand}"
@@ -43,7 +44,7 @@
             </ScrollView>
             <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <zxing:ZXingScannerView 

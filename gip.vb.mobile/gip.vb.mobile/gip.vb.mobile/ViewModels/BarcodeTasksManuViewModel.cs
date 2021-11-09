@@ -33,6 +33,20 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private BarcodeScanManuModel _ManuModel;
+        public BarcodeScanManuModel ManuModel
+        {
+            get
+            {
+                return _ManuModel;
+            }
+            set
+            {
+                SetProperty<BarcodeScanManuModel>(ref _ManuModel, value);
+                OnPropertyChanged();
+            }
+        }
+
         private BarcodeSequence _Item;
         public BarcodeSequence Item
         {

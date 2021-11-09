@@ -61,7 +61,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         /// <summary>
         /// Copy barcode scanner model of use in Inventory line edit model
         /// </summary>
-        public BarcodeScannerModel BarcodeScannerModel { get; set; }
+        public BarcodeScanInventoryModel BarcodeScannerModel { get; set; }
 
 
         #region Properties -> SelectedInventoryLine (and property change handle)
@@ -293,7 +293,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             }
                             else if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
                             {
-                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != CurrentFacilityCharge.FacilityChargeID)
+                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != SelectedInventoryLine.FacilityChargeID)
                                     wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, CurrentFacilityCharge.FacilityChargeID, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
                                 else
                                     wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
@@ -320,13 +320,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
             // reset filter if another facility is selected
             if (
                     InventoryNavArgument.SelectedFacility != null
-                    && BarcodeScannerModel.BarcodeSequence != null
-                    && BarcodeScannerModel.BarcodeSequence.Sequence != null
+                    && BarcodeScannerModel.Item != null
+                    && BarcodeScannerModel.Item.Sequence != null
                 )
             {
                 Facility paramFacility =
                     BarcodeScannerModel
-                    .BarcodeSequence
+                    .Item
                     .Sequence
                     .Where(c => c.Facility != null)
                     .Select(c => c.Facility)
@@ -429,7 +429,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         public void CleanBarcodeAndSetCurrentFacility()
         {
-            BarcodeScannerModel.Clean();
+            BarcodeScannerModel.Clear();
             if (InventoryNavArgument.SelectedFacility != null)
             {
                 BarcodeEntity selectedFaciltiyEntity = new BarcodeEntity() { Facility = InventoryNavArgument.SelectedFacility };
