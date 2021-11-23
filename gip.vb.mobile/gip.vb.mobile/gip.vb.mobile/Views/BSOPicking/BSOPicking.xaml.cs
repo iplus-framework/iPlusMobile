@@ -50,7 +50,7 @@ namespace gip.vb.mobile.Views
 
         private async void btnShowOrders_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOPickingItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = inventory.FacilityInventoryNo } });
+            await Navigation.PushAsync(new BSOPickingItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
         }
     }
 }
