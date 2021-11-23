@@ -127,5 +127,7 @@ namespace gip.vb.mobile.Services
             sequence.State = sequence.Sequence.Count >= 3 ? BarcodeSequence.ActionState.Completed : BarcodeSequence.ActionState.ScanAgain;
             return new WSResponse<BarcodeSequence>(sequence);
         }
+
+
     }
 }

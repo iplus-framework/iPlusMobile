@@ -351,4 +351,16 @@
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
     <value>Barcode-Sequenz hat bereits gescannten Code!</value>
   </data>
+  <data name="SelPickingType_Text" xml:space="preserve">
+    <value>Kommissionierart auswählen</value>
+  </data>
+  <data name="Btn_ShowPickingOrders" xml:space="preserve">
+    <value>Aufträge anzeigen</value>
+  </data>
+  <data name="FromStorageLocation_Text" xml:space="preserve">
+    <value>Vom Lagerort</value>
+  </data>
+  <data name="ToStorageLocation_Text" xml:space="preserve">
+    <value>Nach Lagerort</value>
+  </data>
 </root>

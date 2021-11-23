@@ -1,50 +1,56 @@
-﻿using System;
+﻿using gip.vb.mobile.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using gip.vb.mobile.ViewModels;
-using gip.mes.webservices;
 
 namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOPicking : BSOPageBase
     {
-        PickingsViewModel _ViewModel;
+        private PickingViewModel _ViewModel;
 
         public BSOPicking()
         {
-            BindingContext = _ViewModel = new PickingsViewModel();
+            BindingContext = _ViewModel = new PickingViewModel();
             _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             InitializeComponent();
-        }
-
-        void OnPickingSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-        }
-
-        async void TBItemRefresh_Clicked(object sender, EventArgs e)
-        {
-            await _ViewModel.ExecuteLoadPickingsCommand();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (_ViewModel.Pickings.Count == 0)
-                _ViewModel.LoadPickingsCommand.Execute(null);
+            _ViewModel.LoadPickingTypesCommand.Execute(null);
         }
 
-        private async void PickingsListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
-            var picking = e.Item as Picking;
-            if (picking == null)
-                return;
+            _ViewModel.LoadPickingTypesCommand.Execute(null);
+        }
 
-            await Navigation.PushAsync(new BSOPickingDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = picking } });
+        private void cmdClearPickingType_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedPickingType = null;
+        }
 
-            PickingsListView.SelectedItem = null;
+        private void cmdClearFacilityFrom_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedStorageLocationFrom = null;
+        }
 
+        private void cmdClearFacilityTo_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedStorageLocationTo = null;
+        }
+
+        private async void btnShowOrders_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOPickingItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = inventory.FacilityInventoryNo } });
         }
     }
 }

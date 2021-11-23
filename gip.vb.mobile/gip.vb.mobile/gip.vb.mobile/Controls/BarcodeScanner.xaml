@@ -20,7 +20,7 @@
                     <SearchBar 
                         x:Name="BarcodeSearchBar" 
                         Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
-                        Text="{Binding CurrentBarcode}" 
+                        Text="{Binding Item.CurrentBarcode}" 
                         SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
                     <StackLayout 
                         Orientation="Vertical"

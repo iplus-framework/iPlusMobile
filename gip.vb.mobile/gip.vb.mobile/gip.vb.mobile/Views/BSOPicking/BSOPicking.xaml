@@ -3,31 +3,90 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPicking"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
-              Title="{Binding Title}"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Name="BrowseBSOPicking">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
-        </ResourceDictionary>        
+        </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" >
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <ListView x:Name="PickingsListView"
-                ItemsSource="{Binding Pickings}"
-                ItemTemplate="{StaticResource PickingItemTemplate}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadPickingsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-                ItemSelected="OnPickingSelected"
-                ItemTapped="PickingsListView_ItemTapped">
-        </ListView>
-    </StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="2" />
+        </Grid.RowDefinitions>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="50" />
+                    
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="50" />
+                    
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="50" />
+
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Label Text="{i18n:Translate Text=SelPickingType_Text}" VerticalTextAlignment="End"/>
+                <StackLayout Orientation="Horizontal" Grid.Row="1">
+                    <Picker x:Name="PickingTypeCombo" 
+                                SelectedItem="{Binding SelectedPickingType, Mode=TwoWay}" 
+                                ItemsSource="{Binding PickingTypes}" 
+                                HorizontalOptions="FillAndExpand"
+                                MinimumWidthRequest="50"
+                                ItemDisplayBinding="{Binding MDUnitName}"/>
+                    <Button x:Name="cmdClearPickingType" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearPickingType_Clicked" />
+    
+                </StackLayout>
+
+
+                <Label Grid.Row="2" Text="{i18n:Translate Text=FromStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
+                <StackLayout Orientation="Horizontal" Grid.Row="3" Margin="2,0,2,2">
+                    <Picker x:Name="FacilityFromCombo" 
+                                SelectedItem="{Binding SelectedStorageLocationFrom, Mode=TwoWay}" 
+                                ItemsSource="{Binding StorageLocations}" 
+                                HorizontalOptions="FillAndExpand"
+                                MinimumWidthRequest="50"
+                                ItemDisplayBinding="{Binding FacilityName}"/>
+                    <Button x:Name="cmdClearFacilityFrom" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearFacilityFrom_Clicked"/>
+                </StackLayout>
+
+                <Label Grid.Row="4" Text="{i18n:Translate Text=ToStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
+                <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                    <Picker x:Name="FacilityToCombo" 
+                                SelectedItem="{Binding SelectedStorageLocationTo, Mode=TwoWay}" 
+                                ItemsSource="{Binding StorageLocations}" 
+                                HorizontalOptions="FillAndExpand"
+                                MinimumWidthRequest="50"
+                                ItemDisplayBinding="{Binding FacilityName}"/>
+                    <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacilityTo_Clicked" />
+                </StackLayout>
+
+
+                <Label Grid.Row="6" Text="{i18n:Translate Text=DateFrom_Text}" VerticalTextAlignment="End" Margin="3,0,2,0"/>
+                <DatePicker Grid.Row="7" Margin="2,0,2,0" />
+
+                <Label Grid.Row="8" Text="{i18n:Translate Text=DateTo_Text}" VerticalTextAlignment="End" Margin="3,0,2,0"/>
+                <DatePicker Grid.Row="9" Margin="2,0,2,2" />
+
+
+            </Grid>
+        </ScrollView>
+        <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}" Clicked="btnShowOrders_Clicked" />
+    </Grid>
 </v:BSOPageBase>

@@ -283,7 +283,7 @@ namespace gip.vb.mobile.Controls
         private async void HandleScanProcess()
         {
             bool success = false;
-            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode) && IsEnabledToFetchBarcode)
+            if (!String.IsNullOrEmpty(_ViewModel.Item.CurrentBarcode) && IsEnabledToFetchBarcode)
             {
                 success = await _ViewModel.ExecuteInvokeBarcode();
             }

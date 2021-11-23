@@ -182,8 +182,8 @@
     <Compile Update="Views\BSOPicking\BSOPickingDetail.xaml.cs">
       <DependentUpon>BSOPickingDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\BSOPicking\BSOPicking.xaml.cs">
-      <DependentUpon>BSOPicking.xaml</DependentUpon>
+    <Compile Update="Views\BSOPicking\BSOPickingItems.xaml.cs">
+      <DependentUpon>BSOPickingItems.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -214,6 +214,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOInventory\BSOInventoryMode.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOPicking\BSOPicking.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrder.xaml">

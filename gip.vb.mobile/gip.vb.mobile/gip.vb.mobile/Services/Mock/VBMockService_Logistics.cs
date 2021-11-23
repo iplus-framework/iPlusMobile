@@ -13,6 +13,11 @@ namespace gip.vb.mobile.Services
 {
     public partial class VBMockService
     {
+        public Task<WSResponse<List<MDPickingType>>> GetPickingTypesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         private WSResponse<List<Picking>> _GetPickings;
         public async Task<WSResponse<List<Picking>>> GetPickingsAsync()
         {

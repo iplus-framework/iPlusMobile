@@ -178,6 +178,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show orders.
+        /// </summary>
+        internal static string Btn_ShowPickingOrders {
+            get {
+                return ResourceManager.GetString("Btn_ShowPickingOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Block Quant.
         /// </summary>
         internal static string BtnBlockQuant_Text {
@@ -480,6 +489,15 @@ namespace gip.vb.mobile.Strings {
         internal static string Filter_Text {
             get {
                 return ResourceManager.GetString("Filter_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From storage location.
+        /// </summary>
+        internal static string FromStorageLocation_Text {
+            get {
+                return ResourceManager.GetString("FromStorageLocation_Text", resourceCulture);
             }
         }
         
@@ -826,6 +844,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select picking type.
+        /// </summary>
+        internal static string SelPickingType_Text {
+            get {
+                return ResourceManager.GetString("SelPickingType_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stock.
         /// </summary>
         internal static string StockQuantity_Text {
@@ -876,6 +903,15 @@ namespace gip.vb.mobile.Strings {
         internal static string TimeRangeFilter_Header {
             get {
                 return ResourceManager.GetString("TimeRangeFilter_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To storage location.
+        /// </summary>
+        internal static string ToStorageLocation_Text {
+            get {
+                return ResourceManager.GetString("ToStorageLocation_Text", resourceCulture);
             }
         }
         

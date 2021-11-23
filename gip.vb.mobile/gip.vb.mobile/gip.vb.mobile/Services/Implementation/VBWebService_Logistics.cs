@@ -12,6 +12,11 @@ namespace gip.vb.mobile.Services
 {
     public partial class VBWebService
     {
+        public async Task<WSResponse<List<MDPickingType>>> GetPickingTypesAsync()
+        {
+            return await Get<List<MDPickingType>>(VBWebServiceConst.UriPickingTypes);
+        }
+
         public async Task<WSResponse<List<Picking>>> GetPickingsAsync()
         {
             return await Get<List<Picking>>(VBWebServiceConst.UriPicking);

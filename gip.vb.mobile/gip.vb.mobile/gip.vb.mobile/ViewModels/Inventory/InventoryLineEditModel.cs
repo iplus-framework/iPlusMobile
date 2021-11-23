@@ -293,10 +293,19 @@ namespace gip.vb.mobile.ViewModels.Inventory
                             }
                             else if (InventoryNavArgument.EditMode == EditModeEnum.Confirm)
                             {
-                                if (wSResponse.Data.FacilityInventoryPos == null || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != SelectedInventoryLine.FacilityChargeID)
-                                    wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, CurrentFacilityCharge.FacilityChargeID, wSResponse.Data.FacilityInventoryPos == null ? "-" : wSResponse.Data.FacilityInventoryPos.FacilityChargeID.ToString()));
+                                if (wSResponse.Data.FacilityInventoryPos == null 
+                                    || SelectedInventoryLine == null
+                                    || wSResponse.Data.FacilityInventoryPos.FacilityChargeID != SelectedInventoryLine.FacilityChargeID)
+                                {
+                                    string scanned = wSResponse.Data.FacilityInventoryPos?.FacilityChargeID.ToString();
+                                    string selected = CurrentFacilityCharge?.FacilityChargeID.ToString();
+
+                                    wSResponse.Message = new Msg(eMsgLevel.Error, string.Format(AppStrings.FC_NotMatch_Text, scanned, selected));
+                                }
                                 else
+                                {
                                     wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_Match_Text);
+                                }
                             }
 
                         }

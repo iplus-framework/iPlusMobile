@@ -408,4 +408,16 @@
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
     <value>Barcode sequence already have scanned code!</value>
   </data>
+  <data name="SelPickingType_Text" xml:space="preserve">
+    <value>Select picking type</value>
+  </data>
+  <data name="Btn_ShowPickingOrders" xml:space="preserve">
+    <value>Show orders</value>
+  </data>
+  <data name="FromStorageLocation_Text" xml:space="preserve">
+    <value>From storage location</value>
+  </data>
+  <data name="ToStorageLocation_Text" xml:space="preserve">
+    <value>To storage location</value>
+  </data>
 </root>
