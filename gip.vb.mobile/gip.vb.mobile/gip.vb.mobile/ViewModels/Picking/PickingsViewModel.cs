@@ -16,6 +16,8 @@ namespace gip.vb.mobile.ViewModels
         public Command LoadPickingsCommand { get; set; }
         public PostingOverview Bookings {get;set;}
 
+        public PickingViewModel PickingFilter { get; set; }
+
         public PickingsViewModel()
         {
             Pickings = new ObservableCollection<Picking>();
@@ -39,7 +41,17 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 Pickings.Clear();
-                var response = await _WebService.GetPickingsAsync();
+
+                string pickingType = "", fromFacility = "", toFacility = "", fromDate = "", toDate = "";
+                if (PickingFilter != null)
+                {
+                    pickingType = PickingFilter.SelectedPickingType != null ? PickingFilter.SelectedPickingType.MDUnitName.ToString() : "";
+                }
+
+
+
+
+                var response = await _WebService.SearchPickingsAsync(pickingType, fromFacility, toFacility, fromDate, toDate);
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {

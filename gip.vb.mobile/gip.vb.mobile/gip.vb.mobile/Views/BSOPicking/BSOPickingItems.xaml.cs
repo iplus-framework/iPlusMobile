@@ -18,6 +18,19 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
+        private void InitPageOnNavigation()
+        {
+            if (NavParam != null)
+            {
+                PickingViewModel filter = NavParam.Arguments as PickingViewModel;
+                if (filter != null)
+                {
+                    _ViewModel.PickingFilter = filter;
+                }
+            }
+            this.PageState = PageStateEnum.View;
+        }
+
         void OnPickingSelected(object sender, SelectedItemChangedEventArgs args)
         {
         }
@@ -30,6 +43,7 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            InitPageOnNavigation();
 
             if (_ViewModel.Pickings.Count == 0)
                 _ViewModel.LoadPickingsCommand.Execute(null);

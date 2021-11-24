@@ -15,7 +15,7 @@ namespace gip.vb.mobile.Services
     {
         public Task<WSResponse<List<MDPickingType>>> GetPickingTypesAsync()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private WSResponse<List<Picking>> _GetPickings;
@@ -34,6 +34,11 @@ namespace gip.vb.mobile.Services
             if (picking == null)
                 picking = pickings.Data.FirstOrDefault();
             return await Task.FromResult(new WSResponse<Picking>(picking));
+        }
+
+        public Task<WSResponse<List<Picking>>> SearchPickingsAsync(string pType, string fromFacility, string toFacility, string fromDate, string toDate)
+        {
+            return null;
         }
 
         public async Task<WSResponse<bool>> InsertPickingAsync(Picking item)

@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using gip.mes.webservices;
 using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.vb.mobile.Services.Implementation;
 
 namespace gip.vb.mobile.Services
 {
@@ -27,6 +28,17 @@ namespace gip.vb.mobile.Services
             if (string.IsNullOrEmpty(pickingID))
                 return await Task.FromResult(new WSResponse<Picking>(null, new Msg(eMsgLevel.Error, "pickingID is empty")));
             return await Get<Picking>(String.Format(VBWebServiceConst.UriPickingID_F, pickingID));
+        }
+
+        public async Task<WSResponse<List<Picking>>> SearchPickingsAsync(string pType, string fromFacility, string toFacility, string fromDate, string toDate)
+        {
+            pType = pType.CorrectEmptyUrlString();
+            fromFacility = fromFacility.CorrectEmptyUrlString();
+            toFacility = toFacility.CorrectEmptyUrlString();
+            fromDate = fromDate.CorrectEmptyUrlString();
+            toDate = toDate.CorrectEmptyUrlString();
+
+            return await Get<List<Picking>>(string.Format(VBWebServiceConst.UriSearchPickingF, pType, fromFacility, toFacility, fromDate, toDate));
         }
 
         public async Task<WSResponse<bool>> InsertPickingAsync(Picking item)
