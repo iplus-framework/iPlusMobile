@@ -14,7 +14,7 @@ namespace gip.vb.mobile.Views
         public BSOPickingItems()
         {
             BindingContext = _ViewModel = new PickingsViewModel();
-            _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
+            _ViewModel.SetTitleFromType(typeof(BSOPicking), App.UserRights);
             InitializeComponent();
         }
 

@@ -45,11 +45,16 @@ namespace gip.vb.mobile.ViewModels
                 string pickingType = "", fromFacility = "", toFacility = "", fromDate = "", toDate = "";
                 if (PickingFilter != null)
                 {
-                    pickingType = PickingFilter.SelectedPickingType != null ? PickingFilter.SelectedPickingType.MDUnitName.ToString() : "";
+                    pickingType = PickingFilter.SelectedPickingType != null ? PickingFilter.SelectedPickingType.MDPickingTypeID.ToString() : "";
+
+                    fromFacility = PickingFilter.SelectedStorageLocationFrom != null ? PickingFilter.SelectedStorageLocationFrom.FacilityID.ToString() : "";
+
+                    toFacility = PickingFilter.SelectedStorageLocationTo != null ? PickingFilter.SelectedStorageLocationTo.FacilityID.ToString() : "";
+
+                    fromDate = PickingFilter.DateFrom.ToString("o");
+
+                    toDate = PickingFilter.DateTo.ToString("o");
                 }
-
-
-
 
                 var response = await _WebService.SearchPickingsAsync(pickingType, fromFacility, toFacility, fromDate, toDate);
                 this.WSResponse = response;

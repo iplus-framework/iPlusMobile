@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -20,6 +21,9 @@ namespace gip.vb.mobile.ViewModels
         {
             LoadPickingTypesCommand = new Command(async () => await ExecuteLoadPickingTypesCommand());
             LoadStorageLocationsCommand = new Command(async () => await ExecuteLoadStorageLocationsCommand());
+
+            DateFrom = DateTime.Today;
+            DateTo = DateTime.Today.AddDays(1);
         }
 
         #endregion
@@ -160,7 +164,7 @@ namespace gip.vb.mobile.ViewModels
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
-                    StorageLocations = response.Data;
+                    StorageLocations = response.Data.OrderBy(c => c.FacilityNo).ToList();
                 }
             }
             catch (Exception ex)
