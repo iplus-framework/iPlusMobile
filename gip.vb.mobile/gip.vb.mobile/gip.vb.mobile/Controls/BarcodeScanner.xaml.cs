@@ -10,6 +10,9 @@ using static gip.mes.datamodel.BarcodeSequenceBase;
 
 namespace gip.vb.mobile.Controls
 {
+    /// <summary>
+    /// Component for barcode scan. Important: Call OnAppearing() and OnDisappearing() from host (parent) page
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarcodeScanner : ContentView
     {
@@ -54,7 +57,7 @@ namespace gip.vb.mobile.Controls
         }
 
         /// <summary>
-        /// OnDisappearing - Call in same method name in hosting page
+        /// OnDisappearing - Call in same method name in hosting page (parent page)
         /// </summary>
         public void OnDisappearing()
         {

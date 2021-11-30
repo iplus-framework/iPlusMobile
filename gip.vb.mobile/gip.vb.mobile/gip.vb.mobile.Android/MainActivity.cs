@@ -13,6 +13,7 @@ using Com.Datalogic.Device;
 #endif
 using Android.Util;
 using gip.vb.mobile.barcode;
+using Xamarin.Forms;
 
 namespace gip.vb.mobile.Droid
 {
@@ -25,6 +26,11 @@ namespace gip.vb.mobile.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     { 
 #endif
+        public MainActivity()
+        {
+            Forms.SetFlags("SwipeView_Experimental");
+        }
+
     //Com.Datalogic.Device.Nfc.NfcManager _DLNfcManager = null;
     DatalogicBarcodeService _DLBarcodeService = null;
 

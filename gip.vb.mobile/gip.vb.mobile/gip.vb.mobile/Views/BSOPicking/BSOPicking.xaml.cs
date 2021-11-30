@@ -14,6 +14,7 @@ namespace gip.vb.mobile.Views
     public partial class BSOPicking : BSOPageBase
     {
         private PickingViewModel _ViewModel;
+        
 
         public BSOPicking()
         {
@@ -25,7 +26,9 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _ViewModel.LoadPickingTypesCommand.Execute(null);
+
+            _ViewModel.OnAppear();
+
         }
 
         private void TBItemRefresh_Clicked(object sender, EventArgs e)
@@ -51,6 +54,28 @@ namespace gip.vb.mobile.Views
         private async void btnShowOrders_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BSOPickingItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+        }
+
+        private async void FacilityFromEntry_Focused(object sender, FocusEventArgs e)
+        {
+            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
+            FacilityFromEntry.Unfocus();
+            
+            await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+        }
+
+        private async void FacilityToEntry_Focused(object sender, FocusEventArgs e)
+        {
+            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationTo);
+            FacilityToEntry.Unfocus();
+            await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            //https://stackoverflow.com/questions/30274004/xamarin-close-android-application-on-back-button
+            //TODO: Do nothing (close app from main menu) or close app with question
+            return true;
         }
     }
 }

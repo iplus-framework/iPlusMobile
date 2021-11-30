@@ -57,23 +57,25 @@
 
                 <Label Grid.Row="2" Text="{i18n:Translate Text=FromStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
                 <StackLayout Orientation="Horizontal" Grid.Row="3" Margin="2,0,2,2">
-                    <Picker x:Name="FacilityFromCombo" 
+                    <!--<Picker x:Name="FacilityFromCombo" 
                                 SelectedItem="{Binding SelectedStorageLocationFrom, Mode=TwoWay}" 
                                 ItemsSource="{Binding StorageLocations}" 
                                 HorizontalOptions="FillAndExpand"
                                 MinimumWidthRequest="50"
-                                ItemDisplayBinding="{Binding FacilityName}"/>
+                                ItemDisplayBinding="{Binding FacilityName}"/>-->
+                    <Entry x:Name="FacilityFromEntry" HorizontalOptions="FillAndExpand" Focused="FacilityFromEntry_Focused" Text="{Binding SelectedStorageLocationFrom.FacilityName}"  />
                     <Button x:Name="cmdClearFacilityFrom" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearFacilityFrom_Clicked"/>
                 </StackLayout>
 
                 <Label Grid.Row="4" Text="{i18n:Translate Text=ToStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
                 <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
-                    <Picker x:Name="FacilityToCombo" 
+                    <!--<Picker x:Name="FacilityToCombo" 
                                 SelectedItem="{Binding SelectedStorageLocationTo, Mode=TwoWay}" 
                                 ItemsSource="{Binding StorageLocations}" 
                                 HorizontalOptions="FillAndExpand"
                                 MinimumWidthRequest="50"
-                                ItemDisplayBinding="{Binding FacilityName}"/>
+                                ItemDisplayBinding="{Binding FacilityName}"/>-->
+                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Focused="FacilityToEntry_Focused" Text="{Binding SelectedStorageLocationTo.FacilityName}"  />
                     <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacilityTo_Clicked" />
                 </StackLayout>
 

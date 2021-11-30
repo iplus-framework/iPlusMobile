@@ -112,7 +112,7 @@ namespace gip.vb.mobile.ViewModels
         /// <summary>
         /// Current code in search bar
         /// </summary>
-        public string CurrentBarcode
+        public virtual string CurrentBarcode
         {
             get
             {

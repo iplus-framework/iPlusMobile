@@ -26,9 +26,18 @@ namespace gip.vb.mobile.ViewModels
             DateTo = DateTime.Today.AddDays(1);
         }
 
+        public const string PN_SelectedStorageLocationFrom = "SelectedStorageLocationFrom";
+        public const string PN_SelectedStorageLocationTo = "SelectedStorageLocationTo";
+
         #endregion
 
         #region Properties
+
+        public FacilitySelectorViewModel FacilitySelector
+        {
+            get;
+            set;
+        }
 
         private List<MDPickingType> _PickingTypes;
         public List<MDPickingType> PickingTypes
@@ -123,6 +132,20 @@ namespace gip.vb.mobile.ViewModels
 
         #endregion
 
+        public void OnAppear()
+        {
+
+            if (FacilitySelector != null)
+            {
+                SetFacility();
+                FacilitySelector = null;
+            }
+            else
+            {
+                LoadPickingTypesCommand.Execute(null);
+            }
+        }
+
         public async Task ExecuteLoadPickingTypesCommand()
         {
             if (IsBusy)
@@ -174,6 +197,21 @@ namespace gip.vb.mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public void SetFacility()
+        {
+            if (FacilitySelector == null)
+                return;
+
+            if (FacilitySelector.Invoker == PN_SelectedStorageLocationFrom)
+            {
+                SelectedStorageLocationFrom = FacilitySelector.SelectedStorageLocation;
+            }
+            else if (FacilitySelector.Invoker == PN_SelectedStorageLocationTo)
+            {
+                SelectedStorageLocationTo = FacilitySelector.SelectedStorageLocation;
             }
         }
 
