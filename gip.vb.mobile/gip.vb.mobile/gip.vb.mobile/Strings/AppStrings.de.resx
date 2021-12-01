@@ -363,4 +363,7 @@
   <data name="ToStorageLocation_Text" xml:space="preserve">
     <value>Nach Lagerort</value>
   </data>
+  <data name="Btn_GroupByMaterial" xml:space="preserve">
+    <value>Nach Material gruppiert anzeigen</value>
+  </data>
 </root>

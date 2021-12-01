@@ -178,6 +178,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show grouped by materail.
+        /// </summary>
+        internal static string Btn_GroupByMaterial {
+            get {
+                return ResourceManager.GetString("Btn_GroupByMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show orders.
         /// </summary>
         internal static string Btn_ShowPickingOrders {

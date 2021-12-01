@@ -420,4 +420,7 @@
   <data name="ToStorageLocation_Text" xml:space="preserve">
     <value>To storage location</value>
   </data>
+  <data name="Btn_GroupByMaterial" xml:space="preserve">
+    <value>Show grouped by materail</value>
+  </data>
 </root>
