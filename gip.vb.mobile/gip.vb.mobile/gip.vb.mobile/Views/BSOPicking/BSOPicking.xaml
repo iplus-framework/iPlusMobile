@@ -22,19 +22,21 @@
             <RowDefinition />
             <RowDefinition Height="50" />
             <RowDefinition Height="2" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="2" />
         </Grid.RowDefinitions>
         <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="50" />
-                    
-                    <RowDefinition Height="45" />
-                    <RowDefinition Height="50" />
                     <RowDefinition Height="20" />
-                    <RowDefinition Height="50" />
-                    
                     <RowDefinition Height="45" />
+                    
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="45" />
+                    
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="50" />
@@ -75,7 +77,8 @@
                                 HorizontalOptions="FillAndExpand"
                                 MinimumWidthRequest="50"
                                 ItemDisplayBinding="{Binding FacilityName}"/>-->
-                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Focused="FacilityToEntry_Focused" Text="{Binding SelectedStorageLocationTo.FacilityName}"  />
+                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Focused="FacilityToEntry_Focused" Text="{Binding SelectedStorageLocationTo.FacilityName}" 
+                           />
                     <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacilityTo_Clicked" />
                 </StackLayout>
 
@@ -90,5 +93,6 @@
             </Grid>
         </ScrollView>
         <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}" Clicked="btnShowOrders_Clicked" />
+        <Button Grid.Row="3" x:Name="btnGroupView"  Text="{i18n:Translate Text=Btn_GroupByMaterial}" Clicked="btnShowOrders_Clicked" />
     </Grid>
 </v:BSOPageBase>

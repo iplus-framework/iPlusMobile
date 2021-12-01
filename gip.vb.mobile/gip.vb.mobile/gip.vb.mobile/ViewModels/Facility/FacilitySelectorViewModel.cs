@@ -159,28 +159,7 @@ namespace gip.vb.mobile.ViewModels
             StorageLocationPath.Clear(); 
             StorageLocationPath = new List<Facility>(StorageLocationPath);
 
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                var response = await _WebService.SearchFacilityAsync("*", "*", "*");
-                this.WSResponse = response;
-                if (response.Suceeded)
-                {
-                    StorageLocations = response.Data.OrderBy(c => c.FacilityNo).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            await ExecuteLoadStorageLocationsCommand();
         }
 
         public async Task ExecuteRemoveLastFacilityInPath()
@@ -200,11 +179,14 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 string parentFacilityID = "*";
+                string facilityType = ((short)MDFacilityType.FacilityTypes.StorageLocation).ToString();
                 Facility lastAfterRemove = StorageLocationPath.LastOrDefault();
                 if (lastAfterRemove != null)
                     parentFacilityID = lastAfterRemove?.FacilityID.ToString();
+                else
+                    facilityType = "";
 
-                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, "*");
+                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, facilityType);
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
