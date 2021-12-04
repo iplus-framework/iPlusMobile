@@ -106,14 +106,27 @@ namespace gip.vb.mobile.Views
         private void ButtonDoBooking_Clicked(object sender, EventArgs e)
         {
             BarcodeEntity barcodeEntity = _ViewModel.WSBarcodeEntityResult;
-            if (barcodeEntity == null || barcodeEntity.FacilityCharge == null)
+            if (barcodeEntity == null)
             {
-                _ViewModel.Message = new core.datamodel.Msg() { Message = "Kein Quant gescannt!" };
+                _ViewModel.Message = new core.datamodel.Msg() { Message = "Barcode entity is null!" };
                 return;
             }
-            if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
+
+            if (barcodeEntity.FacilityCharge != null)
             {
-                _ViewModel.Message = new core.datamodel.Msg() { Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
+                if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
+                {
+                    _ViewModel.Message = new core.datamodel.Msg() { Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
+                    return;
+                }
+            }
+            else if (barcodeEntity.Facility != null)
+            {
+
+            }
+            else
+            {
+                _ViewModel.Message = new core.datamodel.Msg() { Message = "Kein Quant oder Lager gescannt!" };
                 return;
             }
 
