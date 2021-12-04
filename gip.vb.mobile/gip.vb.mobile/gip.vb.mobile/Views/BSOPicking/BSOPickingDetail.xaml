@@ -27,5 +27,6 @@
                 ItemSelected="PickingPosListView_ItemSelected"
                   ItemTapped="PickingPosListView_ItemTapped">
         </ListView>
+        <Button HeightRequest="45" Text="Complete order" />
     </StackLayout>
 </v:BSOPageBase>

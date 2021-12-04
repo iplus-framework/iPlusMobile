@@ -15,6 +15,9 @@ namespace gip.vb.mobile.ViewModels
         {
             Item = item;
             PickingItem = pickingItem;
+
+
+
             ReadPickingPosCommand = new Command(async () => await ReadPickingPos());
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             ReadPostingsCommand = new Command(async () => await ExecuteReadPostingsCommand());
@@ -47,6 +50,11 @@ namespace gip.vb.mobile.ViewModels
             {
                 SetProperty(ref _Item, value);
                 RebuildTitle();
+                if (_Item != null)
+                {
+                    double restQuantity = _Item.TargetQuantity - _Item.ActualQuantity;
+                    BookingQuantity = restQuantity;
+                }
             }
         }
 
@@ -228,7 +236,7 @@ namespace gip.vb.mobile.ViewModels
                 return;
 
             BarcodeEntity barcodeEntity = WSBarcodeEntityResult;
-            if (barcodeEntity == null || barcodeEntity.FacilityCharge == null)
+            if (barcodeEntity == null)
                 return;
 
             IsBusy = true;
@@ -239,10 +247,20 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility.ToString();
                 aCMethodBooking.PickingPosID = Item.PickingPosID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
-                aCMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
-                aCMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    aCMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
+                    aCMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                }
                 aCMethodBooking.InwardQuantity = BookingQuantity;
-                aCMethodBooking.InwardFacilityID = Item.ToFacility.FacilityID;
+                if (barcodeEntity.Facility != null)
+                {
+                    aCMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
+                }
+                else
+                {
+                    aCMethodBooking.InwardFacilityID = Item.ToFacility.FacilityID;
+                }
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -261,6 +279,8 @@ namespace gip.vb.mobile.ViewModels
                         BookingMessage = "";
                         if (PickingItem != null && Item != null)
                             PickingItem.ReplacePickingPosItem(Item);
+
+                        Print();
                     }
                 }
             }
@@ -272,6 +292,13 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public void Print()
+        {
+            Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Please print labels now and stick them on the material. How much labels do you want to print?");
+            ShowDialog(msg);
+
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
