@@ -56,8 +56,18 @@ namespace gip.vb.mobile.ViewModels
 
         public event DialogEventHandler DialogEvent;
 
-        public void ShowDialog(Msg msg)
+        public DialogOptions DialogOptions;
+
+        public void ShowDialog(Msg msg, string title = "", Keyboard keyboard = null, string initialValue = "", short requestID = 0)
         {
+            if (keyboard == null)
+                keyboard = Keyboard.Default;
+
+            DialogOptions.DialogPrompKeyboard = keyboard;
+            DialogOptions.DialogPromptInitialValue = initialValue;
+            DialogOptions.DialogTitle = title;
+            DialogOptions.RequestID = requestID;
+
             if (DialogEvent != null)
                 DialogEvent(this, new Controls.EventArgs<Msg>(msg));
         }
@@ -77,6 +87,33 @@ namespace gip.vb.mobile.ViewModels
                 }
             }
             Title = thisType.Name;
+        }
+    }
+
+    public struct DialogOptions
+    {
+        public short RequestID
+        {
+            get;
+            set;
+        }
+
+        public string DialogTitle
+        {
+            get;
+            set;
+        }
+
+        public string DialogPromptInitialValue
+        {
+            get;
+            set;
+        }
+
+        public Keyboard DialogPrompKeyboard
+        {
+            get;
+            set;
         }
     }
 }

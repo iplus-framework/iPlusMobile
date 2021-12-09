@@ -10,7 +10,8 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              BarBackgroundColor="{DynamicResource NavigationBarColor}"
              BarTextColor="{DynamicResource NavigationBarTextColor}"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             CurrentPageChanged="BSOTabbedPageBase_CurrentPageChanged">
     <v:BSOTabbedPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
@@ -27,6 +28,9 @@
                     <On Platform="UWP" Value="add.png"/>
                 </OnPlatform>
             </ToolbarItem.Icon>-->
+        </ToolbarItem>
+        <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="Print.png">
+
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="PickingPosPivotItem" Title="{i18n:Translate Text=PickingPosPivot_Header}">
@@ -78,7 +82,9 @@
         </ScrollView>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="BookingHistoryPivotItem" Title="{i18n:Translate Text=BookingHistory_Header}">
-        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+                     HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
+                     RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" Width="1*"/>

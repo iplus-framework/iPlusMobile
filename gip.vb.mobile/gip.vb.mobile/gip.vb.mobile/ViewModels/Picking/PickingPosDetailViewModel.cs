@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.facility;
 using gip.mes.webservices;
 using Xamarin.Forms;
 
@@ -16,12 +18,11 @@ namespace gip.vb.mobile.ViewModels
             Item = item;
             PickingItem = pickingItem;
 
-
-
             ReadPickingPosCommand = new Command(async () => await ReadPickingPos());
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             ReadPostingsCommand = new Command(async () => await ExecuteReadPostingsCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
+            PrintCommand = new Command(async () => await ExecutePrintCommand());
         }
 
         #region Properties
@@ -68,6 +69,16 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _Overview, value);
+            }
+        }
+
+        private FacilityBookingChargeOverview _SelectedPosting;
+        public FacilityBookingChargeOverview SelectedPosting
+        {
+            get => _SelectedPosting;
+            set
+            {
+                SetProperty<FacilityBookingChargeOverview>(ref _SelectedPosting, value);
             }
         }
 
@@ -294,15 +305,92 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public void Print()
+        public Command PrintCommand { get; set; }
+        public async Task<bool> ExecutePrintCommand(PrintEntity printEntity = null)
         {
-            Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Please print labels now and stick them on the material. How much labels do you want to print?");
-            ShowDialog(msg);
 
+            if (IsBusy
+                || Item == null)
+                return false;
+
+            IsBusy = true;
+            bool success = false;
+            try
+            {
+                if (printEntity == null)
+                    return false;
+
+                WSResponse<bool> result = await _WebService.Print(printEntity);
+                success = result.Data;
+                Message = result.Message;
+            }
+            catch (Exception ex)
+            {
+                Message = new Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return success;
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public void Print()
         {
+            Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Please print labels now and stick them on the material. How many labels do you want to print?");
+            ShowDialog(msg, "", Keyboard.Numeric, "1", 1);
+        }
+
+        public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
+        {
+            if (DialogOptions.RequestID == 1)
+            {
+                if (result == Global.MsgResult.OK)
+                {
+                    int copies = 0;
+                    if (int.TryParse(entredValue, out copies))
+                    {
+                        if (copies > 0)
+                        {
+                            PrintEntity printEntity = new PrintEntity();
+                            printEntity.CopyCount = copies;
+
+                            var facilityBookingCharge = Overview?.PostingsFBC?.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                            if (facilityBookingCharge == null)
+                            {
+                                Msg msg = new Msg(eMsgLevel.Error, "Can not find a facility booking charge and facility charge for print!");
+                                ShowDialog(msg, requestID: 2);
+                                return;
+                            }
+
+                            Guid? facilityChargeID = facilityBookingCharge.InwardFacilityChargeID;
+                            if (!facilityChargeID.HasValue)
+                            {
+                                Facility targetFacility = Item?.ToFacility;
+
+
+
+                            }
+
+
+                            if (!facilityChargeID.HasValue)
+                            {
+                                Msg msg = new Msg(eMsgLevel.Error, "Can not find a facility booking charge and facility charge for print!");
+                                ShowDialog(msg, requestID: 2);
+                                return;
+                            }
+
+                            FacilityCharge fc = new FacilityCharge() { FacilityChargeID = facilityChargeID.Value};
+                            printEntity.Sequence = new List<BarcodeEntity>()
+                                                    {
+                                                        new BarcodeEntity(){ FacilityCharge = fc }
+                                                    };
+
+                            await ExecutePrintCommand(printEntity);
+                        }
+                    }
+                }
+            }
         }
 
         #endregion

@@ -53,8 +53,16 @@ namespace gip.vb.mobile.Views
 
         private async void btnShowOrders_Clicked(object sender, EventArgs e)
         {
+            _ViewModel.IsGroupedByMaterial = false;
             await Navigation.PushAsync(new BSOPickingItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
         }
+
+        private async void btnGroupView_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.IsGroupedByMaterial = true;
+            await Navigation.PushAsync(new BSOPickingByMaterial() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+        }
+
 
         private async void FacilityFromEntry_Focused(object sender, FocusEventArgs e)
         {
@@ -77,5 +85,7 @@ namespace gip.vb.mobile.Views
             //TODO: Do nothing (close app from main menu) or close app with question
             return true;
         }
+
+
     }
 }

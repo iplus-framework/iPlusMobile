@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOPickingByMaterial"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             Title="{i18n:Translate Text=PickingByMaterial_Header}">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" >
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ListView x:Name="PickingsByMaterialListView"
+                ItemsSource="{Binding PickingsByMaterial}"
+                ItemTemplate="{StaticResource PickingMaterialItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadPickingsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemTapped="PickingsByMaterialListView_ItemTapped"
+                SelectedItem="{Binding SelectedPickingMaterial}"
+                >
+        </ListView>
+    </StackLayout>
+</v:BSOPageBase>

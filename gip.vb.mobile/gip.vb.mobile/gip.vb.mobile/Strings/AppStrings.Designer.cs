@@ -736,6 +736,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grouped by material.
+        /// </summary>
+        internal static string PickingByMaterial_Header {
+            get {
+                return ResourceManager.GetString("PickingByMaterial_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Info.
         /// </summary>
         internal static string PickingPosPivot_Header {

@@ -80,9 +80,12 @@ namespace gip.vb.mobile.Views
                 }
                 else if (msg.MessageLevel == core.datamodel.eMsgLevel.QuestionPrompt)
                 {
-                    string result = await DisplayPromptAsync("", msg.Message, "OK", AppStrings.ButtonCancel, null, -1, null, "0,0");
                     if (_BaseViewModel != null)
+                    {
+                        string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, msg.Message, "OK", AppStrings.ButtonCancel, null, -1, 
+                                                                 _BaseViewModel.DialogOptions.DialogPrompKeyboard, _BaseViewModel.DialogOptions.DialogPromptInitialValue);
                         _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
+                    }
                     else
                     {
                         //TODO:Error

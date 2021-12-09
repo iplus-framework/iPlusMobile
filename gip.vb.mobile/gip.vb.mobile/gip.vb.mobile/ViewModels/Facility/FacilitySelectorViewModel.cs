@@ -179,16 +179,13 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 string parentFacilityID = "*";
-                string facilityType = ((short)MDFacilityType.FacilityTypes.StorageLocation).ToString();
                 Facility lastAfterRemove = StorageLocationPath.LastOrDefault();
                 if (lastAfterRemove != null)
                     parentFacilityID = lastAfterRemove?.FacilityID.ToString();
-                else
-                    facilityType = "";
 
-                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, facilityType);
+                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, "*");
                 this.WSResponse = response;
-                if (response.Suceeded)
+                if (response.Suceeded && response.Data != null)
                 {
                     StorageLocations = response.Data.OrderBy(c => c.FacilityNo).ToList();
                 }

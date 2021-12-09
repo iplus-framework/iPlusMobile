@@ -130,6 +130,12 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public bool IsGroupedByMaterial
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         public void OnAppear()

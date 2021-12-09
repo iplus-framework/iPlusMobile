@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOPickingByMaterialDetail"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BarBackgroundColor="{DynamicResource NavigationBarColor}"
+             BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding Title}">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" >-->
+            <!--<ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>-->
+        <!--</ToolbarItem>-->
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase x:Name="DoPickingMaterial" Title="Order picking">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="1">
+                <StackLayout>
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Item.TotalQuantity}" Style="{StaticResource LabelForData}"/>
+                        <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                    </StackLayout>
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Item.ActualQuantity}" Style="{StaticResource LabelForData}"/>
+                        <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                    </StackLayout>
+
+                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" />
+                    <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
+                    ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                    HasUnevenRows="true"
+                    RefreshCommand="{Binding LoadBarcodeEntityCommand}"
+                    IsPullToRefreshEnabled="false"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+
+                    </StackLayout>
+            </ScrollView>
+            <Button Grid.Row="2" x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" />
+        </Grid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="PickingMaterialDetail" Title="Position details">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ListView x:Name="PickingsListView"
+                ItemsSource="{Binding Item.PickingItems}"
+                ItemTemplate="{StaticResource PickingMaterialItemPosTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                SelectedItem="{Binding SelectedPickingPos}"
+                ItemTapped="PickingsListView_ItemTapped">
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

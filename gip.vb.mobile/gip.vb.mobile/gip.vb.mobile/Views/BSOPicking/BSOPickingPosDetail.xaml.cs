@@ -133,5 +133,25 @@ namespace gip.vb.mobile.Views
             _ViewModel.BookFacilityCommand.Execute(null);
         }
         #endregion
+
+        private void TabPrint_Clicked(object sender, EventArgs e)
+        {
+            if (CurrentPage == BookingHistoryPivotItem)
+            {
+                _ViewModel.Print();
+            }
+        }
+
+        private void BSOTabbedPageBase_CurrentPageChanged(object sender, EventArgs e)
+        {
+            if (CurrentPage == BookingHistoryPivotItem)
+            {
+                TBPrint.IsEnabled = true;
+            }
+            else
+            {
+                TBPrint.IsEnabled = false;
+            }
+        }
     }
 }

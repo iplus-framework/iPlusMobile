@@ -7,6 +7,7 @@ using gip.mes.webservices;
 using System.Collections.Generic;
 using gip.mes.facility;
 using gip.core.datamodel;
+using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -15,12 +16,13 @@ namespace gip.vb.mobile.ViewModels
         public ObservableCollection<Picking> Pickings { get; set; }
         public Command LoadPickingsCommand { get; set; }
         public PostingOverview Bookings {get;set;}
-
+        public ObservableCollection<PickingMaterial> PickingsByMaterial { get; set; }
         public PickingViewModel PickingFilter { get; set; }
 
         public PickingsViewModel()
         {
             Pickings = new ObservableCollection<Picking>();
+            PickingsByMaterial = new ObservableCollection<PickingMaterial>();
             LoadPickingsCommand = new Command(async () => await ExecuteLoadPickingsCommand());
 
             //MessagingCenter.Subscribe<NewItemPage, Picking>(this, "AddItem", async (obj, item) =>
@@ -62,7 +64,21 @@ namespace gip.vb.mobile.ViewModels
                 {
                     foreach (var item in response.Data)
                     {
+                        if (PickingFilter != null && PickingFilter.IsGroupedByMaterial)
+                        {
+                            foreach (PickingPos pickingPos in item.PickingPos_Picking)
+                            {
+                                pickingPos.Picking = item;
+                                pickingPos.PostingQuantity = pickingPos.TargetQuantity - pickingPos.ActualQuantity;
+                            }
+                        }
+
                         Pickings.Add(item);
+                    }
+
+                    if (PickingFilter != null && PickingFilter.IsGroupedByMaterial)
+                    {
+                        GroupByMaterial();
                     }
                 }
             }
@@ -73,6 +89,38 @@ namespace gip.vb.mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private PickingMaterial _SelectedPickingMaterial;
+        public PickingMaterial SelectedPickingMaterial
+        {
+            get => _SelectedPickingMaterial;
+            set
+            {
+                SetProperty<PickingMaterial>(ref _SelectedPickingMaterial, value);
+            }
+        }
+
+        public void GroupByMaterial()
+        {
+            if (Pickings != null)
+            {
+                var groupedItems = Pickings.SelectMany(c => c.PickingPos_Picking).GroupBy(c => c.Material.MaterialID)
+                                                                                 .Select(p => new PickingMaterial() { Material = p.FirstOrDefault()?.Material, 
+                                                                                                                        PickingItems = p, 
+                                                                                                                        TotalQuantity = p.Sum(c => c.TargetQuantityUOM),
+                                                                                                                        ActualQuantity = p.Sum(c => c.ActualQuantityUOM),
+                                                                                                                        MDUnit = p.FirstOrDefault()?.MDUnit });
+
+                foreach (PickingMaterial pm in groupedItems)
+                {
+                    PickingsByMaterial.Add(pm);
+                }
+            }
+            else
+            {
+                 PickingsByMaterial = new ObservableCollection<PickingMaterial>();
             }
         }
 

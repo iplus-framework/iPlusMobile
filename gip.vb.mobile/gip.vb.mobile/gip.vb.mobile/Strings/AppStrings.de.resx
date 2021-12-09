@@ -366,4 +366,7 @@
   <data name="Btn_GroupByMaterial" xml:space="preserve">
     <value>Nach Material gruppiert anzeigen</value>
   </data>
+  <data name="PickingByMaterial_Header" xml:space="preserve">
+    <value>Gruppiert nach Material</value>
+  </data>
 </root>
