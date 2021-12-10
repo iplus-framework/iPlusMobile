@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -14,7 +15,8 @@ namespace gip.vb.mobile.ViewModels
 
         public PickingByMaterialViewModel()
         {
-            
+            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
         }
 
         private PickingMaterial _Item;
@@ -28,7 +30,33 @@ namespace gip.vb.mobile.ViewModels
                 if (_Item != null)
                 {
                     Title = _Item.Material.MaterialName1;
+                    TotalBookingQantity = _Item.PickingItems.Sum(c => c.PostingQuantity);
                 }
+            }
+        }
+
+        private double _TotalBookingQantity;
+        public double TotalBookingQantity
+        {
+            get => _TotalBookingQantity;
+            set
+            {
+                SetProperty<double>(ref _TotalBookingQantity, value);
+
+                if (WSBarcodeEntityResult != null && WSBarcodeEntityResult.FacilityCharge != null)
+                {
+                    MissingBookingQuanity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+                }
+            }
+        }
+
+        private double _MissingBookingQuanity;
+        public double MissingBookingQuanity
+        {
+            get => _MissingBookingQuanity;
+            set
+            {
+                SetProperty<double>(ref _MissingBookingQuanity, value);
             }
         }
 
@@ -65,6 +93,11 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _WSBarcodeEntityResult, value);
+
+                if (_WSBarcodeEntityResult != null && _WSBarcodeEntityResult.FacilityCharge != null)
+                {
+                    MissingBookingQuanity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+                }
             }
         }
 
@@ -78,6 +111,19 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _CurrentBarcodeEntity, value);
+            }
+        }
+
+        public string _BookingMessage;
+        public string BookingMessage
+        {
+            get
+            {
+                return _BookingMessage;
+            }
+            set
+            {
+                SetProperty(ref _BookingMessage, value);
             }
         }
 
@@ -109,7 +155,71 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Command BookFacilityCommand { get; set; }
+        public async Task ExecuteBookFacilityCommand()
+        {
+            if (IsBusy || Item == null || Item.PickingItems == null)
+                return;
 
+            if (MissingBookingQuanity < 0)
+            {
+                //error 
+                return;
+            }
+
+            BarcodeEntity barcodeEntity = WSBarcodeEntityResult;
+            if (barcodeEntity == null)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                ACMethodBookingList bookings = new ACMethodBookingList();
+
+                foreach (PickingPos pp in Item.PickingItems)
+                {
+                    if (pp.PostingQuantity > 0.0001)
+                    {
+                        ACMethodBooking aCMethodBooking = new ACMethodBooking();
+                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
+                        aCMethodBooking.PickingPosID = pp.PickingPosID;
+                        aCMethodBooking.OutwardQuantity = pp.PostingQuantity;
+                        if (barcodeEntity.FacilityCharge != null)
+                        {
+                            aCMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
+                            aCMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                        }
+                        aCMethodBooking.InwardQuantity = pp.PostingQuantity;
+                        bookings.Add(aCMethodBooking);
+                    }
+                }
+
+                var response = await _WebService.BookFacilitiesAsync(bookings);
+                this.WSResponse = response;
+
+                BookingMessage = response.Data.DetailsAsText;
+
+                if (response.Suceeded)
+                {
+                    IsBusy = false;
+                    //await ExecuteReadPostingsCommand();
+                    IsBusy = false;
+                    //await ReadPickingPos();
+                    BookingMessage = "";
+                    //if (PickingItem != null && Item != null)
+                    //    PickingItem.ReplacePickingPosItem(Item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
         public void ChangePostingQuantity()
         {
@@ -127,6 +237,7 @@ namespace gip.vb.mobile.ViewModels
                     if (double.TryParse(entredValue, out postingQuantity) && SelectedPickingPos != null)
                     {
                         SelectedPickingPos.PostingQuantity = postingQuantity;
+                        TotalBookingQantity = _Item.PickingItems.Sum(c => c.PostingQuantity);
                     }
                 }
             }

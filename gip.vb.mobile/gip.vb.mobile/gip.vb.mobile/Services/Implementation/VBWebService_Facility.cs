@@ -154,6 +154,13 @@ namespace gip.vb.mobile.Services
                 return await Task.FromResult(new WSResponse<MsgWithDetails>(null, new Msg(eMsgLevel.Error, "bpParam is null")));
             return await Post<MsgWithDetails, ACMethodBooking>(bpParam, VBWebServiceConst.UriBookFacility);
         }
+
+        public async Task<WSResponse<MsgWithDetails>> BookFacilitiesAsync(ACMethodBookingList bpParams)
+        {
+            if (bpParams == null)
+                return await Task.FromResult(new WSResponse<MsgWithDetails>(null, new Msg(eMsgLevel.Error, "bpParams is null")));
+            return await Post<MsgWithDetails, ACMethodBookingList>(bpParams, VBWebServiceConst.UriBookFacilities);
+        }
         #endregion
 
         #region Inventory

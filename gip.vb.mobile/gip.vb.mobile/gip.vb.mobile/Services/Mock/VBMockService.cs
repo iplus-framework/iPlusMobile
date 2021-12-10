@@ -128,6 +128,9 @@ namespace gip.vb.mobile.Services
             return new WSResponse<BarcodeSequence>(sequence);
         }
 
-
+        public Task<WSResponse<MsgWithDetails>> BookFacilitiesAsync(ACMethodBookingList bpParams)
+        {
+            return new Task<WSResponse<MsgWithDetails>>(null);
+        }
     }
 }
