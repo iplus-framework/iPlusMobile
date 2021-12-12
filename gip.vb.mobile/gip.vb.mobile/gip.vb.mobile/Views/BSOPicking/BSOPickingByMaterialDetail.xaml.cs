@@ -26,12 +26,29 @@ namespace gip.vb.mobile.Views
         {
             base.OnAppearing();
             InitPageOnNavigation();
+            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
+        }
+
+        private void _ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_ViewModel != null && e.PropertyName == "MissingBookingQuanity")
+            {
+                if (_ViewModel.MissingBookingQuanity < 0)
+                {
+                    lblMissingQuantity.TextColor = Color.Red;
+                }
+                else
+                {
+                    lblMissingQuantity.TextColor = Color.Green;
+                }
+            }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             UnSubcribeToBarcodeService();
+            _ViewModel.PropertyChanged -= _ViewModel_PropertyChanged;
         }
 
         IBarcodeService _BarcodeService;
@@ -123,5 +140,7 @@ namespace gip.vb.mobile.Views
 
             _ViewModel.BookFacilityCommand.Execute(null);
         }
+
+        
     }
 }

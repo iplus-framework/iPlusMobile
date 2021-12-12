@@ -256,6 +256,27 @@ namespace gip.vb.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility.ToString();
+
+                if (PickingItem != null)
+                {
+                    if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Issue.ToString())
+                    {
+                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutward;
+                    }
+                    else if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Receipt.ToString())
+                    {
+                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
+                    }
+                    else if (PickingItem.PickingType.MDKey == "ReturnReceipt")
+                    {
+                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInwardCancel;
+                    }
+                    else if (PickingItem.PickingType.MDKey == "ReturnIssue")
+                    {
+                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
+                    }
+                }
+
                 aCMethodBooking.PickingPosID = Item.PickingPosID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
                 if (barcodeEntity.FacilityCharge != null)

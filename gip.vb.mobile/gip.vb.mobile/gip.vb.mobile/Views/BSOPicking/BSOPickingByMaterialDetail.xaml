@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
         </ResourceDictionary>
+        <i18n:LowerThanConverter x:Key="LTC" />
     </v:BSOTabbedPageBase.Resources>
     <v:BSOTabbedPageBase.ToolbarItems>
         <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" >-->
@@ -76,17 +77,36 @@
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="PickingMaterialDetail" Title="Position details">
         <Grid>
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="45" />
                 <RowDefinition Height="5" />
             </Grid.RowDefinitions>
-            <ScrollView Orientation="Vertical">
-                <StackLayout>
-                    <ListView x:Name="PickingsListView"
+
+            <StackLayout>
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.Material.MaterialName1}" />
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.FacilityLot.LotNo}" />
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.StockQuantity}" />
+            </StackLayout>
+
+            <StackLayout Grid.Column="1" >
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Posting Q:" />
+                    <Label Text="{Binding TotalBookingQantity}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Difference Q:" />
+                    <Label x:Name="lblMissingQuantity" Text="{Binding MissingBookingQuanity}" />
+                </StackLayout>
+            </StackLayout>
+
+            <ListView x:Name="PickingsListView" Grid.Row="2" Grid.ColumnSpan="2"
                     ItemsSource="{Binding Item.PickingItems}"
                     ItemTemplate="{StaticResource PickingMaterialItemPosTemplate}"
                     VerticalOptions="FillAndExpand"
@@ -96,10 +116,8 @@
                     CachingStrategy="RecycleElement"
                     SelectedItem="{Binding SelectedPickingPos}"
                     ItemTapped="PickingsListView_ItemTapped">
-                    </ListView>
-                </StackLayout>
-            </ScrollView>
-            <Button Grid.Row="2" x:Name="ButtonDoBooking1" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
+            </ListView>
+            <Button Grid.Row="3" x:Name="ButtonDoBooking1" Grid.ColumnSpan="2" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
         </Grid>
     </v:BSOPageBase>
 </v:BSOTabbedPageBase>
