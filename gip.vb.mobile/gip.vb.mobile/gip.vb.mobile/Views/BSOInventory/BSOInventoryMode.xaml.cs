@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.mes.datamodel;
 using gip.vb.mobile.Strings;
 using gip.vb.mobile.ViewModels.Inventory;
 using System;

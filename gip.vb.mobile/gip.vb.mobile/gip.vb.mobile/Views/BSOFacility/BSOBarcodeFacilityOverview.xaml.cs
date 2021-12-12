@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.mes.datamodel;
 using gip.vb.mobile.barcode;
 using gip.vb.mobile.ViewModels;
 using System;

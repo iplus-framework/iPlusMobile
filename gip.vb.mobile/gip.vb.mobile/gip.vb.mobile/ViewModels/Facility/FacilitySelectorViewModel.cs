@@ -1,5 +1,6 @@
 ﻿using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.datamodel;
 using gip.mes.webservices;
 using System;
 using System.Collections.Generic;

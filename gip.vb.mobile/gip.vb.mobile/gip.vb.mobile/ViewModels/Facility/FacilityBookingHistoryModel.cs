@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.datamodel;
 using gip.mes.webservices;
 using Xamarin.Forms;
 
