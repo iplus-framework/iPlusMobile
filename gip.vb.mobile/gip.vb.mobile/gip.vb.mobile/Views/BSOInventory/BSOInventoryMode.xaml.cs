@@ -183,12 +183,12 @@ namespace gip.vb.mobile.Views
                 if (facility != null)
                 {
                     // Returned facility is Storage Location - only storage location filter is populated
-                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)FacilityTypesEnum.StorageLocation)
                     {
                         _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
                     }
                     // Barcode is facility - both filter (dropdown selected value) is populated - facility and facility parent as storage location
-                    else if (facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    else if (facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)FacilityTypesEnum.StorageLocation)
                     {
                         _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.ParentFacility.FacilityNo);
                         _ViewModel.SelectedFacility = _ViewModel.Facilities.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
@@ -208,14 +208,14 @@ namespace gip.vb.mobile.Views
                 if (facility != null)
                 {
                     // Returned facility is Storage Location - only storage location filter is populated
-                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    if (facility.MDFacilityType.MDFacilityTypeIndex == (short)FacilityTypesEnum.StorageLocation)
                     {
                         _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);
                         if (barcodeScanner != null)
                             barcodeScanner._ViewModel.IsListVisible = false;
                     }
                     // Barcode is facility - both filter (dropdown selected value) is populated - facility and facility parent as storage location
-                    else if (facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)MDFacilityType.FacilityTypes.StorageLocation)
+                    else if (facility.ParentFacility != null && facility.ParentFacility.MDFacilityType.MDFacilityTypeIndex == (short)FacilityTypesEnum.StorageLocation)
                     {
                         _ViewModel.SelectedStorageLocation = _ViewModel.StorageLocations.FirstOrDefault(c => c.FacilityNo == facility.ParentFacility.FacilityNo);
                         _ViewModel.SelectedFacility = _ViewModel.Facilities.FirstOrDefault(c => c.FacilityNo == facility.FacilityNo);

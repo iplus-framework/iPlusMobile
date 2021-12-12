@@ -157,7 +157,7 @@ namespace gip.vb.mobile.Views
             Facility facility = e.Item as Facility;
             if (facility != null)
             {
-                if (facility.MDFacilityType != null && facility.MDFacilityType.FacilityType == MDFacilityType.FacilityTypes.StorageLocation)
+                if (facility.MDFacilityType != null && facility.MDFacilityType.FacilityType == FacilityTypesEnum.StorageLocation)
                     await NavigateToFacilityLocationOverview(facility);
                 else
                     await NavigateToFacilityOverview(facility);

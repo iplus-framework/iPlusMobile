@@ -224,7 +224,7 @@ namespace gip.vb.mobile.ViewModels
                         FilterTo.ToString("o", CultureInfo.InvariantCulture));
                 else if (ItemAsFacility != null)
                 {
-                    if (ItemAsFacility.MDFacilityType.FacilityType == MDFacilityType.FacilityTypes.StorageLocation)
+                    if (ItemAsFacility.MDFacilityType.FacilityType == FacilityTypesEnum.StorageLocation)
                     {
                         response = await _WebService.GetFacilityLocationBookingsAsync(ItemAsFacility.FacilityID.ToString(),
                             FilterFrom.ToString("o", CultureInfo.InvariantCulture),

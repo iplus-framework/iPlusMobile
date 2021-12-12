@@ -189,7 +189,7 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.SearchFacilityAsync("*", "*", ((short)MDFacilityType.FacilityTypes.StorageLocation).ToString());
+                var response = await _WebService.SearchFacilityAsync("*", "*", ((short)FacilityTypesEnum.StorageLocation).ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
