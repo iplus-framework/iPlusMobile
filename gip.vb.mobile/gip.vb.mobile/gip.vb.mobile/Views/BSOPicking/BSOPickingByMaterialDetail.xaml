@@ -13,7 +13,6 @@
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
         </ResourceDictionary>
-        <i18n:LowerThanConverter x:Key="LTC" />
     </v:BSOTabbedPageBase.Resources>
     <v:BSOTabbedPageBase.ToolbarItems>
         <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" >-->
