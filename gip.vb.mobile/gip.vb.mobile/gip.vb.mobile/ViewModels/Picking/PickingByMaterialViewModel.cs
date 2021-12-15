@@ -57,22 +57,9 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty<double>(ref _MissingBookingQuanity, value);
-                //if (_MissingBookingQuanity >= 0)
-                //    MBQColor = Color.LimeGreen;
-                //else
-                //    MBQColor = Color.Red;
             }
         }
 
-        //private Color _MBQColor = Color.LimeGreen;
-        //public Color MBQColor
-        //{
-        //    get => _MBQColor;
-        //    set
-        //    {
-        //        SetProperty(ref _MBQColor, value);
-        //    }
-        //}
 
         private PickingPos _SelectedPickingPos;
         public PickingPos SelectedPickingPos
@@ -205,14 +192,6 @@ namespace gip.vb.mobile.ViewModels
                                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutward;
                             }
                             else if (pp.Picking.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Receipt.ToString())
-                            {
-                                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
-                            }
-                            else if (pp.Picking.PickingType.MDKey == "ReturnReceipt")
-                            {
-                                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInwardCancel;
-                            }
-                            else if (pp.Picking.PickingType.MDKey == "ReturnIssue")
                             {
                                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
                             }

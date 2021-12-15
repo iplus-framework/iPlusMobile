@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
 using Xamarin.Forms;
@@ -243,6 +244,8 @@ namespace gip.vb.mobile.ViewModels
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand()
         {
+            BookingMessage = null;
+
             if (IsBusy || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
                 return;
 
@@ -255,53 +258,55 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
-                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility.ToString();
 
                 if (PickingItem != null)
                 {
                     if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Issue.ToString())
                     {
-                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutward;
+                        PrepareParamForPickingOutward(aCMethodBooking, barcodeEntity);
                     }
                     else if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Receipt.ToString())
                     {
-                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
+                        PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
                     }
                     else if (PickingItem.PickingType.MDKey == "ReturnReceipt")
                     {
-                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInwardCancel;
+                        PrepareParamForPickingInwardCancel(aCMethodBooking, barcodeEntity);
+                        
                     }
                     else if (PickingItem.PickingType.MDKey == "ReturnIssue")
                     {
-                        aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
+                        PrepareParamForPickingOutwardCancel(aCMethodBooking, barcodeEntity);
                     }
+                }
+
+                if (string.IsNullOrEmpty(aCMethodBooking.VirtualMethodName))
+                {
+                    PrepareParamForPickingRelocation(aCMethodBooking, barcodeEntity, Item);
                 }
 
                 aCMethodBooking.PickingPosID = Item.PickingPosID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
-                if (barcodeEntity.FacilityCharge != null)
-                {
-                    aCMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
-                    aCMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
-                }
                 aCMethodBooking.InwardQuantity = BookingQuantity;
-                if (barcodeEntity.Facility != null)
-                {
-                    aCMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
-                }
-                else
-                {
-                    aCMethodBooking.InwardFacilityID = Item.ToFacility.FacilityID;
-                }
-                BookingQuantity = 0;
+
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
+                {
+                    BookingQuantity = 0;
                     BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                    Msg msg = new Msg(eMsgLevel.Error, BookingMessage);
+                    ShowDialog(msg);
+                }
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        BookingMessage = response.Data.DetailsAsText;
+                    {
+                        BookingQuantity = 0;
+                        BookingMessage = response.Data.DetailsAsText.TrimEnd();
+                        Msg msg = new Msg(eMsgLevel.Error, BookingMessage);
+                        ShowDialog(msg);
+                    }
                     else
                     {
                         IsBusy = false;
@@ -312,7 +317,7 @@ namespace gip.vb.mobile.ViewModels
                         if (PickingItem != null && Item != null)
                             PickingItem.ReplacePickingPosItem(Item);
 
-                        Print();
+                        Print("Posting successfull. Please print labels now and stick them on the material. How many labels do you want to print?");
                     }
                 }
             }
@@ -323,6 +328,93 @@ namespace gip.vb.mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private void PrepareParamForPickingInwardCancel(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
+        {
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInwardCancel;
+            if (barcodeEntity != null)
+            {
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    acMethodBooking.InwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                    acMethodBooking.InwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
+                }
+                else if (barcodeEntity.Facility != null)
+                {
+                    acMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
+                }
+            }
+        }
+
+        private void PrepareParamForPickingInward(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
+        {
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
+            if (barcodeEntity != null)
+            {
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    acMethodBooking.InwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+
+                }
+                else if (barcodeEntity.Facility != null)
+                {
+                    acMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
+                }
+            }
+        }
+
+        private void PrepareParamForPickingOutward(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
+        {
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutward;
+            if (barcodeEntity != null)
+            {
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                    acMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
+                }
+                else if (barcodeEntity.Facility != null)
+                {
+                    acMethodBooking.OutwardFacilityID = barcodeEntity.Facility.FacilityID;
+                }
+            }
+        }
+
+        private void PrepareParamForPickingOutwardCancel(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
+        {
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutwardCancel;
+            if (barcodeEntity != null)
+            {
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                }
+                else if (barcodeEntity.Facility != null)
+                {
+                    acMethodBooking.OutwardFacilityID = barcodeEntity.Facility.FacilityID;
+                }
+            }
+        }
+
+        private void PrepareParamForPickingRelocation(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity, PickingPos pickingPos)
+        {
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
+            if (barcodeEntity != null)
+            {
+                if (barcodeEntity.FacilityCharge != null)
+                {
+                    acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                }
+                //else if (barcodeEntity.Facility != null)
+                //{
+                //    acMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
+                //}
+            }
+            if (pickingPos != null && pickingPos.ToFacility != null)
+            {
+                acMethodBooking.InwardFacilityID = pickingPos.ToFacility.FacilityID;
             }
         }
 
@@ -356,10 +448,30 @@ namespace gip.vb.mobile.ViewModels
             return success;
         }
 
-        public void Print()
+        public void Print(string message)
         {
-            Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Please print labels now and stick them on the material. How many labels do you want to print?");
+            var facilityBookingCharge = GetPrintFacilityBookingCharge();
+            if (facilityBookingCharge == null)
+            {
+                Msg msgError = new Msg(eMsgLevel.Error, "The quant for print is not exists.");
+                Message = msgError;
+                return;
+            }
+
+            //Labels are not required.
+            if (facilityBookingCharge.InwardFacilityPostingBehaviour == (short)PostingBehaviourEnum.ZeroStockOnRelocation)
+            {
+                return;
+            }
+
+
+            Msg msg = new Msg(eMsgLevel.QuestionPrompt, message);
             ShowDialog(msg, "", Keyboard.Numeric, "1", 1);
+        }
+
+        public FacilityBookingChargeOverview GetPrintFacilityBookingCharge()
+        {
+            return Overview?.PostingsFBC?.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
         }
 
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
@@ -385,14 +497,6 @@ namespace gip.vb.mobile.ViewModels
                             }
 
                             Guid? facilityChargeID = facilityBookingCharge.InwardFacilityChargeID;
-                            if (!facilityChargeID.HasValue)
-                            {
-                                Facility targetFacility = Item?.ToFacility;
-
-
-
-                            }
-
 
                             if (!facilityChargeID.HasValue)
                             {

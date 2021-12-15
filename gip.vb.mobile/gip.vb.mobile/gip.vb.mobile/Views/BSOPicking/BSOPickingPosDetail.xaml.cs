@@ -138,7 +138,7 @@ namespace gip.vb.mobile.Views
         {
             if (CurrentPage == BookingHistoryPivotItem)
             {
-                _ViewModel.Print();
+                _ViewModel.Print("How many labels do you want to print?");
             }
         }
 

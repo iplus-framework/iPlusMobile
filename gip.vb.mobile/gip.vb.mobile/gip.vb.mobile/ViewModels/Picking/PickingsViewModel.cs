@@ -104,6 +104,9 @@ namespace gip.vb.mobile.ViewModels
 
         public void GroupByMaterial()
         {
+            if (PickingsByMaterial != null)
+                PickingsByMaterial.Clear();
+
             if (Pickings != null)
             {
                 var groupedItems = Pickings.SelectMany(c => c.PickingPos_Picking).GroupBy(c => c.Material.MaterialID)
