@@ -272,7 +272,6 @@ namespace gip.vb.mobile.ViewModels
                     else if (PickingItem.PickingType.MDKey == "ReturnReceipt")
                     {
                         PrepareParamForPickingInwardCancel(aCMethodBooking, barcodeEntity);
-                        
                     }
                     else if (PickingItem.PickingType.MDKey == "ReturnIssue")
                     {
