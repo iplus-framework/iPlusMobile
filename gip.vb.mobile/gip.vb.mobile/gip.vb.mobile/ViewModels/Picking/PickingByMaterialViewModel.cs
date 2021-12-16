@@ -161,10 +161,12 @@ namespace gip.vb.mobile.ViewModels
         {
             if (IsBusy || Item == null || Item.PickingItems == null)
                 return;
+            Message = null;
 
             if (MissingBookingQuanity < 0)
             {
-                //error 
+                Msg msg = new Msg(eMsgLevel.Error, "The posting quantity is insufficient. Please adjust posting quantites.");
+                Message = msg;
                 return;
             }
 

@@ -116,7 +116,8 @@ namespace gip.vb.mobile.Views
             BarcodeEntity barcodeEntity = _ViewModel.WSBarcodeEntityResult;
             if (barcodeEntity == null)
             {
-                _ViewModel.Message = new core.datamodel.Msg() { Message = "Barcode entity is null!" };
+                _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, 
+                                                                Message = "Barcode entity is null! Please, scan first." };
                 return;
             }
 
@@ -124,7 +125,8 @@ namespace gip.vb.mobile.Views
             {
                 if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
                 {
-                    _ViewModel.Message = new core.datamodel.Msg() { Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
+                    _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, 
+                                                                    Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
                     return;
                 }
             }
@@ -134,7 +136,8 @@ namespace gip.vb.mobile.Views
             }
             else
             {
-                _ViewModel.Message = new core.datamodel.Msg() { Message = "Kein Quant oder Lager gescannt!" };
+                _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error,
+                                                                Message = "Kein Quant oder Lager gescannt!" };
                 return;
             }
 

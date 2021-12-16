@@ -105,6 +105,8 @@
                 </StackLayout>
             </StackLayout>
 
+            <ctl:MsgLabel Grid.Row="1" Grid.ColumnSpan="2" Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            
             <ListView x:Name="PickingsListView" Grid.Row="2" Grid.ColumnSpan="2"
                     ItemsSource="{Binding Item.PickingItems}"
                     ItemTemplate="{StaticResource PickingMaterialItemPosTemplate}"

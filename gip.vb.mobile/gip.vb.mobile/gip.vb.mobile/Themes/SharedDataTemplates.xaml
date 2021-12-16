@@ -120,15 +120,20 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="4" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
                 <Label Grid.Row="0" Text="{Binding Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="1" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="1" Grid.Column="1" Text="{Binding TotalQuantity}" VerticalOptions="Start" HorizontalTextAlignment="End" />
-                <Label Grid.Row="1" Grid.Column="2" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Column="1" Text="T: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Text="{Binding TotalQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Column="1" Grid.Row="1" Text="A: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Grid.Row="1" Text="{Binding ActualQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+
+                <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>
@@ -140,22 +145,22 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
                 <Label Grid.Row="0" Text="{Binding Picking.PickingNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="1" Text="{Binding ToFacility}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding Picking.DeliveryCompanyAddress}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
 
-                <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                     <Label Text="{Binding TargetQuantity}" VerticalOptions="Start" HorizontalTextAlignment="End" />
                     <Label Text="(" VerticalOptions="Center" HorizontalTextAlignment="End" />
                     <Label Text="{Binding ActualQuantity}" VerticalOptions="End" HorizontalTextAlignment="End" />
                     <Label Text=")" VerticalOptions="Center" HorizontalTextAlignment="End" />
                 </StackLayout>
                 
-                <Label Grid.Row="0" Grid.Column="1" Text="{Binding PostingQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding PostingQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Center" />
                 <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
             </Grid>
         </ctl:ExtendedViewCell>
