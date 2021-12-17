@@ -69,7 +69,7 @@ namespace gip.vb.mobile.ViewModels
                             foreach (PickingPos pickingPos in item.PickingPos_Picking)
                             {
                                 pickingPos.Picking = item;
-                                pickingPos.PostingQuantity = pickingPos.TargetQuantity - pickingPos.ActualQuantity;
+                                pickingPos.CalculateDefaultPostingQuantity();
                             }
                         }
 
@@ -112,8 +112,8 @@ namespace gip.vb.mobile.ViewModels
                 var groupedItems = Pickings.SelectMany(c => c.PickingPos_Picking).GroupBy(c => c.Material.MaterialID)
                                                                                  .Select(p => new PickingMaterial() { Material = p.FirstOrDefault()?.Material, 
                                                                                                                         PickingItems = p, 
-                                                                                                                        TotalQuantity = p.Sum(c => c.TargetQuantityUOM),
-                                                                                                                        ActualQuantity = p.Sum(c => c.ActualQuantityUOM),
+                                                                                                                        TotalQuantity = p.Sum(c => c.TargetQuantity),
+                                                                                                                        ActualQuantity = p.Sum(c => c.ActualQuantity),
                                                                                                                         MDUnit = p.FirstOrDefault()?.MDUnit });
 
                 foreach (PickingMaterial pm in groupedItems)

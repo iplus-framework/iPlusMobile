@@ -85,5 +85,9 @@ namespace gip.vb.mobile.Services
             return await Task.FromResult(new WSResponse<PostingOverview>(new PostingOverview()));
         }
 
+        public async Task<WSResponse<PickingPosList>> GetPickingPosByMaterialAsync(PickingPosList pickingPos)
+        {
+            return await Task.FromResult(new WSResponse<PickingPosList>());
+        }
     }
 }

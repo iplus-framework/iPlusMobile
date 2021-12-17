@@ -76,5 +76,14 @@ namespace gip.vb.mobile.Services
             return await Get<PostingOverview>(String.Format(VBWebServiceConst.UriPickingPos_Postings_F, pickingPosID));
         }
 
+        public async Task<WSResponse<PickingPosList>> GetPickingPosByMaterialAsync(PickingPosList pickingPos)
+        {
+            if (pickingPos == null)
+            {
+                return await Task.FromResult(new WSResponse<PickingPosList>(null, new Msg(eMsgLevel.Error, "pickingPos is empty!")));
+            }
+
+            return await Post<PickingPosList, PickingPosList>(pickingPos, VBWebServiceConst.UriPickingPos_Material);
+        }
     }
 }

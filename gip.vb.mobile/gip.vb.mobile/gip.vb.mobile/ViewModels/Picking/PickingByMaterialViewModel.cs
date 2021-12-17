@@ -45,18 +45,18 @@ namespace gip.vb.mobile.ViewModels
 
                 if (WSBarcodeEntityResult != null && WSBarcodeEntityResult.FacilityCharge != null)
                 {
-                    MissingBookingQuanity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+                    MissingBookingQuantity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
                 }
             }
         }
 
-        private double _MissingBookingQuanity;
-        public double MissingBookingQuanity
+        private double _MissingBookingQuantity;
+        public double MissingBookingQuantity
         {
-            get => _MissingBookingQuanity;
+            get => _MissingBookingQuantity;
             set
             {
-                SetProperty<double>(ref _MissingBookingQuanity, value);
+                SetProperty<double>(ref _MissingBookingQuantity, value);
             }
         }
 
@@ -97,7 +97,7 @@ namespace gip.vb.mobile.ViewModels
 
                 if (_WSBarcodeEntityResult != null && _WSBarcodeEntityResult.FacilityCharge != null)
                 {
-                    MissingBookingQuanity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+                    MissingBookingQuantity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
                 }
             }
         }
@@ -157,16 +157,17 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command BookFacilityCommand { get; set; }
-        public async Task ExecuteBookFacilityCommand()
+        public async Task ExecuteBookFacilityCommand(bool skipQuantityCheck = false)
         {
             if (IsBusy || Item == null || Item.PickingItems == null)
                 return;
             Message = null;
 
-            if (MissingBookingQuanity < 0)
+            if (skipQuantityCheck && MissingBookingQuantity < 0)
             {
-                Msg msg = new Msg(eMsgLevel.Error, "The posting quantity is insufficient. Please adjust posting quantites.");
-                Message = msg;
+                Msg msg = new Msg(eMsgLevel.Question, "The posting quantity is insufficient. Are sure that you want to continue?");
+                msg.MessageButton = eMsgButton.YesNo;
+                ShowDialog(msg, requestID: 2);
                 return;
             }
 
@@ -221,10 +222,9 @@ namespace gip.vb.mobile.ViewModels
                     IsBusy = false;
                     //await ExecuteReadPostingsCommand();
                     IsBusy = false;
+                    await ExecuteRefreshPickingMaterial();
                     //await ReadPickingPos();
                     BookingMessage = "";
-                    //if (PickingItem != null && Item != null)
-                    //    PickingItem.ReplacePickingPosItem(Item);
                 }
             }
             catch (Exception ex)
@@ -237,13 +237,62 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Command RefreshPickingMaterial { get; set; }
+        public async Task ExecuteRefreshPickingMaterial()
+        {
+            if (IsBusy || Item == null || Item.PickingItems == null)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                PickingPosList param = new PickingPosList(Item.PickingItems.Select(x => new PickingPos() { PickingPosID = x.PickingPosID }));
+                var response = await _WebService.GetPickingPosByMaterialAsync(param);
+
+                if (response.Suceeded)
+                {
+                    PickingPosList result = response.Data;
+                    if (result != null)
+                    {
+                        foreach (PickingPos pos in result)
+                        {
+                            PickingPos existingPickingPos = Item.PickingItems.FirstOrDefault(c => c.PickingPosID == pos.PickingPosID);
+                            if (existingPickingPos != null)
+                            {
+                                existingPickingPos.ActualQuantity = pos.ActualQuantity;
+                                existingPickingPos.ActualQuantityUOM = pos.ActualQuantityUOM;
+                                existingPickingPos.OnActualQuantityChanged();
+                                existingPickingPos.CalculateDefaultPostingQuantity();
+                            }
+                        }
+
+                        Item.RecalculateActualQuantity();
+                        TotalBookingQantity = Item.PickingItems.Sum(c => c.PostingQuantity);
+
+                        Msg msg = new Msg(eMsgLevel.Info, "Posting is sucessfull.");
+                        Message = msg;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+
         public void ChangePostingQuantity()
         {
             Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Change the posting quantity: ");
-            ShowDialog(msg, "", Keyboard.Numeric, SelectedPickingPos?.PostingQuantity.ToString(), 1);
+            ShowDialog(msg, "", Keyboard.Default, SelectedPickingPos?.PostingQuantity.ToString(), 1);
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 1)
             {
@@ -256,6 +305,10 @@ namespace gip.vb.mobile.ViewModels
                         TotalBookingQantity = _Item.PickingItems.Sum(c => c.PostingQuantity);
                     }
                 }
+            }
+            else if (DialogOptions.RequestID == 2)
+            {
+                await ExecuteBookFacilityCommand(true);
             }
         }
     }

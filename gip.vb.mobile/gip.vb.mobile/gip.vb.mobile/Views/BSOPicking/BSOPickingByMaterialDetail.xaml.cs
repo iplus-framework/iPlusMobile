@@ -31,9 +31,9 @@ namespace gip.vb.mobile.Views
 
         private void _ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_ViewModel != null && e.PropertyName == "MissingBookingQuanity")
+            if (_ViewModel != null && e.PropertyName == "MissingBookingQuantity")
             {
-                if (_ViewModel.MissingBookingQuanity < 0)
+                if (_ViewModel.MissingBookingQuantity < 0)
                 {
                     lblMissingQuantity.TextColor = Color.Red;
                 }
@@ -130,10 +130,10 @@ namespace gip.vb.mobile.Views
                     return;
                 }
             }
-            else if (barcodeEntity.Facility != null)
-            {
+            //else if (barcodeEntity.Facility != null)
+            //{
 
-            }
+            //}
             else
             {
                 _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error,
