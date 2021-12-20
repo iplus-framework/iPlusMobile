@@ -132,5 +132,15 @@ namespace gip.vb.mobile.Services
         {
             return new Task<WSResponse<MsgWithDetails>>(null);
         }
+
+        public Task<WSResponse<MsgWithDetails>> FinishPickingOrderAsync(Guid pickingID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<MsgWithDetails>> FinishPickingOrderWithoutCheckAsync(Guid pickingID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

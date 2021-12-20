@@ -13,6 +13,7 @@ namespace gip.vb.mobile.ViewModels
         {
             Item = item;
             UpdatePickingCommand = new Command(async () => await UpdatePicking());
+            FinishOrderCommand = new Command(async () => await FinishOrder());
         }
 
         #region Properties
@@ -72,8 +73,70 @@ namespace gip.vb.mobile.ViewModels
             return result;
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public Command FinishOrderCommand { get; set; }
+        public async Task<bool> FinishOrder(bool skipCheck = false)
         {
+            MsgWithDetails result = null;
+            if (IsBusy)
+                return false;
+
+            IsBusy = true;
+
+            try
+            {
+                core.autocomponent.WSResponse<MsgWithDetails> response = null;
+                if (!skipCheck)
+                {
+                    response = await _WebService.FinishPickingOrderAsync(Item.PickingID);
+                }
+                else
+                {
+                    response = await _WebService.FinishPickingOrderWithoutCheckAsync(Item.PickingID);
+                }
+
+                this.WSResponse = response;
+                if (response.Suceeded)
+                {
+                    result = response.Data;
+                    if (result != null)
+                    {
+                        if (!skipCheck)
+                        {
+                            result.MessageLevel = eMsgLevel.Question;
+                            result.MessageButton = eMsgButton.YesNo;
+                            ShowDialog(result, requestID : 1);
+                        }
+                        else
+                        {
+                            ShowDialog(result);
+                        }
+                    }
+                    else
+                    {
+                        Message = new Msg(eMsgLevel.Info, "Order is finished!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return true;
+        }
+
+        public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
+        {
+            if (DialogOptions.RequestID == 1)
+            {
+                if (result == Global.MsgResult.Yes)
+                {
+                    await FinishOrder(true);
+                }
+            }
         }
 
         #endregion

@@ -18,6 +18,8 @@ namespace gip.vb.mobile.Services
         {
         }
 
+
+
         #region General
         public async Task<WSResponse<BarcodeEntity>> GetBarcodeEntityAsync(string barcodeID)
         {
