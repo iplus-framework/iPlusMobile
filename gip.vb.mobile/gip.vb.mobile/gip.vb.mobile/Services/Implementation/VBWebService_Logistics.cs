@@ -85,5 +85,15 @@ namespace gip.vb.mobile.Services
 
             return await Post<PickingPosList, PickingPosList>(pickingPos, VBWebServiceConst.UriPickingPos_Material);
         }
+
+        public async Task<WSResponse<MsgWithDetails>> FinishPickingOrderAsync(Guid pickingID)
+        {
+            return await Put<MsgWithDetails, Guid>(pickingID, VBWebServiceConst.UriPicking_Finish);
+        }
+
+        public async Task<WSResponse<MsgWithDetails>> FinishPickingOrderWithoutCheckAsync(Guid pickingID)
+        {
+            return await Put<MsgWithDetails, Guid>(pickingID, VBWebServiceConst.UriPicking_FinishWithoutCheck);
+        }
     }
 }

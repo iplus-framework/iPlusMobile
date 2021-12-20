@@ -62,5 +62,10 @@ namespace gip.vb.mobile.Views
 
             await Navigation.PushAsync(new BSOPickingPosDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new object[] { _ViewModel.Item, pickingPos } } });
         }
+
+        private void btnFinishOrder_Clicked(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

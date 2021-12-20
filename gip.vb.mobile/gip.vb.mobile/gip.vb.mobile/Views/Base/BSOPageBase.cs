@@ -29,6 +29,18 @@ namespace gip.vb.mobile.Views
 
             if (msg != null)
             {
+                string message = msg.Message;
+                core.datamodel.MsgWithDetails msgDetail = msg as core.datamodel.MsgWithDetails;
+
+                if (msgDetail != null)
+                {
+                    foreach (var m in msgDetail.MsgDetails)
+                    {
+                        message += System.Environment.NewLine;
+                        message += m.Message;
+                    }
+                }
+
                 if (msg.MessageLevel == core.datamodel.eMsgLevel.Question)
                 {
                     core.datamodel.Global.MsgResult result = core.datamodel.Global.MsgResult.Cancel;
@@ -37,29 +49,29 @@ namespace gip.vb.mobile.Views
                     {
                         case core.datamodel.eMsgButton.Cancel:
                             {
-                                await DisplayAlert("", msg.Message, AppStrings.ButtonCancel);
+                                await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonCancel);
                                 break;
                             }
                         case core.datamodel.eMsgButton.OK:
                             {
-                                await DisplayAlert("", msg.Message, "OK");
+                                await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK");
                                 break;
                             }
                         case core.datamodel.eMsgButton.OKCancel:
                             {
-                                bool res = await DisplayAlert("", msg.Message, "OK", AppStrings.ButtonCancel);
+                                bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel);
                                 result = res ? core.datamodel.Global.MsgResult.OK : core.datamodel.Global.MsgResult.Cancel;
                                 break;
                             }
                         case core.datamodel.eMsgButton.YesNo:
                             {
-                                bool res = await DisplayAlert("", msg.Message, AppStrings.ButtonYes, AppStrings.ButtonNo);
+                                bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonYes, AppStrings.ButtonNo);
                                 result = res ? core.datamodel.Global.MsgResult.Yes : core.datamodel.Global.MsgResult.No;
                                 break;
                             }
                         case core.datamodel.eMsgButton.YesNoCancel:
                             {
-                                string res = await DisplayActionSheet(msg.Message, AppStrings.ButtonCancel, null, AppStrings.ButtonYes, AppStrings.ButtonNo);
+                                string res = await DisplayActionSheet(message, AppStrings.ButtonCancel, null, AppStrings.ButtonYes, AppStrings.ButtonNo);
                                 if (res == AppStrings.ButtonCancel)
                                     result = core.datamodel.Global.MsgResult.Cancel;
                                 else if (res == AppStrings.ButtonYes)
@@ -82,7 +94,7 @@ namespace gip.vb.mobile.Views
                 {
                     if (_BaseViewModel != null)
                     {
-                        string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, msg.Message, "OK", AppStrings.ButtonCancel, null, -1, 
+                        string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel, null, -1, 
                                                                  _BaseViewModel.DialogOptions.DialogPrompKeyboard, _BaseViewModel.DialogOptions.DialogPromptInitialValue);
                         _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
                     }
@@ -93,7 +105,7 @@ namespace gip.vb.mobile.Views
                 }
                 else
                 {
-                    await DisplayAlert("", msg.Message, "OK");
+                    await DisplayAlert("", message, "OK");
                 }
             }
         }
