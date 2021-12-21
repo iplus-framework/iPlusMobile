@@ -117,7 +117,7 @@ namespace gip.vb.mobile.Views
             if (barcodeEntity == null)
             {
                 _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, 
-                                                                Message = "Barcode entity is null! Please, scan first." };
+                                                                Message =  Strings.AppStrings.EmptyBarcodeEntity_Text };
                 return;
             }
 
@@ -126,18 +126,14 @@ namespace gip.vb.mobile.Views
                 if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
                 {
                     _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, 
-                                                                    Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
+                                                                    Message = Strings.AppStrings.PickingWrongMaterial_Text };
                     return;
                 }
             }
-            //else if (barcodeEntity.Facility != null)
-            //{
-
-            //}
             else
             {
                 _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error,
-                                                                Message = "Kein Quant oder Lager gescannt!" };
+                                                                Message = Strings.AppStrings.PickingWrongBarcodeEntityQ_Text};
                 return;
             }
 

@@ -369,4 +369,19 @@
   <data name="PickingByMaterial_Header" xml:space="preserve">
     <value>Gruppiert nach Material</value>
   </data>
+  <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
+    <value>Barcode-Einheit ist leer! Bitte erst scannen.</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
+    <value>Falscher Scan. Bitte scannen Sie Quant oder Lager!</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
+    <value>Falscher Scan. Bitte Quant scannen!</value>
+  </data>
+  <data name="PickingWrongMaterial_Text" xml:space="preserve">
+    <value>Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!</value>
+  </data>
+  <data name="PrintCopies_Question" xml:space="preserve">
+    <value>Wie viele Etiketten wollen Sie drucken?</value>
+  </data>
 </root>

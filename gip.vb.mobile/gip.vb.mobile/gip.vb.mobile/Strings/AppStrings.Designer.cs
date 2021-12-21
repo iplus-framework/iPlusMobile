@@ -403,6 +403,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Barcode entity is empty! Please scan first..
+        /// </summary>
+        internal static string EmptyBarcodeEntity_Text {
+            get {
+                return ResourceManager.GetString("EmptyBarcodeEntity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string FacilityName_Text {
@@ -754,6 +763,33 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong scan. Please scan quant!.
+        /// </summary>
+        internal static string PickingWrongBarcodeEntityQ_Text {
+            get {
+                return ResourceManager.GetString("PickingWrongBarcodeEntityQ_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong scan. Please scan quant or facility!.
+        /// </summary>
+        internal static string PickingWrongBarcodeEntityQF_Text {
+            get {
+                return ResourceManager.GetString("PickingWrongBarcodeEntityQF_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material of the quant does not match the material of the picking position!.
+        /// </summary>
+        internal static string PickingWrongMaterial_Text {
+            get {
+                return ResourceManager.GetString("PickingWrongMaterial_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         internal static string PosState_Text {
@@ -768,6 +804,15 @@ namespace gip.vb.mobile.Strings {
         internal static string PostingFCPivot_Header {
             get {
                 return ResourceManager.GetString("PostingFCPivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How many label copies do you want to print?.
+        /// </summary>
+        internal static string PrintCopies_Question {
+            get {
+                return ResourceManager.GetString("PrintCopies_Question", resourceCulture);
             }
         }
         

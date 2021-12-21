@@ -426,4 +426,19 @@
   <data name="PickingByMaterial_Header" xml:space="preserve">
     <value>Grouped by material</value>
   </data>
+  <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
+    <value>Barcode entity is empty! Please scan first.</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan quant or facility!</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan quant!</value>
+  </data>
+  <data name="PickingWrongMaterial_Text" xml:space="preserve">
+    <value>Material of the quant does not match the material of the picking position!</value>
+  </data>
+  <data name="PrintCopies_Question" xml:space="preserve">
+    <value>How many label copies do you want to print?</value>
+  </data>
 </root>
