@@ -362,6 +362,7 @@ namespace gip.vb.mobile.ViewModels
                 if (barcodeEntity.FacilityCharge != null)
                 {
                     acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+                    acMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
                 }
                 //else if (barcodeEntity.Facility != null)
                 //{
@@ -427,7 +428,12 @@ namespace gip.vb.mobile.ViewModels
 
         public FacilityBookingChargeOverview GetPrintFacilityBookingCharge()
         {
-            return Overview?.PostingsFBC?.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            if (Overview == null || Overview.PostingsFBC == null)
+                return null;
+            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            if (result == null)
+                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            return result;
         }
 
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
@@ -452,7 +458,7 @@ namespace gip.vb.mobile.ViewModels
                                 return;
                             }
 
-                            Guid? facilityChargeID = facilityBookingCharge.InwardFacilityChargeID;
+                            Guid? facilityChargeID = facilityBookingCharge.InwardFacilityChargeID.HasValue ? facilityBookingCharge.InwardFacilityChargeID : facilityBookingCharge.OutwardFacilityChargeID;
 
                             if (!facilityChargeID.HasValue)
                             {
