@@ -441,4 +441,31 @@
   <data name="PrintCopies_Question" xml:space="preserve">
     <value>How many label copies do you want to print?</value>
   </data>
+  <data name="BtnFinishOrder" xml:space="preserve">
+    <value>Finish order</value>
+  </data>
+  <data name="ChangePostingQ_Text" xml:space="preserve">
+    <value>Change the posting quantity:</value>
+  </data>
+  <data name="OrderFinished_Text" xml:space="preserve">
+    <value>Order is finished!</value>
+  </data>
+  <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
+    <value>The posting was successful. Please print labels now and stick them on the material. How many labels do you want to print?</value>
+  </data>
+  <data name="PositionDetail_Header" xml:space="preserve">
+    <value>Position detail</value>
+  </data>
+  <data name="PostingQInsufficient_Question" xml:space="preserve">
+    <value>The posting quantity is insufficient. Are sure that you want to continue?</value>
+  </data>
+  <data name="PostingSuccesful_Text" xml:space="preserve">
+    <value>The posting was successful.</value>
+  </data>
+  <data name="PrintFBCMissing_Text" xml:space="preserve">
+    <value>The facility booking charge for print cannot be found.</value>
+  </data>
+  <data name="PrintQuantMissing_Text" xml:space="preserve">
+    <value>The quant for print cannot be found.</value>
+  </data>
 </root>

@@ -223,8 +223,7 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
-        {
-            
+        {           
         }
     }
 }

@@ -23,7 +23,7 @@
             </ToolbarItem.Icon>-->
         <!--</ToolbarItem>-->
     </v:BSOTabbedPageBase.ToolbarItems>
-    <v:BSOPageBase x:Name="DoPickingMaterial" Title="Order picking">
+    <v:BSOPageBase x:Name="DoPickingMaterial" Title="{i18n:Translate Text=DoPickingPivot_Header}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
@@ -53,7 +53,8 @@
                             <Label Text="{Binding Item.TotalQuantity}" Style="{StaticResource LabelForData}"/>
                             <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
                         </StackLayout>
-                        <Label Grid.Row="2" Grid.Column="1" Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" 
+                               Style="{StaticResource LabelForDesc}" />
                         <StackLayout Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
                             <Label Text="{Binding Item.ActualQuantity}" Style="{StaticResource LabelForData}"/>
                             <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
@@ -61,7 +62,8 @@
                     </Grid>
 
                     <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" 
+                               SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
                     <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
                     ItemTemplate="{StaticResource BarcodeEntitySelector}"
                     HasUnevenRows="true"
@@ -74,7 +76,7 @@
             <Button Grid.Row="2" x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
         </Grid>
     </v:BSOPageBase>
-    <v:BSOPageBase x:Name="PickingMaterialDetail" Title="Position details">
+    <v:BSOPageBase x:Name="PickingMaterialDetail" Title="{i18n:Translate Text=PositionDetail_Header}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

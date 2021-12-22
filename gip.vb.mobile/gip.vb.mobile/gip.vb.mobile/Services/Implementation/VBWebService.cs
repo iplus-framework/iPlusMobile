@@ -19,7 +19,6 @@ namespace gip.vb.mobile.Services
         }
 
 
-
         #region General
         public async Task<WSResponse<BarcodeEntity>> GetBarcodeEntityAsync(string barcodeID)
         {
@@ -37,12 +36,32 @@ namespace gip.vb.mobile.Services
             return await Post<BarcodeSequence, BarcodeSequence>(sequence, VBWebServiceConst.UriBarcodeSequence);
         }
 
+        #endregion
+
+        #region Printer & print
+
         public async Task<WSResponse<bool>> Print(PrintEntity printEntity)
         {
             if (printEntity.Sequence == null || !printEntity.Sequence.Any())
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "sequence is null")));
             return await Post<bool, PrintEntity>(printEntity, VBWebServiceConst.UriPrint);
         }
+
+        public Task<WSResponse<bool>> AssignPrinterAsync(string printerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<string>> GetAssignedPrinterAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<string>> GetScannedPrinterAsync(string printerID)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

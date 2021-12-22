@@ -142,5 +142,20 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<string>> GetAssignedPrinterAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<string>> GetScannedPrinterAsync(string printerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<bool>> AssignPrinterAsync(string printerID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

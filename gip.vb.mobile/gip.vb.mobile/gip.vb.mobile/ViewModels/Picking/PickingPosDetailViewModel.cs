@@ -316,7 +316,7 @@ namespace gip.vb.mobile.ViewModels
                         if (PickingItem != null && Item != null)
                             PickingItem.ReplacePickingPosItem(Item);
 
-                        Print("Posting successfull. Please print labels now and stick them on the material. How many labels do you want to print?");
+                        Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
                     }
                 }
             }
@@ -452,7 +452,7 @@ namespace gip.vb.mobile.ViewModels
             var facilityBookingCharge = GetPrintFacilityBookingCharge();
             if (facilityBookingCharge == null)
             {
-                Msg msgError = new Msg(eMsgLevel.Error, "The quant for print is not exists.");
+                Msg msgError = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintFBCMissing_Text);
                 Message = msgError;
                 return;
             }
@@ -487,10 +487,10 @@ namespace gip.vb.mobile.ViewModels
                             PrintEntity printEntity = new PrintEntity();
                             printEntity.CopyCount = copies;
 
-                            var facilityBookingCharge = Overview?.PostingsFBC?.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                            var facilityBookingCharge = GetPrintFacilityBookingCharge();
                             if (facilityBookingCharge == null)
                             {
-                                Msg msg = new Msg(eMsgLevel.Error, "Can not find a facility booking charge and facility charge for print!");
+                                Msg msg = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintFBCMissing_Text);
                                 ShowDialog(msg, requestID: 2);
                                 return;
                             }
@@ -499,7 +499,7 @@ namespace gip.vb.mobile.ViewModels
 
                             if (!facilityChargeID.HasValue)
                             {
-                                Msg msg = new Msg(eMsgLevel.Error, "Can not find a facility booking charge and facility charge for print!");
+                                Msg msg = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintQuantMissing_Text);
                                 ShowDialog(msg, requestID: 2);
                                 return;
                             }

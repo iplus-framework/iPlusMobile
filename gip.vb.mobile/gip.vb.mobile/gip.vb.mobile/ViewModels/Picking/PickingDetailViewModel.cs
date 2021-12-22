@@ -113,7 +113,7 @@ namespace gip.vb.mobile.ViewModels
                     }
                     else
                     {
-                        Message = new Msg(eMsgLevel.Info, "Order is finished!");
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.OrderFinished_Text);
                     }
                 }
             }

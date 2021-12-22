@@ -384,4 +384,31 @@
   <data name="PrintCopies_Question" xml:space="preserve">
     <value>Wie viele Etiketten wollen Sie drucken?</value>
   </data>
+  <data name="BtnFinishOrder" xml:space="preserve">
+    <value>Bestellung beenden</value>
+  </data>
+  <data name="ChangePostingQ_Text" xml:space="preserve">
+    <value>Ändern Sie die Buchungsmenge:</value>
+  </data>
+  <data name="OrderFinished_Text" xml:space="preserve">
+    <value>Die Bestellung ist abgeschlossen!</value>
+  </data>
+  <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
+    <value>Die Buchung war erfolgreich. Bitte drucken Sie jetzt Etiketten aus und kleben Sie sie auf das Material. Wie viele Etiketten möchten Sie drucken?</value>
+  </data>
+  <data name="PositionDetail_Header" xml:space="preserve">
+    <value>Position Detail</value>
+  </data>
+  <data name="PostingQInsufficient_Question" xml:space="preserve">
+    <value>Die Buchungsmenge ist nicht ausreichend. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+  </data>
+  <data name="PostingSuccesful_Text" xml:space="preserve">
+    <value>Die Buchung war erfolgreich.</value>
+  </data>
+  <data name="PrintFBCMissing_Text" xml:space="preserve">
+    <value>Die Buchungsgebühr für den Druck kann nicht gefunden werden.</value>
+  </data>
+  <data name="PrintQuantMissing_Text" xml:space="preserve">
+    <value>Das Quant für den Druck kann nicht gefunden werden.</value>
+  </data>
 </root>

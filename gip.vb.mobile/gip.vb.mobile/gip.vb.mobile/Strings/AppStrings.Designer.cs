@@ -232,6 +232,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finish order.
+        /// </summary>
+        internal static string BtnFinishOrder {
+            get {
+                return ResourceManager.GetString("BtnFinishOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Less.
         /// </summary>
         internal static string BtnLes_Text {
@@ -363,6 +372,15 @@ namespace gip.vb.mobile.Strings {
         internal static string ButtonYes {
             get {
                 return ResourceManager.GetString("ButtonYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change the posting quantity:.
+        /// </summary>
+        internal static string ChangePostingQ_Text {
+            get {
+                return ResourceManager.GetString("ChangePostingQ_Text", resourceCulture);
             }
         }
         
@@ -718,6 +736,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order is finished!.
+        /// </summary>
+        internal static string OrderFinished_Text {
+            get {
+                return ResourceManager.GetString("OrderFinished_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
         internal static string Output_Text {
@@ -741,6 +768,15 @@ namespace gip.vb.mobile.Strings {
         internal static string Password_Text {
             get {
                 return ResourceManager.GetString("Password_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The posting was successful. Please print labels now and stick them on the material. How many labels do you want to print?.
+        /// </summary>
+        internal static string PickingBookSuccAndPrint_Question {
+            get {
+                return ResourceManager.GetString("PickingBookSuccAndPrint_Question", resourceCulture);
             }
         }
         
@@ -790,6 +826,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position detail.
+        /// </summary>
+        internal static string PositionDetail_Header {
+            get {
+                return ResourceManager.GetString("PositionDetail_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         internal static string PosState_Text {
@@ -808,11 +853,47 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The posting quantity is insufficient. Are sure that you want to continue?.
+        /// </summary>
+        internal static string PostingQInsufficient_Question {
+            get {
+                return ResourceManager.GetString("PostingQInsufficient_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The posting was successful..
+        /// </summary>
+        internal static string PostingSuccesful_Text {
+            get {
+                return ResourceManager.GetString("PostingSuccesful_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to How many label copies do you want to print?.
         /// </summary>
         internal static string PrintCopies_Question {
             get {
                 return ResourceManager.GetString("PrintCopies_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The facility booking charge for print cannot be found..
+        /// </summary>
+        internal static string PrintFBCMissing_Text {
+            get {
+                return ResourceManager.GetString("PrintFBCMissing_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quant for print cannot be found..
+        /// </summary>
+        internal static string PrintQuantMissing_Text {
+            get {
+                return ResourceManager.GetString("PrintQuantMissing_Text", resourceCulture);
             }
         }
         

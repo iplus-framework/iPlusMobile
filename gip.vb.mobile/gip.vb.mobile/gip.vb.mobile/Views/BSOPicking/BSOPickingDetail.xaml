@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPickingDetail"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
     <v:BSOPageBase.Resources>
@@ -27,6 +28,6 @@
                 ItemSelected="PickingPosListView_ItemSelected"
                   ItemTapped="PickingPosListView_ItemTapped">
         </ListView>
-        <Button x:Name="btnFinishOrder" HeightRequest="45" Text="Finish order" Command="{Binding FinishOrderCommand}" />
+        <Button x:Name="btnFinishOrder" HeightRequest="45" Text="{i18n:Translate Text=BtnFinishOrder}" Command="{Binding FinishOrderCommand}" />
     </StackLayout>
 </v:BSOPageBase>

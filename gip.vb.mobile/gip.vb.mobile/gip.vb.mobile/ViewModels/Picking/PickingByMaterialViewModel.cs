@@ -165,7 +165,7 @@ namespace gip.vb.mobile.ViewModels
 
             if (skipQuantityCheck && MissingBookingQuantity < 0)
             {
-                Msg msg = new Msg(eMsgLevel.Question, "The posting quantity is insufficient. Are sure that you want to continue?");
+                Msg msg = new Msg(eMsgLevel.Question, Strings.AppStrings.PostingQInsufficient_Question);
                 msg.MessageButton = eMsgButton.YesNo;
                 ShowDialog(msg, requestID: 2);
                 return;
@@ -270,7 +270,7 @@ namespace gip.vb.mobile.ViewModels
                         Item.RecalculateActualQuantity();
                         TotalBookingQantity = Item.PickingItems.Sum(c => c.PostingQuantity);
 
-                        Msg msg = new Msg(eMsgLevel.Info, "Posting is sucessfull.");
+                        Msg msg = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         Message = msg;
                     }
                 }
@@ -288,7 +288,7 @@ namespace gip.vb.mobile.ViewModels
 
         public void ChangePostingQuantity()
         {
-            Msg msg = new Msg(eMsgLevel.QuestionPrompt, "Change the posting quantity: ");
+            Msg msg = new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.ChangePostingQ_Text);
             ShowDialog(msg, "", Keyboard.Default, SelectedPickingPos?.PostingQuantity.ToString(), 1);
         }
 
