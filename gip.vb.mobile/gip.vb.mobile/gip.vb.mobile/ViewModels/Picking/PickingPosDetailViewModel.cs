@@ -259,34 +259,24 @@ namespace gip.vb.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
 
-                if (PickingItem != null)
+                if (Item.PostingType == PostingTypeEnum.Inward)
                 {
-                    if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Issue.ToString())
-                    {
-                        PrepareParamForPickingOutward(aCMethodBooking, barcodeEntity);
-                    }
-                    else if (PickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Receipt.ToString())
-                    {
-                        PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
-                    }
-                    else if (PickingItem.PickingType.MDKey == "ReturnReceipt")
-                    {
-                        PrepareParamForPickingInwardCancel(aCMethodBooking, barcodeEntity);
-                    }
-                    else if (PickingItem.PickingType.MDKey == "ReturnIssue")
-                    {
-                        PrepareParamForPickingOutwardCancel(aCMethodBooking, barcodeEntity);
-                    }
+                    PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
+                    aCMethodBooking.InwardQuantity = BookingQuantity;
                 }
-
-                if (string.IsNullOrEmpty(aCMethodBooking.VirtualMethodName))
+                else if (Item.PostingType == PostingTypeEnum.Outward)
+                {
+                    PrepareParamForPickingOutward(aCMethodBooking, barcodeEntity);
+                    aCMethodBooking.OutwardQuantity = BookingQuantity;
+                }
+                else
                 {
                     PrepareParamForPickingRelocation(aCMethodBooking, barcodeEntity, Item);
+                    aCMethodBooking.OutwardQuantity = BookingQuantity;
+                    aCMethodBooking.InwardQuantity = BookingQuantity;
                 }
 
                 aCMethodBooking.PickingPosID = Item.PickingPosID;
-                aCMethodBooking.OutwardQuantity = BookingQuantity;
-                aCMethodBooking.InwardQuantity = BookingQuantity;
 
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -330,23 +320,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private void PrepareParamForPickingInwardCancel(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
-        {
-            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInwardCancel;
-            if (barcodeEntity != null)
-            {
-                if (barcodeEntity.FacilityCharge != null)
-                {
-                    acMethodBooking.InwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
-                    acMethodBooking.InwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
-                }
-                else if (barcodeEntity.Facility != null)
-                {
-                    acMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
-                }
-            }
-        }
-
         private void PrepareParamForPickingInward(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
         {
             acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
@@ -381,25 +354,9 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private void PrepareParamForPickingOutwardCancel(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity)
-        {
-            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutwardCancel;
-            if (barcodeEntity != null)
-            {
-                if (barcodeEntity.FacilityCharge != null)
-                {
-                    acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
-                }
-                else if (barcodeEntity.Facility != null)
-                {
-                    acMethodBooking.OutwardFacilityID = barcodeEntity.Facility.FacilityID;
-                }
-            }
-        }
-
         private void PrepareParamForPickingRelocation(ACMethodBooking acMethodBooking, BarcodeEntity barcodeEntity, PickingPos pickingPos)
         {
-            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
+            acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingRelocation;
             if (barcodeEntity != null)
             {
                 if (barcodeEntity.FacilityCharge != null)
