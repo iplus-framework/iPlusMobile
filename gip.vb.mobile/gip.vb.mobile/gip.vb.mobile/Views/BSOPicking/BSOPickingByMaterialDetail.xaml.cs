@@ -140,6 +140,6 @@ namespace gip.vb.mobile.Views
             _ViewModel.BookFacilityCommand.Execute(null);
         }
 
-        
+
     }
 }

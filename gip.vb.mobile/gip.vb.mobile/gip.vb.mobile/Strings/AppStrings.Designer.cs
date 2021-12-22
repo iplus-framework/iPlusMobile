@@ -70,6 +70,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assigned printer:.
+        /// </summary>
+        internal static string AssignedPrinter_Label {
+            get {
+                return ResourceManager.GetString("AssignedPrinter_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan or Enter Barcode.
         /// </summary>
         internal static string BarcodeScan_Text {
@@ -192,6 +201,15 @@ namespace gip.vb.mobile.Strings {
         internal static string Btn_ShowPickingOrders {
             get {
                 return ResourceManager.GetString("Btn_ShowPickingOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign printer.
+        /// </summary>
+        internal static string BtnAssignPrinter_Text {
+            get {
+                return ResourceManager.GetString("BtnAssignPrinter_Text", resourceCulture);
             }
         }
         

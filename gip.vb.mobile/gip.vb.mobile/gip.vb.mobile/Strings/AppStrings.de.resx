@@ -411,4 +411,10 @@
   <data name="PrintQuantMissing_Text" xml:space="preserve">
     <value>Das Quant für den Druck kann nicht gefunden werden.</value>
   </data>
+  <data name="AssignedPrinter_Label" xml:space="preserve">
+    <value>Zugewiesener Drucker:</value>
+  </data>
+  <data name="BtnAssignPrinter_Text" xml:space="preserve">
+    <value>Drucker zuweisen</value>
+  </data>
 </root>

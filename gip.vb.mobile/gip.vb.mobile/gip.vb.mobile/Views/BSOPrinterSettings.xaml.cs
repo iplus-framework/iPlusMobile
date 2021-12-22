@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gip.vb.mobile.barcode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,14 @@ namespace gip.vb.mobile.Views
         public BSOPrinterSettings()
         {
             BindingContext = _ViewModel = new ViewModels.PrinterSettingsViewModel();
+            _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            SubcribeToBarcodeService();
             if (_ViewModel != null)
             {
                 if (_ViewModel.GetAssignedPrinter != null)
@@ -30,12 +33,65 @@ namespace gip.vb.mobile.Views
             }
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            UnSubcribeToBarcodeService();
+        }
+
+        IBarcodeService _BarcodeService;
+        bool _BarcodeServiceSubcribed;
+
         private ViewModels.PrinterSettingsViewModel _ViewModel;
 
 
+        #region Barcode
+        private void SubcribeToBarcodeService()
+        {
+            if (_BarcodeService == null)
+                _BarcodeService = DependencyService.Get<IBarcodeService>();
+            if (!_BarcodeServiceSubcribed)
+            {
+                _BarcodeService.Read += _BarcodeService_Read;
+                _BarcodeServiceSubcribed = true;
+            }
+        }
+
+        private void UnSubcribeToBarcodeService()
+        {
+            if (_BarcodeService != null && _BarcodeServiceSubcribed)
+            {
+                _BarcodeService.Read -= _BarcodeService_Read;
+                _BarcodeServiceSubcribed = false;
+            }
+        }
+
+        private void _BarcodeService_Read(object sender, BarcodeReadEventArgs e)
+        {
+            if (e != null)
+            {
+                _ViewModel.CurrentBarcode = e.Text;
+                if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
+                {
+                    _ViewModel.ScanPrinterID.Execute(null);
+                }
+            }
+        }
+
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
+            {
+                _ViewModel.ScanPrinterID.Execute(null);
+            }
+        }
+        #endregion
 
+        protected override bool OnBackButtonPressed()
+        {
+            //https://stackoverflow.com/questions/30274004/xamarin-close-android-application-on-back-button
+            //TODO: Do nothing (close app from main menu) or close app with question
+            return true;
         }
     }
 }

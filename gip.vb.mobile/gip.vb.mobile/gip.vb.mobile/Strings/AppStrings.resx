@@ -468,4 +468,10 @@
   <data name="PrintQuantMissing_Text" xml:space="preserve">
     <value>The quant for print cannot be found.</value>
   </data>
+  <data name="AssignedPrinter_Label" xml:space="preserve">
+    <value>Assigned printer:</value>
+  </data>
+  <data name="BtnAssignPrinter_Text" xml:space="preserve">
+    <value>Assign printer</value>
+  </data>
 </root>

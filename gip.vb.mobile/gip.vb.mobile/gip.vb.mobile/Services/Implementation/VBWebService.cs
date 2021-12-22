@@ -43,23 +43,33 @@ namespace gip.vb.mobile.Services
         public async Task<WSResponse<bool>> Print(PrintEntity printEntity)
         {
             if (printEntity.Sequence == null || !printEntity.Sequence.Any())
-                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "sequence is null")));
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "sequence is null.")));
             return await Post<bool, PrintEntity>(printEntity, VBWebServiceConst.UriPrint);
         }
 
-        public Task<WSResponse<bool>> AssignPrinterAsync(string printerID)
+        public async Task<WSResponse<string>> AssignPrinterAsync(string printerID)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(printerID))
+            {
+                return new WSResponse<string>(new Msg(eMsgLevel.Error, "printerID is null."));
+            }
+
+            return await Get<string>(string.Format(VBWebServiceConst.UriGetScannedPrinter_F, printerID));
         }
 
-        public Task<WSResponse<string>> GetAssignedPrinterAsync()
+        public async Task<WSResponse<string>> GetAssignedPrinterAsync()
         {
-            throw new NotImplementedException();
+            return await Get<string>(VBWebServiceConst.UriGetAssignedPrinter);
         }
 
-        public Task<WSResponse<string>> GetScannedPrinterAsync(string printerID)
+        public async Task<WSResponse<string>> GetScannedPrinterAsync(string printerID)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(printerID))
+            {
+                return new WSResponse<string>(new Msg(eMsgLevel.Error, "printerID is null."));
+            }
+
+            return await Get<string>(string.Format(VBWebServiceConst.UriGetScannedPrinter_F, printerID));
         }
 
         #endregion

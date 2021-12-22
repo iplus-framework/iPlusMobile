@@ -155,7 +155,7 @@ namespace gip.vb.mobile.ViewModels
 
         public async Task ExecuteLoadPickingTypesCommand()
         {
-            if (IsBusy)
+            if (IsBusy || PickingTypes != null)
                 return;
 
             IsBusy = true;

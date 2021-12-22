@@ -23,23 +23,25 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="15" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="1" Text="Assigned printer:" />
-            <Label Grid.Row="2" Text="TODO" />
+            <Label Grid.Row="1" Text="{i18n:Translate Text=AssignedPrinter_Label}" Style="{StaticResource LabelForDesc}" />
+            <Label Grid.Row="2" Text="{Binding AssignedPrinter}" Style="{StaticResource LabelForData}" />
 
             <ctl:MsgLabel Grid.Row="3" Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
 
-            <SearchBar Grid.Row="4" x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
-            <ListView Grid.Row="5"  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
-                        ItemTemplate="{StaticResource BarcodeEntitySelector}"
-                        HasUnevenRows="true"
-                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+            <SearchBar Grid.Row="4" x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" 
+                       SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
+            <Label Grid.Row="5" x:Name="ScannedPrinterLabel" Text="{Binding CurrentScannedPrinter}" HeightRequest="70" />
+
+            <Button x:Name="btnAssignPrinter" Grid.Row="6" Text="{i18n:Translate Text=BtnAssignPrinter_Text}" Command="{Binding AssignPrinter}" />
+
         </Grid>
     </ContentPage.Content>
 </v:BSOPageBase>
