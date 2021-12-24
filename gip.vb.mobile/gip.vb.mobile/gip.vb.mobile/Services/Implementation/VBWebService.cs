@@ -54,7 +54,7 @@ namespace gip.vb.mobile.Services
                 return new WSResponse<string>(new Msg(eMsgLevel.Error, "printerID is null."));
             }
 
-            return await Get<string>(string.Format(VBWebServiceConst.UriGetScannedPrinter_F, printerID));
+            return await Post<string, string>(printerID, VBWebServiceConst.UriAssignPrinter);
         }
 
         public async Task<WSResponse<string>> GetAssignedPrinterAsync()

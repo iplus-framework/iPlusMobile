@@ -52,6 +52,13 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Guid? CurrentScannedPrinterACClassID
+        {
+            get;
+            set;
+        }
+
+
         #endregion
 
         #region Commands
@@ -59,8 +66,13 @@ namespace gip.vb.mobile.ViewModels
         public Command GetAssignedPrinter { get; set; }
         public async Task<bool> ExecuteGetAssignedPrinter()
         {
+            if (IsBusy)
+                return false;
+
             try
             {
+                IsBusy = true;
+
                 var response = await _WebService.GetAssignedPrinterAsync();
                 if (response.Suceeded)
                 {
@@ -70,6 +82,10 @@ namespace gip.vb.mobile.ViewModels
             catch (Exception e)
             {
                 Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
 
@@ -81,6 +97,10 @@ namespace gip.vb.mobile.ViewModels
         {
             Message = null;
             CurrentScannedPrinter = null;
+            CurrentScannedPrinterACClassID = null;
+
+            if (IsBusy)
+                return false;
 
             if (string.IsNullOrEmpty(CurrentBarcode))
             {
@@ -97,6 +117,7 @@ namespace gip.vb.mobile.ViewModels
                     if (result.Suceeded)
                     {
                         CurrentScannedPrinter = result.Data.ACCaption + System.Environment.NewLine + result.Data.ACUrlComponent;
+                        CurrentScannedPrinterACClassID = printServerACClassID;
                     }
                     else if (result.Message != null)
                     {
@@ -123,6 +144,10 @@ namespace gip.vb.mobile.ViewModels
                 Message = new Msg(eMsgLevel.Exception, e.Message);
                 return false;
             }
+            finally
+            {
+                IsBusy = false;
+            }
 
             return true;
         }
@@ -130,6 +155,38 @@ namespace gip.vb.mobile.ViewModels
         public Command AssignPrinter { get; set; }
         public async Task<bool> ExecuteAssignPrinter()
         {
+            if (IsBusy)
+                return false;
+
+            if (string.IsNullOrEmpty(CurrentScannedPrinter))
+                return false;
+
+            IsBusy = true;
+
+            try
+            {
+                string printerID = CurrentScannedPrinterACClassID.HasValue ? CurrentScannedPrinterACClassID.Value.ToString() : CurrentScannedPrinter;
+
+                var result = await _WebService.AssignPrinterAsync(printerID);
+                if (result.Suceeded)
+                {
+                    AssignedPrinter = result.Data;
+                    Message = new Msg(eMsgLevel.Info, "Printer was sucessfully assigned!");
+                }
+                else if (result.Message != null)
+                {
+                    Message = result.Message;
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
             return true;
         }
 
