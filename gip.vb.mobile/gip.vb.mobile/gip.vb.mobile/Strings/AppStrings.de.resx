@@ -417,4 +417,16 @@
   <data name="BtnAssignPrinter_Text" xml:space="preserve">
     <value>Drucker zuweisen</value>
   </data>
+  <data name="ExploreStorage_Text" xml:space="preserve">
+    <value>Lagerung erforschen</value>
+  </data>
+  <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
+    <value>Nur in Liste suchen (Filterliste)</value>
+  </data>
+  <data name="SelectFacility_Text" xml:space="preserve">
+    <value>Einrichtung auswählen</value>
+  </data>
+  <data name="WarehousePositions_Text" xml:space="preserve">
+    <value>Positionen im Lager</value>
+  </data>
 </root>

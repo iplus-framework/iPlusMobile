@@ -415,12 +415,11 @@ namespace gip.vb.mobile.ViewModels
                 return;
             }
 
-            //Labels are not required.
-            if (facilityBookingCharge.InwardFacilityPostingBehaviour == (short)PostingBehaviourEnum.ZeroStockOnRelocation)
-            {
-                return;
-            }
-
+            ////Labels are not required.
+            //if (facilityBookingCharge.InwardFacilityPostingBehaviour == (short)PostingBehaviourEnum.ZeroStockOnRelocation)
+            //{
+            //    return;
+            //}
 
             Msg msg = new Msg(eMsgLevel.QuestionPrompt, message);
             ShowDialog(msg, "", Keyboard.Numeric, "1", 1);

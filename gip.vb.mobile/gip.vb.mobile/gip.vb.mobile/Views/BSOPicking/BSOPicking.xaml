@@ -53,7 +53,7 @@
                                 MinimumWidthRequest="50"
                                 ItemDisplayBinding="{Binding MDPickingTypeName}"/>
                     <Button x:Name="cmdClearPickingType" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearPickingType_Clicked" />
-    
+
                 </StackLayout>
 
 

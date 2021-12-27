@@ -474,4 +474,16 @@
   <data name="BtnAssignPrinter_Text" xml:space="preserve">
     <value>Assign printer</value>
   </data>
+  <data name="ExploreStorage_Text" xml:space="preserve">
+    <value>Explore storage</value>
+  </data>
+  <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
+    <value>Search only in list (filter list)</value>
+  </data>
+  <data name="SelectFacility_Text" xml:space="preserve">
+    <value>Select facility</value>
+  </data>
+  <data name="WarehousePositions_Text" xml:space="preserve">
+    <value>Warehouse positions</value>
+  </data>
 </root>

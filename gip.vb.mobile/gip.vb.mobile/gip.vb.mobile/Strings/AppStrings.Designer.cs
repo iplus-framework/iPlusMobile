@@ -448,6 +448,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Explore storage.
+        /// </summary>
+        internal static string ExploreStorage_Text {
+            get {
+                return ResourceManager.GetString("ExploreStorage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string FacilityName_Text {
@@ -480,6 +489,15 @@ namespace gip.vb.mobile.Strings {
         internal static string FacilitySearch_Text {
             get {
                 return ResourceManager.GetString("FacilitySearch_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search only in list (filter list).
+        /// </summary>
+        internal static string FacilitySelSearchOnlyList_text {
+            get {
+                return ResourceManager.GetString("FacilitySelSearchOnlyList_text", resourceCulture);
             }
         }
         
@@ -979,6 +997,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select facility.
+        /// </summary>
+        internal static string SelectFacility_Text {
+            get {
+                return ResourceManager.GetString("SelectFacility_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the intermediate product:.
         /// </summary>
         internal static string SelectIntermediate_Text {
@@ -1119,6 +1146,15 @@ namespace gip.vb.mobile.Strings {
         internal static string WarehousePivot_Header {
             get {
                 return ResourceManager.GetString("WarehousePivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warehouse positions.
+        /// </summary>
+        internal static string WarehousePositions_Text {
+            get {
+                return ResourceManager.GetString("WarehousePositions_Text", resourceCulture);
             }
         }
         
