@@ -30,9 +30,30 @@ namespace gip.vb.mobile.Views
 
         private void InitPageOnNavigation()
         {
+            string preSelectTab = null;
             if (NavParam != null)
-                _ViewModel.Item = NavParam.Arguments as Material;
+            {
+                Tuple<Material, string> argument = NavParam.Arguments as Tuple<Material, string>;
+                if (argument != null)
+                {
+                    _ViewModel.Item = argument.Item1;
+                    preSelectTab = argument.Item2;
+                }
+                else
+                {
+                    _ViewModel.Item = NavParam.Arguments as Material;
+                }
+            }
+
             _ViewModel.LoadMaterialSumOverviewCommand.Execute(null);
+
+            if (!string.IsNullOrEmpty(preSelectTab))
+            {
+                BSOPageBase tab = this.FindByName(preSelectTab) as BSOPageBase;
+                if (tab != null)
+                    SelectedItem = tab;
+            }
+
             this.PageState = PageStateEnum.View;
         }
 
@@ -61,6 +82,12 @@ namespace gip.vb.mobile.Views
                 return;
             await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.SelectedFacilityCharge } });
         }
+
         #endregion
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -164,8 +164,7 @@ namespace gip.vb.mobile.Views
                 return;
             }
 
-            await Navigation.PushAsync(new BSOFacilityMaterialOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments =  material} });
+            await Navigation.PushAsync(new BSOFacilityMaterialOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments =  new Tuple<Material,string>(material, "QuantPivotItem") } });
         }
-
     }
 }

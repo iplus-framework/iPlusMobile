@@ -210,6 +210,9 @@
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySelector.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySortInfoOverLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOInventory\BSOFacilityInventory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

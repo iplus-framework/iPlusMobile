@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilitySortInfoOverLocation"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:vb="clr-namespace:gip.vb.mobile.Controls"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="FacilitySelector">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" >
+        </ToolbarItem>-->
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+
+        <Label x:Name="StorageLocationSortInfo" Text="Mark locations that are relevant for sort" />
+
+        <CollectionView x:Name="StorageLocationList">
+            
+            
+        </CollectionView>
+
+        <Button x:Name="btnApply" />
+
+
+    </StackLayout>
+</v:BSOPageBase>

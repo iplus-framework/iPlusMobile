@@ -7,6 +7,7 @@ using gip.mes.webservices;
 using gip.core.autocomponent;
 using gip.vb.mobile.Views;
 using gip.core.datamodel;
+using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -16,6 +17,7 @@ namespace gip.vb.mobile.ViewModels
         {
             Item = item;
             LoadMaterialSumOverviewCommand = new Command(async () => await ExecuteLoadMaterialSumOverviewCommand());
+            FilterByStorageLocationAndSortCommand = new Command((object param) => ExecuteFilterByStorageLocationAndSortCommand(param));
         }
 
         #region Properties
@@ -102,6 +104,21 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public Command FilterByStorageLocationAndSortCommand { get; set; }
+        public void ExecuteFilterByStorageLocationAndSortCommand(object param)
+        {
+            FacilityCharge fc = param as FacilityCharge;
+            if (fc == null || fc.Facility == null)
+            {
+                //TODO: error
+                return;
+            }
+
+            var temp = Overview.FacilityCharges.Where(c => c.Facility != null && c.Facility.ParentFacilityID == fc.Facility.ParentFacilityID).OrderBy(x => x.ExpirationDate).ToArray();
+            Overview.FacilityCharges = temp;
+            Overview.OnFacilityChargesChanged();
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
