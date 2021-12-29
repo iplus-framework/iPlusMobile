@@ -96,36 +96,57 @@
 
         <StackLayout>
 
-            <Label Text="Storage location priority:">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            <Grid>
 
-                </Label.GestureRecognizers>
-            </Label>
-            
-            <CollectionView x:Name="StorageLocationPriorityList" ItemsSource="{Binding Overview.FacilityLocationSum}" HeightRequest="40" >
-                <CollectionView.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </CollectionView.GestureRecognizers>
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal">
-                    </LinearItemsLayout>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="5,5,5,5">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                            </Grid.GestureRecognizers>
-                            <Label Text="{Binding FacilityNo}" >
-                            </Label>
-                        </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="2" />
+                </Grid.RowDefinitions>
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1" />
+                </Grid.ColumnDefinitions>
 
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" BackgroundColor="{DynamicResource CollectionViewBackground}" CornerRadius="3">
+                    <BoxView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
 
+                    </BoxView.GestureRecognizers>
+                </BoxView>
+
+                <Label Grid.Column="1" Text="Storage location priority:">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <CollectionView Grid.Row="1" Grid.Column="1" x:Name="StorageLocationPriorityList" ItemsSource="{Binding FacilitySortItems}" HeightRequest="40" >
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </CollectionView.GestureRecognizers>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal">
+                        </LinearItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="{DynamicResource ControlBackgroundColor}" Padding="5,5,5,5">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Grid.GestureRecognizers>
+                                <Label Text="{Binding FacilityNo}" VerticalOptions="Center" >
+                                </Label>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
 
 
             <ListView x:Name="QuantsListView"

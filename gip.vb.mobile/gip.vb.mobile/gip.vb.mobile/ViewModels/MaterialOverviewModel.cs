@@ -8,6 +8,7 @@ using gip.core.autocomponent;
 using gip.vb.mobile.Views;
 using gip.core.datamodel;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -63,6 +64,17 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _SelectedFacilityCharge, value);
             }
         }
+
+        private IEnumerable<Facility> _FacilitySortItems;
+        public IEnumerable<Facility> FacilitySortItems
+        {
+            get => _FacilitySortItems;
+            set
+            {
+                SetProperty(ref _FacilitySortItems, value);
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -92,7 +104,34 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.GetMaterialSumAsync(Item.MaterialID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
+                {
                     Overview = response.Data;
+                    Facility[] savedFacilites = FacilitySortInfoOverLocationModel.LoadSortStorageLocations();
+
+                    if (savedFacilites != null && savedFacilites.Any())
+                    {
+                        var possibleLocations = Overview.FacilityLocationSum.Select(x => x.FacilityNo);
+
+                        FacilitySortItems = savedFacilites.Where(c => possibleLocations.Any(x => x == c.FacilityNo));
+                        List<FacilityCharge> fcList = new List<FacilityCharge>();
+
+                        foreach(Facility facilitySort in FacilitySortItems)
+                        {
+                            var temp = Overview.FacilityCharges.Where(c => c.Facility != null && c.Facility.ParentFacilityID == facilitySort.FacilityID).OrderBy(x => x.ExpirationDate);
+                            fcList.AddRange(temp);
+                        }
+
+                        var rest = Overview.FacilityCharges.Except(fcList).OrderBy(x => x.ExpirationDate);
+                        fcList.AddRange(rest);
+
+                        Overview.FacilityCharges = fcList;
+                        Overview.OnFacilityChargesChanged();
+                    }
+                    else
+                    {
+                        FacilitySortItems = null;
+                    }
+                }
                 else
                     Overview = null;
             }
