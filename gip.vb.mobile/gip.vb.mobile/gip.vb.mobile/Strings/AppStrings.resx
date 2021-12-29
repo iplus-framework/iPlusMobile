@@ -486,4 +486,16 @@
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Warehouse positions</value>
   </data>
+  <data name="BtnApply_Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="StorageLocationSortPriority_Text" xml:space="preserve">
+    <value>Storage location priority:</value>
+  </data>
+  <data name="StorageLocationsSortInfo_Text" xml:space="preserve">
+    <value>Mark storage locations that are relevant for sort:</value>
+  </data>
+  <data name="ExitHint_Text" xml:space="preserve">
+    <value>Tap again to exit iPlus Mobile</value>
+  </data>
 </root>

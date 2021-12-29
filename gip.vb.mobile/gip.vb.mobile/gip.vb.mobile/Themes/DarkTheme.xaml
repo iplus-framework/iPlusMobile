@@ -17,5 +17,5 @@
     <Color x:Key="UnSelectedTextColor">#FF282828</Color>
     <Color x:Key="DgBorderColor">#FF505050</Color>
     <Color x:Key="DgHeaderBackgroundColor">#FFCCCCCC</Color>
-    <Color x:Key="CollectionViewBackground">#8f9c7e</Color>
+    <Color x:Key="CollectionViewBackground">#7d5151</Color>
 </ResourceDictionary>

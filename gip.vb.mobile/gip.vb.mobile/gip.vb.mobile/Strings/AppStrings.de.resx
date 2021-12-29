@@ -429,4 +429,16 @@
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Positionen im Lager</value>
   </data>
+  <data name="BtnApply_Text" xml:space="preserve">
+    <value>Bewerbung</value>
+  </data>
+  <data name="StorageLocationSortPriority_Text" xml:space="preserve">
+    <value>Priorität des Lagerorts:</value>
+  </data>
+  <data name="StorageLocationsSortInfo_Text" xml:space="preserve">
+    <value>Markieren Sie Lagerorte, die für die Sortierung relevant sind:</value>
+  </data>
+  <data name="ExitHint_Text" xml:space="preserve">
+    <value>Tippen Sie erneut, um iPlus Mobile zu beenden.</value>
+  </data>
 </root>

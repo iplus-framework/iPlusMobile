@@ -1,4 +1,5 @@
-﻿using gip.vb.mobile.ViewModels;
+﻿using gip.vb.mobile.DependencyServices;
+using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +82,9 @@ namespace gip.vb.mobile.Views
 
         protected override bool OnBackButtonPressed()
         {
+            ExitOnBackButtonPressed();
+            
+
             //https://stackoverflow.com/questions/30274004/xamarin-close-android-application-on-back-button
             //TODO: Do nothing (close app from main menu) or close app with question
             return true;

@@ -205,6 +205,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        internal static string BtnApply_Text {
+            get {
+                return ResourceManager.GetString("BtnApply_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign printer.
         /// </summary>
         internal static string BtnAssignPrinter_Text {
@@ -444,6 +453,15 @@ namespace gip.vb.mobile.Strings {
         internal static string EmptyBarcodeEntity_Text {
             get {
                 return ResourceManager.GetString("EmptyBarcodeEntity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tap again to exit iPlus Mobile.
+        /// </summary>
+        internal static string ExitHint_Text {
+            get {
+                return ResourceManager.GetString("ExitHint_Text", resourceCulture);
             }
         }
         
@@ -1047,6 +1065,24 @@ namespace gip.vb.mobile.Strings {
         internal static string StockQuantity_Text {
             get {
                 return ResourceManager.GetString("StockQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage location priority:.
+        /// </summary>
+        internal static string StorageLocationSortPriority_Text {
+            get {
+                return ResourceManager.GetString("StorageLocationSortPriority_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark storage locations that are relevant for sort:.
+        /// </summary>
+        internal static string StorageLocationsSortInfo_Text {
+            get {
+                return ResourceManager.GetString("StorageLocationsSortInfo_Text", resourceCulture);
             }
         }
         

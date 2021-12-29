@@ -281,5 +281,11 @@ namespace gip.vb.mobile.Views
             await Navigation.PushAsync(new BSOFacilityLotOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = facilityLot } });
         }
         #endregion
+
+        protected override bool OnBackButtonPressed()
+        {
+            ExitOnBackButtonPressed();
+            return true;
+        }
     }
 }

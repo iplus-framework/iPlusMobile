@@ -111,5 +111,10 @@ namespace gip.vb.mobile.Views
         }
         #endregion
 
+        protected override bool OnBackButtonPressed()
+        {
+            ExitOnBackButtonPressed();
+            return true;
+        }
     }
 }

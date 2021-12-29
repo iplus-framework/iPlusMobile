@@ -41,7 +41,7 @@
 
             <StackLayout Grid.Row="1">
 
-                <Label x:Name="StorageLocationSortInfo" Text="Mark storage locations that are relevant for sort:" />
+                <Label x:Name="StorageLocationSortInfo" Text="{i18n:Translate Text=StorageLocationsSortInfo_Text}" />
 
                 <CollectionView x:Name="StorageLocationList" ItemsSource="{Binding AvailableStorageLocations}"
                         SelectedItems="{Binding SelectedStorageLocations, Mode=TwoWay}" SelectionMode="Multiple">
@@ -89,7 +89,7 @@
 
             </StackLayout>
 
-            <Button Grid.Row="2"  x:Name="btnApply" Text="Apply" Clicked="btnApply_Clicked" />
+            <Button Grid.Row="2"  x:Name="btnApply" Text="{i18n:Translate Text=BtnApply_Text}" Clicked="btnApply_Clicked" />
         </Grid>
     </Grid>
 </v:BSOPageBase>

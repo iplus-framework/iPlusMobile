@@ -37,7 +37,11 @@ namespace gip.vb.mobile.Views
             PageState = PageStateEnum.View;
         }
 
-        
+        protected override bool OnBackButtonPressed()
+        {
+            ExitOnBackButtonPressed();
+            return true;
+        }
 
         #endregion
 

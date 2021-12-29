@@ -89,8 +89,7 @@ namespace gip.vb.mobile.Views
 
         protected override bool OnBackButtonPressed()
         {
-            //https://stackoverflow.com/questions/30274004/xamarin-close-android-application-on-back-button
-            //TODO: Do nothing (close app from main menu) or close app with question
+            ExitOnBackButtonPressed();
             return true;
         }
     }

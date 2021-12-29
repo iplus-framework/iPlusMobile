@@ -24,5 +24,11 @@ namespace gip.vb.mobile.Views
             lblVersion.Text = VersionTracking.CurrentVersion;
             lblBuild.Text = VersionTracking.CurrentBuild;
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ExitOnBackButtonPressed();
+            return true;
+        }
     }
 }

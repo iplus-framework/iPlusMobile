@@ -142,5 +142,11 @@ namespace gip.vb.mobile.Views
         {
             EnableButtons();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ExitOnBackButtonPressed();
+            return true;
+        }
     }
 }

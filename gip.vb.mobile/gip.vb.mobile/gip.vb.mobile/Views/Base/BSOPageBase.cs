@@ -1,4 +1,6 @@
-﻿using gip.vb.mobile.Strings;
+﻿using gip.vb.mobile.DependencyServices;
+using gip.vb.mobile.Strings;
+using System;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.Views
@@ -156,6 +158,28 @@ namespace gip.vb.mobile.Views
 
         protected virtual void OnPageStateChanged()
         {
+        }
+
+        private DateTime _LastExitTap;
+        private TimeSpan _ExitTapTimeout = TimeSpan.FromSeconds(2.5);
+
+        protected virtual void ExitOnBackButtonPressed()
+        {
+            DateTime tap = DateTime.Now;
+            TimeSpan elapsedTime = tap - _LastExitTap;
+            _LastExitTap = tap;
+            IUtility utilityService = DependencyService.Get<IUtility>();
+            if (utilityService != null)
+            {
+                if (elapsedTime > _ExitTapTimeout)
+                {
+                    utilityService.ShortAlert(Strings.AppStrings.ExitHint_Text);
+                }
+                else
+                {
+                    utilityService.CloseApp();
+                }
+            }
         }
     }
 }

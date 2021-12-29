@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="DependencyServices\DatalogicBarcodeService.cs" />
     <Compile Include="DependencyServices\Localize.cs" />
+    <Compile Include="DependencyServices\UtilityAndroid.cs" />
     <Compile Include="Extensions\FontExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderer\CheckBoxRenderer.cs" />
