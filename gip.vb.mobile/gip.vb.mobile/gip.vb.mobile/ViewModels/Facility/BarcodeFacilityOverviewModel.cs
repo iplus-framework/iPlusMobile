@@ -179,6 +179,12 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public FacilitySelectorViewModel FacilitySelector
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Methods
@@ -321,6 +327,19 @@ namespace gip.vb.mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public void OnAppear()
+        {
+            if (FacilitySelector != null)
+            {
+                SelectedLocation = FacilitySelector.SelectedStorageLocation;
+                FacilitySelector = null;
+            }
+            else if (Locations.Count == 0)
+            {
+                LoadLocationsCommand.Execute(null);
             }
         }
 

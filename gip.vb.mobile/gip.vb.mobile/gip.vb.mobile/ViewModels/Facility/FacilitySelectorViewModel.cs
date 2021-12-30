@@ -179,12 +179,16 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                string parentFacilityID = "*";
+                string parentFacilityID = core.webservices.CoreWebServiceConst.EmptyParam;
+                string facilityType = core.webservices.CoreWebServiceConst.EmptyParam;
+
                 Facility lastAfterRemove = StorageLocationPath.LastOrDefault();
                 if (lastAfterRemove != null)
                     parentFacilityID = lastAfterRemove?.FacilityID.ToString();
+                else
+                    facilityType = ((short)FacilityTypesEnum.StorageLocation).ToString();
 
-                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, "*");
+                var response = await _WebService.SearchFacilityAsync("*", parentFacilityID, facilityType);
                 this.WSResponse = response;
                 if (response.Suceeded && response.Data != null)
                 {

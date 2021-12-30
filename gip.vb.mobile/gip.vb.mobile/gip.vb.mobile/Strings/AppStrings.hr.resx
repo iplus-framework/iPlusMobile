@@ -124,10 +124,10 @@
     <value>Povezani pisač:</value>
   </data>
   <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
-    <value>Skeniraj ili unesi  barkod od procesne funkcije</value>
+    <value>Skenirajte  barkod od procesne funkcije</value>
   </data>
   <data name="BarcodeScan_Text" xml:space="preserve">
-    <value>Skeniraj ili unesi barkod</value>
+    <value>Skenirajte ili unesite barkod</value>
   </data>
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
     <value>Niz barkodova već sadrži skenirani kod!</value>
@@ -139,7 +139,7 @@
     <value>Filter Inventory Positions TODO</value>
   </data>
   <data name="BFI_PositionEdit_Header" xml:space="preserve">
-    <value>Uredi stavku</value>
+    <value>Uredite stavku</value>
   </data>
   <data name="BFI_PositionOverview_Header" xml:space="preserve">
     <value>Pregled stavke inventure</value>
@@ -232,7 +232,7 @@
     <value>Ne</value>
   </data>
   <data name="ButtonYes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Da</value>
   </data>
   <data name="ChangePostingQ_Text" xml:space="preserve">
     <value>Promjeni količinu za knjiženje: TODO</value>
@@ -268,7 +268,7 @@
     <value>Pozicija skladištenja</value>
   </data>
   <data name="FacilitySearch_Text" xml:space="preserve">
-    <value>Unesi broj ili naziv pozicije skladištenja</value>
+    <value>Unesite broj ili naziv pozicije skladištenja</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Traži samo u prikazanoj listi (filtriranje liste)</value>
@@ -343,10 +343,10 @@
     <value>Mjesto skladištenja</value>
   </data>
   <data name="LocationSearch_Text" xml:space="preserve">
-    <value>Unesi broj ili naziv mjesta skladištenja</value>
+    <value>Unesite broj ili naziv mjesta skladištenja</value>
   </data>
   <data name="LocationSelect_Text" xml:space="preserve">
-    <value>Odaberi mjesto skladištenja</value>
+    <value>Odaberite mjesto skladištenja</value>
   </data>
   <data name="LotPivot_Header" xml:space="preserve">
     <value>Lot</value>

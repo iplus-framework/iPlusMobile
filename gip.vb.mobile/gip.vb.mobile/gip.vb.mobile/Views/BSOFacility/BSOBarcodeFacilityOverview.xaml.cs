@@ -39,8 +39,8 @@ namespace gip.vb.mobile.Views
         private void InitPageOnNavigation()
         {
             SubcribeToBarcodeService();
-            if (_ViewModel.Locations.Count == 0)
-                _ViewModel.LoadLocationsCommand.Execute(null);
+
+            _ViewModel.OnAppear();
             this.PageState = PageStateEnum.View;
         }
 
@@ -286,6 +286,19 @@ namespace gip.vb.mobile.Views
         {
             ExitOnBackButtonPressed();
             return true;
+        }
+
+        private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
+        {
+            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
+            FacilityEntry.Unfocus();
+
+            await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+        }
+
+        private void cmdClearFacility_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedLocation = null;
         }
     }
 }
