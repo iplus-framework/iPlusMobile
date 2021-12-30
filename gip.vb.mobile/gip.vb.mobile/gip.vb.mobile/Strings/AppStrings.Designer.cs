@@ -187,6 +187,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find material in the warehouse.
+        /// </summary>
+        internal static string Btn_FindMaterialInWarehouse {
+            get {
+                return ResourceManager.GetString("Btn_FindMaterialInWarehouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show grouped by materail.
         /// </summary>
         internal static string Btn_GroupByMaterial {
@@ -1069,6 +1078,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Storage locations.
+        /// </summary>
+        internal static string StorageLocations_Text {
+            get {
+                return ResourceManager.GetString("StorageLocations_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Storage location priority:.
         /// </summary>
         internal static string StorageLocationSortPriority_Text {
@@ -1159,7 +1177,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatate and complete.
+        ///   Looks up a localized string similar to Validate and complete.
         /// </summary>
         internal static string ValidateAndComplete_Text {
             get {

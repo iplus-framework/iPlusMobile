@@ -441,4 +441,10 @@
   <data name="ExitHint_Text" xml:space="preserve">
     <value>Tippen Sie erneut, um iPlus Mobile zu beenden.</value>
   </data>
+  <data name="Btn_FindMaterialInWarehouse" xml:space="preserve">
+    <value>Material im Lager finden</value>
+  </data>
+  <data name="StorageLocations_Text" xml:space="preserve">
+    <value>Lagerorte</value>
+  </data>
 </root>

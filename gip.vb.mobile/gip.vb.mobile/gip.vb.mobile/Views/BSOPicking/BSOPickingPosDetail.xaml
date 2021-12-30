@@ -57,7 +57,7 @@
                     <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
                 </StackLayout>
 
-                <Button x:Name="BtnWarehouseInfo" Text="Warehouse overview" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
+                <Button x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>

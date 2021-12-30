@@ -118,390 +118,390 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton_Label" xml:space="preserve">
-    <value>Add</value>
+    <value>Dodaj</value>
+  </data>
+  <data name="AssignedPrinter_Label" xml:space="preserve">
+    <value>Povezani pisač:</value>
   </data>
   <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
-    <value>Scan or Enter the process function Barcode </value>
+    <value>Skeniraj ili unesi  barkod od procesne funkcije</value>
   </data>
   <data name="BarcodeScan_Text" xml:space="preserve">
-    <value>Scan or Enter Barcode</value>
+    <value>Skeniraj ili unesi barkod</value>
+  </data>
+  <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
+    <value>Niz barkodova već sadrži skenirani kod!</value>
   </data>
   <data name="BFI_Bookings_Header" xml:space="preserve">
-    <value>Bookings</value>
+    <value>Knjiženja</value>
   </data>
   <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
-    <value>Filter Inventory Positions</value>
+    <value>Filter Inventory Positions TODO</value>
   </data>
   <data name="BFI_PositionEdit_Header" xml:space="preserve">
-    <value>Position edit</value>
+    <value>Uredi stavku</value>
   </data>
   <data name="BFI_PositionOverview_Header" xml:space="preserve">
-    <value>Inventory Line Overview</value>
+    <value>Pregled stavke inventure</value>
   </data>
   <data name="BFI_SearchInventory_Header" xml:space="preserve">
-    <value>Search Inventories</value>
+    <value>Traži inventure</value>
   </data>
   <data name="BookingHistory_Header" xml:space="preserve">
-    <value>Posting journal</value>
+    <value>Dnevnik knjiženja</value>
   </data>
   <data name="BookingQuantity_Text" xml:space="preserve">
-    <value>Posting quantity</value>
+    <value>Količina za knjiženje</value>
+  </data>
+  <data name="BtnApply_Text" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="BtnAssignPrinter_Text" xml:space="preserve">
+    <value>Poveži pisač</value>
   </data>
   <data name="BtnBlockQuant_Text" xml:space="preserve">
-    <value>Block Quant</value>
+    <value>Blokiraj kvant</value>
   </data>
   <data name="BtnClose_Text" xml:space="preserve">
-    <value>Close</value>
+    <value>Zatvori</value>
   </data>
   <data name="BtnDoBooking_Text" xml:space="preserve">
-    <value>Post</value>
+    <value>Izvrši knjiženje</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
-    <value>Quant not available</value>
+    <value>Kvant nije dostupan TODO</value>
+  </data>
+  <data name="BtnFinishOrder" xml:space="preserve">
+    <value>Završi nalog</value>
   </data>
   <data name="BtnLes_Text" xml:space="preserve">
-    <value>Less</value>
+    <value>Manje</value>
   </data>
   <data name="BtnLocationOverview_Text" xml:space="preserve">
-    <value>Go to Location Overview</value>
+    <value>Idi na pregled lokacije</value>
   </data>
   <data name="BtnMore_Text" xml:space="preserve">
-    <value>More</value>
+    <value>Više</value>
   </data>
   <data name="BtnOccupyMachine_Text" xml:space="preserve">
-    <value>Occupy machine with order</value>
+    <value>Zauzmi stroj s nalogom</value>
   </data>
   <data name="BtnReleaseMachine_Text" xml:space="preserve">
-    <value>Release machine</value>
+    <value>Oslobodi stroj</value>
   </data>
   <data name="BtnReleaseQuant_Text" xml:space="preserve">
-    <value>Release Quant</value>
+    <value>Otpusti kvant TODO</value>
   </data>
   <data name="BtnRelocate_Text" xml:space="preserve">
-    <value>Relocate Quant</value>
+    <value>Premjesti kvant</value>
   </data>
   <data name="BtnSearch_Text" xml:space="preserve">
-    <value>Search</value>
+    <value>Traži</value>
   </data>
   <data name="BtnStart_Text" xml:space="preserve">
     <value>Start</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
-    <value>Quant available</value>
+    <value>Kvan je dostupan TODO</value>
   </data>
   <data name="BtnUpdate_Text" xml:space="preserve">
-    <value>Update</value>
+    <value>Ažuriraj</value>
+  </data>
+  <data name="Btn_AddQuantToStock" xml:space="preserve">
+    <value>Dodaj kvant na stanje</value>
+  </data>
+  <data name="Btn_EditQuantAgain" xml:space="preserve">
+    <value>Uredi ponovo</value>
+  </data>
+  <data name="Btn_FindMaterialInWarehouse" xml:space="preserve">
+    <value>Pronađi materijal u skladištu</value>
+  </data>
+  <data name="Btn_GroupByMaterial" xml:space="preserve">
+    <value>Prikaži grupirano po materijalu</value>
+  </data>
+  <data name="Btn_ShowPickingOrders" xml:space="preserve">
+    <value>Prikaži naloge</value>
   </data>
   <data name="ButtonCancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Odustani</value>
   </data>
   <data name="ButtonClear" xml:space="preserve">
-    <value>Clear</value>
+    <value>Očisti</value>
   </data>
   <data name="ButtonNo" xml:space="preserve">
-    <value>No</value>
+    <value>Ne</value>
   </data>
   <data name="ButtonYes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="ChangePostingQ_Text" xml:space="preserve">
+    <value>Promjeni količinu za knjiženje: TODO</value>
+  </data>
   <data name="Comment_Text" xml:space="preserve">
-    <value>Comment</value>
+    <value>Komentar</value>
   </data>
   <data name="DateFrom_Text" xml:space="preserve">
-    <value>From</value>
+    <value>Od</value>
   </data>
   <data name="DateTo_Text" xml:space="preserve">
-    <value>To</value>
+    <value>Do</value>
   </data>
   <data name="DoPickingPivot_Header" xml:space="preserve">
-    <value>Order picking</value>
+    <value>Prikup po nalogu</value>
+  </data>
+  <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
+    <value>Entitet barkoda je prazan! Molim, skenirajte prvo.</value>
+  </data>
+  <data name="ExitHint_Text" xml:space="preserve">
+    <value>Ponovo dodirnite za izlaz iz iPlus-a</value>
+  </data>
+  <data name="ExploreStorage_Text" xml:space="preserve">
+    <value>Pregledajte spremište</value>
   </data>
   <data name="FacilityName_Text" xml:space="preserve">
-    <value>Name</value>
+    <value>Naziv</value>
   </data>
   <data name="FacilityNo_Text" xml:space="preserve">
-    <value>No.</value>
+    <value>Br.</value>
   </data>
   <data name="FacilityPivot_Header" xml:space="preserve">
-    <value>Storage Bin</value>
+    <value>Pozicija skladištenja</value>
   </data>
   <data name="FacilitySearch_Text" xml:space="preserve">
-    <value>Enter Storage Bin No. or Name</value>
+    <value>Unesi broj ili naziv pozicije skladištenja</value>
+  </data>
+  <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
+    <value>Traži samo u prikazanoj listi (filtriranje liste)</value>
+  </data>
+  <data name="FC_Match_Text" xml:space="preserve">
+    <value>Kvant odgovara!</value>
+  </data>
+  <data name="FC_NotExist_Text" xml:space="preserve">
+    <value>Kvant ne postoji!</value>
+  </data>
+  <data name="FC_NotMatch_Text" xml:space="preserve">
+    <value>Skenirani kvant (ID: {0}) ne odgovara selektiranom (ID: {1})!</value>
+  </data>
+  <data name="FC_QuantAlreadyFinished" xml:space="preserve">
+    <value>Kvant je već završen! Možete ga ponovo uređivati!</value>
+  </data>
+  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
+    <value>Kvant je dostupan na drugoj poziciji skladištenja: {0}!</value>
+  </data>
+  <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
+    <value>Kvant nije dostupan! Možete ga ponovo vratiti na stanje!</value>
   </data>
   <data name="Filter_Text" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="FromStorageLocation_Text" xml:space="preserve">
+    <value>Iz mjesta skladišta</value>
+  </data>
+  <data name="GoAndCount_Text" xml:space="preserve">
+    <value>1. Idi i broji</value>
+  </data>
   <data name="InputMaterials_Header" xml:space="preserve">
-    <value>Input materials</value>
+    <value>Ulazni materijali</value>
   </data>
   <data name="Input_Text" xml:space="preserve">
-    <value>Input</value>
+    <value>Ulaz</value>
   </data>
   <data name="Intermediate_Text" xml:space="preserve">
-    <value>Intermediate Product</value>
+    <value>Međuproizvod</value>
   </data>
   <data name="InventoryPosNotAvailable_Text" xml:space="preserve">
-    <value>Not Available</value>
+    <value>Nije dostupno</value>
   </data>
   <data name="InventoryPosState_Text" xml:space="preserve">
-    <value>Inventory position state</value>
+    <value>Status stavke inventure</value>
   </data>
   <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
-    <value>Zero Quantity</value>
+    <value>Nulta količina</value>
   </data>
   <data name="InventoryState_Text" xml:space="preserve">
-    <value>Inventory state</value>
+    <value>Inventarsko stanje</value>
+  </data>
+  <data name="Inv_EditLine" xml:space="preserve">
+    <value>Inventura - uređivanje stavke</value>
+  </data>
+  <data name="Inv_EditLineS" xml:space="preserve">
+    <value>Inventura - traženje stavke</value>
+  </data>
+  <data name="Inv_OpenPositions" xml:space="preserve">
+    <value>Inventura - otvorene stavke</value>
+  </data>
+  <data name="Inv_SelectStorage" xml:space="preserve">
+    <value>Inventura - odaberi mjesto / poziciju skladištenja</value>
+  </data>
+  <data name="IPlusBackendUrl_Text" xml:space="preserve">
+    <value>iPlus Url</value>
   </data>
   <data name="LightTheme_Text" xml:space="preserve">
-    <value>Light Theme</value>
+    <value>Svijetla tema</value>
   </data>
   <data name="LocationPivot_Header" xml:space="preserve">
-    <value>Storage Location</value>
+    <value>Mjesto skladištenja</value>
   </data>
   <data name="LocationSearch_Text" xml:space="preserve">
-    <value>Enter Storage Location No. or Name </value>
+    <value>Unesi broj ili naziv mjesta skladištenja</value>
   </data>
   <data name="LocationSelect_Text" xml:space="preserve">
-    <value>Select Storage Location</value>
+    <value>Odaberi mjesto skladištenja</value>
   </data>
   <data name="LotPivot_Header" xml:space="preserve">
     <value>Lot</value>
   </data>
   <data name="LotSearch_Text" xml:space="preserve">
-    <value>Enter Lot No.</value>
+    <value>Unesite broj lot-a</value>
   </data>
   <data name="MaterialPivot_Header" xml:space="preserve">
-    <value>Material</value>
+    <value>Materijal</value>
   </data>
   <data name="MaterialSearch_Text" xml:space="preserve">
-    <value>Enter Material No. or Name</value>
+    <value>Unesite broj ili naziv materijala</value>
   </data>
   <data name="NewStockQuantity_Text" xml:space="preserve">
-    <value>New Stock</value>
+    <value>Novo stanje</value>
+  </data>
+  <data name="OrderFinished_Text" xml:space="preserve">
+    <value>Nalog je završen!</value>
   </data>
   <data name="Output_Text" xml:space="preserve">
-    <value>Output</value>
+    <value>Izlaz</value>
   </data>
   <data name="PartslistName_Label" xml:space="preserve">
-    <value>Bill of material name</value>
+    <value>Naziv sastavnice TODO</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
-    <value>Password</value>
+    <value>Lozinka</value>
+  </data>
+  <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
+    <value>Knjiženje je uspješno izvršeno. Molim, ispišite naljepnice sada i naljepite na materijal/robu. Koliko naljepnica želite ispisati?</value>
+  </data>
+  <data name="PickingByMaterial_Header" xml:space="preserve">
+    <value>Grupirano po materijalu</value>
   </data>
   <data name="PickingPosPivot_Header" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
+    <value>Pogrešan sken. Molim, skenirajte kvant ili poziciju skladištenja!</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
+    <value>Pogrešan sken. Molim, skenirajte kvant!</value>
+  </data>
+  <data name="PickingWrongMaterial_Text" xml:space="preserve">
+    <value>Materijal kvanta ne odgovara materijalu stavke komisioniranja!</value>
+  </data>
+  <data name="PositionDetail_Header" xml:space="preserve">
+    <value>Detalji stavke</value>
+  </data>
   <data name="PosState_Text" xml:space="preserve">
-    <value>State</value>
+    <value>Status</value>
   </data>
   <data name="PostingFCPivot_Header" xml:space="preserve">
-    <value>Posting</value>
+    <value>Knjiženje</value>
+  </data>
+  <data name="PostingQInsufficient_Question" xml:space="preserve">
+    <value>Količina za knjiženje je premala. Jeste li sigurni da želite nastaviti?</value>
+  </data>
+  <data name="PostingSuccesful_Text" xml:space="preserve">
+    <value>Knjiženje je uspješno izvršeno.</value>
+  </data>
+  <data name="PrintCopies_Question" xml:space="preserve">
+    <value>Koliko kopija naljepnica želite ispisati?</value>
+  </data>
+  <data name="PrintFBCMissing_Text" xml:space="preserve">
+    <value>Knjiženje za ispis se nemože pronaći.</value>
+  </data>
+  <data name="PrintQuantMissing_Text" xml:space="preserve">
+    <value>Kvant za ispis se nemože pronaći.</value>
   </data>
   <data name="ProdOrderInOutBookingHistory_Header" xml:space="preserve">
-    <value>History</value>
+    <value>Povijest</value>
   </data>
   <data name="ProdOrderInOutBooking_Header" xml:space="preserve">
-    <value>Posting</value>
+    <value>Knjiženje</value>
   </data>
   <data name="ProdOrderInOutInfo_Header" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="QuantPivot_Header" xml:space="preserve">
-    <value>Quants</value>
+    <value>Kvantovi</value>
   </data>
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
-    <value>Barcode/RFID</value>
+    <value>Barkod/RFID</value>
   </data>
   <data name="SelectBatch_Text" xml:space="preserve">
-    <value>Select the target batch:</value>
+    <value>Izaberite ciljanu seriju:</value>
+  </data>
+  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
+    <value>Izabrana stavka nije valjano mjesto / pozicija skladišta.</value>
+  </data>
+  <data name="SelectFacility_Text" xml:space="preserve">
+    <value>Izaberite skladište</value>
   </data>
   <data name="SelectIntermediate_Text" xml:space="preserve">
-    <value>Select the intermediate product:</value>
+    <value>Izaberite međuproizvod</value>
   </data>
   <data name="SelectPartslist_Text" xml:space="preserve">
-    <value>or select the Bill of material:</value>
+    <value>ili izaberite sastavnicu: TODO</value>
   </data>
   <data name="SelectTargetFacility_Text" xml:space="preserve">
-    <value>or select the target storage:</value>
+    <value>ili izaberite ciljano skladište</value>
+  </data>
+  <data name="SelPickingType_Text" xml:space="preserve">
+    <value>Izaberite vrstu komisioniranja</value>
   </data>
   <data name="StockQuantity_Text" xml:space="preserve">
-    <value>Stock</value>
+    <value>Stanje</value>
+  </data>
+  <data name="StorageLocationSortPriority_Text" xml:space="preserve">
+    <value>Pririotet prikaza prema mjestu skladištenja</value>
+  </data>
+  <data name="StorageLocationsSortInfo_Text" xml:space="preserve">
+    <value>Označite mjesta skladištanja prema kojima želite sortirati:</value>
+  </data>
+  <data name="StorageLocations_Text" xml:space="preserve">
+    <value>Mjesta skladištenja</value>
   </data>
   <data name="SumBlockedAbsolute_Text" xml:space="preserve">
-    <value>Sum Blocked Abs.</value>
+    <value>Suma blokirano apsul.</value>
   </data>
   <data name="SumBlocked_Text" xml:space="preserve">
-    <value>Sum Blocked</value>
+    <value>Suma blokirano</value>
   </data>
   <data name="SumFree_Text" xml:space="preserve">
-    <value>Sum Free</value>
+    <value>Suma slobodno</value>
   </data>
   <data name="SumTotal_Text" xml:space="preserve">
-    <value>Sum Total</value>
+    <value>Ukupna suma</value>
   </data>
   <data name="TimeRangeFilter_Header" xml:space="preserve">
-    <value>Timerange</value>
+    <value>Vremenski raspon</value>
+  </data>
+  <data name="ToStorageLocation_Text" xml:space="preserve">
+    <value>Na mjesto skladišta</value>
   </data>
   <data name="UseMockDataStore_Text" xml:space="preserve">
     <value>Use Offline-Demodata</value>
   </data>
   <data name="Username_Text" xml:space="preserve">
-    <value>Username</value>
-  </data>
-  <data name="IPlusBackendUrl_Text" xml:space="preserve">
-    <value>iPlus Url</value>
-  </data>
-  <data name="WarehousePivot_Header" xml:space="preserve">
-    <value>Warehouse</value>
-  </data>
-  <data name="ZXingOverlay_Text" xml:space="preserve">
-    <value>Fully position barcode on line</value>
+    <value>Korisnik</value>
   </data>
   <data name="ValidateAndComplete_Text" xml:space="preserve">
-    <value>Validate and complete</value>
-  </data>
-  <data name="GoAndCount_Text" xml:space="preserve">
-    <value>1. Go and count</value>
+    <value>Validiraj i završi</value>
   </data>
   <data name="ViewOpenLines_Text" xml:space="preserve">
-    <value>2. View open lines</value>
+    <value>2. Pogledaj otvorene stavke</value>
   </data>
-  <data name="FC_NotExist_Text" xml:space="preserve">
-    <value>Quant not exist!</value>
-  </data>
-  <data name="FC_Match_Text" xml:space="preserve">
-    <value>Quant match!</value>
-  </data>
-  <data name="FC_NotMatch_Text" xml:space="preserve">
-    <value>Scaned quant (ID: {0}) not match selected (ID: {1})!</value>
-  </data>
-  <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
-    <value>Quant is not available! You can restore quant to stock!</value>
-  </data>
-  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
-    <value>Quant is available on different Faciltiy: {0}!</value>
-  </data>
-  <data name="FC_QuantAlreadyFinished" xml:space="preserve">
-    <value>Quant is already finished! You can edit again!</value>
-  </data>
-  <data name="Btn_AddQuantToStock" xml:space="preserve">
-    <value>Add quant to stock</value>
-  </data>
-  <data name="Btn_EditQuantAgain" xml:space="preserve">
-    <value>Edit again</value>
-  </data>
-  <data name="Inv_SelectStorage" xml:space="preserve">
-    <value>Inventory - select storage location / bin</value>
-  </data>
-  <data name="Inv_EditLine" xml:space="preserve">
-    <value>Inventory - Edit line</value>
-  </data>
-  <data name="Inv_EditLineS" xml:space="preserve">
-    <value>Inventory - Search Line</value>
-  </data>
-  <data name="Inv_OpenPositions" xml:space="preserve">
-    <value>Inventory - open positions</value>
-  </data>
-  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
-    <value>Selected line is not valid facility!</value>
-  </data>
-  <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
-    <value>Barcode sequence already have scanned code!</value>
-  </data>
-  <data name="SelPickingType_Text" xml:space="preserve">
-    <value>Select picking type</value>
-  </data>
-  <data name="Btn_ShowPickingOrders" xml:space="preserve">
-    <value>Show orders</value>
-  </data>
-  <data name="FromStorageLocation_Text" xml:space="preserve">
-    <value>From storage location</value>
-  </data>
-  <data name="ToStorageLocation_Text" xml:space="preserve">
-    <value>To storage location</value>
-  </data>
-  <data name="Btn_GroupByMaterial" xml:space="preserve">
-    <value>Show grouped by materail</value>
-  </data>
-  <data name="PickingByMaterial_Header" xml:space="preserve">
-    <value>Grouped by material</value>
-  </data>
-  <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
-    <value>Barcode entity is empty! Please scan first.</value>
-  </data>
-  <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
-    <value>Wrong scan. Please scan quant or facility!</value>
-  </data>
-  <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
-    <value>Wrong scan. Please scan quant!</value>
-  </data>
-  <data name="PickingWrongMaterial_Text" xml:space="preserve">
-    <value>Material of the quant does not match the material of the picking position!</value>
-  </data>
-  <data name="PrintCopies_Question" xml:space="preserve">
-    <value>How many label copies do you want to print?</value>
-  </data>
-  <data name="BtnFinishOrder" xml:space="preserve">
-    <value>Finish order</value>
-  </data>
-  <data name="ChangePostingQ_Text" xml:space="preserve">
-    <value>Change the posting quantity:</value>
-  </data>
-  <data name="OrderFinished_Text" xml:space="preserve">
-    <value>Order is finished!</value>
-  </data>
-  <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
-    <value>The posting was successful. Please print labels now and stick them on the material. How many labels do you want to print?</value>
-  </data>
-  <data name="PositionDetail_Header" xml:space="preserve">
-    <value>Position detail</value>
-  </data>
-  <data name="PostingQInsufficient_Question" xml:space="preserve">
-    <value>The posting quantity is insufficient. Are sure that you want to continue?</value>
-  </data>
-  <data name="PostingSuccesful_Text" xml:space="preserve">
-    <value>The posting was successful.</value>
-  </data>
-  <data name="PrintFBCMissing_Text" xml:space="preserve">
-    <value>The facility booking charge for print cannot be found.</value>
-  </data>
-  <data name="PrintQuantMissing_Text" xml:space="preserve">
-    <value>The quant for print cannot be found.</value>
-  </data>
-  <data name="AssignedPrinter_Label" xml:space="preserve">
-    <value>Assigned printer:</value>
-  </data>
-  <data name="BtnAssignPrinter_Text" xml:space="preserve">
-    <value>Assign printer</value>
-  </data>
-  <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Explore storage</value>
-  </data>
-  <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
-    <value>Search only in list (filter list)</value>
-  </data>
-  <data name="SelectFacility_Text" xml:space="preserve">
-    <value>Select facility</value>
+  <data name="WarehousePivot_Header" xml:space="preserve">
+    <value>Skladište</value>
   </data>
   <data name="WarehousePositions_Text" xml:space="preserve">
-    <value>Warehouse positions</value>
+    <value>Pozicije skladišta</value>
   </data>
-  <data name="BtnApply_Text" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="StorageLocationSortPriority_Text" xml:space="preserve">
-    <value>Storage location priority:</value>
-  </data>
-  <data name="StorageLocationsSortInfo_Text" xml:space="preserve">
-    <value>Mark storage locations that are relevant for sort:</value>
-  </data>
-  <data name="ExitHint_Text" xml:space="preserve">
-    <value>Tap again to exit iPlus Mobile</value>
-  </data>
-  <data name="Btn_FindMaterialInWarehouse" xml:space="preserve">
-    <value>Find material in the warehouse</value>
-  </data>
-  <data name="StorageLocations_Text" xml:space="preserve">
-    <value>Storage locations</value>
+  <data name="ZXingOverlay_Text" xml:space="preserve">
+    <value>Potpuno pozicionirajte barkod na liniju</value>
   </data>
 </root>

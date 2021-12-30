@@ -37,7 +37,7 @@
                 <RowDefinition Height="2" />
             </Grid.RowDefinitions>
             <BoxView BackgroundColor="{DynamicResource SecondaryPageBackgroundColor}" />
-            <Label Text="Storage locations" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Subtitle" />
+            <Label Text="{i18n:Translate Text=StorageLocations_Text}" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Subtitle" />
 
             <StackLayout Grid.Row="1">
 
