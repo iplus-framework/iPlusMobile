@@ -86,16 +86,19 @@
         </ScrollView>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="BookingHistoryPivotItem" Title="{i18n:Translate Text=BookingHistory_Header}">
-        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
-                     HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
-                     RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}">
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" Width="1*"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardQuantityUOM}" PropertyName="OutwardQuantityUOM" StringFormat="{}{0:0.0}"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" Width="1*"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}"/>
-            </dg:DataGrid.Columns>
-        </dg:DataGrid>
+        <StackLayout>
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+                         HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
+                         RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" Width="1*"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardQuantityUOM}" PropertyName="OutwardQuantityUOM" StringFormat="{}{0:0.0}"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" Width="1*"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </StackLayout>
     </v:BSOPageBase>
 </v:BSOTabbedPageBase>
