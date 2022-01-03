@@ -384,6 +384,12 @@
   <data name="PickingPosPivot_Header" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="PickingRelocationScanFacilityCharge_Text" xml:space="preserve">
+    <value>Ok. Skenirajte sada kvant koji želite premjestiti.</value>
+  </data>
+  <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
+    <value>Ok. Knjižite sada ili skenirajte poziciju u skladištu kamo želite premjestiti kvant.</value>
+  </data>
   <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
     <value>Pogrešan sken. Molim, skenirajte kvant ili poziciju skladištenja!</value>
   </data>

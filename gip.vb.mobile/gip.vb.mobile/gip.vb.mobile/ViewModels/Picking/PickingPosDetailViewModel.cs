@@ -147,6 +147,19 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _BookingMessage, value);
             }
         }
+
+        public string _ScanMessage;
+        public string ScanMessage
+        {
+            get
+            {
+                return _ScanMessage;
+            }
+            set
+            {
+                SetProperty(ref _ScanMessage, value);
+            }
+        }
         #endregion
 
         #region Methods
@@ -227,7 +240,28 @@ namespace gip.vb.mobile.ViewModels
                 this.WSResponse = response;
                 this.WSBarcodeEntityResult = response.Data;
                 if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+                {
+                    if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count() == 1 && Item != null 
+                        && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
+                    {
+                        CurrentBarcodeEntity.Add(response.Data.ValidEntity);
+                        CurrentBarcodeEntity = CurrentBarcodeEntity.ToList();
+                        ScanMessage = null;
+                    }
+                    else
+                    {
+                        CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+                        var entity = CurrentBarcodeEntity.FirstOrDefault();
+                        if (entity != null && entity is FacilityCharge)
+                        {
+                            ScanMessage = Strings.AppStrings.PickingRelocationScanFacility_Text;
+                        }
+                        else if (entity is Facility)
+                        {
+                            ScanMessage = Strings.AppStrings.PickingRelocationScanFacilityCharge_Text;
+                        }
+                    }
+                }
                 else
                     CurrentBarcodeEntity = new List<object>();
             }
@@ -245,6 +279,7 @@ namespace gip.vb.mobile.ViewModels
         public async Task ExecuteBookFacilityCommand()
         {
             BookingMessage = null;
+            ScanMessage = null;
 
             if (IsBusy || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
                 return;
@@ -359,17 +394,24 @@ namespace gip.vb.mobile.ViewModels
             acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingRelocation;
             if (barcodeEntity != null)
             {
-                if (barcodeEntity.FacilityCharge != null)
+                if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count == 2)
+                {
+                    FacilityCharge fc = CurrentBarcodeEntity.OfType<FacilityCharge>().FirstOrDefault();
+                    Facility facility = CurrentBarcodeEntity.OfType<Facility>().FirstOrDefault();
+                    if (facility != null && fc != null)
+                    {
+                        acMethodBooking.InwardFacilityID = facility.FacilityID;
+                        acMethodBooking.OutwardFacilityChargeID = fc.FacilityChargeID;
+                        acMethodBooking.OutwardFacilityID = fc.Facility.FacilityID;
+                    }
+                }
+                else if (barcodeEntity.FacilityCharge != null)
                 {
                     acMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
                     acMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
                 }
-                //else if (barcodeEntity.Facility != null)
-                //{
-                //    acMethodBooking.InwardFacilityID = barcodeEntity.Facility.FacilityID;
-                //}
             }
-            if (pickingPos != null && pickingPos.ToFacility != null)
+            if (pickingPos != null && pickingPos.ToFacility != null && pickingPos.ToFacility.FacilityID != Guid.Empty)
             {
                 acMethodBooking.InwardFacilityID = pickingPos.ToFacility.FacilityID;
             }

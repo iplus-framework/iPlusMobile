@@ -447,4 +447,10 @@
   <data name="StorageLocations_Text" xml:space="preserve">
     <value>Lagerorte</value>
   </data>
+  <data name="PickingRelocationScanFacilityCharge_Text" xml:space="preserve">
+    <value>Ok. Scan now quant that you want relocate.</value>
+  </data>
+  <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
+    <value>Ok. Buchen Sie jetzt oder scannen Sie die Einrichtung, in der Sie sich niederlassen möchten.</value>
+  </data>
 </root>

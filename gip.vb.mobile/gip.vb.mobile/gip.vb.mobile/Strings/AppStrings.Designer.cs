@@ -862,6 +862,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok. Post now or scan facility where you want relocate..
+        /// </summary>
+        internal static string PickingRelocationScanFacility_Text {
+            get {
+                return ResourceManager.GetString("PickingRelocationScanFacility_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok. Scan now quant that you want relocate..
+        /// </summary>
+        internal static string PickingRelocationScanFacilityCharge_Text {
+            get {
+                return ResourceManager.GetString("PickingRelocationScanFacilityCharge_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wrong scan. Please scan quant!.
         /// </summary>
         internal static string PickingWrongBarcodeEntityQ_Text {

@@ -504,4 +504,10 @@
   <data name="StorageLocations_Text" xml:space="preserve">
     <value>Storage locations</value>
   </data>
+  <data name="PickingRelocationScanFacilityCharge_Text" xml:space="preserve">
+    <value>Ok. Scan now quant that you want relocate.</value>
+  </data>
+  <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
+    <value>Ok. Post now or scan facility where you want relocate.</value>
+  </data>
 </root>
