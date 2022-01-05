@@ -82,5 +82,18 @@ namespace gip.vb.mobile.Views
             get;
             set;
         }
+
+        private void FacilitiesList_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ItemsSource")
+            {
+                if (_ViewModel != null && _ViewModel.StorageLocations != null)
+                {
+                    object firstItem = _ViewModel.StorageLocations.FirstOrDefault();
+                    if (firstItem != null)
+                        FacilitiesList.ScrollTo(firstItem, ScrollToPosition.MakeVisible, false);
+                }
+            }
+        }
     }
 }

@@ -94,7 +94,8 @@
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                         CachingStrategy="RecycleElement"
-                        ItemTapped="ListView_ItemTapped">
+                        ItemTapped="ListView_ItemTapped"
+                        PropertyChanged="FacilitiesList_PropertyChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <vb:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}" >
