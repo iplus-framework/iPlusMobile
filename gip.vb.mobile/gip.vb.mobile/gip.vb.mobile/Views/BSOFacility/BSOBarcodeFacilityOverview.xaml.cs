@@ -235,7 +235,17 @@ namespace gip.vb.mobile.Views
         private async void ButtonLocation_Clicked(object sender, EventArgs e)
         {
             if (_ViewModel.SelectedLocation != null)
-                await NavigateToFacilityLocationOverview(_ViewModel.SelectedLocation);
+            {
+                if (_ViewModel.SelectedLocation.MDFacilityType != null && 
+                    _ViewModel.SelectedLocation.MDFacilityType.MDFacilityTypeIndex == (short)mes.datamodel.FacilityTypesEnum.StorageBin)
+                {
+                    await NavigateToFacilityOverview(_ViewModel.SelectedLocation);
+                }
+                else
+                {
+                    await NavigateToFacilityLocationOverview(_ViewModel.SelectedLocation);
+                }
+            }
         }
 
 
@@ -291,9 +301,9 @@ namespace gip.vb.mobile.Views
         private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
         {
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
-            FacilityEntry.Unfocus();
-
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+
+            FacilityEntry.Unfocus();
         }
 
         private void cmdClearFacility_Clicked(object sender, EventArgs e)

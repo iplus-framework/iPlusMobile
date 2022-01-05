@@ -286,7 +286,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to Location Overview.
+        ///   Looks up a localized string similar to Go to warehouse overview.
         /// </summary>
         internal static string BtnLocationOverview_Text {
             get {

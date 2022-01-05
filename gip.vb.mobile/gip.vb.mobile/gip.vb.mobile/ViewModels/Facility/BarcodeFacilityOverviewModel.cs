@@ -259,7 +259,11 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.SearchFacilityAsync(FacilitySearch, SelectedLocation.FacilityID.ToString(), CoreWebServiceConst.EmptyParam);
+                string searchTerm = FacilitySearch;
+                if (string.IsNullOrEmpty(searchTerm))
+                    searchTerm = CoreWebServiceConst.EmptyParam;
+
+                var response = await _WebService.SearchFacilityAsync(searchTerm, SelectedLocation.FacilityID.ToString(), CoreWebServiceConst.EmptyParam);
                 this.WSResponse = response;
                 if (response.Suceeded)
                     FilteredFacilites = response.Data;
@@ -336,10 +340,26 @@ namespace gip.vb.mobile.ViewModels
             {
                 SelectedLocation = FacilitySelector.SelectedStorageLocation;
                 FacilitySelector = null;
+                //LoadFilteredFacilitiesCommand.Execute(null);
             }
             else if (Locations.Count == 0)
             {
                 LoadLocationsCommand.Execute(null);
+            }
+        }
+
+        public void NavigateToOverview()
+        {
+            if (SelectedLocation != null)
+            {
+                if (SelectedLocation.MDFacilityType.MDFacilityTypeIndex == (short)mes.datamodel.FacilityTypesEnum.StorageBin)
+                {
+
+                }
+                else
+                {
+                    
+                }
             }
         }
 

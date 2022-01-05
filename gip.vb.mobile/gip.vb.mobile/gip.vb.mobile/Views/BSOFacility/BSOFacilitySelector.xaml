@@ -87,14 +87,14 @@
 
                 <Label Grid.Row="4" Text="{i18n:Translate Text=WarehousePositions_Text}" />
 
-                <ListView  Grid.Row="5" ItemsSource="{Binding StorageLocations}" IsGroupingEnabled="false" RowHeight="50"
+                <ListView x:Name="FacilitiesList"  Grid.Row="5" ItemsSource="{Binding StorageLocations}" IsGroupingEnabled="false" 
+                        RowHeight="50"
                         HasUnevenRows="true"
                         SelectedItem="{Binding SelectedStorageLocation, Mode=TwoWay}" 
                         IsPullToRefreshEnabled="true"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                         CachingStrategy="RecycleElement"
-                        ItemTapped="ListView_ItemTapped"
-                        >
+                        ItemTapped="ListView_ItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <vb:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}" >
@@ -106,7 +106,7 @@
                                         </SwipeView.LeftItems>-->
                                 <vb:ExtendedViewCell.ContextActions>
                                     <MenuItem Text="{i18n:Translate Text=ExploreStorage_Text}" CommandParameter="{Binding .}"
-                                                                           Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.AddFacilityToPath}"/>
+                                              Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.AddFacilityToPath}"/>
                                 </vb:ExtendedViewCell.ContextActions>
                                 <Grid Margin="0,3,0,0" >
                                     <Grid.RowDefinitions>

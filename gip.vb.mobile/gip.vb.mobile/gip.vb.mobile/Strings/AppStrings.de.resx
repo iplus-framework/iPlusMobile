@@ -142,7 +142,7 @@
     <value>Quant nicht verfügbar</value>
   </data>
   <data name="BtnLocationOverview_Text" xml:space="preserve">
-    <value>Zur Lagerortübersicht</value>
+    <value>Zur Lagerübersicht</value>
   </data>
   <data name="BtnOccupyMachine_Text" xml:space="preserve">
     <value>Auftrag Anmelden an Maschine</value>

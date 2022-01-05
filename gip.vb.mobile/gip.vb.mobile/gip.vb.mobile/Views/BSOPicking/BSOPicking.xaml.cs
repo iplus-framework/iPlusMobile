@@ -68,28 +68,23 @@ namespace gip.vb.mobile.Views
         private async void FacilityFromEntry_Focused(object sender, FocusEventArgs e)
         {
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
-            FacilityFromEntry.Unfocus();
-            
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+
+            FacilityFromEntry.Unfocus();
         }
 
         private async void FacilityToEntry_Focused(object sender, FocusEventArgs e)
         {
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationTo);
-            FacilityToEntry.Unfocus();
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+
+            FacilityToEntry.Unfocus();
         }
 
         protected override bool OnBackButtonPressed()
         {
             ExitOnBackButtonPressed();
-            
-
-            //https://stackoverflow.com/questions/30274004/xamarin-close-android-application-on-back-button
-            //TODO: Do nothing (close app from main menu) or close app with question
             return true;
         }
-
-
     }
 }

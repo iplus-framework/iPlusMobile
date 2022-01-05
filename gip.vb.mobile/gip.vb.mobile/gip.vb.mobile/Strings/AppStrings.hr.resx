@@ -136,7 +136,7 @@
     <value>Knjiženja</value>
   </data>
   <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
-    <value>Filter Inventory Positions TODO</value>
+    <value>Filtar stavki inventure</value>
   </data>
   <data name="BFI_PositionEdit_Header" xml:space="preserve">
     <value>Uredite stavku</value>
@@ -178,7 +178,7 @@
     <value>Manje</value>
   </data>
   <data name="BtnLocationOverview_Text" xml:space="preserve">
-    <value>Idi na pregled lokacije</value>
+    <value>Idi na pregled skladišta</value>
   </data>
   <data name="BtnMore_Text" xml:space="preserve">
     <value>Više</value>
@@ -190,7 +190,7 @@
     <value>Oslobodi stroj</value>
   </data>
   <data name="BtnReleaseQuant_Text" xml:space="preserve">
-    <value>Otpusti kvant TODO</value>
+    <value>Oslobodi kvant</value>
   </data>
   <data name="BtnRelocate_Text" xml:space="preserve">
     <value>Premjesti kvant</value>
@@ -202,7 +202,7 @@
     <value>Start</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvan je dostupan TODO</value>
+    <value>Kvant je dostupan TODO</value>
   </data>
   <data name="BtnUpdate_Text" xml:space="preserve">
     <value>Ažuriraj</value>
@@ -235,7 +235,7 @@
     <value>Da</value>
   </data>
   <data name="ChangePostingQ_Text" xml:space="preserve">
-    <value>Promjeni količinu za knjiženje: TODO</value>
+    <value>Promjeni količinu za knjiženje:</value>
   </data>
   <data name="Comment_Text" xml:space="preserve">
     <value>Komentar</value>
@@ -292,7 +292,7 @@
     <value>Kvant nije dostupan! Možete ga ponovo vratiti na stanje!</value>
   </data>
   <data name="Filter_Text" xml:space="preserve">
-    <value>Filter</value>
+    <value>Filtar</value>
   </data>
   <data name="FromStorageLocation_Text" xml:space="preserve">
     <value>Iz mjesta skladišta</value>
@@ -370,7 +370,7 @@
     <value>Izlaz</value>
   </data>
   <data name="PartslistName_Label" xml:space="preserve">
-    <value>Naziv sastavnice TODO</value>
+    <value>Naziv sastavnice</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Lozinka</value>

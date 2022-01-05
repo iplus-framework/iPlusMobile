@@ -82,10 +82,5 @@ namespace gip.vb.mobile.Views
             get;
             set;
         }
-
-        private void MenuItem_Clicked(object sender, EventArgs e)
-        {
-
-        }
     }
 }
