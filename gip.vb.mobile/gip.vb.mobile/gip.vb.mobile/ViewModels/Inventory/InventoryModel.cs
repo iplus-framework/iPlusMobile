@@ -16,7 +16,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryModel()
         {
             FilterInventoryEndDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
-            FilterInventoryStartDate = FilterInventoryEndDate.AddYears(-2);
+            FilterInventoryStartDate = FilterInventoryEndDate.AddYears(-1);
 
             // Commands
             GetFacilityInventoriesCommand = new Command(async () => await ExecuteGetFacilityInventoriesAsync());

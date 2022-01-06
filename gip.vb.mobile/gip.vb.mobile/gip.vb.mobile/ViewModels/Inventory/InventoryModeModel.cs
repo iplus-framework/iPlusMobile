@@ -218,7 +218,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
                     if (success)
                     {
                         AllFacilities = wSResponse.Data;
-                        StorageLocations = AllFacilities.Where(c => c.ParentFacilityID == null).OrderBy(c => c.FacilityNo).ToList();
+                        StorageLocations = AllFacilities.Where(c => c.MDFacilityType.MDFacilityTypeIndex == (short)mes.datamodel.FacilityTypesEnum.StorageLocation)
+                                                        .OrderBy(c => c.FacilityNo)
+                                                        .ToList();
                         SelectedStorageLocation = null;
 
                         Facilities.Clear();

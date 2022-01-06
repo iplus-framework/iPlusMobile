@@ -47,9 +47,6 @@ namespace gip.vb.mobile.Views
 
         #region Mehtods -> event handlers
 
-
-
-
         /// <summary>
         /// Setup select inventory by selecting on list
         /// </summary>

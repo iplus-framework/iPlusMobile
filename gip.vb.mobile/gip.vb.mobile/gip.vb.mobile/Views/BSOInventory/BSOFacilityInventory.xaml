@@ -18,6 +18,23 @@
     </ContentPage.ToolbarItems>
     <ScrollView Orientation="Vertical">
         <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="From" />
+                <DatePicker Grid.Row="1" Format="yyyy" Date="{Binding FilterInventoryStartDate}" />
+                <Label Grid.Column="1" Text="To" />
+                <DatePicker Grid.Column="1" Grid.Row="1" Format="yyyy" Date="{Binding FilterInventoryEndDate}" />
+            </Grid>
+
+            <Label Text="Inventories:" />
             <ListView x:Name="InventoryListView"
                     ItemsSource="{Binding FacilityInventories}"
                     ItemTemplate="{StaticResource FacilityInventoryTemplate}"
