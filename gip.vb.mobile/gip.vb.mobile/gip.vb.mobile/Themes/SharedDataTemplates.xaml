@@ -361,27 +361,16 @@
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <!-- LotNo -->
-                <!-- MaterialNo -->
-                <!-- MaterialName -->
-                <!-- StockQuantity -->
-                <!-- MDFacilityInventoryPosState -->
-                <!-- NotAvailable -->
-                <!-- NewStockQuantity -->
-                <!-- FacilityNo -->
-                <!-- FacilityName -->
-                <!-- Comment -->
-                <!-- UpdateDate -->
-                <!-- UpdateName -->
+
                 <BoxView Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" Grid.RowSpan="4" CornerRadius="4" />
 
                 <Label Grid.Row="0" Grid.Column="0" Text="{Binding LotNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
@@ -390,7 +379,7 @@
 
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding MDFacilityInventoryPosState.MDFacilityInventoryStateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding FacilityNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="1" Grid.Column="2" Text="{Binding FacilityName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="{Binding FacilityName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" FontSize="Micro"/>
 
                 <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding NotAvailable}" IsEnabled="False"/>
@@ -399,9 +388,9 @@
                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding StockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Red"/>
                 <Label Grid.Row="2" Grid.Column="2" Text="{Binding NewStockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Green"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Text="{Binding UpdateDate}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="3" Grid.Column="1" Text="{Binding UpdateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="3" Grid.Column="2" Text="{Binding Comment}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <!--<Label Grid.Row="3" Grid.Column="0" Text="{Binding UpdateDate}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="3" Grid.Column="1" Text="{Binding UpdateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>-->
+                <Label Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding Comment}" VerticalOptions="CenterAndExpand"  HorizontalTextAlignment="Start"/>
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

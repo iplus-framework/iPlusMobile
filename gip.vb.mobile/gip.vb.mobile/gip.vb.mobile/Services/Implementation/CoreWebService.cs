@@ -94,7 +94,17 @@ namespace gip.vb.mobile.Services
 
         protected async Task<WSResponse<TResult>> Get<TResult>(string uriString)
         {
-            return await Get<TResult>(new Uri(uriString, UriKind.Relative));
+            var response = await Get<TResult>(new Uri(uriString, UriKind.Relative));
+            if (response != null && IsLoginAgainResponse(response.Message))
+            {
+                WSResponse<VBUserRights> result = await Login(_VBUser.Username);
+                if (result.Message != null)
+                    response.Message = result.Message;
+                else
+                    response = await Get<TResult>(new Uri(uriString, UriKind.Relative));
+            }
+
+            return response;
         }
 
         protected async Task<WSResponse<TResult>> Get<TResult>(Uri uri)
@@ -120,7 +130,18 @@ namespace gip.vb.mobile.Services
 
         protected async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, string uriString)
         {
-            return await Post<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+            var response = await Post<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+
+            if (response != null && IsLoginAgainResponse(response.Message))
+            {
+                WSResponse<VBUserRights> result = await Login(_VBUser.Username);
+                if (result.Message != null)
+                    response.Message = result.Message;
+                else
+                    response = await Post<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+            }
+
+            return response;
         }
 
         protected async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, Uri uri)
@@ -153,7 +174,18 @@ namespace gip.vb.mobile.Services
 
         protected async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, string uriString)
         {
-            return await Put<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+            var response = await Put<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+
+            if (response != null && IsLoginAgainResponse(response.Message))
+            {
+                WSResponse<VBUserRights> result = await Login(_VBUser.Username);
+                if (result.Message != null)
+                    response.Message = result.Message;
+                else
+                    response = await Put<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
+            }
+
+            return response;
         }
 
         protected async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, Uri uri)
@@ -186,7 +218,18 @@ namespace gip.vb.mobile.Services
 
         protected async Task<WSResponse<TResult>> Delete<TResult>(string uriString)
         {
-            return await Delete<TResult>(new Uri(uriString, UriKind.Relative));
+            var response = await Delete<TResult>(new Uri(uriString, UriKind.Relative));
+
+            if (response != null && IsLoginAgainResponse(response.Message))
+            {
+                WSResponse<VBUserRights> result = await Login(_VBUser.Username);
+                if (result.Message != null)
+                    response.Message = result.Message;
+                else
+                    response = await Delete<TResult>(new Uri(uriString, UriKind.Relative));
+            }
+
+            return response;
         }
 
         protected async Task<WSResponse<TResult>> Delete<TResult>(Uri uri)
@@ -275,6 +318,16 @@ namespace gip.vb.mobile.Services
             if (string.IsNullOrEmpty(barcodeID))
                 return await Task.FromResult(new WSResponse<ACClass>(null, new Msg(eMsgLevel.Error, "barcodeID is empty")));
             return await Get<ACClass>(String.Format(CoreWebServiceConst.UriACClass_BarcodeID_F, barcodeID));
+        }
+
+        private bool IsLoginAgainResponse(Msg responseMsg)
+        {
+            Msg loginAgainMsg = WSResponse<bool>.LoginAgainMessage;
+
+            if (responseMsg == null)
+                return false;
+
+            return responseMsg.Row == loginAgainMsg.Row && responseMsg.Column == loginAgainMsg.Column && responseMsg.ACIdentifier == loginAgainMsg.ACIdentifier;
         }
 
         #endregion
