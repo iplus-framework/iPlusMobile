@@ -560,7 +560,7 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command PrintCommand { get; set; }
-        public async Task<bool> ExecutePrintCommand()
+        public async Task<bool> ExecutePrintCommand(bool skipPrinterCheck = false)
         {
 
             if (IsBusy
@@ -573,13 +573,26 @@ namespace gip.vb.mobile.ViewModels
             {
                 PrintEntity printEntity = new PrintEntity();
                 printEntity.CopyCount = 1;
+                printEntity.SkipPrinterCheck = skipPrinterCheck;    
                 printEntity.Sequence = new List<BarcodeEntity>()
                 {
                     new BarcodeEntity(){ FacilityCharge = Item }
                 };
                 WSResponse<bool> result = await _WebService.Print(printEntity);
-                success = result.Data;
-                Message = result.Message;
+
+                if (result.Suceeded)
+                {
+                    success = result.Data;
+                    Message = result.Message;
+                }
+                else
+                {
+                    if (result.Message != null && result.Message.MessageLevel == eMsgLevel.Question)
+                    {
+                        result.Message.MessageButton = eMsgButton.YesNo;
+                        ShowDialog(result.Message, requestID: 1);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -592,8 +605,12 @@ namespace gip.vb.mobile.ViewModels
             return success;
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public async override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
+            if (DialogOptions.RequestID == 1 && result == Global.MsgResult.Yes)
+            {
+                await ExecutePrintCommand(true);
+            }
         }
         #endregion
 
