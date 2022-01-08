@@ -99,6 +99,11 @@ namespace gip.vb.mobile.ViewModels
             ZXingIsScanning = false;
             IsListVisible = false;
             BarcodeSequence = null;
+            if (Item != null)
+            {
+                Item.Sequence.Clear();
+                Item.State = ActionState.ScanAgain;
+            }
             Message = null;
         }
 
