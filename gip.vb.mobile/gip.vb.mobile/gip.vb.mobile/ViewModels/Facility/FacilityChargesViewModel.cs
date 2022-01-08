@@ -560,7 +560,7 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command PrintCommand { get; set; }
-        public async Task<bool> ExecutePrintCommand(bool skipPrinterCheck = false)
+        public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0)
         {
 
             if (IsBusy
@@ -573,7 +573,7 @@ namespace gip.vb.mobile.ViewModels
             {
                 PrintEntity printEntity = new PrintEntity();
                 printEntity.CopyCount = 1;
-                printEntity.SkipPrinterCheck = skipPrinterCheck;    
+                printEntity.MaxPrintJobsInSpooler = maxPrintJobsInSpooler;    
                 printEntity.Sequence = new List<BarcodeEntity>()
                 {
                     new BarcodeEntity(){ FacilityCharge = Item }
@@ -609,7 +609,7 @@ namespace gip.vb.mobile.ViewModels
         {
             if (DialogOptions.RequestID == 1 && result == Global.MsgResult.Yes)
             {
-                await ExecutePrintCommand(true);
+                await ExecutePrintCommand(3);
             }
         }
         #endregion
