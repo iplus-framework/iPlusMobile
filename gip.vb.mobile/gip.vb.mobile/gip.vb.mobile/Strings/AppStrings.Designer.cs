@@ -943,6 +943,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posting Q:.
+        /// </summary>
+        internal static string PostingQuantity_Text {
+            get {
+                return ResourceManager.GetString("PostingQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The posting was successful..
         /// </summary>
         internal static string PostingSuccesful_Text {
@@ -1002,6 +1011,15 @@ namespace gip.vb.mobile.Strings {
         internal static string ProdOrderInOutInfo_Header {
             get {
                 return ResourceManager.GetString("ProdOrderInOutInfo_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quant diff. Q:.
+        /// </summary>
+        internal static string QuantDiffQuantity_Text {
+            get {
+                return ResourceManager.GetString("QuantDiffQuantity_Text", resourceCulture);
             }
         }
         

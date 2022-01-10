@@ -42,7 +42,7 @@ namespace gip.vb.mobile.ViewModels
             }
             set
             {
-                SelectedFacilityCharge = null;
+                //SelectedFacilityCharge = null;
                 SetProperty(ref _Overview, value);
                 RebuildTitle();
             }

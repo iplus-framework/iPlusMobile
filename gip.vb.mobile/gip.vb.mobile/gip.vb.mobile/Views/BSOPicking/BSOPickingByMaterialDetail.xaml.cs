@@ -39,7 +39,7 @@ namespace gip.vb.mobile.Views
                 }
                 else
                 {
-                    lblMissingQuantity.TextColor = Color.Green;
+                    lblMissingQuantity.TextColor = Color.Lime;
                 }
             }
         }

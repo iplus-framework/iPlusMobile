@@ -411,6 +411,9 @@
   <data name="PostingQInsufficient_Question" xml:space="preserve">
     <value>Količina za knjiženje je premala. Jeste li sigurni da želite nastaviti?</value>
   </data>
+  <data name="PostingQuantity_Text" xml:space="preserve">
+    <value>Kol. za knjiženje:</value>
+  </data>
   <data name="PostingSuccesful_Text" xml:space="preserve">
     <value>Knjiženje je uspješno izvršeno.</value>
   </data>
@@ -431,6 +434,9 @@
   </data>
   <data name="ProdOrderInOutInfo_Header" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="QuantDiffQuantity_Text" xml:space="preserve">
+    <value>Kol. razl. od kvanta:</value>
   </data>
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>

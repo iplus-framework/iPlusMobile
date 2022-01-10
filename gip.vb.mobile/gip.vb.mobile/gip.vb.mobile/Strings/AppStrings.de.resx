@@ -453,4 +453,10 @@
   <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
     <value>Ok. Buchen Sie jetzt oder scannen Sie die Einrichtung, in der Sie sich niederlassen möchten.</value>
   </data>
+  <data name="PostingQuantity_Text" xml:space="preserve">
+    <value>Buchungsmenge:</value>
+  </data>
+  <data name="QuantDiffQuantity_Text" xml:space="preserve">
+    <value>Quant Differenzm.:</value>
+  </data>
 </root>

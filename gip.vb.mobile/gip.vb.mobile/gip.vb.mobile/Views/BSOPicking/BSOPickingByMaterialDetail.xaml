@@ -98,11 +98,11 @@
 
             <StackLayout Grid.Column="1" >
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Posting Q:" />
+                    <Label Text="{i18n:Translate Text=PostingQuantity_Text}" />
                     <Label Text="{Binding TotalBookingQantity}" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Difference Q:" />
+                    <Label Text="{i18n:Translate Text=QuantDiffQuantity_Text}" />
                     <Label x:Name="lblMissingQuantity" Text="{Binding MissingBookingQuantity}" />
                 </StackLayout>
             </StackLayout>

@@ -163,7 +163,7 @@ namespace gip.vb.mobile.ViewModels
                 return;
             Message = null;
 
-            if (skipQuantityCheck && MissingBookingQuantity < 0)
+            if (!skipQuantityCheck && MissingBookingQuantity < 0)
             {
                 Msg msg = new Msg(eMsgLevel.Question, Strings.AppStrings.PostingQInsufficient_Question);
                 msg.MessageButton = eMsgButton.YesNo;
@@ -183,7 +183,7 @@ namespace gip.vb.mobile.ViewModels
 
                 foreach (PickingPos pp in Item.PickingItems)
                 {
-                    if (pp.PostingQuantity > 0.0001)
+                    if (pp.PostingQuantity > 0.0001 || pp.PostingQuantity < 0.0001)
                     {
                         ACMethodBooking aCMethodBooking = new ACMethodBooking();
                         aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
@@ -306,7 +306,7 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
             }
-            else if (DialogOptions.RequestID == 2)
+            else if (DialogOptions.RequestID == 2 && result == Global.MsgResult.Yes)
             {
                 await ExecuteBookFacilityCommand(true);
             }
