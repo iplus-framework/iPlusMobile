@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class PickingByMaterialViewModel : BaseViewModel
+    public class PickingByMaterialViewModel : PickingBookingBaseViewModel
     {
 
         public PickingByMaterialViewModel()
@@ -20,7 +20,6 @@ namespace gip.vb.mobile.ViewModels
         }
 
         private PickingMaterial _Item;
-
         public PickingMaterial Item
         {
             get => _Item;
@@ -71,19 +70,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
-
         public BarcodeEntity _WSBarcodeEntityResult;
         public BarcodeEntity WSBarcodeEntityResult
         {
@@ -99,32 +85,6 @@ namespace gip.vb.mobile.ViewModels
                 {
                     MissingBookingQuantity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
                 }
-            }
-        }
-
-        public List<object> _CurrentBarcodeEntity;
-        public List<object> CurrentBarcodeEntity
-        {
-            get
-            {
-                return _CurrentBarcodeEntity;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
-
-        public string _BookingMessage;
-        public string BookingMessage
-        {
-            get
-            {
-                return _BookingMessage;
-            }
-            set
-            {
-                SetProperty(ref _BookingMessage, value);
             }
         }
 
@@ -180,10 +140,11 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 ACMethodBookingList bookings = new ACMethodBookingList();
+                ZeroBookFacilityChargeID = null;
 
                 foreach (PickingPos pp in Item.PickingItems)
                 {
-                    if (pp.PostingQuantity > 0.0001 || pp.PostingQuantity < 0.0001)
+                    if (pp.PostingQuantity > 0.00001 || pp.PostingQuantity < -0.00001)
                     {
                         ACMethodBooking aCMethodBooking = new ACMethodBooking();
                         aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
@@ -212,19 +173,28 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
 
+                if (barcodeEntity.FacilityCharge != null)
+                    ZeroBookFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
+
                 var response = await _WebService.BookFacilitiesAsync(bookings);
                 this.WSResponse = response;
 
-                BookingMessage = response.Data.DetailsAsText;
-
                 if (response.Suceeded)
                 {
+                    Msg msg = response.Data.MsgDetails.FirstOrDefault(c => c.MessageLevel == eMsgLevel.Question);
+                    if (msg != null)
+                    {
+                        msg.MessageButton = eMsgButton.YesNo;
+                        ShowDialog(msg, requestID: 3);
+                    }
+                    else
+                    {
+                        BookingMessage = response.Data.DetailsAsText;
+                    }
+
                     IsBusy = false;
-                    //await ExecuteReadPostingsCommand();
-                    IsBusy = false;
+
                     await ExecuteRefreshPickingMaterial();
-                    //await ReadPickingPos();
-                    BookingMessage = "";
                 }
             }
             catch (Exception ex)
@@ -309,6 +279,13 @@ namespace gip.vb.mobile.ViewModels
             else if (DialogOptions.RequestID == 2 && result == Global.MsgResult.Yes)
             {
                 await ExecuteBookFacilityCommand(true);
+            }
+            else if (DialogOptions.RequestID == 3)
+            {
+                if (result == Global.MsgResult.Yes)
+                {
+                    await ExecuteBookZeroStockCommand();
+                }
             }
         }
     }

@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class PickingPosDetailViewModel : BaseViewModel
+    public class PickingPosDetailViewModel : PickingBookingBaseViewModel
     {
         public PickingPosDetailViewModel(PickingPos item = null, Picking pickingItem = null)
         {
@@ -83,32 +83,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private double _BookingQuantity;
-        public double BookingQuantity
-        {
-            get
-            {
-                return _BookingQuantity;
-            }
-            set
-            {
-                SetProperty(ref _BookingQuantity, value);
-            }
-        }
-
-        public string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
-
         public BarcodeEntity _WSBarcodeEntityResult;
         public BarcodeEntity WSBarcodeEntityResult
         {
@@ -119,32 +93,6 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _WSBarcodeEntityResult, value);
-            }
-        }
-
-        public List<object> _CurrentBarcodeEntity;
-        public List<object> CurrentBarcodeEntity
-        {
-            get
-            {
-                return _CurrentBarcodeEntity;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
-
-        public string _BookingMessage;
-        public string BookingMessage
-        {
-            get
-            {
-                return _BookingMessage;
-            }
-            set
-            {
-                SetProperty(ref _BookingMessage, value);
             }
         }
 
@@ -160,6 +108,7 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _ScanMessage, value);
             }
         }
+
         #endregion
 
         #region Methods
@@ -292,6 +241,8 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
+                ZeroBookFacilityChargeID = null;
+
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
 
                 if (Item.PostingType == PostingTypeEnum.Inward)
@@ -324,12 +275,23 @@ namespace gip.vb.mobile.ViewModels
                 }
                 else
                 {
-                    if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                    if (response.Data != null && (!String.IsNullOrEmpty(response.Data.DetailsAsText) || response.Data.MessageLevel == eMsgLevel.Question))
                     {
                         BookingQuantity = 0;
-                        BookingMessage = response.Data.DetailsAsText.TrimEnd();
-                        Msg msg = new Msg(eMsgLevel.Error, BookingMessage);
-                        ShowDialog(msg);
+
+                        if (response.Data.MessageLevel == eMsgLevel.Question)
+                        {
+                            Msg msg = response.Data;
+                            msg.MessageButton = eMsgButton.YesNo;
+                            ZeroBookFacilityChargeID = aCMethodBooking.OutwardFacilityChargeID;
+                            ShowDialog(msg, requestID: 2);
+                        }
+                        else
+                        {
+                            BookingMessage = response.Data.DetailsAsText.TrimEnd();
+                            Msg msg = new Msg(eMsgLevel.Error, BookingMessage);
+                            ShowDialog(msg);
+                        }
                     }
                     else
                     {
@@ -518,6 +480,22 @@ namespace gip.vb.mobile.ViewModels
                         }
                     }
                 }
+            }
+            else if (DialogOptions.RequestID == 2 )
+            {
+                if (result == Global.MsgResult.Yes)
+                {
+                    await ExecuteBookZeroStockCommand();
+                }
+
+                await ExecuteReadPostingsCommand();
+                IsBusy = false;
+                await ReadPickingPos();
+                BookingMessage = "";
+                if (PickingItem != null && Item != null)
+                    PickingItem.ReplacePickingPosItem(Item);
+
+                Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
             }
         }
 
