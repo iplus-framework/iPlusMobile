@@ -43,8 +43,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        //public static string TestJson;
-
         public Command LoadStorageLocations { get; set; }
         public async Task ExecuteLoadStorageLocations()
         {
@@ -100,6 +98,9 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SortStorageLocations.json");
+                if (!File.Exists(fileName))
+                    return null;
+
                 string json = File.ReadAllText(fileName);
 
                 if (string.IsNullOrEmpty(json))
