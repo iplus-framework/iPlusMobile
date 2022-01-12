@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_Label" xml:space="preserve">
+    <value>O aplikaciji</value>
+  </data>
   <data name="AddButton_Label" xml:space="preserve">
     <value>Dodaj</value>
   </data>
@@ -166,7 +169,7 @@
     <value>Zatvori</value>
   </data>
   <data name="BtnDoBooking_Text" xml:space="preserve">
-    <value>Izvrši knjiženje</value>
+    <value>Knjiži</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
     <value>Kvant nije dostupan</value>
@@ -347,6 +350,15 @@
   </data>
   <data name="LocationSelect_Text" xml:space="preserve">
     <value>Odaberite mjesto skladištenja</value>
+  </data>
+  <data name="LoginError_Text" xml:space="preserve">
+    <value>Povezivanje na iPlus servis nije uspjelo. Provjerite radi li iPlus servis ili postavke mreže i vatrozida.</value>
+  </data>
+  <data name="LoginFail_Text" xml:space="preserve">
+    <value>Prijava nije uspjela!</value>
+  </data>
+  <data name="LoginRequestActive_Text" xml:space="preserve">
+    <value>Prethodni zahtjev za prijavu je još aktivan. Molimo, pričekajte odgovor!</value>
   </data>
   <data name="LotPivot_Header" xml:space="preserve">
     <value>Lot</value>

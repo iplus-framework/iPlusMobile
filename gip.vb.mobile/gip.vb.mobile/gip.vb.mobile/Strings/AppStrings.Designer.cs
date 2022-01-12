@@ -61,6 +61,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About_Label {
+            get {
+                return ResourceManager.GetString("About_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string AddButton_Label {
@@ -750,6 +759,33 @@ namespace gip.vb.mobile.Strings {
         internal static string LocationSelect_Text {
             get {
                 return ResourceManager.GetString("LocationSelect_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coudn&apos;t connect to iPlus-Service. Please check if iPlus-Service is running or you network and firewal settings..
+        /// </summary>
+        internal static string LoginError_Text {
+            get {
+                return ResourceManager.GetString("LoginError_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed!.
+        /// </summary>
+        internal static string LoginFail_Text {
+            get {
+                return ResourceManager.GetString("LoginFail_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Login-Request is still active. Please wait for response!.
+        /// </summary>
+        internal static string LoginRequestActive_Text {
+            get {
+                return ResourceManager.GetString("LoginRequestActive_Text", resourceCulture);
             }
         }
         

@@ -516,6 +516,18 @@
   <data name="QuantDiffQuantity_Text" xml:space="preserve">
     <value>Quant diff. Q:</value>
   </data>
+  <data name="About_Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="LoginError_Text" xml:space="preserve">
+    <value>Coudn't connect to iPlus-Service. Please check if iPlus-Service is running or you network and firewal settings.</value>
+  </data>
+  <data name="LoginFail_Text" xml:space="preserve">
+    <value>Login failed!</value>
+  </data>
+  <data name="LoginRequestActive_Text" xml:space="preserve">
+    <value>Previous Login-Request is still active. Please wait for response!</value>
+  </data>
   <data name="PickingByMaterialWarning_Text" xml:space="preserve">
     <value>Order picking Grouped by material is only recommended with the picking type filter selected!</value>
   </data>

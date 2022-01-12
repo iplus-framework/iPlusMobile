@@ -459,6 +459,18 @@
   <data name="QuantDiffQuantity_Text" xml:space="preserve">
     <value>Quant Differenzm.:</value>
   </data>
+  <data name="About_Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="LoginError_Text" xml:space="preserve">
+    <value>Kann keine Verbindung zum iPlus-Service herstellen. Bitte überprüfen Sie, ob iPlus-Service läuft oder Ihre Netzwerk- und Firewall-Einstellungen.</value>
+  </data>
+  <data name="LoginFail_Text" xml:space="preserve">
+    <value>Anmeldung fehlgeschlagen!</value>
+  </data>
+  <data name="LoginRequestActive_Text" xml:space="preserve">
+    <value>Die vorherige Login-Anfrage ist noch aktiv. Bitte warten Sie auf Antwort!</value>
+  </data>
   <data name="PickingByMaterialWarning_Text" xml:space="preserve">
     <value>Kommissionierung Nach Material gruppiert ist nur bei gewähltem Kommissioniertyp-Filter zu empfehlen!</value>
   </data>

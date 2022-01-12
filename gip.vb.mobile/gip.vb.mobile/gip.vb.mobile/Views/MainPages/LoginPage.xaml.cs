@@ -15,8 +15,9 @@ namespace gip.vb.mobile.Views
         {
             this.BindingContext = App.SettingsViewModel;
             InitializeComponent();
-#if DEBUG
+
             usernameEntry.Text = App.SettingsViewModel.LastUser;
+#if DEBUG
             passwordEntry.Text = App.SettingsViewModel.LastPassword;
 #endif
 
@@ -35,7 +36,7 @@ namespace gip.vb.mobile.Views
                 return;
             if (_CurrentTask != null && !_CurrentTask.IsCompleted)
             {
-                await DisplayAlert("Info", "Previous Login-Request is still active. Please wait for response!", "OK");
+                await DisplayAlert("Info", Strings.AppStrings.LoginRequestActive_Text, "OK");
                 return;
             }
 
@@ -66,14 +67,15 @@ namespace gip.vb.mobile.Views
                     if (App.SettingsViewModel.LightTheme)
                         MyXResourceLoader.ChangeTheme(App.Current.Resources, App.SettingsViewModel.LightTheme);
                     App.SettingsViewModel.SelectedLanguage = userRights.Language;
-#if DEBUG
+
                     App.SettingsViewModel.LastUser = usernameEntry.Text;
+#if DEBUG
                     App.SettingsViewModel.LastPassword = passwordEntry.Text;
 #endif
                     DependencyService.Get<ILocalize>().SetLocale(App.SettingsViewModel.SelectedLanguage);
                     userRights.Menu.ForEach(c => c.ResolveDestPage(this.GetType().Assembly, "gip.vb.mobile.Views"));
                     userRights.Menu.RemoveAll(c => c.DestPage == null);
-                    userRights.Menu.Add(new VBMenuItem() { PageClassName = typeof(AboutPage).Name, DestPage = typeof(AboutPage), Label = "About" });
+                    userRights.Menu.Add(new VBMenuItem() { PageClassName = typeof(AboutPage).Name, DestPage = typeof(AboutPage), Label = Strings.AppStrings.About_Label });
                     App.UserRights = userRights;
                     gip.core.datamodel.Translator.VBLanguageCode = userRights.Language;
                     gip.core.datamodel.Translator.DefaultVBLanguageCode = userRights.DefaultLanguage;
@@ -87,7 +89,7 @@ namespace gip.vb.mobile.Views
             }
             catch (OperationCanceledException)
             {
-                await DisplayAlert("Error", "Coudn't connect to iPlus-Service. Please check if iPlus-Service is running or you network and firewal settings.", "OK");
+                await DisplayAlert("Error", Strings.AppStrings.LoginError_Text, "OK");
             }
             catch (Exception ex)
             {
