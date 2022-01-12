@@ -459,4 +459,7 @@
   <data name="QuantDiffQuantity_Text" xml:space="preserve">
     <value>Quant Differenzm.:</value>
   </data>
+  <data name="PickingByMaterialWarning_Text" xml:space="preserve">
+    <value>Kommissionierung Nach Material gruppiert ist nur bei gewähltem Kommissioniertyp-Filter zu empfehlen!</value>
+  </data>
 </root>

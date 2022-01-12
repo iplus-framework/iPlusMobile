@@ -16,7 +16,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         public InventoryModeModel()
         {
             // Commands
-            GetFacilitiesCommand = new Command(async () => await ExecuteGetFacilities());
+            //GetFacilitiesCommand = new Command(async () => await ExecuteGetFacilities());
         }
         #endregion
 
@@ -39,18 +39,24 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties 
 
-        private BarcodeScanInventoryModel _ScanInventoryModel;
-        public BarcodeScanInventoryModel ScanInventoryModel
+        //private BarcodeScanInventoryModel _ScanInventoryModel;
+        //public BarcodeScanInventoryModel ScanInventoryModel
+        //{
+        //    get
+        //    {
+        //        return _ScanInventoryModel;
+        //    }
+        //    set
+        //    {
+        //        SetProperty<BarcodeScanInventoryModel>(ref _ScanInventoryModel, value);
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        public FacilitySelectorViewModel FacilitySelector
         {
-            get
-            {
-                return _ScanInventoryModel;
-            }
-            set
-            {
-                SetProperty<BarcodeScanInventoryModel>(ref _ScanInventoryModel, value);
-                OnPropertyChanged();
-            }
+            get;
+            set;
         }
 
         #region Properties -> Params
@@ -91,7 +97,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             get
             {
-                return SelectedStorageLocation != null;
+                return SelectedFacility != null;
             }
         }
 
@@ -127,25 +133,30 @@ namespace gip.vb.mobile.ViewModels.Inventory
         {
             get
             {
-                return _SelectedStorageLocation;
+                if (SelectedFacility != null)
+                {
+                    if (SelectedFacility.MDFacilityType.FacilityType == mes.datamodel.FacilityTypesEnum.StorageLocation)
+                        return SelectedFacility;
+                }
+                return null;
             }
             set
             {
                 if (_SelectedStorageLocation != value)
                 {
                     SetProperty(ref _SelectedStorageLocation, value);
-                    Facilities.Clear();
-                    if (SelectedStorageLocation != null)
-                    {
-                        List<Facility> facilities =
-                            AllFacilities
-                            .Where(c => c.ParentFacilityID == SelectedStorageLocation.FacilityID)
-                            .OrderBy(c => c.FacilityNo)
-                            .ToList();
-                        Facilities = facilities;
-                    }
-                    else
-                        SelectedFacility = null;
+                    //Facilities.Clear();
+                    //if (SelectedStorageLocation != null)
+                    //{
+                    //    List<Facility> facilities =
+                    //        AllFacilities
+                    //        .Where(c => c.ParentFacilityID == SelectedStorageLocation.FacilityID)
+                    //        .OrderBy(c => c.FacilityNo)
+                    //        .ToList();
+                    //    Facilities = facilities;
+                    //}
+                    //else
+                    //    SelectedFacility = null;
                     OnPropertyChanged("IsEnabledModeMoveForward");
                 }
             }
@@ -156,23 +167,23 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #region Properties -> Facilities -> Facilities
 
 
-        private List<Facility> _Facilities;
-        /// <summary>
-        /// Facilities (end storage points)
-        /// </summary>
-        public List<Facility> Facilities
-        {
-            get
-            {
-                if (_Facilities == null)
-                    _Facilities = new List<Facility>();
-                return _Facilities;
-            }
-            set
-            {
-                SetProperty(ref _Facilities, value);
-            }
-        }
+        //private List<Facility> _Facilities;
+        ///// <summary>
+        ///// Facilities (end storage points)
+        ///// </summary>
+        //public List<Facility> Facilities
+        //{
+        //    get
+        //    {
+        //        if (_Facilities == null)
+        //            _Facilities = new List<Facility>();
+        //        return _Facilities;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref _Facilities, value);
+        //    }
+        //}
 
         private Facility _SelectedFacility;
         /// <summary>
@@ -187,7 +198,18 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set
             {
                 SetProperty(ref _SelectedFacility, value);
+
                 OnPropertyChanged("IsEnabledModeMoveForward");
+            }
+        }
+
+        public Facility SelectedFacilityForFilter
+        {
+            get
+            {
+                if (SelectedFacility != null && SelectedFacility.MDFacilityType.FacilityType != mes.datamodel.FacilityTypesEnum.StorageLocation)
+                    return SelectedFacility;
+                return null;
             }
         }
 
@@ -198,6 +220,15 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Tasks
+
+        public void OnAppear()
+        {
+            if (FacilitySelector != null)
+            {
+                SelectedFacility = FacilitySelector.SelectedStorageLocation;
+                FacilitySelector = null;
+            }
+        }
 
         /// <summary>
         /// Calling GetFacilityInventoriesAsync
@@ -223,7 +254,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                                         .ToList();
                         SelectedStorageLocation = null;
 
-                        Facilities.Clear();
+                        //Facilities.Clear();
                         SelectedFacility = null;
                     }
                 }

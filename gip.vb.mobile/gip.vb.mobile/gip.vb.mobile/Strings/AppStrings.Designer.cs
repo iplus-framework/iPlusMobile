@@ -853,6 +853,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order picking Grouped by material is only recommended with the picking type filter selected!.
+        /// </summary>
+        internal static string PickingByMaterialWarning_Text {
+            get {
+                return ResourceManager.GetString("PickingByMaterialWarning_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Info.
         /// </summary>
         internal static string PickingPosPivot_Header {

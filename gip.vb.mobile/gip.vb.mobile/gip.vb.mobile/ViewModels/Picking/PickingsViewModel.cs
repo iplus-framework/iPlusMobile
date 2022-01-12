@@ -17,7 +17,23 @@ namespace gip.vb.mobile.ViewModels
         public Command LoadPickingsCommand { get; set; }
         public PostingOverview Bookings {get;set;}
         public ObservableCollection<PickingMaterial> PickingsByMaterial { get; set; }
-        public PickingViewModel PickingFilter { get; set; }
+
+        private PickingViewModel _PickingFilter;
+        public PickingViewModel PickingFilter 
+        {
+            get => _PickingFilter;
+            set
+            {
+                SetProperty(ref _PickingFilter, value);
+                if (_PickingFilter != null && _PickingFilter.IsGroupedByMaterial)
+                {
+                    if (_PickingFilter.SelectedPickingType == null)
+                    {
+                        ShowDialog(new Msg(eMsgLevel.Warning, Strings.AppStrings.PickingByMaterialWarning_Text));
+                    }
+                }
+            }
+        }
 
         public PickingsViewModel()
         {

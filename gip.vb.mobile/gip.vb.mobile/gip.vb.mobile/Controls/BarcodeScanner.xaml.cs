@@ -175,6 +175,7 @@ namespace gip.vb.mobile.Controls
         /// <param name="e"></param>
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
+            _ViewModel.CurrentBarcode = (sender as SearchBar)?.Text;
             HandleScanProcess();
         }
 

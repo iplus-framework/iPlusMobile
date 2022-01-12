@@ -169,7 +169,7 @@
     <value>Izvrši knjiženje</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant nije dostupan TODO</value>
+    <value>Kvant nije dostupan</value>
   </data>
   <data name="BtnFinishOrder" xml:space="preserve">
     <value>Završi nalog</value>
@@ -202,7 +202,7 @@
     <value>Start</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant je dostupan TODO</value>
+    <value>Kvant je dostupan</value>
   </data>
   <data name="BtnUpdate_Text" xml:space="preserve">
     <value>Ažuriraj</value>
@@ -377,6 +377,9 @@
   </data>
   <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
     <value>Knjiženje je uspješno izvršeno. Molim, ispišite naljepnice sada i naljepite na materijal/robu. Koliko naljepnica želite ispisati?</value>
+  </data>
+  <data name="PickingByMaterialWarning_Text" xml:space="preserve">
+    <value>Komisioniranje Grupirano po materijalu preporučuje se samo uz odabran filter vrsta komisioniranja!</value>
   </data>
   <data name="PickingByMaterial_Header" xml:space="preserve">
     <value>Grupirano po materijalu</value>

@@ -140,6 +140,16 @@ namespace gip.vb.mobile.Views
             _ViewModel.BookFacilityCommand.Execute(null);
         }
 
+        private async void BtnWarehouseInfo_Clicked(object sender, EventArgs e)
+        {
+            Material material = _ViewModel?.Item?.Material;
+            if (material == null)
+            {
+                _ViewModel.ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, "Material to overview is null!"));
+                return;
+            }
 
+            await Navigation.PushAsync(new BSOFacilityMaterialOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new Tuple<Material, string>(material, "QuantPivotItem") } });
+        }
     }
 }

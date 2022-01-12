@@ -16,9 +16,9 @@ namespace gip.vb.mobile.ViewModels
     {
         public FacilityChargesViewModel()
         {
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
-            LoadLocationsCommand = new Command(async () => await ExecuteLoadLocationsCommand());
-            LoadFilteredFacilitiesCommand = new Command(async () => await ExecuteLoadFilteredFacilitiesCommand());
+            //LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            //LoadLocationsCommand = new Command(async () => await ExecuteLoadLocationsCommand());
+            //LoadFilteredFacilitiesCommand = new Command(async () => await ExecuteLoadFilteredFacilitiesCommand());
             ReadFacilityChargeCommand = new Command(async () => await ExecuteReadFacilityCharge());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             BookZeroStockCommand = new Command(async () => await ExecuteBookZeroStockCommand());
@@ -70,59 +70,59 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public string _FacilitySearch;
-        private List<Facility> _Locations = new List<Facility>();
-        public List<Facility> Locations
-        {
-            get
-            {
-                return _Locations;
-            }
+        //public string _FacilitySearch;
+        //private List<Facility> _Locations = new List<Facility>();
+        //public List<Facility> Locations
+        //{
+        //    get
+        //    {
+        //        return _Locations;
+        //    }
 
-            set
-            {
-                SetProperty(ref _Locations, value);
-            }
-        }
+        //    set
+        //    {
+        //        SetProperty(ref _Locations, value);
+        //    }
+        //}
 
-        public Facility _SelectedLocation;
-        public Facility SelectedLocation
-        {
-            get
-            {
-                return _SelectedLocation;
-            }
-            set
-            {
-                SetProperty(ref _SelectedLocation, value);
-            }
-        }
+        //public Facility _SelectedLocation;
+        //public Facility SelectedLocation
+        //{
+        //    get
+        //    {
+        //        return _SelectedLocation;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref _SelectedLocation, value);
+        //    }
+        //}
 
-        public string FacilitySearch
-        {
-            get
-            {
-                return _FacilitySearch;
-            }
-            set
-            {
-                SetProperty(ref _FacilitySearch, value);
-            }
-        }
+        //public string FacilitySearch
+        //{
+        //    get
+        //    {
+        //        return _FacilitySearch;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref _FacilitySearch, value);
+        //    }
+        //}
 
-        private List<Facility> _FilteredFacilites = new List<Facility>();
-        public List<Facility> FilteredFacilites
-        {
-            get
-            {
-                return _FilteredFacilites;
-            }
+        //private List<Facility> _FilteredFacilites = new List<Facility>();
+        //public List<Facility> FilteredFacilites
+        //{
+        //    get
+        //    {
+        //        return _FilteredFacilites;
+        //    }
 
-            set
-            {
-                SetProperty(ref _FilteredFacilites, value);
-            }
-        }
+        //    set
+        //    {
+        //        SetProperty(ref _FilteredFacilites, value);
+        //    }
+        //}
 
         private Facility _SelectedFacility;
         public Facility SelectedFacility
@@ -150,6 +150,12 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public FacilitySelectorViewModel FacilitySelector
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Methods
@@ -161,101 +167,115 @@ namespace gip.vb.mobile.ViewModels
                 Title = "QuantOverview";
         }
 
-        public Command LoadBarcodeEntityCommand { get; set; }
-        public async Task ExecuteLoadBarcodeEntityCommand()
+        public void OnAppear(FacilityCharge facilityCharge)
         {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
+            if (FacilitySelector != null)
             {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-                this.WSResponse = response;
-                if (response.Suceeded && response.Data.Facility != null)
-                {
-                    FilteredFacilites = new List<Facility>() { response.Data.Facility };
-                    SelectedFacility = response.Data.Facility;
-                }
-                else
-                {
-                    FilteredFacilites = new List<Facility>();
-                    SelectedFacility = null;
-                }
+                SelectedFacility = FacilitySelector.SelectedStorageLocation;
+                FacilitySelector = null;
+                //LoadFilteredFacilitiesCommand.Execute(null);
             }
-            catch (Exception ex)
+            else if (facilityCharge != null)
             {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
+                Item = facilityCharge;
             }
         }
 
-        public Command LoadLocationsCommand { get; set; }
-        public async Task ExecuteLoadLocationsCommand()
-        {
-            if (IsBusy)
-                return;
+        //public Command LoadBarcodeEntityCommand { get; set; }
+        //public async Task ExecuteLoadBarcodeEntityCommand()
+        //{
+        //    if (IsBusy)
+        //        return;
 
-            IsBusy = true;
+        //    IsBusy = true;
 
-            try
-            {
-                var response = await _WebService.SearchFacilityAsync(CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, "1000");
-                this.WSResponse = response;
-                if (response.Suceeded)
-                    Locations = response.Data;
-                else
-                    Locations = new List<Facility>();
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        //    try
+        //    {
+        //        var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
+        //        this.WSResponse = response;
+        //        if (response.Suceeded && response.Data.Facility != null)
+        //        {
+        //            FilteredFacilites = new List<Facility>() { response.Data.Facility };
+        //            SelectedFacility = response.Data.Facility;
+        //        }
+        //        else
+        //        {
+        //            FilteredFacilites = new List<Facility>();
+        //            SelectedFacility = null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
 
-        public Command LoadFilteredFacilitiesCommand { get; set; }
-        public async Task ExecuteLoadFilteredFacilitiesCommand()
-        {
-            if (IsBusy || SelectedLocation == null)
-                return;
+        //public Command LoadLocationsCommand { get; set; }
+        //public async Task ExecuteLoadLocationsCommand()
+        //{
+        //    if (IsBusy)
+        //        return;
 
-            IsBusy = true;
+        //    IsBusy = true;
 
-            try
-            {
-                var response = await _WebService.SearchFacilityAsync(FacilitySearch, SelectedLocation.FacilityID.ToString(), CoreWebServiceConst.EmptyParam);
-                this.WSResponse = response;
-                if (response.Suceeded)
-                {
-                    FilteredFacilites = response.Data;
-                    if (FilteredFacilites.Count == 1)
-                        SelectedFacility = FilteredFacilites.FirstOrDefault();
-                    else
-                        SelectedFacility = null;
-                }
-                else
-                {
-                    FilteredFacilites = new List<Facility>();
-                    SelectedFacility = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        //    try
+        //    {
+        //        var response = await _WebService.SearchFacilityAsync(CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, "1000");
+        //        this.WSResponse = response;
+        //        if (response.Suceeded)
+        //            Locations = response.Data;
+        //        else
+        //            Locations = new List<Facility>();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
+
+        //public Command LoadFilteredFacilitiesCommand { get; set; }
+        //public async Task ExecuteLoadFilteredFacilitiesCommand()
+        //{
+        //    if (IsBusy || SelectedLocation == null)
+        //        return;
+
+        //    IsBusy = true;
+
+        //    try
+        //    {
+        //        var response = await _WebService.SearchFacilityAsync(FacilitySearch, SelectedLocation.FacilityID.ToString(), CoreWebServiceConst.EmptyParam);
+        //        this.WSResponse = response;
+        //        if (response.Suceeded)
+        //        {
+        //            FilteredFacilites = response.Data;
+        //            if (FilteredFacilites.Count == 1)
+        //                SelectedFacility = FilteredFacilites.FirstOrDefault();
+        //            else
+        //                SelectedFacility = null;
+        //        }
+        //        else
+        //        {
+        //            FilteredFacilites = new List<Facility>();
+        //            SelectedFacility = null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
 
         public Command ReadFacilityChargeCommand { get; set; }
         public async Task ExecuteReadFacilityCharge()
@@ -536,16 +556,16 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
-                    BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        BookingMessage = response.Data.DetailsAsText;
+                        Message = response.Data;
                     else
                     {
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
-                        BookingMessage = "";
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                     }
                 }
             }

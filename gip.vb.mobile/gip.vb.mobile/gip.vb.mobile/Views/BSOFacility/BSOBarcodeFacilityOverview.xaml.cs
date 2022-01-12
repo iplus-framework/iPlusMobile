@@ -300,7 +300,7 @@ namespace gip.vb.mobile.Views
 
         private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
         {
-            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
+            _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
 
             FacilityEntry.Unfocus();

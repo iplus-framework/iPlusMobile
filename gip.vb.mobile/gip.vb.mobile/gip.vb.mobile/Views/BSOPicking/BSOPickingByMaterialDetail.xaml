@@ -30,6 +30,8 @@
                 <RowDefinition />
                 <RowDefinition Height="45" />
                 <RowDefinition Height="5" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="5" />
             </Grid.RowDefinitions>
             <ScrollView Grid.Row="1">
                 <StackLayout>
@@ -74,6 +76,7 @@
                     </StackLayout>
             </ScrollView>
             <Button Grid.Row="2" x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
+            <Button Grid.Row="4" x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
         </Grid>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="PickingMaterialDetail" Title="{i18n:Translate Text=PositionDetail_Header}">

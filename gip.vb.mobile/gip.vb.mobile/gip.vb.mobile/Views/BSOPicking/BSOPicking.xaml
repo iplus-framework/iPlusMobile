@@ -77,8 +77,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 MinimumWidthRequest="50"
                                 ItemDisplayBinding="{Binding FacilityName}"/>-->
-                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Focused="FacilityToEntry_Focused" Text="{Binding SelectedStorageLocationTo.FacilityName}" 
-                           />
+                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Focused="FacilityToEntry_Focused" Text="{Binding SelectedStorageLocationTo.FacilityName}" />
                     <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacilityTo_Clicked" />
                 </StackLayout>
 

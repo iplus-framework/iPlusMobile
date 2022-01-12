@@ -200,14 +200,17 @@ namespace gip.vb.mobile.ViewModels
                     else
                     {
                         CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-                        var entity = CurrentBarcodeEntity.FirstOrDefault();
-                        if (entity != null && entity is FacilityCharge)
+                        if (Item != null && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
                         {
-                            ScanMessage = Strings.AppStrings.PickingRelocationScanFacility_Text;
-                        }
-                        else if (entity is Facility)
-                        {
-                            ScanMessage = Strings.AppStrings.PickingRelocationScanFacilityCharge_Text;
+                            var entity = CurrentBarcodeEntity.FirstOrDefault();
+                            if (entity != null && entity is FacilityCharge)
+                            {
+                                ScanMessage = Strings.AppStrings.PickingRelocationScanFacility_Text;
+                            }
+                            else if (entity is Facility)
+                            {
+                                ScanMessage = Strings.AppStrings.PickingRelocationScanFacilityCharge_Text;
+                            }
                         }
                     }
                 }
