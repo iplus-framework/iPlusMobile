@@ -42,6 +42,14 @@ namespace gip.vb.mobile.Services
             return await Get<PostingOverview>(String.Format(VBWebServiceConst.UriFacilityCharge_Bookings_F, facilityChargeID, dateFrom, dateTo));
         }
 
+        public async Task<WSResponse<FacilityCharge>> GetFacilityChargeFromFacilityMaterialLotAsync(string facilityID, string materialID, string facilityLotID, string splitNo)
+        {
+            if (string.IsNullOrEmpty(facilityID) || string.IsNullOrEmpty(materialID) || string.IsNullOrEmpty(facilityLotID) || string.IsNullOrEmpty(splitNo))
+                return await Task.FromResult(new WSResponse<FacilityCharge>(null, new Msg(eMsgLevel.Error, "parameters are empty")));
+
+            return await Get<FacilityCharge>(String.Format(VBWebServiceConst.UriFacilityChargeFacilityMaterialLot_F, facilityID, materialID, facilityLotID, splitNo));
+        }
+
         #endregion
 
 

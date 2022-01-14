@@ -5,6 +5,7 @@
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
               Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Name="BrowseBSOPicking">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
@@ -17,6 +18,7 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
         <ListView x:Name="PickingsListView"
                 ItemsSource="{Binding Pickings}"
                 ItemTemplate="{StaticResource PickingItemTemplate}"

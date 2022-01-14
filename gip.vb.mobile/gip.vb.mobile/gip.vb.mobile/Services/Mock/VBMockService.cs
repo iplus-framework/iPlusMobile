@@ -157,5 +157,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<FacilityCharge>> GetFacilityChargeFromFacilityMaterialLotAsync(string facilityID, string materialID, string facilityLotID, string splitNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

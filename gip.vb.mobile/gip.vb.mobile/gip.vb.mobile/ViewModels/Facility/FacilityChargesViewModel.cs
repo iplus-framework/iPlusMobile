@@ -44,6 +44,8 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private FacilityCharge _RelocatedFacilityCharge;
+
         private double _BookingQuantity;
         public double BookingQuantity
         {
@@ -69,60 +71,6 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _CurrentBarcode, value);
             }
         }
-
-        //public string _FacilitySearch;
-        //private List<Facility> _Locations = new List<Facility>();
-        //public List<Facility> Locations
-        //{
-        //    get
-        //    {
-        //        return _Locations;
-        //    }
-
-        //    set
-        //    {
-        //        SetProperty(ref _Locations, value);
-        //    }
-        //}
-
-        //public Facility _SelectedLocation;
-        //public Facility SelectedLocation
-        //{
-        //    get
-        //    {
-        //        return _SelectedLocation;
-        //    }
-        //    set
-        //    {
-        //        SetProperty(ref _SelectedLocation, value);
-        //    }
-        //}
-
-        //public string FacilitySearch
-        //{
-        //    get
-        //    {
-        //        return _FacilitySearch;
-        //    }
-        //    set
-        //    {
-        //        SetProperty(ref _FacilitySearch, value);
-        //    }
-        //}
-
-        //private List<Facility> _FilteredFacilites = new List<Facility>();
-        //public List<Facility> FilteredFacilites
-        //{
-        //    get
-        //    {
-        //        return _FilteredFacilites;
-        //    }
-
-        //    set
-        //    {
-        //        SetProperty(ref _FilteredFacilites, value);
-        //    }
-        //}
 
         private Facility _SelectedFacility;
         public Facility SelectedFacility
@@ -173,109 +121,12 @@ namespace gip.vb.mobile.ViewModels
             {
                 SelectedFacility = FacilitySelector.SelectedStorageLocation;
                 FacilitySelector = null;
-                //LoadFilteredFacilitiesCommand.Execute(null);
             }
             else if (facilityCharge != null)
             {
                 Item = facilityCharge;
             }
         }
-
-        //public Command LoadBarcodeEntityCommand { get; set; }
-        //public async Task ExecuteLoadBarcodeEntityCommand()
-        //{
-        //    if (IsBusy)
-        //        return;
-
-        //    IsBusy = true;
-
-        //    try
-        //    {
-        //        var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-        //        this.WSResponse = response;
-        //        if (response.Suceeded && response.Data.Facility != null)
-        //        {
-        //            FilteredFacilites = new List<Facility>() { response.Data.Facility };
-        //            SelectedFacility = response.Data.Facility;
-        //        }
-        //        else
-        //        {
-        //            FilteredFacilites = new List<Facility>();
-        //            SelectedFacility = null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
-
-        //public Command LoadLocationsCommand { get; set; }
-        //public async Task ExecuteLoadLocationsCommand()
-        //{
-        //    if (IsBusy)
-        //        return;
-
-        //    IsBusy = true;
-
-        //    try
-        //    {
-        //        var response = await _WebService.SearchFacilityAsync(CoreWebServiceConst.EmptyParam, CoreWebServiceConst.EmptyParam, "1000");
-        //        this.WSResponse = response;
-        //        if (response.Suceeded)
-        //            Locations = response.Data;
-        //        else
-        //            Locations = new List<Facility>();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
-
-        //public Command LoadFilteredFacilitiesCommand { get; set; }
-        //public async Task ExecuteLoadFilteredFacilitiesCommand()
-        //{
-        //    if (IsBusy || SelectedLocation == null)
-        //        return;
-
-        //    IsBusy = true;
-
-        //    try
-        //    {
-        //        var response = await _WebService.SearchFacilityAsync(FacilitySearch, SelectedLocation.FacilityID.ToString(), CoreWebServiceConst.EmptyParam);
-        //        this.WSResponse = response;
-        //        if (response.Suceeded)
-        //        {
-        //            FilteredFacilites = response.Data;
-        //            if (FilteredFacilites.Count == 1)
-        //                SelectedFacility = FilteredFacilites.FirstOrDefault();
-        //            else
-        //                SelectedFacility = null;
-        //        }
-        //        else
-        //        {
-        //            FilteredFacilites = new List<Facility>();
-        //            SelectedFacility = null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
 
         public Command ReadFacilityChargeCommand { get; set; }
         public async Task ExecuteReadFacilityCharge()
@@ -301,6 +152,32 @@ namespace gip.vb.mobile.ViewModels
                 IsBusy = false;
             }
             return;
+        }
+
+        //public Command ReadFacilityChargeByFacilityMaterialLotCommand { get; set; }
+        public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID)
+        {
+            if (IsBusy || Item == null)
+                return null;
+
+            IsBusy = true;
+
+            try
+            {
+                var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), Item.Material.MaterialID.ToString(), Item.FacilityLot.FacilityLotID.ToString(), Item.SplitNo.ToString());
+                this.WSResponse = response;
+                if (response.Suceeded)
+                    return response.Data;
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return null;
         }
 
         public Command BookFacilityCommand { get; set; }
@@ -565,7 +442,16 @@ namespace gip.vb.mobile.ViewModels
                     {
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
-                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
+                        _RelocatedFacilityCharge = null;
+                        _RelocatedFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID);
+                        if (_RelocatedFacilityCharge == null)
+                        {
+                            Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
+                        }
+                        else
+                        {
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", Keyboard.Numeric, "1", 2);
+                        }
                     }
                 }
             }
@@ -580,9 +466,8 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command PrintCommand { get; set; }
-        public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0)
+        public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0, PrintEntity printEntity = null)
         {
-
             if (IsBusy
                 || Item == null)
                 return false;
@@ -591,13 +476,16 @@ namespace gip.vb.mobile.ViewModels
             bool success = false;
             try
             {
-                PrintEntity printEntity = new PrintEntity();
-                printEntity.CopyCount = 1;
-                printEntity.MaxPrintJobsInSpooler = maxPrintJobsInSpooler;    
-                printEntity.Sequence = new List<BarcodeEntity>()
+                if (printEntity == null || printEntity.Sequence == null)
                 {
-                    new BarcodeEntity(){ FacilityCharge = Item }
-                };
+                    printEntity = new PrintEntity();
+                    printEntity.CopyCount = 1;
+                    printEntity.MaxPrintJobsInSpooler = maxPrintJobsInSpooler;
+                    printEntity.Sequence = new List<BarcodeEntity>()
+                    {
+                        new BarcodeEntity(){ FacilityCharge = Item }
+                    };
+                }
                 WSResponse<bool> result = await _WebService.Print(printEntity);
 
                 if (result.Suceeded)
@@ -630,6 +518,26 @@ namespace gip.vb.mobile.ViewModels
             if (DialogOptions.RequestID == 1 && result == Global.MsgResult.Yes)
             {
                 await ExecutePrintCommand(3);
+            }
+            else if (DialogOptions.RequestID == 2)
+            {
+                if (result == Global.MsgResult.OK && _RelocatedFacilityCharge != null)
+                {
+                    int copies = 1;
+                    int.TryParse(entredValue, out copies);
+
+                    PrintEntity printEntity = new PrintEntity();
+                    printEntity.CopyCount = copies;
+                    printEntity.MaxPrintJobsInSpooler = 3;
+                    printEntity.Sequence = new List<BarcodeEntity>()
+                    {
+                        new BarcodeEntity(){ FacilityCharge = _RelocatedFacilityCharge }
+                    };
+
+                    await ExecutePrintCommand(3, printEntity);
+
+                }
+                _RelocatedFacilityCharge = null;
             }
         }
         #endregion

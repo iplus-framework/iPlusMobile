@@ -456,6 +456,9 @@
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>
   </data>
+  <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
+    <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
+  </data>
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
     <value>Barkod/RFID</value>
   </data>

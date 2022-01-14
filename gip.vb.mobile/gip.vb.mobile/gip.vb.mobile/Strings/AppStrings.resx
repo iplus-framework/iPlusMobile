@@ -531,4 +531,7 @@
   <data name="PickingByMaterialWarning_Text" xml:space="preserve">
     <value>Order picking Grouped by material is only recommended with the picking type filter selected!</value>
   </data>
+  <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
+    <value>Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!</value>
+  </data>
 </root>

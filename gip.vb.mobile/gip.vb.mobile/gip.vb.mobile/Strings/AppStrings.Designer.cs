@@ -1078,6 +1078,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!.
+        /// </summary>
+        internal static string RelocatedQuantDataMissing_Text {
+            get {
+                return ResourceManager.GetString("RelocatedQuantDataMissing_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Barcode/RFID.
         /// </summary>
         internal static string ScanBarcodePivot_Header {

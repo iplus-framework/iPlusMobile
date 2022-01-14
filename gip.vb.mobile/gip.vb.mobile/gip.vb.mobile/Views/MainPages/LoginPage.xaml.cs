@@ -67,7 +67,6 @@ namespace gip.vb.mobile.Views
                     if (App.SettingsViewModel.LightTheme)
                         MyXResourceLoader.ChangeTheme(App.Current.Resources, App.SettingsViewModel.LightTheme);
                     App.SettingsViewModel.SelectedLanguage = userRights.Language;
-
                     App.SettingsViewModel.LastUser = usernameEntry.Text;
 #if DEBUG
                     App.SettingsViewModel.LastPassword = passwordEntry.Text;
