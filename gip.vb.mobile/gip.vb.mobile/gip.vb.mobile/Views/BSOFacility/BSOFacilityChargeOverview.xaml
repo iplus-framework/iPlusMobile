@@ -5,6 +5,7 @@
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
                BackgroundColor="{DynamicResource PageBackgroundColor}"
                BarBackgroundColor="{DynamicResource NavigationBarColor}"
                BarTextColor="{DynamicResource NavigationBarTextColor}"

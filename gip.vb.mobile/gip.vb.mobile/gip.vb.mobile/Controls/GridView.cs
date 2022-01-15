@@ -245,7 +245,7 @@ namespace gip.vb.mobile.Controls
             View element = sender as View;
             if (element != null)
             {
-                ItemTapped?.Invoke(this, new ItemTappedEventArgs(element, element.BindingContext));
+                ItemTapped?.Invoke(this, new ItemTappedEventArgs(element, element.BindingContext, 0));
             }
         }
         #endregion

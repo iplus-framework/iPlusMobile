@@ -54,6 +54,7 @@ namespace gip.vb.mobile.Views
                     SelectedItem = tab;
             }
 
+            var test = QuantDataGrid.SelectionEnabled;
             this.PageState = PageStateEnum.View;
         }
 
@@ -80,7 +81,10 @@ namespace gip.vb.mobile.Views
         {
             if (_ViewModel.SelectedFacilityCharge == null)
                 return;
-            await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.SelectedFacilityCharge } });
+
+            FacilityCharge fc = _ViewModel.SelectedFacilityCharge.Clone() as FacilityCharge;
+
+            await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = fc } });
         }
 
         #endregion

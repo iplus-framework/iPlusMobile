@@ -21,6 +21,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.mes.datamodel.shared", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.mes.webservices.shared", "..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.shproj", "{1131F03B-F0F7-4AB7-AD22-8207D49C2E24}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.DataGrid", "Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj", "{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems*{0c232936-48b8-4ccd-951e-8ad3d439d264}*SharedItemsImports = 13
@@ -73,6 +75,14 @@ Global
 		{292F2714-2BDC-48BE-B03F-44160541F55C}.DebugEmulator|Any CPU.Build.0 = Debug|Any CPU
 		{292F2714-2BDC-48BE-B03F-44160541F55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{292F2714-2BDC-48BE-B03F-44160541F55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.DebugDatalogic|Any CPU.ActiveCfg = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.DebugDatalogic|Any CPU.Build.0 = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.DebugEmulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.DebugEmulator|Any CPU.Build.0 = Debug|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42750873-9B70-4AA3-A7BA-EC2C0C0C35D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

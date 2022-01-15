@@ -29,5 +29,8 @@
                 SelectedItem="{Binding SelectedPickingMaterial}"
                 >
         </ListView>
+
+        <Button x:Name="btnFinishOrders" HeightRequest="45" Margin="0,0,0,5" Text="{i18n:Translate Text=BtnFinishOrder}" Command="{Binding FinishOrderCommand}" />
+
     </StackLayout>
 </v:BSOPageBase>

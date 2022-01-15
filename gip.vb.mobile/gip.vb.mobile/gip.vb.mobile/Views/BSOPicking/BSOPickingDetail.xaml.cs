@@ -40,8 +40,10 @@ namespace gip.vb.mobile.Views
         {
             if (NavParam != null && _ViewModel.Item == null)
                 _ViewModel.Item = NavParam.Arguments as Picking;
-            else if (_ViewModel.Item != null)
+            
+            if (_ViewModel.Item != null)
                 _ViewModel.Item.RefreshPickingPosInView();
+
             this.PageState = PageStateEnum.View;
         }
 

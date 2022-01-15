@@ -40,13 +40,6 @@ namespace gip.vb.mobile.ViewModels
             Pickings = new ObservableCollection<Picking>();
             PickingsByMaterial = new ObservableCollection<PickingMaterial>();
             LoadPickingsCommand = new Command(async () => await ExecuteLoadPickingsCommand());
-
-            //MessagingCenter.Subscribe<NewItemPage, Picking>(this, "AddItem", async (obj, item) =>
-            //{
-            //    var newItem = item as Picking;
-            //    Items.Add(newItem);
-            //    await _WebService.AddItemAsync(newItem);
-            //});
         }
 
         public async Task ExecuteLoadPickingsCommand()
@@ -141,6 +134,72 @@ namespace gip.vb.mobile.ViewModels
             {
                  PickingsByMaterial = new ObservableCollection<PickingMaterial>();
             }
+        }
+
+        public Command FinishOrdersCommand { get; set; }
+        public async Task<bool> FinishOrders(bool skipCheck = false)
+        {
+            MsgWithDetails result = null;
+            if (IsBusy)
+                return false;
+
+            if (Pickings == null || !Pickings.Any())
+                return false;
+
+            IsBusy = true;
+
+            try
+            {
+                core.autocomponent.WSResponse<MsgWithDetails> response = null;
+
+                foreach (Picking picking in Pickings)
+                {
+                    response = await _WebService.FinishPickingOrderAsync(picking.PickingID);
+                }
+
+
+
+                //if (!skipCheck)
+                //{
+                //    response = await _WebService.FinishPickingOrderAsync(Item.PickingID);
+                //}
+                //else
+                //{
+                //    response = await _WebService.FinishPickingOrderWithoutCheckAsync(Item.PickingID);
+                //}
+
+                this.WSResponse = response;
+                if (response.Suceeded)
+                {
+                    result = response.Data;
+                    if (result != null)
+                    {
+                        if (!skipCheck)
+                        {
+                            result.MessageLevel = eMsgLevel.Question;
+                            result.MessageButton = eMsgButton.YesNo;
+                            ShowDialog(result, requestID: 1);
+                        }
+                        else
+                        {
+                            ShowDialog(result);
+                        }
+                    }
+                    else
+                    {
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.OrderFinished_Text);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return true;
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)

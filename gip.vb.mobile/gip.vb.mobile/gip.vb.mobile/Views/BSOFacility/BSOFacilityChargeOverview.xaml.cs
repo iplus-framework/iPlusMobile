@@ -46,8 +46,6 @@ namespace gip.vb.mobile.Views
 
         #region Properties
         FacilityChargesViewModel _ViewModel;
-        IBarcodeService _BarcodeService;
-        bool _BarcodeServiceSubcribed;
         #endregion
 
         #region Methods
@@ -56,67 +54,6 @@ namespace gip.vb.mobile.Views
             await Navigation.PushAsync(new BSOFacilityBookingHistory() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.Item } });
         }
 
-        #region Barcode
-        //private void SubcribeToBarcodeService()
-        //{
-        //    if (_BarcodeService == null)
-        //        _BarcodeService = DependencyService.Get<IBarcodeService>();
-        //    if (!_BarcodeServiceSubcribed)
-        //    {
-        //        _BarcodeService.Read += _BarcodeService_Read;
-        //        _BarcodeServiceSubcribed = true;
-        //    }
-        //}
-
-        //private void UnSubcribeToBarcodeService()
-        //{
-        //    if (_BarcodeService != null && _BarcodeServiceSubcribed)
-        //    {
-        //        _BarcodeService.Read -= _BarcodeService_Read;
-        //        _BarcodeServiceSubcribed = false;
-        //    }
-        //}
-
-        //private void _BarcodeService_Read(object sender, BarcodeReadEventArgs e)
-        //{
-        //    if (e != null)
-        //    {
-        //        _ViewModel.CurrentBarcode = e.Text;
-        //        if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-        //            _ViewModel.LoadBarcodeEntityCommand.Execute(null);
-        //    }
-        //}
-
-        //private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
-        //{
-        //    if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-        //        _ViewModel.LoadBarcodeEntityCommand.Execute(null);
-        //}
-        #endregion
-
-        #region Facility
-        //private void FacilitySearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-
-        //}
-
-        ////private void FacilitySearchBar_SearchButtonPressed(object sender, EventArgs e)
-        ////{
-        ////    if (String.IsNullOrEmpty(_ViewModel.FacilitySearch) && _ViewModel.SelectedLocation != null)
-        ////        return;
-        ////    _ViewModel.LoadFilteredFacilitiesCommand.Execute(null);
-        ////}
-
-        //private void FacilityListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-
-        //}
-
-        //private void FacilityListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        //{
-
-        //}
-        #endregion
 
         private void ButtonDoBooking_Clicked(object sender, EventArgs e)
         {

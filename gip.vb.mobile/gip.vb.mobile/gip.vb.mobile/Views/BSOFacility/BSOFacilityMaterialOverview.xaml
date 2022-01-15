@@ -147,8 +147,8 @@
 
             </Grid>
 
-            <dg:DataGrid ItemsSource="{Binding Overview.FacilityCharges}" SelectedItem="{Binding SelectedFacilityCharge}" RowHeight="50" HeaderHeight="50" 
-                         BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
+            <dg:DataGrid x:Name="QuantDataGrid" ItemsSource="{Binding Overview.FacilityCharges}" SelectedItem="{Binding SelectedFacilityCharge}" RowHeight="50" HeaderHeight="50" 
+                         BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand"
                          RowsTextColorPalette="{StaticResource DgColorProvider}">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" PropertyName="Facility.FacilityName" Width="3*"/>

@@ -21,15 +21,17 @@ namespace gip.vb.mobile.Services
         protected HttpClient _Client;
         protected VBUser _VBUser;
         protected static Guid? _CurrentSessionId;
-        private bool _WithTimeoutHandler;
+        private bool _WithTimeoutHandler = false;
 
         public CoreWebService()
         {
+            _WithTimeoutHandler = false;
             CreateNewHttpClient();
         }
 
         public CoreWebService(Uri baseAddress)
         {
+            _WithTimeoutHandler = false;
             CreateNewHttpClient();
             _Client.BaseAddress = baseAddress;
         }
