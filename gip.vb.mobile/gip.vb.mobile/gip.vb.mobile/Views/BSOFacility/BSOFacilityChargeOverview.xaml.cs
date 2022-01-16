@@ -103,5 +103,10 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.SelectedFacility = null;
         }
+
+        private void ButtonSplit_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SplitQuantCommand.Execute(null);
+        }
     }
 }

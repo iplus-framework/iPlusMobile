@@ -82,9 +82,7 @@ namespace gip.vb.mobile.Views
             if (_ViewModel.SelectedFacilityCharge == null)
                 return;
 
-            FacilityCharge fc = _ViewModel.SelectedFacilityCharge.Clone() as FacilityCharge;
-
-            await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = fc } });
+            await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.SelectedFacilityCharge } });
         }
 
         #endregion

@@ -534,4 +534,7 @@
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!</value>
   </data>
+  <data name="BtnSplitQuant_Text" xml:space="preserve">
+    <value>Split quant</value>
+  </data>
 </root>

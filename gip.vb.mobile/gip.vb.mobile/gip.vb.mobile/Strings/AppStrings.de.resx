@@ -477,4 +477,7 @@
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Die Buchung war erfolgreich, aber die Daten für das umgelagerte Quant können nicht abgerufen werden. Bitte gehen Sie zur Lagerübersicht, scannen Sie dann die Zielanlage, wählen Sie das umgelagerte Quant aus und drucken Sie das Etikett manuell aus!</value>
   </data>
+  <data name="BtnSplitQuant_Text" xml:space="preserve">
+    <value>Quant Splitten</value>
+  </data>
 </root>

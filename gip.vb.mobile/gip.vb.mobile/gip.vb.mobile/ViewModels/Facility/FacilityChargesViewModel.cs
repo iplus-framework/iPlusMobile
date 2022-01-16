@@ -27,6 +27,7 @@ namespace gip.vb.mobile.ViewModels
             BookReleaseQuantCommand = new Command(async () => await ExecuteBookReleaseQuantCommand());
             BookRelocateCommand = new Command(async () => await ExecuteBookRelocateCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
+            SplitQuantCommand = new Command(async () => await ExecuteSplitQuantCommand());
         }
 
         #region Properties
@@ -44,7 +45,7 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private FacilityCharge _RelocatedFacilityCharge;
+        private FacilityCharge _TempFacilityCharge;
 
         private double _BookingQuantity;
         public double BookingQuantity
@@ -95,6 +96,16 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _BookingMessage, value);
+            }
+        }
+
+        public string _QuantSplitNumber;
+        public string QuantSplitNumber
+        {
+            get => _QuantSplitNumber;
+            set
+            {
+                SetProperty(ref _QuantSplitNumber, value);
             }
         }
 
@@ -155,16 +166,22 @@ namespace gip.vb.mobile.ViewModels
         }
 
         //public Command ReadFacilityChargeByFacilityMaterialLotCommand { get; set; }
-        public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID)
+        public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID, string splitNo)
         {
             if (IsBusy || Item == null)
                 return null;
 
             IsBusy = true;
 
+            int temp = 0;
+            string splitNoString = CoreWebServiceConst.EmptyParam;
+            if (int.TryParse(splitNo, out temp))
+                splitNoString = splitNo;
+
             try
             {
-                var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), Item.Material.MaterialID.ToString(), Item.FacilityLot.FacilityLotID.ToString(), Item.SplitNo.ToString());
+                var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), Item.Material.MaterialID.ToString(), 
+                                                                                               Item.FacilityLot.FacilityLotID.ToString(), splitNoString);
                 this.WSResponse = response;
                 if (response.Suceeded)
                     return response.Data;
@@ -442,15 +459,16 @@ namespace gip.vb.mobile.ViewModels
                     {
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
-                        _RelocatedFacilityCharge = null;
-                        _RelocatedFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID);
-                        if (_RelocatedFacilityCharge == null)
+                        _TempFacilityCharge = null;
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, Item.SplitNo.ToString());
+                        if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
                         }
                         else
                         {
-                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", Keyboard.Numeric, "1", 2);
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", 
+                                       Keyboard.Numeric, "1", 2);
                         }
                     }
                 }
@@ -513,6 +531,64 @@ namespace gip.vb.mobile.ViewModels
             return success;
         }
 
+        public Command SplitQuantCommand { get; set; }
+        public async Task ExecuteSplitQuantCommand()
+        {
+            if (IsBusy || Item == null)
+                return;
+
+            IsBusy = true;
+            try
+            {
+                Message = null;
+
+                int splitNo = 0;
+                int.TryParse(QuantSplitNumber, out splitNo);
+
+                ACMethodBooking aCMethodBooking = new ACMethodBooking();
+                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Split_FacilityCharge.ToString();
+                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.OutwardQuantity = BookingQuantity;
+                aCMethodBooking.InwardSplitNo = splitNo;
+
+                WSResponse<MsgWithDetails> response = await _WebService.BookFacilityAsync(aCMethodBooking);
+
+                this.WSResponse = response;
+                if (!response.Suceeded)
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
+                else
+                {
+                    if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                        Message = response.Data;
+                    else
+                    {
+                        IsBusy = false;
+                        await ExecuteReadFacilityCharge();
+                        _TempFacilityCharge = null;
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, QuantSplitNumber);
+                        if (_TempFacilityCharge == null)
+                        {
+                            Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
+                        }
+                        else
+                        {
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", 
+                                       Keyboard.Numeric, "1", 2);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Message = new Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         public async override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 1 && result == Global.MsgResult.Yes)
@@ -521,7 +597,7 @@ namespace gip.vb.mobile.ViewModels
             }
             else if (DialogOptions.RequestID == 2)
             {
-                if (result == Global.MsgResult.OK && _RelocatedFacilityCharge != null)
+                if (result == Global.MsgResult.OK && _TempFacilityCharge != null)
                 {
                     int copies = 1;
                     int.TryParse(entredValue, out copies);
@@ -531,13 +607,13 @@ namespace gip.vb.mobile.ViewModels
                     printEntity.MaxPrintJobsInSpooler = 3;
                     printEntity.Sequence = new List<BarcodeEntity>()
                     {
-                        new BarcodeEntity(){ FacilityCharge = _RelocatedFacilityCharge }
+                        new BarcodeEntity(){ FacilityCharge = _TempFacilityCharge }
                     };
 
                     await ExecutePrintCommand(3, printEntity);
 
                 }
-                _RelocatedFacilityCharge = null;
+                _TempFacilityCharge = null;
             }
         }
         #endregion

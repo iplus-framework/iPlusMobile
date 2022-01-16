@@ -118,10 +118,9 @@
     <EmbeddedResource Include="Models\JsonMock\MaterialsSum.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />  
+  <ItemGroup>  
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />  
-    <PackageReference Include="Xamarin.Forms.DataGrid" Version="4.8.0" />  
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />  
     <PackageReference Include="ZXing.Net.MobileX.Forms" Version="3.0.1" />
   </ItemGroup>
 

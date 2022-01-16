@@ -121,6 +121,16 @@
                 </StackLayout>
 
                 <Button x:Name="ButtonRelocate" Text="{i18n:Translate Text=BtnRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <Label Text="Unesite broj podjele" Style="{StaticResource LabelForDesc}" />
+                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay, Converter={StaticResource DoubleConverter}, 
+                                                                                                                  ConverterParameter=0}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
+
             </StackLayout>
         </ScrollView>
         <!--</Grid>-->
