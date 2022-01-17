@@ -72,7 +72,7 @@ namespace gip.vb.mobile.ViewModels
                 DialogEvent(this, new Controls.EventArgs<Msg>(msg));
         }
 
-        public abstract void DialogResponse(Global.MsgResult result, string entredValue = null);
+        public abstract void DialogResponse(Global.MsgResult result, string enteredValue = null);
 
         public void SetTitleFromType(Type bsoType, VBUserRights userRights)
         {

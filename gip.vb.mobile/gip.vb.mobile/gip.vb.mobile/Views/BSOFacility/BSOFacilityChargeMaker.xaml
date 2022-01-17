@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             x:Class="gip.vb.mobile.Views.BSOFacility.BSOFacilityChargeMaker">
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+        <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+        <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+        <Entry Text="{Binding Item.Facility.FacilityName}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
+        <Entry Text="{Binding Item.FacilityLot.LotNo}" Style="{StaticResource LabelForData}"></Entry>
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
+        <ctl:NumericEntry Text="{Binding Item.StockQuantity}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=FillingDate}" Style="{StaticResource LabelForDesc}" />
+        <DatePicker Date="{Binding Item.FillingDate}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ProductionDate}" Style="{StaticResource LabelForDesc}" />
+        <DatePicker Date="{Binding Item.FacilityLot.ProductionDate}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExpirationDate}" Style="{StaticResource LabelForDesc}" />
+        <DatePicker Date="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=StorageLife}" Style="{StaticResource LabelForDesc}" />
+        <ctl:NumericEntry Text="{Binding Item.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}">
+            
+        </ctl:NumericEntry>
+        
+        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" Style="{StaticResource LabelForDesc}" />
+        
+        <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" />
+
+        <Button x:Name="BtnCreateFacilityCharge" Text="Create quant" />
+
+    </StackLayout>
+
+</v:BSOPageBase>

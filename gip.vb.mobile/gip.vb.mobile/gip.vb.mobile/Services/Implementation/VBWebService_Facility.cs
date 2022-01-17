@@ -50,6 +50,14 @@ namespace gip.vb.mobile.Services
             return await Get<FacilityCharge>(String.Format(VBWebServiceConst.UriFacilityChargeFacilityMaterialLot_F, facilityID, materialID, facilityLotID, splitNo));
         }
 
+        public async Task<WSResponse<bool>> CreateFacilityChargeAsync(FacilityCharge facilityCharge)
+        {
+            if (facilityCharge == null)
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameter facility charge is null")));
+
+            return await Post<bool, FacilityCharge>(facilityCharge, VBWebServiceConst.UriFacilityChargeNew);
+        }
+
         #endregion
 
 
@@ -74,6 +82,13 @@ namespace gip.vb.mobile.Services
             return await Get<List<FacilityLot>>(String.Format(VBWebServiceConst.UriFacilityLot_Search_F, term));
         }
 
+        public async Task<WSResponse<List<FacilityLot>>> SearchFacilityLotByMaterialAsync(string materialNo)
+        {
+            if (string.IsNullOrEmpty(materialNo))
+                return await Task.FromResult(new WSResponse<List<FacilityLot>>(null, new Msg(eMsgLevel.Error, "materialNo is empty")));
+            return await Get<List<FacilityLot>>(String.Format(VBWebServiceConst.UriFacilityLot_SearchByMaterial_F, materialNo));
+        }
+
         public async Task<WSResponse<FacilityLot>> GetFacilityLotByBarcodeAsync(string barcodeID)
         {
             if (string.IsNullOrEmpty(barcodeID))
@@ -93,6 +108,11 @@ namespace gip.vb.mobile.Services
             if (string.IsNullOrEmpty(facilityLotID) || string.IsNullOrEmpty(dateFrom) || string.IsNullOrEmpty(dateTo))
                 return await Task.FromResult(new WSResponse<PostingOverview>(null, new Msg(eMsgLevel.Error, "parameters are empty")));
             return await Get<PostingOverview>(String.Format(VBWebServiceConst.UriFacilityLot_Bookings_F, facilityLotID, dateFrom, dateTo));
+        }
+
+        public async Task<WSResponse<FacilityLot>> CreateFacilityLotAsync()
+        {
+            return await Post<FacilityLot, bool>(true,VBWebServiceConst.UriFacilityLotNew);
         }
 
         #endregion
