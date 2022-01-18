@@ -480,4 +480,16 @@
   <data name="BtnSplitQuant_Text" xml:space="preserve">
     <value>Quant Splitten</value>
   </data>
+  <data name="AlreadAddedItem_Text" xml:space="preserve">
+    <value>Der Artikel mit gescanntem Barcode befindet sich bereits in der Liste.</value>
+  </data>
+  <data name="DifferentExpDateInList_Text" xml:space="preserve">
+    <value>Das gescannte Element hat ein anderes Ablaufdatum als die Elemente in der Liste. Es dürfen nur Artikel mit gleichem Ablaufdatum summiert werden.</value>
+  </data>
+  <data name="DifferentLotInList_Text" xml:space="preserve">
+    <value>Der gescannte Artikel hat eine andere LOT als die Artikel in der Liste. Es ist nur erlaubt, Artikel mit derselben LOT-Nummer zu summieren.</value>
+  </data>
+  <data name="NetWeightParseError_Text" xml:space="preserve">
+    <value>Das Nettogewicht kann nicht geparst werden.</value>
+  </data>
 </root>

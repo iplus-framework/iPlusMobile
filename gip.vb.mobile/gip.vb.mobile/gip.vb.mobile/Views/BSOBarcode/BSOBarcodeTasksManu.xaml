@@ -11,7 +11,7 @@
              x:Class="gip.vb.mobile.Views.BSOBarcodeTasksManu">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
             <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
@@ -31,7 +31,7 @@
 
             <ctl:BarcodeScanner Grid.Row="1"
                     x:Name="barcodeScanner" 
-                    IsEnabledToFetchBarcode="True"
+                    IsEnabledInvokeBarcodeOnServer="True"
                     BarcodeIssuer="Production"
                     OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked"
                     OnSelectBarcodeEntity="barcodeScanner_OnSelectBarcodeEntity"/>

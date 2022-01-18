@@ -19,7 +19,7 @@ namespace gip.vb.mobile.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppStrings {
@@ -75,6 +75,15 @@ namespace gip.vb.mobile.Strings {
         internal static string AddButton_Label {
             get {
                 return ResourceManager.GetString("AddButton_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item with scanned barcode is already in the list..
+        /// </summary>
+        internal static string AlreadAddedItem_Text {
+            get {
+                return ResourceManager.GetString("AlreadAddedItem_Text", resourceCulture);
             }
         }
         
@@ -466,6 +475,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The scanned item has different expiration date that items in the list. It&apos;s only allowed sum items with same expiration date..
+        /// </summary>
+        internal static string DifferentExpDateInList_Text {
+            get {
+                return ResourceManager.GetString("DifferentExpDateInList_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scanned item has different LOT that items in the list. It&apos;s only allowed sum items with same LOT number..
+        /// </summary>
+        internal static string DifferentLotInList_Text {
+            get {
+                return ResourceManager.GetString("DifferentLotInList_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order picking.
         /// </summary>
         internal static string DoPickingPivot_Header {
@@ -831,6 +858,15 @@ namespace gip.vb.mobile.Strings {
         internal static string MaterialSearch_Text {
             get {
                 return ResourceManager.GetString("MaterialSearch_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The neto weight cannot be parsed..
+        /// </summary>
+        internal static string NetWeightParseError_Text {
+            get {
+                return ResourceManager.GetString("NetWeightParseError_Text", resourceCulture);
             }
         }
         

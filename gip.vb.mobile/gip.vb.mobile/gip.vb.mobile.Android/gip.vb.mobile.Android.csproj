@@ -199,7 +199,8 @@
     <AndroidResource Include="Resources\drawable\DeleteIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ScanIcon.png" />
+    <AndroidResource Include="Resources\drawable\ScanBarcodeIcon.png" />
+    <Content Include="ScanBarcodeIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

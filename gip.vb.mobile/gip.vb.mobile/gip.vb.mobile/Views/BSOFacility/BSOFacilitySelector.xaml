@@ -65,7 +65,7 @@
                     <Switch x:Name="switchOnlyListSearch" VerticalOptions="Center" HorizontalOptions="EndAndExpand" IsToggled="{Binding SearchOnlyInList}" />
                 </StackLayout>
 
-                <vb:BarcodeScanner x:Name="barcodeScanner" Grid.Row="1" VerticalOptions="Start" IsEnabledToFetchBarcode="True" />
+                <vb:BarcodeScanner x:Name="barcodeScanner" Grid.Row="1" VerticalOptions="Start" IsEnabledInvokeBarcodeOnServer="True" />
 
                 <Label Grid.Row="2" Text="Path" />
 

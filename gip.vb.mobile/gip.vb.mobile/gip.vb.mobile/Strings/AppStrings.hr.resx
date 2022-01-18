@@ -123,6 +123,9 @@
   <data name="AddButton_Label" xml:space="preserve">
     <value>Dodaj</value>
   </data>
+  <data name="AlreadAddedItem_Text" xml:space="preserve">
+    <value>Već postoji stavka s skeniranim barkodom u listi.</value>
+  </data>
   <data name="AssignedPrinter_Label" xml:space="preserve">
     <value>Povezani pisač:</value>
   </data>
@@ -252,6 +255,12 @@
   <data name="DateTo_Text" xml:space="preserve">
     <value>Do</value>
   </data>
+  <data name="DifferentExpDateInList_Text" xml:space="preserve">
+    <value>Skenirana stavka ima različiti datum isteka trajanja nego sve druge stavke. Dozvoljeno je samo zbrajati stavke s istim datumom isteka trajanja.</value>
+  </data>
+  <data name="DifferentLotInList_Text" xml:space="preserve">
+    <value>Skenirana stavka ima različiti LOT broj od svih drugih stavki u listi. Dozvoljeno je samo zbrajati stavke s istim LOT brojem.</value>
+  </data>
   <data name="DoPickingPivot_Header" xml:space="preserve">
     <value>Prikup po nalogu</value>
   </data>
@@ -374,6 +383,9 @@
   </data>
   <data name="MaterialSearch_Text" xml:space="preserve">
     <value>Unesite broj ili naziv materijala</value>
+  </data>
+  <data name="NetWeightParseError_Text" xml:space="preserve">
+    <value>Neto težina se ne može pročitati/parsirati.</value>
   </data>
   <data name="NewStockQuantity_Text" xml:space="preserve">
     <value>Novo stanje</value>

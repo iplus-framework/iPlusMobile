@@ -70,8 +70,8 @@ namespace gip.vb.mobile.Controls
 
         #region Properties
 
-        public static BindableProperty IsEnabledToFetchBarcodeProperty = BindableProperty.Create(
-             propertyName: "IsEnabledToFetchBarcode",
+        public static BindableProperty IsEnabledInvokeBarcodeOnServerProperty = BindableProperty.Create(
+             propertyName: nameof(IsEnabledInvokeBarcodeOnServer),
              returnType: typeof(bool?),
              declaringType: typeof(ContentView),
              defaultValue: false,
@@ -81,18 +81,15 @@ namespace gip.vb.mobile.Controls
         /// <summary>
         /// Option to disable barcode scanner
         /// </summary>
-        public bool IsEnabledToFetchBarcode
+        public bool IsEnabledInvokeBarcodeOnServer
         {
             get
             {
-                return (bool)base.GetValue(IsEnabledToFetchBarcodeProperty);
+                return (bool)base.GetValue(IsEnabledInvokeBarcodeOnServerProperty);
             }
             set
             {
-                if (this.IsEnabledToFetchBarcode != value)
-                {
-                    base.SetValue(IsEnabledToFetchBarcodeProperty, value);
-                }
+                base.SetValue(IsEnabledInvokeBarcodeOnServerProperty, value);
             }
         }
 
@@ -287,10 +284,16 @@ namespace gip.vb.mobile.Controls
         private async void HandleScanProcess()
         {
             bool success = false;
-            if (!String.IsNullOrEmpty(_ViewModel.Item.CurrentBarcode) && IsEnabledToFetchBarcode)
+            if (!String.IsNullOrEmpty(_ViewModel.Item.CurrentBarcode) && IsEnabledInvokeBarcodeOnServer)
             {
                 success = await _ViewModel.ExecuteInvokeBarcode();
             }
+
+            if (!success && !IsEnabledInvokeBarcodeOnServer)
+            {
+                success = true;
+            }
+
             if (success)
             {
                 OnBarcodeCommandInvoked?.Invoke(this, new EventArgs() { });

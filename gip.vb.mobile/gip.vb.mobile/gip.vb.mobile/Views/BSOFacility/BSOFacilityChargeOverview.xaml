@@ -75,11 +75,16 @@
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
-                <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" HorizontalTextAlignment="End">
-                    <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
-                    </Entry.Behaviors>
-                </ctl:NumericEntry>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
                 <Button x:Name="ButtonDoZeroStock" Text="{i18n:Translate Text=BtnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable, Converter={StaticResource BooleanNegationConverter}}" Clicked="ButtonDoBooking_Clicked"/>
                 <Button x:Name="ButtonUnDoZeroStock" Text="{i18n:Translate Text=BtnUnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable}" Clicked="ButtonDoBooking_Clicked"/>

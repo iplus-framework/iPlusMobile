@@ -115,6 +115,8 @@ namespace gip.vb.mobile.ViewModels
             set;
         }
 
+        private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
+
         #endregion
 
         #region Methods
@@ -136,6 +138,12 @@ namespace gip.vb.mobile.ViewModels
             else if (facilityCharge != null)
             {
                 Item = facilityCharge;
+            }
+
+            double? sumQuantity = GetQuantityFromSumModel();
+            if (sumQuantity != null)
+            {
+                BookingQuantity = sumQuantity.Value;
             }
         }
 
@@ -588,6 +596,27 @@ namespace gip.vb.mobile.ViewModels
                 IsBusy = false;
             }
         }
+
+        #region Methods => SumByBarcode
+
+        public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
+        {
+            string material = "Material";
+            if (Item != null && Item.Material != null)
+                material = Item.Material.MaterialName1;
+
+            _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
+            return _SumByBarcodeModel;
+        }
+
+        public double? GetQuantityFromSumModel()
+        {
+            if (_SumByBarcodeModel != null && (_SumByBarcodeModel.SumQuantity >= 0.00001 || _SumByBarcodeModel.SumQuantity <= 0.00001))
+                return _SumByBarcodeModel.SumQuantity;
+            return null;
+        }
+
+        #endregion
 
         public async override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {

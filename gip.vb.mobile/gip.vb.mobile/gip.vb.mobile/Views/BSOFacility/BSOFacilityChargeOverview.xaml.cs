@@ -108,5 +108,15 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.SplitQuantCommand.Execute(null);
         }
+
+        private async void cmdSumByScan_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOSumQuantityByBarcode(_ViewModel.GetSumByBarcodeModel()));
+        }
+
+        private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
+        {
+            BookingQuantity.Text = null;
+        }
     }
 }

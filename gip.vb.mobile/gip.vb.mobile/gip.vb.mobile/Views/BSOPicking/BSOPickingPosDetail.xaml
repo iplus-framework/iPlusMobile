@@ -76,14 +76,14 @@
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanIcon.png" />
+                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"
                                       TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" HorizontalTextAlignment="End">
                         <Entry.Behaviors>
                             <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
-                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large"  />
+                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked"  />
                 </StackLayout>
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
             </StackLayout>

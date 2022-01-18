@@ -29,7 +29,7 @@
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
         <ctl:BarcodeScanner
             x:Name="barcodeScanner" 
-            IsEnabledToFetchBarcode="True"
+            IsEnabledInvokeBarcodeOnServer="True"
             BarcodeIssuer="Inventory"
             IsVisible="{Binding IsSearchPanelVisible}"
             OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeReceived"

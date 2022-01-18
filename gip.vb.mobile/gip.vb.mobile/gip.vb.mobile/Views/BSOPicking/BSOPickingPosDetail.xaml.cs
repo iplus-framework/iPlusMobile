@@ -54,6 +54,13 @@ namespace gip.vb.mobile.Views
                     _ViewModel.Item = arguments[1] as PickingPos;
                 }
             }
+
+            double? sumQuantity = _ViewModel.GetQuantityFromSumModel();
+            if (sumQuantity != null)
+            {
+                _ViewModel.BookingQuantity = sumQuantity.Value;
+            }
+
             _ViewModel.ReadPostingsCommand.Execute(null);
             this.PageState = PageStateEnum.View;
         }
@@ -165,6 +172,16 @@ namespace gip.vb.mobile.Views
             }
 
             await Navigation.PushAsync(new BSOFacilityMaterialOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments =  new Tuple<Material,string>(material, "QuantPivotItem") } });
+        }
+
+        private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
+        {
+            BookingQuantity.Text = null;
+        }
+
+        private async void cmdSumByScan_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOSumQuantityByBarcode(_ViewModel.GetSumByBarcodeModel()));
         }
     }
 }

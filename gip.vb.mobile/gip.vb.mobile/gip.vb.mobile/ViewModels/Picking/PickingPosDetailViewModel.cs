@@ -14,6 +14,8 @@ namespace gip.vb.mobile.ViewModels
 {
     public class PickingPosDetailViewModel : PickingBookingBaseViewModel
     {
+        #region c'tors
+
         public PickingPosDetailViewModel(PickingPos item = null, Picking pickingItem = null)
         {
             Item = item;
@@ -25,6 +27,8 @@ namespace gip.vb.mobile.ViewModels
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
         }
+
+        #endregion
 
         #region Properties
         private Picking _PickingItem;
@@ -108,6 +112,8 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _ScanMessage, value);
             }
         }
+
+        private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         #endregion
 
@@ -440,6 +446,23 @@ namespace gip.vb.mobile.ViewModels
             if (result == null)
                 result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
             return result;
+        }
+
+        public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
+        {
+            string material = "Material";
+            if (Item != null && Item.Material != null)
+                material = Item.Material.MaterialName1;
+
+            _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
+            return _SumByBarcodeModel;
+        }
+
+        public double? GetQuantityFromSumModel()
+        {
+            if (_SumByBarcodeModel != null && (_SumByBarcodeModel.SumQuantity >= 0.00001 || _SumByBarcodeModel.SumQuantity <= 0.00001))
+                return _SumByBarcodeModel.SumQuantity;
+            return null;
         }
 
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)

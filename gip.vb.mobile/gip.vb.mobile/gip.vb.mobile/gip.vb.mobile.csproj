@@ -151,7 +151,7 @@
     <Compile Update="Views\BSOFacility\BSOBarcodeFacilityOverview.xaml.cs">
       <DependentUpon>BSOBarcodeFacilityOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\BSOBarcodeTasksManu.xaml.cs">
+    <Compile Update="Views\BSOBarcode\BSOBarcodeTasksManu.xaml.cs">
       <DependentUpon>BSOBarcodeTasksManu.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityBookingHistory.xaml.cs">
@@ -256,6 +256,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderOutward.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOBarcode\BSOSumQuantityByBarcode.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
