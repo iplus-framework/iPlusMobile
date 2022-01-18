@@ -52,6 +52,7 @@ namespace gip.vb.mobile.Views
         private void ButtonFilter_Clicked(object sender, EventArgs e)
         {
             _ViewModel.ReadPostingsCommand.Execute(null);
+            TabRoot.SelectedItem = BookingHistoryPivotItem;
         }
         #endregion
     }

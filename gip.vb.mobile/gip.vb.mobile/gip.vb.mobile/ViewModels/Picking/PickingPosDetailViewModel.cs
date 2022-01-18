@@ -326,7 +326,7 @@ namespace gip.vb.mobile.ViewModels
             if (barcodeEntity != null)
             {
                 if (barcodeEntity.FacilityCharge != null)
-                {
+                {   
                     acMethodBooking.InwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
 
                 }

@@ -63,20 +63,16 @@ namespace gip.vb.mobile.ViewModels
         {
             get
             {
-#if DEBUG
                 if (_LastUser == null)
                 {
                     _LastUser = XLocalSettings.GetValue<string>("LastUser", "Mobile");
                 }
-#endif
                 return _LastUser;
             }
             set
             {
                 _LastUser = value;
-#if DEBUG
                 XLocalSettings.SetValue<string>("LastUser", _LastUser);
-#endif
                 OnPropertyChanged();
             }
         }

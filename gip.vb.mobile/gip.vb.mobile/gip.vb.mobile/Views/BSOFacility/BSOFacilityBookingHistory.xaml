@@ -10,7 +10,8 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              BarBackgroundColor="{DynamicResource NavigationBarColor}"
              BarTextColor="{DynamicResource NavigationBarTextColor}"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             x:Name="TabRoot">
     <v:BSOTabbedPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />

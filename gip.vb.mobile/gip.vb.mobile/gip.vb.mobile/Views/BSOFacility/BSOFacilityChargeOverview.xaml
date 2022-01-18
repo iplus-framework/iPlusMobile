@@ -48,6 +48,8 @@
                 <Label Text="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=StorageLife}" Style="{StaticResource LabelForDesc}" />
                 <Label Text="{Binding Item.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExternLotNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.ExternLotNo}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" Style="{StaticResource LabelForDesc}" />
                 <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" />
             </StackLayout>
