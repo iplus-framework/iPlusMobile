@@ -45,10 +45,14 @@ namespace gip.vb.mobile.Helpers
 
         public struct ParseResult
         {
+            private string _StringResult;
             public string StringResult
             {
-                get;
-                set;
+                get => _StringResult;
+                set
+                {
+                    _StringResult = value;
+                }
             }
 
             public int? DecimalPlaces

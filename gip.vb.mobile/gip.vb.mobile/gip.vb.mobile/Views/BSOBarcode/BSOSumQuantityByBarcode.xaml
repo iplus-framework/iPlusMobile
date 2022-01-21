@@ -25,10 +25,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
-        <ctl:BarcodeScanner x:Name="barcodeScanner" MinimumHeightRequest="70" IsEnabledInvokeBarcodeOnServer="False" OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <ctl:BarcodeScanner Grid.ColumnSpan="3" x:Name="barcodeScanner" MinimumHeightRequest="70" IsEnabledInvokeBarcodeOnServer="False" OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
                             />
-        <StackLayout Grid.Row="1">
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
             <ListView ItemsSource="{Binding SumItemQuantites}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -61,7 +68,11 @@
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
             </StackLayout>
-            <Button x:Name="BtnOk" Text="{hp:Translate Text=BtnApply_Text}" Clicked="BtnOk_Clicked" />
         </StackLayout>
+
+        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Clicked="BtnOkMinus_Clicked" />
+
+        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand"  Clicked="BtnOkPlus_Clicked" />
+
     </Grid>
 </v:BSOPageBase>

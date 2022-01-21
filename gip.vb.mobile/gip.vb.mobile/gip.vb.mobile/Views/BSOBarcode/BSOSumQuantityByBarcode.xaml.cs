@@ -19,6 +19,8 @@ namespace gip.vb.mobile.Views
         {
             BindingContext = _ViewModel = viewModel;
             InitializeComponent();
+            BtnOkMinus.Text = Strings.AppStrings.BtnApply_Text + " - ";
+            BtnOkPlus.Text = Strings.AppStrings.BtnApply_Text + " + ";
         }
 
         private bool _ClosedFromOKButton = false;
@@ -50,12 +52,6 @@ namespace gip.vb.mobile.Views
             base.OnDisappearing();
         }
 
-        private async void BtnOk_Clicked(object sender, EventArgs e)
-        {
-            _ClosedFromOKButton = true;
-            _= await Navigation.PopAsync();
-        }
-
         private async void barCodeScanner_OnBarcodeCommandInvoked(object sender, EventArgs e)
         {
             await _ViewModel.OnBarcodeScanned(barcodeScanner._ViewModel.CurrentBarcode);
@@ -77,6 +73,19 @@ namespace gip.vb.mobile.Views
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             barcodeScanner.OpenCameraPanel();
+        }
+
+        private async void BtnOkMinus_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SumQuantity = _ViewModel.SumQuantity * -1;
+            _ClosedFromOKButton = true;
+            _ = await Navigation.PopAsync();
+        }
+
+        private async void BtnOkPlus_Clicked(object sender, EventArgs e)
+        {
+            _ClosedFromOKButton = true;
+            _ = await Navigation.PopAsync();
         }
     }
 }

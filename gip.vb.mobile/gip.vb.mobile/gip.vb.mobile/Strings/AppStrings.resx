@@ -549,4 +549,7 @@
   <data name="NetWeightParseError_Text" xml:space="preserve">
     <value>The neto weight cannot be parsed.</value>
   </data>
+  <data name="AvailabilityFCPivotItem" xml:space="preserve">
+    <value>Availability</value>
+  </data>
 </root>

@@ -152,10 +152,10 @@ namespace gip.vb.mobile.ViewModels
             {
                 core.autocomponent.WSResponse<MsgWithDetails> response = null;
 
-                foreach (Picking picking in Pickings)
-                {
-                    response = await _WebService.FinishPickingOrderAsync(picking.PickingID);
-                }
+                //foreach (Picking picking in Pickings)
+                //{
+                //    response = await _WebService.FinishPickingOrderAsync(picking.PickingID);
+                //}
 
 
 

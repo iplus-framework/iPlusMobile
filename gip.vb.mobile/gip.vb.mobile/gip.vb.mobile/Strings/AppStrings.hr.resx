@@ -129,6 +129,9 @@
   <data name="AssignedPrinter_Label" xml:space="preserve">
     <value>Povezani pisač:</value>
   </data>
+  <data name="AvailabilityFCPivotItem" xml:space="preserve">
+    <value>Dostupnost</value>
+  </data>
   <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
     <value>Skenirajte  barkod od procesne funkcije</value>
   </data>

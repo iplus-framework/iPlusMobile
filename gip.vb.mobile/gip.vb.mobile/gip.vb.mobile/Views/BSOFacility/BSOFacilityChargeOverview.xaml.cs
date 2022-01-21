@@ -118,5 +118,11 @@ namespace gip.vb.mobile.Views
         {
             BookingQuantity.Text = null;
         }
+
+        private void BookingQuantity_Focused(object sender, FocusEventArgs e)
+        {
+            BookingQuantity.CursorPosition = 0;
+            BookingQuantity.SelectionLength = BookingQuantity.Text != null ? BookingQuantity.Text.Length : 0;
+        }
     }
 }

@@ -56,21 +56,6 @@
         </ScrollView>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="PostingFCPivotItem" Title="{i18n:Translate Text=PostingFCPivot_Header}">
-        <!--<Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>-->
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -78,16 +63,109 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" 
-                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand" Focused="BookingQuantity_Focused">
                         <Entry.Behaviors>
                             <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
-                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                    <!--<Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />-->
                 </StackLayout>
+
+                <BoxView HeightRequest="2" />
+
+                <Label Text="Korekcija zaliha" FontAttributes="Bold" />
+                <Label Text="Razlog korekcije:" />
+                <Picker  />
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="2" />
+
+                <Label Text="Premještanje" FontAttributes="Bold"  />
+                <Label Text="{i18n:Translate Text=LocationSelect_Text}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                    <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
+                    <Button x:Name="cmdClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
+                </StackLayout>
+
+                <Button x:Name="ButtonRelocate" Text="{i18n:Translate Text=BtnRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="2" />
+
+                <Label Text="Podjela kvanta" FontAttributes="Bold" />
+                <Label Text="Unesite broj podjele:" Style="{StaticResource LabelForDesc}" />
+                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay, Converter={StaticResource DoubleConverter}, 
+                                                                                                                  ConverterParameter=0}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="AvailabilityFCPivotItem" Title="{i18n:Translate Text=AvailabilityFCPivotItem}">
+
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+
+                    </Grid.ColumnDefinitions>
+                    <BoxView >
+                        <BoxView.Triggers>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Lime" />
+                            </DataTrigger>
+                        </BoxView.Triggers>
+                    </BoxView>
+                    <Label FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="True">
+                                <Setter Property="Text" Value="Quant is not available!" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="False">
+                                <Setter Property="Text" Value="Quant is available!" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
                 <Button x:Name="ButtonDoZeroStock" Text="{i18n:Translate Text=BtnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable, Converter={StaticResource BooleanNegationConverter}}" Clicked="ButtonDoBooking_Clicked"/>
                 <Button x:Name="ButtonUnDoZeroStock" Text="{i18n:Translate Text=BtnUnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="50" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <BoxView Grid.Row="1">
+                        <BoxView.Triggers>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="1">
+                                <Setter Property="BackgroundColor" Value="LimeGreen" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="2">
+                                <Setter Property="BackgroundColor" Value="Lime" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="3">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="4">
+                                <Setter Property="BackgroundColor" Value="DarkRed" />
+                            </DataTrigger>
+                        </BoxView.Triggers>
+                    </BoxView>
+                    <Label Text="Quant status:" Style="{StaticResource LabelForDesc}" />
+                    <Label Grid.Row="1" Text="{Binding Item.MDReleaseState.ReleaseState}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                    </Label>
+                </Grid>
                 <Button x:Name="ButtonBlockQuant" Text="{i18n:Translate Text=BtnBlockQuant_Text}" Clicked="ButtonDoBooking_Clicked">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Free">
@@ -120,23 +198,6 @@
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
-
-                <Label Text="{i18n:Translate Text=LocationSelect_Text}" Style="{StaticResource LabelForDesc}" />
-                <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
-                    <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
-                    <Button x:Name="cmdClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
-                </StackLayout>
-
-                <Button x:Name="ButtonRelocate" Text="{i18n:Translate Text=BtnRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
-
-                <Label Text="Unesite broj podjele" Style="{StaticResource LabelForDesc}" />
-                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay, Converter={StaticResource DoubleConverter}, 
-                                                                                                                  ConverterParameter=0}" HorizontalTextAlignment="End">
-                    <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
-                    </Entry.Behaviors>
-                </ctl:NumericEntry>
-                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
 
             </StackLayout>
         </ScrollView>

@@ -97,6 +97,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.
+        /// </summary>
+        internal static string AvailabilityFCPivotItem {
+            get {
+                return ResourceManager.GetString("AvailabilityFCPivotItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan or Enter Barcode.
         /// </summary>
         internal static string BarcodeScan_Text {

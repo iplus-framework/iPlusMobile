@@ -57,10 +57,14 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.UpdatePickingAsync(Item);
+                var response = await _WebService.GetPickingAsync(Item.PickingID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
-                    result = response.Data;
+                {
+                    Item = response.Data;
+
+                    return true;
+                }
             }
             catch (Exception ex)
             {

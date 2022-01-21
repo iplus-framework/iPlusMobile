@@ -234,16 +234,16 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
-                    BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                    Message = response.Message;
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        BookingMessage = response.Data.DetailsAsText;
+                        Message = response.Data;
                     else
                     {
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
-                        BookingMessage = "";
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                     }
                 }
             }

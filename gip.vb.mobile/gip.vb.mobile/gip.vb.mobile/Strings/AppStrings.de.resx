@@ -492,4 +492,7 @@
   <data name="NetWeightParseError_Text" xml:space="preserve">
     <value>Das Nettogewicht kann nicht geparst werden.</value>
   </data>
+  <data name="AvailabilityFCPivotItem" xml:space="preserve">
+    <value>Verfügbarkeit</value>
+  </data>
 </root>
