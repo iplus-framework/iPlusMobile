@@ -34,7 +34,6 @@
                             RowHeight="60"
                             ItemTemplate="{StaticResource BarcodeEntitySelector}"
                             HasUnevenRows="true"
-                            RefreshCommand="{Binding LoadBarcodeEntityCommand}"
                             IsPullToRefreshEnabled="false"
                             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                             ItemSelected="BarcodeListView_ItemSelected"

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using gip.vb.mobile.Controls;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,29 +19,29 @@ namespace gip.vb.mobile.Views
         public BSOFacilityChargeOverview()
 		{
             BindingContext = _ViewModel = new FacilityChargesViewModel();
+            barcodeScanner = new BarcodeScanner();
             InitializeComponent();
         }
+
+        BarcodeScanner barcodeScanner;
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            barcodeScanner._ViewModel = _ViewModel.FacilityScanViewModel;
+            barcodeScanner.OnAppearing();
             InitPageOnNavigation();
         }
 
         protected override void OnDisappearing()
         {
+            barcodeScanner.OnDisappearing();
             base.OnDisappearing();
-            //UnSubcribeToBarcodeService();
         }
 
         private void InitPageOnNavigation()
         {
-            //SubcribeToBarcodeService();
-            //if (_ViewModel.Locations.Count == 0)
-            //    _ViewModel.LoadLocationsCommand.Execute(null);
-
             _ViewModel.OnAppear(NavParam?.Arguments as FacilityCharge);
-
             this.PageState = PageStateEnum.View;
         }
 
@@ -95,7 +96,6 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
-
             FacilityEntry.Unfocus();
         }
 
@@ -119,10 +119,9 @@ namespace gip.vb.mobile.Views
             BookingQuantity.Text = null;
         }
 
-        private void BookingQuantity_Focused(object sender, FocusEventArgs e)
+        private void cmdClearMovementReason_Clicked(object sender, EventArgs e)
         {
-            BookingQuantity.CursorPosition = 0;
-            BookingQuantity.SelectionLength = BookingQuantity.Text != null ? BookingQuantity.Text.Length : 0;
+            _ViewModel.SelectedMovementReason = null;
         }
     }
 }

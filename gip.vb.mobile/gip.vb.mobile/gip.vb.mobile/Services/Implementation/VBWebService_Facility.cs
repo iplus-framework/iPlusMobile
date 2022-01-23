@@ -281,5 +281,14 @@ namespace gip.vb.mobile.Services
         #endregion
 
         #endregion
+
+        #region MovementReason
+
+        public async Task<WSResponse<List<MDMovementReason>>> GetMovementReasonsAsync()
+        {
+            return await Get<List<MDMovementReason>>(VBWebServiceConst.UriGetMovementReasons);
+        }
+
+        #endregion
     }
 }

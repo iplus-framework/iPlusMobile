@@ -552,4 +552,28 @@
   <data name="AvailabilityFCPivotItem" xml:space="preserve">
     <value>Availability</value>
   </data>
+  <data name="Available_Text" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="QuantRelocation_Text" xml:space="preserve">
+    <value>Quant relocation</value>
+  </data>
+  <data name="QuantSplitNo_Text" xml:space="preserve">
+    <value>Enter the split number:</value>
+  </data>
+  <data name="QuantSplit_Text" xml:space="preserve">
+    <value>Quant split</value>
+  </data>
+  <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
+    <value>Select target facility location/bin:</value>
+  </data>
+  <data name="Spent_Text" xml:space="preserve">
+    <value>Spent</value>
+  </data>
+  <data name="StockCorrectionReason_Text" xml:space="preserve">
+    <value>Correction reason:</value>
+  </data>
+  <data name="StockCorrection_Text" xml:space="preserve">
+    <value>Stock correction</value>
+  </data>
 </root>

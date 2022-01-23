@@ -106,6 +106,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        internal static string Available_Text {
+            get {
+                return ResourceManager.GetString("Available_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan or Enter Barcode.
         /// </summary>
         internal static string BarcodeScan_Text {
@@ -1132,6 +1141,33 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quant relocation.
+        /// </summary>
+        internal static string QuantRelocation_Text {
+            get {
+                return ResourceManager.GetString("QuantRelocation_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quant split.
+        /// </summary>
+        internal static string QuantSplit_Text {
+            get {
+                return ResourceManager.GetString("QuantSplit_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the split number:.
+        /// </summary>
+        internal static string QuantSplitNo_Text {
+            get {
+                return ResourceManager.GetString("QuantSplitNo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!.
         /// </summary>
         internal static string RelocatedQuantDataMissing_Text {
@@ -1204,11 +1240,47 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select target facility location/bin:.
+        /// </summary>
+        internal static string SelectTargetFacilityLocationOrBin_Text {
+            get {
+                return ResourceManager.GetString("SelectTargetFacilityLocationOrBin_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select picking type.
         /// </summary>
         internal static string SelPickingType_Text {
             get {
                 return ResourceManager.GetString("SelPickingType_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spent.
+        /// </summary>
+        internal static string Spent_Text {
+            get {
+                return ResourceManager.GetString("Spent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stock correction.
+        /// </summary>
+        internal static string StockCorrection_Text {
+            get {
+                return ResourceManager.GetString("StockCorrection_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correction reason:.
+        /// </summary>
+        internal static string StockCorrectionReason_Text {
+            get {
+                return ResourceManager.GetString("StockCorrectionReason_Text", resourceCulture);
             }
         }
         

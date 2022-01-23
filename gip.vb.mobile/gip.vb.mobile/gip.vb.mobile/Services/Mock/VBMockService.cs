@@ -177,5 +177,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<List<MDMovementReason>>> GetMovementReasonsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

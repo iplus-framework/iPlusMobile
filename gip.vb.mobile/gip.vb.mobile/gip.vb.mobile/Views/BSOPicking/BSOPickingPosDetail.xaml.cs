@@ -51,7 +51,8 @@ namespace gip.vb.mobile.Views
                 if (arguments != null && arguments.Count() >= 2)
                 {
                     _ViewModel.PickingItem = arguments[0] as Picking;
-                    _ViewModel.Item = arguments[1] as PickingPos;
+                    if (_ViewModel.Item == null)
+                        _ViewModel.Item = arguments[1] as PickingPos;
                 }
             }
 

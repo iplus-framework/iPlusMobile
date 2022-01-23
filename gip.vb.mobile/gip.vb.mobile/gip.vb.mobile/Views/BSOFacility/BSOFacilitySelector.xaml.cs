@@ -32,7 +32,6 @@ namespace gip.vb.mobile.Views
             barcodeScanner._ViewModel = _ViewModel.FacilityScanViewModel;
             barcodeScanner.OnAppearing();
             _ViewModel.LoadStorageLocationsCommand.Execute(null);
-
         }
 
         protected override void OnDisappearing()

@@ -132,6 +132,9 @@
   <data name="AvailabilityFCPivotItem" xml:space="preserve">
     <value>Dostupnost</value>
   </data>
+  <data name="Available_Text" xml:space="preserve">
+    <value>Dostupan</value>
+  </data>
   <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
     <value>Skenirajte  barkod od procesne funkcije</value>
   </data>
@@ -178,7 +181,7 @@
     <value>Knjiži</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant nije dostupan</value>
+    <value>Kvant je potrošen</value>
   </data>
   <data name="BtnFinishOrder" xml:space="preserve">
     <value>Završi nalog</value>
@@ -214,7 +217,7 @@
     <value>Start</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant je dostupan</value>
+    <value>Kvant nije potrošen</value>
   </data>
   <data name="BtnUpdate_Text" xml:space="preserve">
     <value>Ažuriraj</value>
@@ -286,7 +289,7 @@
     <value>Pozicija skladištenja</value>
   </data>
   <data name="FacilitySearch_Text" xml:space="preserve">
-    <value>Unesite broj ili naziv pozicije skladištenja</value>
+    <value>Unesite broj ili naziv stavke skladištenja</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Traži samo u prikazanoj listi (filtriranje liste)</value>
@@ -474,6 +477,15 @@
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>
   </data>
+  <data name="QuantRelocation_Text" xml:space="preserve">
+    <value>Premještanje kvanta</value>
+  </data>
+  <data name="QuantSplitNo_Text" xml:space="preserve">
+    <value>Unesite broj podjele:</value>
+  </data>
+  <data name="QuantSplit_Text" xml:space="preserve">
+    <value>Podjela kvanta</value>
+  </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
   </data>
@@ -493,13 +505,25 @@
     <value>Izaberite međuproizvod</value>
   </data>
   <data name="SelectPartslist_Text" xml:space="preserve">
-    <value>ili izaberite sastavnicu: TODO</value>
+    <value>ili izaberite sastavnicu:</value>
+  </data>
+  <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
+    <value>Odaberite/skenirajte odredišnu skl. lokaciju/poziciju:</value>
   </data>
   <data name="SelectTargetFacility_Text" xml:space="preserve">
-    <value>ili izaberite ciljano skladište</value>
+    <value>ili izaberite odredišno skladište</value>
   </data>
   <data name="SelPickingType_Text" xml:space="preserve">
     <value>Izaberite vrstu komisioniranja</value>
+  </data>
+  <data name="Spent_Text" xml:space="preserve">
+    <value>Potrošen</value>
+  </data>
+  <data name="StockCorrectionReason_Text" xml:space="preserve">
+    <value>Razlog korekcije:</value>
+  </data>
+  <data name="StockCorrection_Text" xml:space="preserve">
+    <value>Korekcija zaliha</value>
   </data>
   <data name="StockQuantity_Text" xml:space="preserve">
     <value>Stanje</value>
@@ -532,7 +556,7 @@
     <value>Na mjesto skladišta</value>
   </data>
   <data name="UseMockDataStore_Text" xml:space="preserve">
-    <value>Use Offline-Demodata</value>
+    <value>Demo-način</value>
   </data>
   <data name="Username_Text" xml:space="preserve">
     <value>Korisnik</value>

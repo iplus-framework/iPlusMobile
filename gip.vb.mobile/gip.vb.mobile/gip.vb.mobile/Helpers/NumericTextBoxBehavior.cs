@@ -10,9 +10,25 @@ namespace gip.vb.mobile.Helpers
         {
             //entry.TextChanged += OnEntryTextChanged;
             entry.Completed += Entry_Completed;
+            entry.Focused += Entry_Focused;
             base.OnAttachedTo(entry);
         }
 
+        private void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            if (SelectAllOnFocus)
+            {
+                Entry ent = sender as Entry;
+                if (ent != null)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        ent.CursorPosition = 0;
+                        ent.SelectionLength = ent.Text != null ? ent.Text.Length : 0;
+                    });
+                }
+            }
+        }
 
         protected override void OnDetachingFrom(Entry entry)
         {
@@ -96,5 +112,11 @@ namespace gip.vb.mobile.Helpers
         public bool IsDecimal { get; set; }
 
         public int Precision { get; set; }
+
+        public bool SelectAllOnFocus
+        {
+            get;
+            set;
+        }
     }
 }

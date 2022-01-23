@@ -495,4 +495,28 @@
   <data name="AvailabilityFCPivotItem" xml:space="preserve">
     <value>Verfügbarkeit</value>
   </data>
+  <data name="Available_Text" xml:space="preserve">
+    <value>Erhältlich</value>
+  </data>
+  <data name="QuantRelocation_Text" xml:space="preserve">
+    <value>Quant-Umzug</value>
+  </data>
+  <data name="QuantSplitNo_Text" xml:space="preserve">
+    <value>Geben Sie die Split-Nummer ein:</value>
+  </data>
+  <data name="QuantSplit_Text" xml:space="preserve">
+    <value>Quant Splitten</value>
+  </data>
+  <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
+    <value>Standort/Abfallplatz der Zieleinrichtung auswählen:</value>
+  </data>
+  <data name="Spent_Text" xml:space="preserve">
+    <value>Verbrachten</value>
+  </data>
+  <data name="StockCorrectionReason_Text" xml:space="preserve">
+    <value>Korrekturgrund:</value>
+  </data>
+  <data name="StockCorrection_Text" xml:space="preserve">
+    <value>Bestandskorrektur</value>
+  </data>
 </root>

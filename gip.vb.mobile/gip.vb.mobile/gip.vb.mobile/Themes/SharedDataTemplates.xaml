@@ -5,6 +5,9 @@
                     xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
                     xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
                     x:Class="gip.vb.mobile.Themes.SharedDataTemplates">
+    
+    <i18n:PercentageColorConverter x:Key="PercentageConv" />
+
     <DataTemplate x:Key="ACClassItemTemplate">
         <ctl:ExtendedViewCell>
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
@@ -169,6 +172,10 @@
     <DataTemplate x:Key="PickingPosItemTemplate">
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.Resources>
+                    
+                </Grid.Resources>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
@@ -177,9 +184,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
-                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Material.MaterialName1}" VerticalOptions="Start" HorizontalTextAlignment="Start" Style="{StaticResource LabelForData}" />
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start" HorizontalTextAlignment="Start" Style="{StaticResource LabelForData}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Comment1}" VerticalOptions="Start" HorizontalTextAlignment="Start" Style="{StaticResource LabelForData}" />
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding FromFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding ToFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
@@ -188,8 +197,9 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                     <Label Text="{Binding ActualQuantityUOM}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-                    <Label Text="{Binding MDUnit.MDUnitName}"/>
+                    <Label Text="{Binding MDUnit.MDUnitName}" />
                 </StackLayout>
+                <BoxView Grid.Column="2" Grid.RowSpan="3" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

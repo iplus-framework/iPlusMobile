@@ -12,7 +12,7 @@ using gip.core.autocomponent;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class FacilityChargesViewModel : BaseViewModel
+    public class FacilityChargesViewModel : BaseViewModel, IBarcodeScanFacilityHost
     {
         public FacilityChargesViewModel()
         {
@@ -28,6 +28,9 @@ namespace gip.vb.mobile.ViewModels
             BookRelocateCommand = new Command(async () => await ExecuteBookRelocateCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             SplitQuantCommand = new Command(async () => await ExecuteSplitQuantCommand());
+            GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
+
+            FacilityScanViewModel = new BarcodeScanFacilityModel(this);
         }
 
         #region Properties
@@ -109,6 +112,26 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private MDMovementReason _SelectedMovementReason;
+        public MDMovementReason SelectedMovementReason
+        {
+            get => _SelectedMovementReason;
+            set
+            {
+                SetProperty(ref _SelectedMovementReason, value);
+            }
+        }
+
+        private IEnumerable<MDMovementReason> _MovementReasons;
+        public IEnumerable<MDMovementReason> MovementReasons
+        {
+            get => _MovementReasons;
+            set
+            {
+                SetProperty(ref _MovementReasons, value);
+            }
+        }
+
         public FacilitySelectorViewModel FacilitySelector
         {
             get;
@@ -116,6 +139,8 @@ namespace gip.vb.mobile.ViewModels
         }
 
         private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
+
+        public BarcodeScanFacilityModel FacilityScanViewModel;
 
         #endregion
 
@@ -139,6 +164,9 @@ namespace gip.vb.mobile.ViewModels
             {
                 Item = facilityCharge;
             }
+
+            if (MovementReasons == null || !MovementReasons.Any())
+                GetMovementReasonsCommand.Execute(null);
 
             double? sumQuantity = GetQuantityFromSumModel();
             if (sumQuantity != null)
@@ -230,7 +258,14 @@ namespace gip.vb.mobile.ViewModels
                     aCMethodBooking.InwardQuantity = Math.Abs(BookingQuantity);
                     aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
                 }
+
+                if (SelectedMovementReason != null)
+                {
+                    aCMethodBooking.MovementReasonIndex = SelectedMovementReason.MDMovementReasonIndex;
+                }
+
                 BookingQuantity = 0;
+                SelectedMovementReason = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
@@ -597,6 +632,37 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Command GetMovementReasonsCommand { get; set; }
+        public async Task ExecuteGetMovementReasons()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var response = await _WebService.GetMovementReasonsAsync();
+                WSResponse = response;
+                if (response.Suceeded)
+                {
+                    MovementReasons = response.Data;
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         #region Methods => SumByBarcode
 
         public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
@@ -644,6 +710,16 @@ namespace gip.vb.mobile.ViewModels
                 }
                 _TempFacilityCharge = null;
             }
+        }
+
+        public void OnFacilityScanned(Facility facility)
+        {
+            SelectedFacility = facility;
+        }
+
+        public void OnSearchFacility(string searchText)
+        {
+            
         }
         #endregion
 

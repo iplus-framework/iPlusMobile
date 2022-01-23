@@ -46,6 +46,8 @@
                 <Label Text="{Binding Item.ToFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
                 <Label Text="{Binding Item.Comment}" Style="{StaticResource LabelForData}"/>
+                <Label Text="Info" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.Comment1}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding Item.TargetQuantity}" Style="{StaticResource LabelForData}"/>
@@ -80,7 +82,7 @@
                     <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"
                                       TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" HorizontalTextAlignment="End">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" Precision="1"/>
+                            <hp:NumericTextBoxBehavior AllowDecimal="True" IsDecimal="False" SelectAllOnFocus="True" Precision="1"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked"  />
