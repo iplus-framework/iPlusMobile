@@ -568,7 +568,7 @@
     <value>Select target facility location/bin:</value>
   </data>
   <data name="Spent_Text" xml:space="preserve">
-    <value>Spent</value>
+    <value>Not available (spent, relocated,...)</value>
   </data>
   <data name="StockCorrectionReason_Text" xml:space="preserve">
     <value>Correction reason:</value>

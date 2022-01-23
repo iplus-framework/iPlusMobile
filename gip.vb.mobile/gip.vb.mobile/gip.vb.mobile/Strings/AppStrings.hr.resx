@@ -181,7 +181,7 @@
     <value>Knjiži</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant je potrošen</value>
+    <value>Kvant nije dostupan</value>
   </data>
   <data name="BtnFinishOrder" xml:space="preserve">
     <value>Završi nalog</value>
@@ -217,7 +217,7 @@
     <value>Start</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
-    <value>Kvant nije potrošen</value>
+    <value>Kvant je dostupan</value>
   </data>
   <data name="BtnUpdate_Text" xml:space="preserve">
     <value>Ažuriraj</value>
@@ -517,7 +517,7 @@
     <value>Izaberite vrstu komisioniranja</value>
   </data>
   <data name="Spent_Text" xml:space="preserve">
-    <value>Potrošen</value>
+    <value>Nije dostupan (potrošen, premješten,...)</value>
   </data>
   <data name="StockCorrectionReason_Text" xml:space="preserve">
     <value>Razlog korekcije:</value>
