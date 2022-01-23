@@ -170,7 +170,7 @@
                         </BoxView.Triggers>
                     </BoxView>
                     <Label Text="Status:" Style="{StaticResource LabelForDesc}" />
-                    <Label Grid.Row="1" Text="{Binding Item.MDReleaseState.ReleaseState}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                    <Label Grid.Row="1" Text="{Binding Item.MDReleaseState.MDReleaseStateName}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
                     </Label>
                 </Grid>
                 <Button x:Name="ButtonBlockQuant" Text="{i18n:Translate Text=BtnBlockQuant_Text}" Clicked="ButtonDoBooking_Clicked">
