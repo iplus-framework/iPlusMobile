@@ -20,6 +20,7 @@ namespace gip.vb.mobile.Views
 		{
             BindingContext = _ViewModel = new FacilityChargesViewModel();
             barcodeScanner = new BarcodeScanner();
+            barcodeScanner.IsEnabledInvokeBarcodeOnServer = true;
             InitializeComponent();
         }
 
