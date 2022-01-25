@@ -111,7 +111,7 @@ namespace gip.vb.mobile.Helpers
         }
 
         private string _lastText;
-        public bool AllowDecimal { get; set;  }
+        //public bool AllowDecimal { get; set;  }
 
         public bool IsDecimal { get; set; }
 

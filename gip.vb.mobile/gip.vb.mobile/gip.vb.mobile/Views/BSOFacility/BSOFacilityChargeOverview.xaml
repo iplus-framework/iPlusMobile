@@ -67,10 +67,10 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={StaticResource DoubleConverter}, ConverterParameter=1}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior AllowDecimal="True" SelectAllOnFocus="True" IsDecimal="False" Precision="1"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
@@ -102,9 +102,9 @@
 
                 <Label Text="{i18n:Translate Text=QuantSplit_Text}" FontAttributes="Bold" />
                 <Label Text="{i18n:Translate Text=QuantSplitNo_Text}" Style="{StaticResource LabelForDesc}" />
-                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay, Converter={StaticResource DoubleConverter},                                                                                                                   ConverterParameter=0}" HorizontalTextAlignment="End">
+                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay}" HorizontalTextAlignment="End">
                     <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior AllowDecimal="True" SelectAllOnFocus="True" IsDecimal="False" Precision="1"/>
+                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="True" Precision="0"/>
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
                 <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
