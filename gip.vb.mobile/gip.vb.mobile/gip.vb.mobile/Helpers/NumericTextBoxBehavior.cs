@@ -43,24 +43,20 @@ namespace gip.vb.mobile.Helpers
             Entry tb = sender as Entry;
             if (tb != null)
             {
-                if (AllowDecimal)
+                if (Precision > 0)
                 {
                     if (IsDecimal)
                     {
                         Decimal value = 0;
-                        if (string.IsNullOrEmpty(tb.Text) ||
-                            Decimal.TryParse(tb.Text, out value))
+                        if (   string.IsNullOrEmpty(tb.Text)
+                            || Decimal.TryParse(tb.Text, out value))
                         {
                             _lastText = tb.Text;
-                            if (Precision >= 0)
+                            Decimal roundedValue = Math.Round(value, Precision);
+                            if (roundedValue != value)
                             {
-                                Decimal roundedValue = Math.Round(value, Precision);
-                                if (roundedValue != value)
-                                {
-                                    _lastText = roundedValue.ToString();
-                                    tb.Text = _lastText;
-                                    //tb.SelectionStart = tb.Text.Length;
-                                }
+                                _lastText = roundedValue.ToString();
+                                tb.Text = _lastText;
                             }
                             return;
                         }
@@ -68,19 +64,15 @@ namespace gip.vb.mobile.Helpers
                     else
                     {
                         double value = 0;
-                        if (string.IsNullOrEmpty(tb.Text) ||
-                            Double.TryParse(tb.Text, out value))
+                        if (   string.IsNullOrEmpty(tb.Text)
+                            || Double.TryParse(tb.Text, out value))
                         {
                             _lastText = tb.Text;
-                            if (Precision >= 0)
+                            double roundedValue = Math.Round(value, Precision);
+                            if (roundedValue != value)
                             {
-                                double roundedValue = Math.Round(value, Precision);
-                                if (roundedValue != value)
-                                {
-                                    _lastText = roundedValue.ToString();
-                                    tb.Text = _lastText;
-                                    //tb.SelectionStart = tb.Text.Length;
-                                }
+                                _lastText = roundedValue.ToString();
+                                tb.Text = _lastText;
                             }
                             return;
                         }
@@ -88,17 +80,29 @@ namespace gip.vb.mobile.Helpers
                 }
                 else
                 {
-                    long value;
-                    if (string.IsNullOrEmpty(tb.Text) ||
-                        long.TryParse(tb.Text, out value))
+                    if (IsDecimal)
                     {
-                        _lastText = tb.Text;
-                        return;
+                        long value;
+                        if (   string.IsNullOrEmpty(tb.Text)
+                            || long.TryParse(tb.Text, out value))
+                        {
+                            _lastText = tb.Text;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        double value;
+                        if (   string.IsNullOrEmpty(tb.Text)
+                            || double.TryParse(tb.Text, out value))
+                        {
+                            _lastText = tb.Text;
+                            return;
+                        }
                     }
                 }
 
                 tb.Text = _lastText;
-                //tb.SelectionStart = tb.Text.Length;
             }
 
             //double result;
@@ -107,7 +111,7 @@ namespace gip.vb.mobile.Helpers
         }
 
         private string _lastText;
-        public bool AllowDecimal { get; set;  }
+        //public bool AllowDecimal { get; set;  }
 
         public bool IsDecimal { get; set; }
 
