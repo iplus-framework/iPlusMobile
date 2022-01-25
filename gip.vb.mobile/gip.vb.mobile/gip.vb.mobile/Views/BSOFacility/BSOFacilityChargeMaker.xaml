@@ -4,11 +4,25 @@
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
              xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
-             x:Class="gip.vb.mobile.Views.BSOFacility.BSOFacilityChargeMaker">
+             x:Class="gip.vb.mobile.Views.BSOFacilityChargeMaker">
     <StackLayout>
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            </ResourceDictionary>
+        </StackLayout.Resources>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-        <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
+        
+        <Label Text="{i18n:Translate Text=SelectMaterial}" Style="{StaticResource LabelForDesc}" />
+        <SearchBar x:Name="sbMaterial" Text="{Binding MaterialSearchText}" SearchCommand="{Binding SearchMaterialCommand}" />
+
+        <ListView x:Name="lvMaterials" ItemsSource="{Binding MaterialList}" SelectedItem="{Binding SelectedMaterial}"
+                  ItemTapped="lvMaterials_ItemTapped" IsVisible="{Binding IsSelectMaterialVisible}"
+                  ItemTemplate="{x:StaticResource Key=MaterialItemTemplate}"/>
+
+
+
+        <!--<Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
         <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
         <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
         
@@ -37,7 +51,7 @@
         
         <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" Style="{StaticResource LabelForDesc}" />
         
-        <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" />
+        <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" />-->
 
         <Button x:Name="BtnCreateFacilityCharge" Text="Create quant" />
 

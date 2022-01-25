@@ -30,6 +30,9 @@
                     ItemSelected="lstOpenLines_ItemSelected"
                     ItemTapped="lstOpenLines_ItemTapped" 
                   VerticalScrollBarVisibility="Default" />
+
+        <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" />
+
     </StackLayout>
 
 </v:BSOPageBase>

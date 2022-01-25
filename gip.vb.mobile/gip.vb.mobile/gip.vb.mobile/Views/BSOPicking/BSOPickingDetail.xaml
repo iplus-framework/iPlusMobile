@@ -32,6 +32,7 @@
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding UpdatePickingCommand}">
         </ListView>
-        <Button x:Name="btnFinishOrder" HeightRequest="45" Margin="0,0,0,5" Text="{i18n:Translate Text=BtnFinishOrder}" Command="{Binding FinishOrderCommand}" />
+
+        <Button x:Name="btnFinishOrder" HeightRequest="45" Margin="0,5,0,5" Text="{i18n:Translate Text=BtnFinishOrder}" Command="{Binding FinishOrderCommand}" />
     </StackLayout>
 </v:BSOPageBase>

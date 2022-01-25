@@ -158,17 +158,6 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedFacility = null;
         }
 
-        /// <summary>
-        /// Forward camera icon click event to 
-        /// BarcodeScanner control
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
-        {
-            //barcodeScanner._ViewModel.ZXingIsScanning = true;
-        }
-
         #endregion
 
         #region Methods -> Event handler

@@ -123,8 +123,12 @@ namespace gip.vb.mobile.Views
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
         }
 
+
         #endregion
 
-
+        private async void btnNewQuant_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOFacilityChargeMaker());
+        }
     }
 }

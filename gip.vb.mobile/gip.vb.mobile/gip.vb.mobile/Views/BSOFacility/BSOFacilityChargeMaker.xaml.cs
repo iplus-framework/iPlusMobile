@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace gip.vb.mobile.Views.BSOFacility
+namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOFacilityChargeMaker : BSOPageBase
@@ -19,6 +19,15 @@ namespace gip.vb.mobile.Views.BSOFacility
         {
             BindingContext = _ViewModel = new FacilityChargeMakerViewModel(null);
             InitializeComponent();
+        }
+
+        private void lvMaterials_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (_ViewModel.SelectedMaterial != null)
+            {
+                _ViewModel.Item.Material = _ViewModel.SelectedMaterial;
+                _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + _ViewModel.SelectedMaterial.MaterialName1;
+            }
         }
     }
 }

@@ -18,7 +18,6 @@ namespace gip.vb.mobile.Views
     {
         InventoryLinesModel _ViewModel;
 
-
         #region ctor's
         public BSOInventoryLines()
         {
@@ -72,8 +71,12 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedLine = inventoryPos;
         }
 
+
         #endregion
 
-
+        private async void btnNewQuant_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOFacilityChargeMaker());
+        }
     }
 }

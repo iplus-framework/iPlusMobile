@@ -62,7 +62,7 @@ namespace gip.vb.mobile.Views
                 //scanView.Options.AutoRotate = false;
                 scanView.Options.TryHarder = true;
                 scanView.Options.UseNativeScanning = true;
-                scanView.Options.PossibleFormats = new ZXing.BarcodeFormat[] { ZXing.BarcodeFormat.CODE_128,
+                scanView.Options.PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
                                                                                ZXing.BarcodeFormat.CODE_39,
                                                                                ZXing.BarcodeFormat.EAN_13,
                                                                                ZXing.BarcodeFormat.EAN_8,
