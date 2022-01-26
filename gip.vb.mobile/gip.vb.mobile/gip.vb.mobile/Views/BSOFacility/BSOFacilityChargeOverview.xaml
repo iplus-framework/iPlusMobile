@@ -67,7 +67,7 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
                             <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>

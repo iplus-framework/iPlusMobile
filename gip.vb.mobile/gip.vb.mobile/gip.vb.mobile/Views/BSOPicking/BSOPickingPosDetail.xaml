@@ -80,7 +80,7 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay}" HorizontalTextAlignment="End">
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End">
                         <Entry.Behaviors>
                             <hp:NumericTextBoxBehavior IsDecimal="False" SelectAllOnFocus="True" Precision="0"/>
                         </Entry.Behaviors>

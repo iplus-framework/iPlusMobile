@@ -8,7 +8,7 @@ namespace gip.vb.mobile.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int precision = -1;
+            int precision = 0;
             if (parameter != null)
             {
                 try
@@ -20,10 +20,17 @@ namespace gip.vb.mobile.Helpers
                 }
             }
 
-            if (precision > 0 && value != null)
+            if (precision >= 0 && value != null)
             {
-                double doubleVal = System.Convert.ToDouble(value);
-                return doubleVal.ToString(String.Format("F{0}", precision));
+                double doubleVal = System.Convert.ToDouble(value, CultureInfo.CurrentUICulture);
+                if (precision > 1)
+                {
+                    return doubleVal.ToString(String.Format("F{0}", precision));
+                }
+                else
+                {
+                    return doubleVal.ToString();
+                }
             }
             return value?.ToString();
         }
@@ -46,7 +53,7 @@ namespace gip.vb.mobile.Helpers
 
             try
             {
-                Double result = Double.Parse(value as string);
+                Double result = Double.Parse(value as string, CultureInfo.CurrentUICulture);
                 if (precision >= 0)
                 {
                     result = Math.Round(result, precision);
