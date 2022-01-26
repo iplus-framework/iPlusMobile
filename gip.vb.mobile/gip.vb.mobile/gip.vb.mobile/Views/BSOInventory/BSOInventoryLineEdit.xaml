@@ -35,39 +35,49 @@
             OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeReceived"
             OnSelectBarcodeEntity="barcodeScanner_OnSendSelectedCode"
             OnCleanUpForm="barcodeScanner_OnCleanUpForm"/>
-        <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
-            <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
-            <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
-        </StackLayout>
-        <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">
-            <BoxView HeightRequest="1" Color="Red" />
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.LotNo}" Style="{StaticResource LabelForData}"/>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.MaterialNo}" Style="{StaticResource LabelForData}"/>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.MaterialName}" Style="{StaticResource LabelForData}"/>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.FacilityNo}" Style="{StaticResource LabelForData}"/>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Faciltiy, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.FacilityName}" Style="{StaticResource LabelForData}"/>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
-            <Label Text="{Binding SelectedInventoryLine.StockQuantity, StringFormat='{0:#0.00}'}" Style="{StaticResource LabelForData}"/>
-            <BoxView HeightRequest="1" Color="Red" />
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{i18n:Translate Text=InventoryPosNotAvailable_Text}"/>
-                <CheckBox IsChecked="{Binding SelectedInventoryLine.NotAvailable}" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}" />
+            <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">
+                <Button x:Name="cmdQuantAdd" Text="{i18n:Translate Text=Btn_AddQuantToStock}" Command="{Binding SetFacilityInventoryChargeAvailableCommand}" IsVisible="{Binding IsChargeAddCommandVisible}"/>
+                <Button x:Name="cmdQuantEditAgain" Text="{i18n:Translate Text=Btn_EditQuantAgain}" Clicked="cmdQuantEditAgain_Clicked" IsVisible="{Binding IsChargeEditCommandVisible}"/>
             </StackLayout>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
-            <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay}" HorizontalTextAlignment="End">
-                <Entry.Behaviors>
-                    <hp:NumericTextBoxBehavior IsDecimal="False" Precision="0"/>
-                </Entry.Behaviors>
-            </ctl:NumericEntry>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
-            <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" HorizontalOptions="FillAndExpand" MinimumHeightRequest="150" />
-            <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
+            <StackLayout x:Name="spEditor" Orientation="Vertical" IsVisible="{Binding IsEditPanelVisible}">
+                <BoxView HeightRequest="1" Color="Red" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.LotNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.MaterialName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.FacilityNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Faciltiy, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.FacilityName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedInventoryLine.StockQuantity, StringFormat='{0:#0.00}'}" Style="{StaticResource LabelForData}"/>
+                <BoxView HeightRequest="1" Color="Red" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=InventoryPosNotAvailable_Text}"/>
+                    <CheckBox IsChecked="{Binding SelectedInventoryLine.NotAvailable}" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}" />
+                </StackLayout>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
+                <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior IsDecimal="False" Precision="0"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
+                <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" HorizontalOptions="FillAndExpand" MinimumHeightRequest="150" />
+                <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
+                <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" VerticalOptions="EndAndExpand" >
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsChargeCommandPanelVisible}" Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsEditPanelVisible}" Value="True" >
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                </StackLayout>
         </StackLayout>
-    </StackLayout>
     </ScrollView>
 </v:BSOPageBase>

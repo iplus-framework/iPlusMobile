@@ -26,7 +26,7 @@ namespace gip.vb.mobile.Views
             if (_ViewModel.SelectedMaterial != null)
             {
                 _ViewModel.Item.Material = _ViewModel.SelectedMaterial;
-                _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + _ViewModel.SelectedMaterial.MaterialName1;
+                _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + " " + _ViewModel.SelectedMaterial.MaterialName1;
             }
         }
     }
