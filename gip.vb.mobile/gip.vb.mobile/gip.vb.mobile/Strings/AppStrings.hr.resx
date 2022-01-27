@@ -177,6 +177,9 @@
   <data name="BtnClose_Text" xml:space="preserve">
     <value>Zatvori</value>
   </data>
+  <data name="BtnCreateQuant" xml:space="preserve">
+    <value>Stvori kvant</value>
+  </data>
   <data name="BtnDoBooking_Text" xml:space="preserve">
     <value>Knjiži</value>
   </data>
@@ -282,6 +285,9 @@
   <data name="FacilityName_Text" xml:space="preserve">
     <value>Naziv</value>
   </data>
+  <data name="FacilityNotSelected_Text" xml:space="preserve">
+    <value>Skladište nije odabrano. Molimo odaberite/skenirajte skladište.</value>
+  </data>
   <data name="FacilityNo_Text" xml:space="preserve">
     <value>Br.</value>
   </data>
@@ -384,6 +390,9 @@
   <data name="LotSearch_Text" xml:space="preserve">
     <value>Unesite broj lot-a</value>
   </data>
+  <data name="MaterialNotSelected_Text" xml:space="preserve">
+    <value>Materijal nije izabran. Molimo izaberite materijal.</value>
+  </data>
   <data name="MaterialPivot_Header" xml:space="preserve">
     <value>Materijal</value>
   </data>
@@ -392,6 +401,9 @@
   </data>
   <data name="NetWeightParseError_Text" xml:space="preserve">
     <value>Neto težina se ne može pročitati/parsirati.</value>
+  </data>
+  <data name="NewQuant_Text" xml:space="preserve">
+    <value>Novi kvant</value>
   </data>
   <data name="NewStockQuantity_Text" xml:space="preserve">
     <value>Novo stanje</value>

@@ -53,11 +53,19 @@ namespace gip.vb.mobile.Helpers
 
             try
             {
-                Double result = Double.Parse(value as string, CultureInfo.CurrentUICulture);
+                double result = 0.0;
+                string val = value as string;
+
+                if (!string.IsNullOrEmpty(val))
+                {
+                    double.TryParse(value as string, NumberStyles.Any, CultureInfo.CurrentUICulture, out result);
+                }
+
                 if (precision >= 0)
                 {
                     result = Math.Round(result, precision);
                 }
+
                 return result;
             }
             catch

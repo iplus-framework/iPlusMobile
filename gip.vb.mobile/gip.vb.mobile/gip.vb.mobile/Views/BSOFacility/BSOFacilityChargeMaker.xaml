@@ -4,56 +4,51 @@
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
              xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
-             x:Class="gip.vb.mobile.Views.BSOFacilityChargeMaker">
+             x:Class="gip.vb.mobile.Views.BSOFacilityChargeMaker"
+             Title="{Binding Title}">
     <StackLayout>
         <StackLayout.Resources>
             <ResourceDictionary>
                 <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+                <i18n:BooleanNegationConverter x:Key="NegationConv" />
+                <i18n:DoubleConverter x:Key="DoubleConv" />
             </ResourceDictionary>
         </StackLayout.Resources>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-        
-        <Label Text="{i18n:Translate Text=SelectMaterial}" Style="{StaticResource LabelForDesc}" />
+
+        <Label Text="{i18n:Translate Text=MaterialSearch_Text}" Style="{StaticResource LabelForDesc}" />
         <SearchBar x:Name="sbMaterial" Text="{Binding MaterialSearchText}" SearchCommand="{Binding SearchMaterialCommand}" />
 
-        <ListView x:Name="lvMaterials" ItemsSource="{Binding MaterialList}" SelectedItem="{Binding SelectedMaterial}"
-                  ItemTapped="lvMaterials_ItemTapped" IsVisible="{Binding IsSelectMaterialVisible}"
-                  ItemTemplate="{x:StaticResource Key=MaterialItemTemplate}"/>
+        <StackLayout IsVisible="{Binding IsSelectMaterialVisible}">
+            <ListView x:Name="lvMaterials" ItemsSource="{Binding MaterialList}" SelectedItem="{Binding SelectedMaterial}"
+                      ItemTapped="lvMaterials_ItemTapped" 
+                      ItemTemplate="{x:StaticResource Key=MaterialItemTemplate}"/>
+            <Button VerticalOptions="EndAndExpand" x:Name="BtnSelectMaterialCancel" Text="{i18n:Translate Text=ButtonCancel}" Clicked="BtnSelectMaterialCancel_Clicked" />
+        </StackLayout>
 
+        <StackLayout IsVisible="{Binding IsSelectMaterialVisible, Converter={x:StaticResource NegationConv}}" Margin="0,10,0,0" >
+            <Label Text="{i18n:Translate Text=FacilityPivot_Header}" Style="{StaticResource LabelForDesc}" />
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="FacilityEntry" Focused="FacilityEntry_Focused" HorizontalOptions="FillAndExpand" Text="{Binding Item.Facility.FacilityName}" />
+                <Button x:Name="BtnClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="BtnClearFacility_Clicked" />
+            </StackLayout>
 
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExternLotNo}" Style="{StaticResource LabelForDesc}"  Margin="0,10,0,0"  />
+            <Entry Text="{Binding Item.FacilityLot.ExternLotNo}" Style="{StaticResource LabelForData}"></Entry>
 
-        <!--<Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-        <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
-        <Entry Text="{Binding Item.Facility.FacilityName}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
-        <Entry Text="{Binding Item.FacilityLot.LotNo}" Style="{StaticResource LabelForData}"></Entry>
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
-        <ctl:NumericEntry Text="{Binding Item.StockQuantity}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=FillingDate}" Style="{StaticResource LabelForDesc}" />
-        <DatePicker Date="{Binding Item.FillingDate}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ProductionDate}" Style="{StaticResource LabelForDesc}" />
-        <DatePicker Date="{Binding Item.FacilityLot.ProductionDate}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExpirationDate}" Style="{StaticResource LabelForDesc}" />
-        <DatePicker Date="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=StorageLife}" Style="{StaticResource LabelForDesc}" />
-        <ctl:NumericEntry Text="{Binding Item.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}">
-            
-        </ctl:NumericEntry>
-        
-        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" Style="{StaticResource LabelForDesc}" />
-        
-        <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" />-->
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExpirationDate}" Style="{StaticResource LabelForDesc}"  Margin="0,10,0,0"  />
+            <DatePicker Date="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
 
-        <Button x:Name="BtnCreateFacilityCharge" Text="Create quant" />
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}"  Margin="0,10,0,0"  />
+            <ctl:NumericEntry Text="{Binding Item.StockQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConv}}" Style="{StaticResource LabelForData}"
+                              Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <i18n:NumericTextBoxBehavior IsDecimal="False" SelectAllOnFocus="True" Precision="0"/>
+                </Entry.Behaviors>
+            </ctl:NumericEntry>
+
+            <Button x:Name="BtnCreateFacilityCharge" Text="{i18n:Translate Text=BtnCreateQuant}" VerticalOptions="EndAndExpand" Command="{Binding CreateNewFacilityChargeCommand}" Margin="0,10,0,0"  />
+        </StackLayout>
 
     </StackLayout>
 

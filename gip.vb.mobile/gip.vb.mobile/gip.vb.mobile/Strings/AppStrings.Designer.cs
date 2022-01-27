@@ -19,7 +19,7 @@ namespace gip.vb.mobile.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppStrings {
@@ -282,6 +282,15 @@ namespace gip.vb.mobile.Strings {
         internal static string BtnClose_Text {
             get {
                 return ResourceManager.GetString("BtnClose_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create quant.
+        /// </summary>
+        internal static string BtnCreateQuant {
+            get {
+                return ResourceManager.GetString("BtnCreateQuant", resourceCulture);
             }
         }
         
@@ -561,6 +570,15 @@ namespace gip.vb.mobile.Strings {
         internal static string FacilityNo_Text {
             get {
                 return ResourceManager.GetString("FacilityNo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The facility is not selected. Please, select or scan facility..
+        /// </summary>
+        internal static string FacilityNotSelected_Text {
+            get {
+                return ResourceManager.GetString("FacilityNotSelected_Text", resourceCulture);
             }
         }
         
@@ -862,6 +880,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The material is not selected. Please, select material..
+        /// </summary>
+        internal static string MaterialNotSelected_Text {
+            get {
+                return ResourceManager.GetString("MaterialNotSelected_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Material.
         /// </summary>
         internal static string MaterialPivot_Header {
@@ -885,6 +912,15 @@ namespace gip.vb.mobile.Strings {
         internal static string NetWeightParseError_Text {
             get {
                 return ResourceManager.GetString("NetWeightParseError_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New quant.
+        /// </summary>
+        internal static string NewQuant_Text {
+            get {
+                return ResourceManager.GetString("NewQuant_Text", resourceCulture);
             }
         }
         

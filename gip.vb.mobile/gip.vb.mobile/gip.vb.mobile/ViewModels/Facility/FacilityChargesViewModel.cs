@@ -14,11 +14,10 @@ namespace gip.vb.mobile.ViewModels
 {
     public class FacilityChargesViewModel : BaseViewModel, IBarcodeScanFacilityHost
     {
+        #region c'tors
+
         public FacilityChargesViewModel()
         {
-            //LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
-            //LoadLocationsCommand = new Command(async () => await ExecuteLoadLocationsCommand());
-            //LoadFilteredFacilitiesCommand = new Command(async () => await ExecuteLoadFilteredFacilitiesCommand());
             ReadFacilityChargeCommand = new Command(async () => await ExecuteReadFacilityCharge());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             BookZeroStockCommand = new Command(async () => await ExecuteBookZeroStockCommand());
@@ -32,6 +31,8 @@ namespace gip.vb.mobile.ViewModels
 
             FacilityScanViewModel = new BarcodeScanFacilityModel(this);
         }
+
+        #endregion
 
         #region Properties
         private FacilityCharge _Item;

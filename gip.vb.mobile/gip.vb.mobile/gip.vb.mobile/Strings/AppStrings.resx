@@ -576,4 +576,17 @@
   <data name="StockCorrection_Text" xml:space="preserve">
     <value>Stock correction</value>
   </data>
+  <data name="BtnCreateQuant" xml:space="preserve">
+    <value>Create quant</value>
+    <comment>s</comment>
+  </data>
+  <data name="FacilityNotSelected_Text" xml:space="preserve">
+    <value>The facility is not selected. Please, select or scan facility.</value>
+  </data>
+  <data name="MaterialNotSelected_Text" xml:space="preserve">
+    <value>The material is not selected. Please, select material.</value>
+  </data>
+  <data name="NewQuant_Text" xml:space="preserve">
+    <value>New quant</value>
+  </data>
 </root>

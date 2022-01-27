@@ -519,4 +519,16 @@
   <data name="StockCorrection_Text" xml:space="preserve">
     <value>Bestandskorrektur</value>
   </data>
+  <data name="BtnCreateQuant" xml:space="preserve">
+    <value>Quant erstellen</value>
+  </data>
+  <data name="NewQuant_Text" xml:space="preserve">
+    <value>Neuer Quant</value>
+  </data>
+  <data name="FacilityNotSelected_Text" xml:space="preserve">
+    <value>Die Einrichtung ist nicht ausgewählt. Bitte Einrichtung auswählen oder scannen.</value>
+  </data>
+  <data name="MaterialNotSelected_Text" xml:space="preserve">
+    <value>Das Material ist nicht ausgewählt. Bitte, wählen Sie das Material.</value>
+  </data>
 </root>

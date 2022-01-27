@@ -67,17 +67,18 @@
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
                 <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" HorizontalOptions="FillAndExpand" MinimumHeightRequest="150" />
                 <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>
-                <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" VerticalOptions="EndAndExpand" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsChargeCommandPanelVisible}" Value="True">
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsEditPanelVisible}" Value="True" >
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+
                 </StackLayout>
+            <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" VerticalOptions="EndAndExpand" >
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsChargeCommandPanelVisible}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsEditPanelVisible}" Value="True" >
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
         </StackLayout>
     </ScrollView>
 </v:BSOPageBase>

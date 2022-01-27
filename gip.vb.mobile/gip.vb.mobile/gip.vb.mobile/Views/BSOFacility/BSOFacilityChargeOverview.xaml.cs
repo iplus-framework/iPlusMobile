@@ -16,6 +16,8 @@ namespace gip.vb.mobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BSOFacilityChargeOverview : BSOTabbedPageBase
     {
+        #region c'tors
+
         public BSOFacilityChargeOverview()
 		{
             BindingContext = _ViewModel = new FacilityChargesViewModel();
@@ -24,7 +26,17 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Properties
+
+        FacilityChargesViewModel _ViewModel;
+
         BarcodeScanner barcodeScanner;
+
+        #endregion
+
+        #region Methods
 
         protected override void OnAppearing()
         {
@@ -46,16 +58,10 @@ namespace gip.vb.mobile.Views
             this.PageState = PageStateEnum.View;
         }
 
-        #region Properties
-        FacilityChargesViewModel _ViewModel;
-        #endregion
-
-        #region Methods
         private async void TBItemHistory_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BSOFacilityBookingHistory() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.Item } });
         }
-
 
         private void ButtonDoBooking_Clicked(object sender, EventArgs e)
         {
@@ -90,9 +96,6 @@ namespace gip.vb.mobile.Views
             _ViewModel.PrintCommand.Execute(null);
         }
 
-
-        #endregion
-
         private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
         {
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
@@ -124,5 +127,7 @@ namespace gip.vb.mobile.Views
         {
             _ViewModel.SelectedMovementReason = null;
         }
+
+        #endregion
     }
 }
