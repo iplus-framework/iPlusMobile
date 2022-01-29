@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOPickingWorkplace"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers" 
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOPickingWorkplace">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="2" />
+        </Grid.RowDefinitions>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="45"/>
+
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="45" />
+                    
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="45" />
+                    
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="45" />
+
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Label x:Name="LbRegisterToWorkplace" Text="Register to workplace" VerticalOptions="End" />
+                <SearchBar />
+
+                <Label Grid.Row="2" Text="{i18n:Translate Text=SelPickingType_Text}" VerticalTextAlignment="End"/>
+                <StackLayout Orientation="Horizontal" Grid.Row="3">
+                    <Picker x:Name="PickingTypeCombo" 
+                                SelectedItem="{Binding SelectedPickingType, Mode=TwoWay}" 
+                                ItemsSource="{Binding PickingTypes}" 
+                                HorizontalOptions="FillAndExpand"
+                                MinimumWidthRequest="50"
+                                ItemDisplayBinding="{Binding MDPickingTypeName}"/>
+                    <Button x:Name="cmdClearPickingType" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large"  />
+
+                </StackLayout>
+
+
+                <Label Grid.Row="4" Text="{i18n:Translate Text=FromStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
+                <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                    <Entry x:Name="FacilityFromEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationFrom.FacilityName}"  />
+                    <Button x:Name="cmdClearFacilityFrom" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+                </StackLayout>
+
+                <Label Grid.Row="6" Text="{i18n:Translate Text=ToStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
+                <StackLayout Orientation="Horizontal" Grid.Row="7" Margin="2,0,2,2">
+                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationTo.FacilityName}" />
+                    <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" />
+                </StackLayout>
+
+
+                <Label Grid.Row="8" Text="{i18n:Translate Text=DateFrom_Text}" VerticalTextAlignment="End" Margin="3,0,2,0"/>
+                <DatePicker Grid.Row="9" Margin="2,0,2,0" Date="{Binding DateFrom}" Format="dd.MM.yyyy." />
+
+                <Label Grid.Row="10" Text="{i18n:Translate Text=DateTo_Text}" VerticalTextAlignment="End" Margin="3,0,2,0"/>
+                <DatePicker Grid.Row="11" Margin="2,0,2,2" Date="{Binding DateTo}" Format="dd.MM.yyyy." />
+
+
+            </Grid>
+        </ScrollView>
+        <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}"/>
+    </Grid>
+</v:BSOPageBase>
