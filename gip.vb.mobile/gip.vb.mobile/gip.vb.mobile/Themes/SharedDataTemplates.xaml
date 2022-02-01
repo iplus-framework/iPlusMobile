@@ -139,6 +139,10 @@
                             <Setter Property="Color" Value="Red" />
                         </DataTrigger>
 
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding NotAvailable}" Value="True">
+                            <Setter Property="Color" Value="Red" />
+                        </DataTrigger>
+
                     </BoxView.Triggers>
                 </BoxView>
             </Grid>

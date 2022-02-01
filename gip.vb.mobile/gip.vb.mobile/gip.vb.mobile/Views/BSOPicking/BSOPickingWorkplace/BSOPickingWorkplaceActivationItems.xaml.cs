@@ -20,6 +20,7 @@ namespace gip.vb.mobile.Views
         {
             BindingContext = _ViewModel = new PickingWorkplaceActItemsViewModel();
             BarcodeScan = new BarcodeScanner();
+            BarcodeScan._ViewModel = _ViewModel.BarcodeScanModel;
             BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
 
             InitializeComponent();
@@ -35,12 +36,21 @@ namespace gip.vb.mobile.Views
 
         protected override void OnAppearing()
         {
+            BarcodeScan.OnBarcodeCommandInvoked += BarcodeScan_OnBarcodeCommandInvoked;
+            BarcodeScan.OnAppearing();
             base.OnAppearing();
             InitPageOnNavigation();
         }
 
+        private void BarcodeScan_OnBarcodeCommandInvoked(object sender, EventArgs e)
+        {
+            _ViewModel.ActivateDeactivateQuantCommnd.Execute(null);
+        }
+
         protected override void OnDisappearing()
         {
+            BarcodeScan.OnBarcodeCommandInvoked -= BarcodeScan_OnBarcodeCommandInvoked;
+            BarcodeScan.OnDisappearing();
             base.OnDisappearing();
         }
 
@@ -67,6 +77,11 @@ namespace gip.vb.mobile.Views
                                            { NavParam = new NavParameter(PageStateEnum.View) 
                                                            { Arguments = new object[] { quant, _ViewModel.PickingsWorkplaceModel?.RegisteredWorkplace } } 
                                            });
+        }
+
+        private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            BarcodeScan.Search(sbActivateDeactivateQuant.Text);
         }
     }
 }

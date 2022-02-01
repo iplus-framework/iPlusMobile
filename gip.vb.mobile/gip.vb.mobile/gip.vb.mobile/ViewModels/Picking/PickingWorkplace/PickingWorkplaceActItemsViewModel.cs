@@ -1,4 +1,5 @@
-﻿using gip.core.datamodel;
+﻿using gip.core.autocomponent;
+using gip.core.datamodel;
 using gip.core.webservices;
 using gip.mes.webservices;
 using System;
@@ -16,7 +17,9 @@ namespace gip.vb.mobile.ViewModels
         public PickingWorkplaceActItemsViewModel()
         {
             GetActivatedQuantsCommand = new Command(async () => await ExecuteGetActivatedQuants());
+            ActivateDeactivateQuantCommnd = new Command(async () => await ExecuteActivateDeactivateQuant());
             ActivationQuants = new ObservableCollection<FacilityCharge>();
+            BarcodeScanModel = new BarcodeScanModelBase();
         }
 
 
@@ -39,6 +42,12 @@ namespace gip.vb.mobile.ViewModels
                 SetProperty(ref _PickingsWorkplaceModel, value);
                 GetActivatedQuantsCommand.Execute(null);
             }
+        }
+
+        public BarcodeScanModelBase BarcodeScanModel
+        {
+            get;
+            private set;
         }
 
         public Command GetActivatedQuantsCommand
@@ -115,6 +124,105 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Command ActivateDeactivateQuantCommnd
+        {
+            get;
+            set;
+        }
+
+        public async Task ExecuteActivateDeactivateQuant()
+        {
+            BarcodeSequence sequence = BarcodeScanModel.Item;
+            if (sequence == null)
+            {
+                Message = new Msg(eMsgLevel.Error, "Please, scan facility charge first then try activate");
+                return;
+            }
+
+            FacilityCharge fc = sequence.LastAddedSequence?.FacilityCharge;
+            if (fc == null)
+            {
+                Message = new Msg(eMsgLevel.Error, "Please, scan quant to activate/deactivate");
+                return;
+            }
+
+            var itemToActivateDeactivate = ActivationQuants.FirstOrDefault(c => c.Material != null && c.Material.MaterialID == fc.Material.MaterialID);
+            if (itemToActivateDeactivate == null)
+            {
+                Message = new Msg(eMsgLevel.Error, "Scanned quant is not currently required!");
+                return;
+            }
+
+            bool isActivation = itemToActivateDeactivate.FacilityChargeID != Guid.Empty && itemToActivateDeactivate.FacilityChargeID == fc.FacilityChargeID;
+
+            FacilityChargeActivationItem actItem = new FacilityChargeActivationItem()
+            {
+                FacilityChargeID = fc.FacilityChargeID,
+                Material = fc.Material,
+                WorkplaceID = PickingsWorkplaceModel.RegisteredWorkplace.ACClassID
+            };
+
+            IsBusy = true;
+
+            try
+            {
+
+                WSResponse<bool> response = null;
+
+                if (isActivation)
+                {
+                    response = await _WebService.ActivateFacilityChargeAsync(actItem);
+                }
+                else
+                {
+                    response = await _WebService.DeactivateFacilityChargeAsync(actItem);
+                }
+                if (response.Suceeded)
+                {
+                    if (response.Message != null)
+                    {
+                        Message = response.Message;
+                    }
+
+                    if (response.Data)
+                    {
+                        if (isActivation)
+                        {
+                            Message = new Msg(eMsgLevel.Info, "Activation is successful");
+                            ActivationQuants.Remove(itemToActivateDeactivate);
+                            ActivationQuants.Add(fc);
+                        }
+                        else
+                        {
+                            Message = new Msg(eMsgLevel.Info, "Deactivation is successful");
+                            fc.FacilityChargeID = Guid.Empty;
+                            fc.StockQuantity = 0.0;
+                            fc.Facility = null;
+                            fc.FacilityLot = null;
+                            ActivationQuants.Remove(itemToActivateDeactivate);
+                            ActivationQuants.Insert(0,fc);
+                        }
+                    }
+                    else
+                    {
+                        Message = new Msg(eMsgLevel.Info, "Activation is not successful");
+                    }
+
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
         public override void DialogResponse(Global.MsgResult result, string enteredValue = null)
         {

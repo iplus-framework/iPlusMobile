@@ -17,7 +17,7 @@
     <StackLayout>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
 
-        <SearchBar Text="Scan quant and activate/deactivate" />
+        <SearchBar x:Name="sbActivateDeactivateQuant" Text="Scan quant and activate/deactivate" SearchButtonPressed="SearchBar_SearchButtonPressed" />
 
         <ListView x:Name="FacilityChargeActivationListView"
                 ItemsSource="{Binding ActivationQuants}"

@@ -16,6 +16,7 @@ namespace gip.vb.mobile.ViewModels
         {
             BarcodeScanModel = new BarcodeScanModelBase(true);
             ActivateFacilityChargeCommand = new Command(async () => await ExecuteActivateFacilityCharge());
+            DeactivateFacilityChargeCommand = new Command(async () => await ExecuteDeactivateFacilityCharge());
         }
 
         private FacilityCharge _Item;
@@ -122,6 +123,67 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public Command DeactivateFacilityChargeCommand
+        {
+            get;
+            set;
+        }
+
+        public async Task ExecuteDeactivateFacilityCharge()
+        {
+            if (IsBusy || BarcodeScanModel == null || Item == null)
+                return;
+
+            if (Workplace == null)
+            {
+                Message = new Msg(eMsgLevel.Error, "Workplace is empty");
+                return;
+            }
+
+            try
+            {
+                FacilityChargeActivationItem deactItem = new FacilityChargeActivationItem()
+                {
+                    FacilityChargeID = Item.FacilityChargeID,
+                    Material = Item.Material,
+                    WorkplaceID = Workplace.ACClassID
+                };
+
+                IsBusy = true;
+
+                WSResponse<bool> response = await _WebService.DeactivateFacilityChargeAsync(deactItem);
+                if (response.Suceeded)
+                {
+                    if (response.Message != null)
+                    {
+                        Message = response.Message;
+                    }
+
+                    if (response.Data)
+                    {
+                        Message = new Msg(eMsgLevel.Info, "Deactivation is successful");
+                        //Item = fc;
+                    }
+                    else
+                    {
+                        Message = new Msg(eMsgLevel.Info, "Deactivation is not successful");
+                    }
+
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
         public override void DialogResponse(Global.MsgResult result, string enteredValue = null)
         {

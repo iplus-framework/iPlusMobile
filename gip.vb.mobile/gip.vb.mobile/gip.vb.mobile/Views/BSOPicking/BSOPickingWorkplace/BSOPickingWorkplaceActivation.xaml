@@ -39,7 +39,7 @@
 
         <StackLayout VerticalOptions="EndAndExpand">
             <Button x:Name="BtnActivate" Text="Activate" VerticalOptions="EndAndExpand" Command="{Binding ActivateFacilityChargeCommand}" />
-        <Button x:Name="BtnDeactivate" Text="Deactivate" VerticalOptions="EndAndExpand" />
+            <Button x:Name="BtnDeactivate" Text="Deactivate" VerticalOptions="EndAndExpand" Command="{Binding DeactivateFacilityChargeCommand}" />
         </StackLayout>
     </StackLayout>
 </v:BSOPageBase>
