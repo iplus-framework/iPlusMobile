@@ -1,12 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivation">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivation"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+              Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Name="BrowseBSOPicking">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+        <Label Text="Active quant:" />
+        <Grid VerticalOptions="Start" Margin="0,2,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Item.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Item.Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Item.FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Item.SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="2" Grid.Column="0" Text="{Binding Item.StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+        </Grid>
+
+        <ctl:BarcodeScanner x:Name="barcodeScanner" IsEnabledInvokeBarcodeOnServer="True" OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked" />
+
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button x:Name="BtnActivate" Text="Activate" VerticalOptions="EndAndExpand" Command="{Binding ActivateFacilityChargeCommand}" />
+        <Button x:Name="BtnDeactivate" Text="Deactivate" VerticalOptions="EndAndExpand" />
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </StackLayout>
+</v:BSOPageBase>

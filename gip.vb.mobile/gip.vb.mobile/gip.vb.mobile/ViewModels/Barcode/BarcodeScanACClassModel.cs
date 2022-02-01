@@ -8,9 +8,9 @@ namespace gip.vb.mobile.ViewModels
 {
     public class BarcodeScanACClassModel : BarcodeScanModelBase
     {
-        public BarcodeScanACClassModel(IBarcodeScanACClassHost barcodeScanHost)
+        public BarcodeScanACClassModel(IBarcodeScanACClassHost barcodeScanHost) : base ()
         {
-
+            BarcodeScanHost = barcodeScanHost;
         }
 
         public IBarcodeScanACClassHost BarcodeScanHost

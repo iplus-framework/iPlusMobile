@@ -28,6 +28,13 @@ namespace gip.vb.mobile.Services
             return await Get<FacilityCharge>(String.Format(VBWebServiceConst.UriFacilityChargeID_F, facilityChargeID));
         }
 
+        public async Task<WSResponse<List<FacilityCharge>>> GetRegisteredFacilityChargesAsync(string workplaceID)
+        {
+            if (string.IsNullOrEmpty(workplaceID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>> (null, new Msg(eMsgLevel.Error, "workplaceID is empty")));
+            return await Get<List<FacilityCharge>>(string.Format(VBWebServiceConst.UriRegisteredFacilityChargeID_F, workplaceID));
+        }
+
         public async Task<WSResponse<FacilityCharge>> GetFacilityChargeByBarcodeAsync(string barcodeID)
         {
             if (string.IsNullOrEmpty(barcodeID))
@@ -56,6 +63,22 @@ namespace gip.vb.mobile.Services
                 return await Task.FromResult(new WSResponse<FacilityCharge>(null, new Msg(eMsgLevel.Error, "parameter facility charge is null")));
 
             return await Post<FacilityCharge, FacilityCharge>(facilityCharge, VBWebServiceConst.UriFacilityChargeNew);
+        }
+
+        public async Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeActivationItem activationItem)
+        {
+            if (activationItem == null)
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameter activationItem is null")));
+
+            return await Post<bool, FacilityChargeActivationItem>(activationItem, VBWebServiceConst.UriActivateFacilityCharge);
+        }
+
+        public async Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeActivationItem deactivationItem)
+        {
+            if (deactivationItem == null)
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameter deactivationItem is null")));
+
+            return await Post<bool, FacilityChargeActivationItem>(deactivationItem, VBWebServiceConst.UriDeactivateFacilityCharge);
         }
 
         #endregion

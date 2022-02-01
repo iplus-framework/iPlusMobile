@@ -1,12 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivationItems">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+             x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivationItems"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+              Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Name="BrowseBSOPicking">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+        <SearchBar Text="Scan quant and activate/deactivate" />
+
+        <ListView x:Name="FacilityChargeActivationListView"
+                ItemsSource="{Binding ActivationQuants}"
+                ItemTemplate="{StaticResource FacilityChargeActivationItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemTapped="FacilityChargeActivationListView_ItemTapped">
+        </ListView>
+
+        <Button x:Name="BtnClose" Text="Close" VerticalOptions="EndAndExpand" />
+    </StackLayout>
+</v:BSOPageBase>

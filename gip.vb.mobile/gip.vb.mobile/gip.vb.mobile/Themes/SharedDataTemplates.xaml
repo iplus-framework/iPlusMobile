@@ -7,6 +7,8 @@
                     x:Class="gip.vb.mobile.Themes.SharedDataTemplates">
     
     <i18n:PercentageColorConverter x:Key="PercentageConv" />
+    <i18n:GuidEmptyConverter x:Key="GuidEmptyConv" />
+    <helpers:DoubleEqualsOrGreaterThan x:Key="DoubleGTConv" />
 
     <DataTemplate x:Key="ACClassItemTemplate">
         <ctl:ExtendedViewCell>
@@ -94,6 +96,51 @@
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="2" Grid.Column="0" Text="{Binding StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityChargeActivationItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="2" Grid.Column="0" Text="{Binding StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding FacilityLot.ExternLotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <BoxView Grid.Column="2" Grid.RowSpan="3">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="True" >
+                            <Setter Property="Color" Value="Lime" />
+                        </DataTrigger>
+
+                        <MultiTrigger TargetType="{x:Type BoxView}">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="False" />
+                                <BindingCondition Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Color" Value="Orange" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="True">
+                            <Setter Property="Color" Value="Red" />
+                        </DataTrigger>
+
+                    </BoxView.Triggers>
+                </BoxView>
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

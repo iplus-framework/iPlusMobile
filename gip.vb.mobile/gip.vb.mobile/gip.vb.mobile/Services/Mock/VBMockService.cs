@@ -177,5 +177,20 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<List<FacilityCharge>>> GetRegisteredFacilityChargesAsync(string workplaceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeActivationItem activationItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeActivationItem deactivationItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

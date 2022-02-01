@@ -173,8 +173,7 @@ namespace gip.vb.mobile.Controls
         /// <param name="e"></param>
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            _ViewModel.CurrentBarcode = (sender as SearchBar)?.Text;
-            HandleScanProcess();
+            Search((sender as SearchBar)?.Text);
         }
 
         /// <summary>
@@ -316,7 +315,7 @@ namespace gip.vb.mobile.Controls
         /// <summary>
         /// Clean up forms and prepare for next usage
         /// </summary>
-        public void Clean()
+        public void Clear()
         {
             _ViewModel.Clear();
             if (OnCleanUpForm != null)
@@ -341,6 +340,14 @@ namespace gip.vb.mobile.Controls
                 OnCleanUpForm(this, new EventArgs() { });
             else
              _ViewModel.Clear();
+        }
+
+        public void Search(string text)
+        {
+            if (_ViewModel.Item != null)
+                _ViewModel.Item.CurrentBarcode = text;
+            _ViewModel.CurrentBarcode = text;
+            HandleScanProcess();
         }
 
         #endregion

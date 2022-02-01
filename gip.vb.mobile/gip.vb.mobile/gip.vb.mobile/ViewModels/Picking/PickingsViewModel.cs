@@ -98,7 +98,13 @@ namespace gip.vb.mobile.ViewModels
             finally
             {
                 IsBusy = false;
+                OnExecutedLoadPickings();
             }
+        }
+
+        public virtual void OnExecutedLoadPickings()
+        {
+
         }
 
         private PickingMaterial _SelectedPickingMaterial;

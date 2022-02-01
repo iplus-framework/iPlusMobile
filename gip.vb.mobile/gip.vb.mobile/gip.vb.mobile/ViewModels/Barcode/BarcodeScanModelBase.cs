@@ -13,14 +13,22 @@ namespace gip.vb.mobile.ViewModels
 {
     public class BarcodeScanModelBase : BaseViewModel
     {
-        public BarcodeScanModelBase()
+        #region c'tors
+
+        public BarcodeScanModelBase(bool addToListOnScan = false)
         {
             ResetScanSequence();
             InvokeBarcodeCommand = new Command(async () => await ExecuteInvokeBarcodeCommand());
             GetBarcodeEntityCommand = new Command(async () => await ExecuteGetBarcodeEntityCommand());
+            _AddToListOnScan = addToListOnScan;
         }
 
+        #endregion
+
         #region Properties
+
+        private bool _AddToListOnScan = false;
+
         private bool _ZXingIsScanning;
         public bool ZXingIsScanning
         {
@@ -44,6 +52,14 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _Item, value);
+                if (_AddToListOnScan)
+                {
+                    List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
+                                            .Select(c => c.ValidEntity)
+                                            .ToList();
+                    SelectedSequence = null;
+                    BarcodeSequence = barcodeSequence;
+                }
             }
         }
 

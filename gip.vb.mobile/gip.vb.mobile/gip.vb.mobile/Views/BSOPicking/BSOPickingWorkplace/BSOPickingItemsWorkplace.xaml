@@ -1,12 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gip.vb.mobile.Views.BSOPickingItemsWorkplace">
-    <ContentPage.Content>
+             x:Class="gip.vb.mobile.Views.BSOPickingItemsWorkplace"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+              Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Name="BrowseBSOPicking">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+        <ToolbarItem x:Name="TBQuantActivation" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconQuant.png" Clicked="TBQuantActivation_Clicked" >
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="{x:Type StackLayout}" Binding="{Binding GroupItems}" Value="{x:Null}">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </StackLayout.Triggers>
+            
+            <Label Text="Odaberi grupu" />
+            <StackLayout Orientation="Horizontal">
+                <Picker x:Name="PGroupItem" ItemsSource="{Binding GroupItems}" SelectedItem="{Binding SelectedGroupItem, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
+                <Button x:Name="cmdClearGroupItem" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large"  />
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+
+        <ListView x:Name="PickingsListView"
+                ItemsSource="{Binding PickingItems}"
+                ItemTemplate="{StaticResource PickingItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadPickingsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemSelected="OnPickingSelected"
+                ItemTapped="PickingsListView_ItemTapped">
+        </ListView>
+
+        <Button x:Name="BtnFinishOrders" Text="Završi i knjiži" VerticalOptions="EndAndExpand" />
+    </StackLayout>
+</v:BSOPageBase>

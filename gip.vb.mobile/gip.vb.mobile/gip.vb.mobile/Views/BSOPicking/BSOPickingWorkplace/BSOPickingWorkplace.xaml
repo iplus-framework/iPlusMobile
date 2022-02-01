@@ -47,7 +47,7 @@
                 </Grid.RowDefinitions>
 
                 <Label x:Name="LbRegisterToWorkplace" Text="Register to workplace" VerticalOptions="End" />
-                <SearchBar />
+                <SearchBar Grid.Row="1" x:Name="SBRegisteredWorkplace" Text="{Binding RegisteredWorkplace.ACCaption}" SearchButtonPressed="SearchBar_SearchButtonPressed" />
 
                 <Label Grid.Row="2" Text="{i18n:Translate Text=SelPickingType_Text}" VerticalTextAlignment="End"/>
                 <StackLayout Orientation="Horizontal" Grid.Row="3">
@@ -57,21 +57,21 @@
                                 HorizontalOptions="FillAndExpand"
                                 MinimumWidthRequest="50"
                                 ItemDisplayBinding="{Binding MDPickingTypeName}"/>
-                    <Button x:Name="cmdClearPickingType" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large"  />
+                    <Button x:Name="cmdClearPickingType" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearPickingType_Clicked"  />
 
                 </StackLayout>
 
 
                 <Label Grid.Row="4" Text="{i18n:Translate Text=FromStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
                 <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
-                    <Entry x:Name="FacilityFromEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationFrom.FacilityName}"  />
-                    <Button x:Name="cmdClearFacilityFrom" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+                    <Entry x:Name="FacilityFromEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationFrom.FacilityName}" Focused="FacilityFromEntry_Focused"  />
+                    <Button x:Name="cmdClearFacilityFrom" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearFacilityFrom_Clicked" />
                 </StackLayout>
 
                 <Label Grid.Row="6" Text="{i18n:Translate Text=ToStorageLocation_Text}" VerticalTextAlignment="End" Margin="3,0,2,0" />
                 <StackLayout Orientation="Horizontal" Grid.Row="7" Margin="2,0,2,2">
-                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationTo.FacilityName}" />
-                    <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" />
+                    <Entry x:Name="FacilityToEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedStorageLocationTo.FacilityName}" Focused="FacilityToEntry_Focused" />
+                    <Button x:Name="cmdClearFacilityTo" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacilityTo_Clicked" />
                 </StackLayout>
 
 
@@ -84,6 +84,12 @@
 
             </Grid>
         </ScrollView>
-        <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}"/>
+        <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}" Clicked="btnShowOrders_Clicked">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding RegisteredWorkplace}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>                
+            </Button.Triggers>
+        </Button>
     </Grid>
 </v:BSOPageBase>
