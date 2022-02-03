@@ -49,6 +49,6 @@
                 ItemTapped="PickingsListView_ItemTapped">
         </ListView>
 
-        <Button x:Name="BtnFinishOrders" Text="Završi i knjiži" VerticalOptions="EndAndExpand" />
+        <Button x:Name="BtnFinishOrders" Text="Završi i knjiži" VerticalOptions="EndAndExpand" Command="{Binding FinishAndBookOrdersCommand}" />
     </StackLayout>
 </v:BSOPageBase>

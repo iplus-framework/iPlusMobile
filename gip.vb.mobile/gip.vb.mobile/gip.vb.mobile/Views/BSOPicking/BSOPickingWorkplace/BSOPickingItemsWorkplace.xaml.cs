@@ -25,6 +25,7 @@ namespace gip.vb.mobile.Views
                 PickingWorkplaceViewModel viewModel = NavParam.Arguments as PickingWorkplaceViewModel;
                 if (viewModel != null)
                 {
+                    _ViewModel.PickingFilter = viewModel;
                     _ViewModel.RegisteredWorkplace = viewModel.RegisteredWorkplace ;
                 }
             }

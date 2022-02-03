@@ -84,7 +84,8 @@ namespace gip.vb.mobile.ViewModels
                                                                  .Select(p => new FacilityCharge()
                                                                  {
                                                                      Material = p.FirstOrDefault()?.Material,
-                                                                     MDUnit = p.FirstOrDefault()?.MDUnit
+                                                                     MDUnit = p.FirstOrDefault()?.MDUnit,
+                                                                     StockQuantity = p.Sum(x => x.TargetQuantity)
                                                                  }).ToList();
 
                         if (activatedQuantsList != null)
@@ -153,7 +154,7 @@ namespace gip.vb.mobile.ViewModels
                 return;
             }
 
-            bool isActivation = itemToActivateDeactivate.FacilityChargeID != Guid.Empty && itemToActivateDeactivate.FacilityChargeID == fc.FacilityChargeID;
+            bool isdeactivation = itemToActivateDeactivate.FacilityChargeID != Guid.Empty && itemToActivateDeactivate.FacilityChargeID == fc.FacilityChargeID;
 
             FacilityChargeActivationItem actItem = new FacilityChargeActivationItem()
             {
@@ -169,7 +170,7 @@ namespace gip.vb.mobile.ViewModels
 
                 WSResponse<bool> response = null;
 
-                if (isActivation)
+                if (!isdeactivation)
                 {
                     response = await _WebService.ActivateFacilityChargeAsync(actItem);
                 }
@@ -186,7 +187,7 @@ namespace gip.vb.mobile.ViewModels
 
                     if (response.Data)
                     {
-                        if (isActivation)
+                        if (!isdeactivation)
                         {
                             Message = new Msg(eMsgLevel.Info, "Activation is successful");
                             ActivationQuants.Remove(itemToActivateDeactivate);

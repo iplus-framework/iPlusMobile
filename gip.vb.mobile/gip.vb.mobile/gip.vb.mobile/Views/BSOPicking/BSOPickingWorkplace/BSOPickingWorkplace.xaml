@@ -11,6 +11,7 @@
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
+            <i18n:NullConverter x:Key="NullConv" />
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
@@ -86,7 +87,7 @@
         </ScrollView>
         <Button Grid.Row="1" x:Name="btnShowOrders"  Text="{i18n:Translate Text=Btn_ShowPickingOrders}" Clicked="btnShowOrders_Clicked">
             <Button.Triggers>
-                <DataTrigger TargetType="Button" Binding="{Binding RegisteredWorkplace}" Value="{x:Null}">
+                <DataTrigger TargetType="Button" Binding="{Binding RegisteredWorkplace, Converter={x:StaticResource NullConv}}" Value="True">
                     <Setter Property="IsEnabled" Value="False" />
                 </DataTrigger>                
             </Button.Triggers>
