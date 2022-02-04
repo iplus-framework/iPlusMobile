@@ -38,16 +38,16 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //ViewModels.BarcodeScanInventoryModel scanModel = new ViewModels.BarcodeScanInventoryModel(this);
-            //barcodeScanner._ViewModel = scanModel;
-            //barcodeScanner.OnAppearing();
+ 
             _ViewModel.Title = AppStrings.Inv_SelectStorage;
-            _ViewModel.FacilityInventoryNo = NavParam.Arguments.ToString();
-            // _ViewModel.ScanInventoryModel = scanModel;
 
-            // Prepare list of facilities for select working place (storage place or / and facility
-            //if (_ViewModel.AllFacilities == null || !_ViewModel.AllFacilities.Any())
-            //    _ViewModel.GetFacilitiesCommand.Execute(null);
+            FacilityInventory inv = NavParam.Arguments as FacilityInventory;
+
+            if (inv != null)
+            {
+                _ViewModel.FacilityInventoryNo = inv.FacilityInventoryNo;
+                _ViewModel.FacilityInventoryID = inv.FacilityInventoryID;
+            }
 
             _ViewModel.OnAppear();
 
@@ -89,6 +89,7 @@ namespace gip.vb.mobile.Views
                         {
                             StorageLocationNo = _ViewModel.SelectedStorageLocation != null ? _ViewModel.SelectedStorageLocation.FacilityNo : null,
                             FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
+                            FacilityInventoryID = _ViewModel.FacilityInventoryID,
                             EditMode = EditModeEnum.GoAndCount,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
                             SelectedFacility = _ViewModel.SelectedFacilityForFilter,
@@ -114,6 +115,7 @@ namespace gip.vb.mobile.Views
                         {
                             StorageLocationNo = _ViewModel.SelectedStorageLocation != null ? _ViewModel.SelectedStorageLocation.FacilityNo : null,
                             FacilityInventoryNo = _ViewModel.FacilityInventoryNo,
+                            FacilityInventoryID = _ViewModel.FacilityInventoryID,
                             EditMode = EditModeEnum.Confirm,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
                             SelectedFacility = _ViewModel.SelectedFacilityForFilter,

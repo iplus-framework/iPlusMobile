@@ -156,11 +156,11 @@ namespace gip.vb.mobile.ViewModels
 
             bool isdeactivation = itemToActivateDeactivate.FacilityChargeID != Guid.Empty && itemToActivateDeactivate.FacilityChargeID == fc.FacilityChargeID;
 
-            FacilityChargeActivationItem actItem = new FacilityChargeActivationItem()
+            FacilityChargeParamItem actItem = new FacilityChargeParamItem()
             {
                 FacilityChargeID = fc.FacilityChargeID,
                 Material = fc.Material,
-                WorkplaceID = PickingsWorkplaceModel.RegisteredWorkplace.ACClassID
+                ParamID = PickingsWorkplaceModel.RegisteredWorkplace.ACClassID
             };
 
             IsBusy = true;

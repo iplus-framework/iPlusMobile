@@ -57,28 +57,28 @@ namespace gip.vb.mobile.Services
             return await Get<FacilityCharge>(String.Format(VBWebServiceConst.UriFacilityChargeFacilityMaterialLot_F, facilityID, materialID, facilityLotID, splitNo));
         }
 
-        public async Task<WSResponse<FacilityCharge>> CreateFacilityChargeAsync(FacilityCharge facilityCharge)
+        public async Task<WSResponse<FacilityCharge>> CreateFacilityChargeAsync(FacilityChargeParamItem facilityCharge)
         {
             if (facilityCharge == null)
                 return await Task.FromResult(new WSResponse<FacilityCharge>(null, new Msg(eMsgLevel.Error, "parameter facility charge is null")));
 
-            return await Post<FacilityCharge, FacilityCharge>(facilityCharge, VBWebServiceConst.UriFacilityChargeNew);
+            return await Post<FacilityCharge, FacilityChargeParamItem>(facilityCharge, VBWebServiceConst.UriFacilityChargeNew);
         }
 
-        public async Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeActivationItem activationItem)
+        public async Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeParamItem activationItem)
         {
             if (activationItem == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameter activationItem is null")));
 
-            return await Post<bool, FacilityChargeActivationItem>(activationItem, VBWebServiceConst.UriActivateFacilityCharge);
+            return await Post<bool, FacilityChargeParamItem>(activationItem, VBWebServiceConst.UriActivateFacilityCharge);
         }
 
-        public async Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeActivationItem deactivationItem)
+        public async Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeParamItem deactivationItem)
         {
             if (deactivationItem == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "parameter deactivationItem is null")));
 
-            return await Post<bool, FacilityChargeActivationItem>(deactivationItem, VBWebServiceConst.UriDeactivateFacilityCharge);
+            return await Post<bool, FacilityChargeParamItem>(deactivationItem, VBWebServiceConst.UriDeactivateFacilityCharge);
         }
 
         #endregion

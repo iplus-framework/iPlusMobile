@@ -77,6 +77,12 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
         }
 
+        public Guid FacilityInventoryID
+        {
+            get;
+            set;
+        }
+
         private bool _IsValidateAndComplete;
         /// <summary>
         /// Validate and complete mode

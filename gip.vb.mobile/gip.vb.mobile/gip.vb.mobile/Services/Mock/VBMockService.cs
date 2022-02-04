@@ -163,7 +163,7 @@ namespace gip.vb.mobile.Services
             throw new NotImplementedException();
         }
 
-        public Task<WSResponse<FacilityCharge>> CreateFacilityChargeAsync(FacilityCharge facilityCharge)
+        public Task<WSResponse<FacilityCharge>> CreateFacilityChargeAsync(FacilityChargeParamItem facilityCharge)
         {
             throw new NotImplementedException();
         }
@@ -183,12 +183,12 @@ namespace gip.vb.mobile.Services
             throw new NotImplementedException();
         }
 
-        public Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeActivationItem activationItem)
+        public Task<WSResponse<bool>> ActivateFacilityChargeAsync(FacilityChargeParamItem activationItem)
         {
             throw new NotImplementedException();
         }
 
-        public Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeActivationItem deactivationItem)
+        public Task<WSResponse<bool>> DeactivateFacilityChargeAsync(FacilityChargeParamItem deactivationItem)
         {
             throw new NotImplementedException();
         }

@@ -72,7 +72,7 @@ namespace gip.vb.mobile.Views
             if (inventory == null)
                 return;
             _ViewModel.SelectedFacilityInventory = inventory;
-            await Navigation.PushAsync(new BSOInventoryMode() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = inventory.FacilityInventoryNo } });
+            await Navigation.PushAsync(new BSOInventoryMode() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = inventory } });
         }
 
         /// <summary>

@@ -80,11 +80,11 @@ namespace gip.vb.mobile.ViewModels
                     return;
                 }
 
-                FacilityChargeActivationItem actItem = new FacilityChargeActivationItem()
+                FacilityChargeParamItem actItem = new FacilityChargeParamItem()
                 {
                     FacilityChargeID = fc.FacilityChargeID,
                     Material = fc.Material,
-                    WorkplaceID = Workplace.ACClassID
+                    ParamID = Workplace.ACClassID
                 };
 
                 IsBusy = true;
@@ -142,11 +142,11 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                FacilityChargeActivationItem deactItem = new FacilityChargeActivationItem()
+                FacilityChargeParamItem deactItem = new FacilityChargeParamItem()
                 {
                     FacilityChargeID = Item.FacilityChargeID,
                     Material = Item.Material,
-                    WorkplaceID = Workplace.ACClassID
+                    ParamID = Workplace.ACClassID
                 };
 
                 IsBusy = true;

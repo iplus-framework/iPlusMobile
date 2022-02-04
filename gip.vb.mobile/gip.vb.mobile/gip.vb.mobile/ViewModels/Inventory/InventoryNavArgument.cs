@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using System;
 
 namespace gip.vb.mobile.ViewModels.Inventory
 {
@@ -18,6 +19,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         public string StorageLocationNo { get; set; }
         public string FacilityInventoryNo { get; set; }
+
+        public Guid FacilityInventoryID { get; set; }
 
         public EditModeEnum EditMode { get; set; }
 

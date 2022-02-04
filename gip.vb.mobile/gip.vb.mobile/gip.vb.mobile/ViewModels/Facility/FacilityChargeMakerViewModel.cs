@@ -88,6 +88,12 @@ namespace gip.vb.mobile.ViewModels
 
         public BarcodeScanFacilityModel FacilityScanViewModel;
 
+        public Guid? FacilityInventoryID
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Methods
@@ -124,7 +130,18 @@ namespace gip.vb.mobile.ViewModels
                     return;
                 }
 
-                var response = await _WebService.CreateFacilityChargeAsync(Item);
+                FacilityChargeParamItem fcParam = new FacilityChargeParamItem();
+                fcParam.Material = Item.Material;
+                fcParam.Facility = Item.Facility;
+                fcParam.FacilityLot = Item.FacilityLot;
+                fcParam.StockQuantity = Item.StockQuantity;
+
+                if (FacilityInventoryID.HasValue)
+                {
+                    fcParam.ParamID = FacilityInventoryID.Value;
+                }
+
+                var response = await _WebService.CreateFacilityChargeAsync(fcParam);
                 if (response.Suceeded)
                 {
                     if (response.Message != null)

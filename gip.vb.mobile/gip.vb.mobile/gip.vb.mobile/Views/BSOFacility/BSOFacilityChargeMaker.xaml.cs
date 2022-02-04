@@ -46,6 +46,13 @@ namespace gip.vb.mobile.Views
             base.OnAppearing();
             BarcodeScan._ViewModel = _ViewModel.FacilityScanViewModel;
             BarcodeScan.OnAppearing();
+
+            Guid? invID = NavParam.Arguments as Guid?;
+            if (invID.HasValue)
+            {
+                _ViewModel.FacilityInventoryID = invID.Value;
+            }
+
             _ViewModel.OnAppear();
         }
 

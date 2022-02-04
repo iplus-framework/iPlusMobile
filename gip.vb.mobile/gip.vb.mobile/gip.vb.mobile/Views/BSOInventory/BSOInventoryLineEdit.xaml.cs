@@ -128,7 +128,7 @@ namespace gip.vb.mobile.Views
 
         private async void btnNewQuant_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOFacilityChargeMaker());
+            await Navigation.PushAsync(new BSOFacilityChargeMaker() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.InventoryNavArgument.FacilityInventoryID } });
         }
     }
 }
