@@ -42,8 +42,15 @@ namespace gip.vb.mobile.ViewModels
             set;
         }
 
-        private bool _IsPickingWorkplaceError = false;
-
+        private bool _IsPickingWorkplaceError;
+        public bool IsPickingWorkplaceError
+        {
+            get => _IsPickingWorkplaceError;
+            private set
+            {
+                SetProperty(ref _IsPickingWorkplaceError, value);
+            }
+        }
         public void RefreshItem()
         {            
         }
@@ -149,10 +156,12 @@ namespace gip.vb.mobile.ViewModels
             get;
             set;
         }
-
         public async Task ExecuteFinishAndBookOrder()
         {
             if (IsBusy)
+                return;
+
+            if (IsPickingWorkplaceError)
                 return;
 
             try
@@ -198,10 +207,14 @@ namespace gip.vb.mobile.ViewModels
 
                     if (response.Suceeded)
                     {
+                        IsBusy = false;
+
+                        UpdatePickingCommand.Execute(null);
+
                         MsgWithDetails result = response.Data;
                         if (result != null && result.MsgDetailsCount > 0)
                         {
-                            _IsPickingWorkplaceError = true;
+                            IsPickingWorkplaceError = true;
                             ShowDialog(new Msg(eMsgLevel.Error, response.Data.DetailsAsText));
                         }
                         else

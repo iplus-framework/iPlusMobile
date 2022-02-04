@@ -41,6 +41,7 @@ namespace gip.vb.mobile.Views
 
         protected override void OnDisappearing()
         {
+            _ViewModel.PropertyChanged -= _ViewModel_PropertyChanged;
             base.OnDisappearing();
         }
 
@@ -54,10 +55,11 @@ namespace gip.vb.mobile.Views
             {
                 picking = parameters.FirstOrDefault() as Picking;
                 RegisteredWorkplace = parameters.LastOrDefault() as ACClass;
-                if (RegisteredWorkplace != null)
+                if (RegisteredWorkplace != null && !_ViewModel.IsPickingWorkplaceError)
                 {
                     btnFinishOrder.Text = Strings.AppStrings.BtnBookAndFinish_Text;
                     _ViewModel.RegisteredWorkplace = RegisteredWorkplace;
+                    _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
                 }
             }
             else
@@ -73,6 +75,17 @@ namespace gip.vb.mobile.Views
                 _ViewModel.Item.RefreshPickingPosInView();
 
             this.PageState = PageStateEnum.View;
+        }
+
+        private void _ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(PickingDetailViewModel.IsPickingWorkplaceError))
+            {
+                if (_ViewModel.IsPickingWorkplaceError)
+                {
+                    btnFinishOrder.Text = Strings.AppStrings.BtnFinishOrder;
+                }
+            }
         }
 
         private void TBItemRefresh_Clicked(object sender, EventArgs e)
@@ -95,7 +108,7 @@ namespace gip.vb.mobile.Views
 
         private void btnFinishOrder_Clicked(object sender, EventArgs e)
         {
-            if (RegisteredWorkplace != null)
+            if (RegisteredWorkplace != null && !_ViewModel.IsPickingWorkplaceError)
             {
                 _ViewModel.FinishAndBookOrderCommand.Execute(null);
             }
