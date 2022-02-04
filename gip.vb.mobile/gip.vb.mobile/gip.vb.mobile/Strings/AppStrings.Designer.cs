@@ -70,6 +70,33 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activation/deactivation is not successful..
+        /// </summary>
+        internal static string ActIsNotSuccessful_Text {
+            get {
+                return ResourceManager.GetString("ActIsNotSuccessful_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active quant:.
+        /// </summary>
+        internal static string ActiveFC_Text {
+            get {
+                return ResourceManager.GetString("ActiveFC_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activation is successful..
+        /// </summary>
+        internal static string ActSuccessful_Text {
+            get {
+                return ResourceManager.GetString("ActSuccessful_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string AddButton_Label {
@@ -250,6 +277,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activate.
+        /// </summary>
+        internal static string BtnActivate_Text {
+            get {
+                return ResourceManager.GetString("BtnActivate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         internal static string BtnApply_Text {
@@ -300,6 +336,15 @@ namespace gip.vb.mobile.Strings {
         internal static string BtnCreateQuant {
             get {
                 return ResourceManager.GetString("BtnCreateQuant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivate.
+        /// </summary>
+        internal static string BtnDeactivate_Text {
+            get {
+                return ResourceManager.GetString("BtnDeactivate_Text", resourceCulture);
             }
         }
         
@@ -484,6 +529,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose group:.
+        /// </summary>
+        internal static string ChooseGroup_Text {
+            get {
+                return ResourceManager.GetString("ChooseGroup_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         internal static string Comment_Text {
@@ -507,6 +561,15 @@ namespace gip.vb.mobile.Strings {
         internal static string DateTo_Text {
             get {
                 return ResourceManager.GetString("DateTo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivation is successful..
+        /// </summary>
+        internal static string DeactSuccessful_Text {
+            get {
+                return ResourceManager.GetString("DeactSuccessful_Text", resourceCulture);
             }
         }
         
@@ -1258,6 +1321,33 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please, scan quant first then try activate..
+        /// </summary>
+        internal static string ScanFCActivate_Text {
+            get {
+                return ResourceManager.GetString("ScanFCActivate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, scan quant to activate/deactivate.
+        /// </summary>
+        internal static string ScanFCToActivate_Text {
+            get {
+                return ResourceManager.GetString("ScanFCToActivate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanned quant is not currently required!.
+        /// </summary>
+        internal static string ScannedFCIsNotReq_Text {
+            get {
+                return ResourceManager.GetString("ScannedFCIsNotReq_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan quant to activate or deactivate.
         /// </summary>
         internal static string ScanQuantActDeact_Text {
@@ -1506,6 +1596,24 @@ namespace gip.vb.mobile.Strings {
         internal static string WarehousePositions_Text {
             get {
                 return ResourceManager.GetString("WarehousePositions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workplace is empty..
+        /// </summary>
+        internal static string WorkplaceEmpty_Text {
+            get {
+                return ResourceManager.GetString("WorkplaceEmpty_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong quant is scanned, please scan the quant with right material..
+        /// </summary>
+        internal static string WrongMaterial_Text {
+            get {
+                return ResourceManager.GetString("WrongMaterial_Text", resourceCulture);
             }
         }
         

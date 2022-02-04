@@ -120,6 +120,15 @@
   <data name="About_Label" xml:space="preserve">
     <value>O aplikaciji</value>
   </data>
+  <data name="ActIsNotSuccessful_Text" xml:space="preserve">
+    <value>Aktivacija/deaktivacija nije uspješna.</value>
+  </data>
+  <data name="ActiveFC_Text" xml:space="preserve">
+    <value>Aktivan kvant:</value>
+  </data>
+  <data name="ActSuccessful_Text" xml:space="preserve">
+    <value>Aktivacija je uspješna.</value>
+  </data>
   <data name="AddButton_Label" xml:space="preserve">
     <value>Dodaj</value>
   </data>
@@ -165,6 +174,9 @@
   <data name="BookingQuantity_Text" xml:space="preserve">
     <value>Količina za knjiženje</value>
   </data>
+  <data name="BtnActivate_Text" xml:space="preserve">
+    <value>Aktiviraj</value>
+  </data>
   <data name="BtnApply_Text" xml:space="preserve">
     <value>Potvrdi</value>
   </data>
@@ -182,6 +194,9 @@
   </data>
   <data name="BtnCreateQuant" xml:space="preserve">
     <value>Stvori kvant</value>
+  </data>
+  <data name="BtnDeactivate_Text" xml:space="preserve">
+    <value>Deaktiviraj</value>
   </data>
   <data name="BtnDoBooking_Text" xml:space="preserve">
     <value>Knjiži</value>
@@ -235,7 +250,7 @@
     <value>Uredi ponovo</value>
   </data>
   <data name="Btn_FindMaterialInWarehouse" xml:space="preserve">
-    <value>Pronađi materijal u skladištu</value>
+    <value>Pronađi materijal na skladištu</value>
   </data>
   <data name="Btn_GroupByMaterial" xml:space="preserve">
     <value>Prikaži grupirano po materijalu</value>
@@ -258,6 +273,9 @@
   <data name="ChangePostingQ_Text" xml:space="preserve">
     <value>Promjeni količinu za knjiženje:</value>
   </data>
+  <data name="ChooseGroup_Text" xml:space="preserve">
+    <value>Odaberi grupu:</value>
+  </data>
   <data name="Comment_Text" xml:space="preserve">
     <value>Komentar</value>
   </data>
@@ -266,6 +284,9 @@
   </data>
   <data name="DateTo_Text" xml:space="preserve">
     <value>Do</value>
+  </data>
+  <data name="DeactSuccessful_Text" xml:space="preserve">
+    <value>Deaktivacija je uspješna.</value>
   </data>
   <data name="DifferentExpDateInList_Text" xml:space="preserve">
     <value>Skenirana stavka ima različiti datum isteka trajanja nego sve druge stavke. Dozvoljeno je samo zbrajati stavke s istim datumom isteka trajanja.</value>
@@ -516,6 +537,15 @@
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
     <value>Barkod/RFID</value>
   </data>
+  <data name="ScanFCActivate_Text" xml:space="preserve">
+    <value>Molimo, skenirajte prvo kvant onda pokušajte aktivirati. </value>
+  </data>
+  <data name="ScanFCToActivate_Text" xml:space="preserve">
+    <value>Skeniraj kvant za aktivaciju/deaktivaciju</value>
+  </data>
+  <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
+    <value>Skenirani kvant nije trenutačno potreban.</value>
+  </data>
   <data name="ScanQuantActDeact_Text" xml:space="preserve">
     <value>Skeniraj kvant za aktivaciju ili deaktivaciju</value>
   </data>
@@ -599,6 +629,12 @@
   </data>
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Pozicije skladišta</value>
+  </data>
+  <data name="WorkplaceEmpty_Text" xml:space="preserve">
+    <value>Radno mjesto je prazno.</value>
+  </data>
+  <data name="WrongMaterial_Text" xml:space="preserve">
+    <value>Pogrešan kvant skeniran, skenirajte kvant s odgovarajućim materijalom. </value>
   </data>
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Pogrešan sken. Molimo skenirajte radno mjesto.</value>

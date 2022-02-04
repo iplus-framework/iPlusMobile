@@ -29,8 +29,8 @@
                     <Setter Property="IsVisible" Value="False" />
                 </DataTrigger>
             </StackLayout.Triggers>
-            
-            <Label Text="Odaberi grupu" />
+
+            <Label Text="{i18n:Translate Text=ChooseGroup_Text}" />
             <StackLayout Orientation="Horizontal">
                 <Picker x:Name="PGroupItem" ItemsSource="{Binding GroupItems}" SelectedItem="{Binding SelectedGroupItem, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
                 <Button x:Name="cmdClearGroupItem" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearGroupItem_Clicked"  />
@@ -49,7 +49,5 @@
                 ItemSelected="OnPickingSelected"
                 ItemTapped="PickingsListView_ItemTapped">
         </ListView>
-
-        <!--<Button x:Name="BtnFinishOrders" Text="{i18n:Translate Text=BtnBookAndFinish_Text}" VerticalOptions="EndAndExpand" Command="{Binding FinishAndBookOrdersCommand}" />-->
     </StackLayout>
 </v:BSOPageBase>

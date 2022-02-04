@@ -549,4 +549,40 @@
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Falscher Scan. Bitte scannen Sie einen Arbeitsplatz.</value>
   </data>
+  <data name="ActIsNotSuccessful_Text" xml:space="preserve">
+    <value>Die Aktivierung/Deaktivierung ist nicht erfolgreich.</value>
+  </data>
+  <data name="ActiveFC_Text" xml:space="preserve">
+    <value>Aktives Quant:</value>
+  </data>
+  <data name="ActSuccessful_Text" xml:space="preserve">
+    <value>Die Aktivierung ist erfolgreich.</value>
+  </data>
+  <data name="BtnActivate_Text" xml:space="preserve">
+    <value>Aktivieren</value>
+  </data>
+  <data name="BtnDeactivate_Text" xml:space="preserve">
+    <value>Deaktivieren</value>
+  </data>
+  <data name="ChooseGroup_Text" xml:space="preserve">
+    <value>Gruppe auswählen:</value>
+  </data>
+  <data name="DeactSuccessful_Text" xml:space="preserve">
+    <value>Die Deaktivierung ist erfolgreich.</value>
+  </data>
+  <data name="ScanFCActivate_Text" xml:space="preserve">
+    <value>Bitte scannen Sie zuerst Quant und versuchen Sie dann zu aktivieren.</value>
+  </data>
+  <data name="ScanFCToActivate_Text" xml:space="preserve">
+    <value>Bitte scannen Sie Quant zum Aktivieren/Deaktivieren</value>
+  </data>
+  <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
+    <value>Das eingescannte Quant ist derzeit nicht erforderlich!</value>
+  </data>
+  <data name="WorkplaceEmpty_Text" xml:space="preserve">
+    <value>Der Arbeitsplatz ist leer.</value>
+  </data>
+  <data name="WrongMaterial_Text" xml:space="preserve">
+    <value>Falsches Quant wurde gescannt, bitte scannen Sie das Quant mit dem richtigen Material.</value>
+  </data>
 </root>

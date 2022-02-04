@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivation"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Name="BrowseBSOPicking">
@@ -16,7 +17,7 @@
     <StackLayout>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
 
-        <Label Text="Active quant:" />
+        <Label Text="{i18n:Translate Text=ActiveFC_Text}" />
         <Grid VerticalOptions="Start" Margin="0,2,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />
@@ -37,8 +38,8 @@
         <ctl:BarcodeScanner x:Name="barcodeScanner" IsEnabledInvokeBarcodeOnServer="True" OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked" />
 
         <StackLayout VerticalOptions="EndAndExpand">
-            <Button x:Name="BtnActivate" Text="Activate" VerticalOptions="EndAndExpand" Command="{Binding ActivateFacilityChargeCommand}" />
-            <Button x:Name="BtnDeactivate" Text="Deactivate" VerticalOptions="EndAndExpand" Command="{Binding DeactivateFacilityChargeCommand}" />
+            <Button x:Name="BtnActivate" Text="{i18n:Translate Text=BtnActivate_Text}" VerticalOptions="EndAndExpand" Command="{Binding ActivateFacilityChargeCommand}" />
+            <Button x:Name="BtnDeactivate" Text="{i18n:Translate Text=BtnDeactivate_Text}" VerticalOptions="EndAndExpand" Command="{Binding DeactivateFacilityChargeCommand}" />
         </StackLayout>
     </StackLayout>
 </v:BSOPageBase>

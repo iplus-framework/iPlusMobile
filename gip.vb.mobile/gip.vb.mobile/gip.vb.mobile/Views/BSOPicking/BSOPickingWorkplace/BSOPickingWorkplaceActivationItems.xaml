@@ -30,6 +30,6 @@
                 ItemTapped="FacilityChargeActivationListView_ItemTapped">
         </ListView>
 
-        <Button x:Name="BtnClose" Text="{i18n:Translate Text=BtnClose_Text}" VerticalOptions="EndAndExpand" />
+        <Button x:Name="BtnClose" Text="{i18n:Translate Text=BtnClose_Text}" VerticalOptions="EndAndExpand" Clicked="BtnClose_Clicked" />
     </StackLayout>
 </v:BSOPageBase>

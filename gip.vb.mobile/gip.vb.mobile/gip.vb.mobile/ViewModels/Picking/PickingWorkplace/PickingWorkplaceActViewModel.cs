@@ -54,7 +54,7 @@ namespace gip.vb.mobile.ViewModels
 
             if (Workplace == null)
             {
-                Message = new Msg(eMsgLevel.Error, "Workplace is empty");
+                Message = new Msg(eMsgLevel.Error, Strings.AppStrings.WorkplaceEmpty_Text);
                 return;
             }
 
@@ -63,20 +63,20 @@ namespace gip.vb.mobile.ViewModels
                 BarcodeSequence sequence = BarcodeScanModel.Item;
                 if (sequence == null)
                 {
-                    Message = new Msg(eMsgLevel.Error, "Please, scan facility charge first then try activate");
+                    Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCActivate_Text);
                     return;
                 }
 
                 FacilityCharge fc = sequence.LastAddedSequence?.FacilityCharge;
                 if (fc == null)
                 {
-                    Message = new Msg(eMsgLevel.Error, "Please, scan facility charge first then try activate");
+                    Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCActivate_Text);
                     return;
                 }
 
                 if (fc.Material.MaterialID != Item.Material.MaterialID)
                 {
-                    Message = new Msg(eMsgLevel.Error, "Material mismatch, please scan right material.");
+                    Message = new Msg(eMsgLevel.Error, Strings.AppStrings.WrongMaterial_Text);
                     return;
                 }
 
@@ -99,12 +99,12 @@ namespace gip.vb.mobile.ViewModels
 
                     if (response.Data)
                     {
-                        Message = new Msg(eMsgLevel.Info, "Activation is successful");
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.ActSuccessful_Text);
                         Item = fc;
                     }
                     else
                     {
-                        Message = new Msg(eMsgLevel.Info, "Activation is not successful");
+                        Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ActIsNotSuccessful_Text);
                     }    
 
                 }
@@ -136,7 +136,7 @@ namespace gip.vb.mobile.ViewModels
 
             if (Workplace == null)
             {
-                Message = new Msg(eMsgLevel.Error, "Workplace is empty");
+                Message = new Msg(eMsgLevel.Error, Strings.AppStrings.WorkplaceEmpty_Text);
                 return;
             }
 
@@ -161,12 +161,12 @@ namespace gip.vb.mobile.ViewModels
 
                     if (response.Data)
                     {
-                        Message = new Msg(eMsgLevel.Info, "Deactivation is successful");
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.DeactSuccessful_Text);
                         //Item = fc;
                     }
                     else
                     {
-                        Message = new Msg(eMsgLevel.Info, "Deactivation is not successful");
+                        Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ActIsNotSuccessful_Text);
                     }
 
                 }

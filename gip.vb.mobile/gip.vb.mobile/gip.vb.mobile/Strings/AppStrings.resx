@@ -607,4 +607,40 @@
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Wrong scan. Please scan a workplace.</value>
   </data>
+  <data name="ActIsNotSuccessful_Text" xml:space="preserve">
+    <value>Activation/deactivation is not successful.</value>
+  </data>
+  <data name="ActiveFC_Text" xml:space="preserve">
+    <value>Active quant:</value>
+  </data>
+  <data name="ActSuccessful_Text" xml:space="preserve">
+    <value>Activation is successful.</value>
+  </data>
+  <data name="BtnActivate_Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="BtnDeactivate_Text" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="ChooseGroup_Text" xml:space="preserve">
+    <value>Choose group:</value>
+  </data>
+  <data name="DeactSuccessful_Text" xml:space="preserve">
+    <value>Deactivation is successful.</value>
+  </data>
+  <data name="ScanFCActivate_Text" xml:space="preserve">
+    <value>Please, scan quant first then try activate.</value>
+  </data>
+  <data name="ScanFCToActivate_Text" xml:space="preserve">
+    <value>Please, scan quant to activate/deactivate</value>
+  </data>
+  <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
+    <value>Scanned quant is not currently required!</value>
+  </data>
+  <data name="WorkplaceEmpty_Text" xml:space="preserve">
+    <value>Workplace is empty.</value>
+  </data>
+  <data name="WrongMaterial_Text" xml:space="preserve">
+    <value>Wrong quant is scanned, please scan the quant with right material.</value>
+  </data>
 </root>

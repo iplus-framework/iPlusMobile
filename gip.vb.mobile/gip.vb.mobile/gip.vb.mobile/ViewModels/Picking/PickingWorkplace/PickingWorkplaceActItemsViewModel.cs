@@ -136,21 +136,21 @@ namespace gip.vb.mobile.ViewModels
             BarcodeSequence sequence = BarcodeScanModel.Item;
             if (sequence == null)
             {
-                Message = new Msg(eMsgLevel.Error, "Please, scan facility charge first then try activate");
+                Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCActivate_Text);
                 return;
             }
 
             FacilityCharge fc = sequence.LastAddedSequence?.FacilityCharge;
             if (fc == null)
             {
-                Message = new Msg(eMsgLevel.Error, "Please, scan quant to activate/deactivate");
+                Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCToActivate_Text);
                 return;
             }
 
             var itemToActivateDeactivate = ActivationQuants.FirstOrDefault(c => c.Material != null && c.Material.MaterialID == fc.Material.MaterialID);
             if (itemToActivateDeactivate == null)
             {
-                Message = new Msg(eMsgLevel.Error, "Scanned quant is not currently required!");
+                Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScannedFCIsNotReq_Text);
                 return;
             }
 
@@ -189,13 +189,13 @@ namespace gip.vb.mobile.ViewModels
                     {
                         if (!isdeactivation)
                         {
-                            Message = new Msg(eMsgLevel.Info, "Activation is successful");
+                            Message = new Msg(eMsgLevel.Info, Strings.AppStrings.ActSuccessful_Text);
                             ActivationQuants.Remove(itemToActivateDeactivate);
                             ActivationQuants.Add(fc);
                         }
                         else
                         {
-                            Message = new Msg(eMsgLevel.Info, "Deactivation is successful");
+                            Message = new Msg(eMsgLevel.Info, Strings.AppStrings.DeactSuccessful_Text);
                             fc.FacilityChargeID = Guid.Empty;
                             fc.StockQuantity = 0.0;
                             fc.Facility = null;
@@ -206,7 +206,7 @@ namespace gip.vb.mobile.ViewModels
                     }
                     else
                     {
-                        Message = new Msg(eMsgLevel.Info, "Activation is not successful");
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.ActIsNotSuccessful_Text);
                     }
 
                 }

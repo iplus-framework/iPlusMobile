@@ -83,5 +83,10 @@ namespace gip.vb.mobile.Views
         {
             BarcodeScan.Search(sbActivateDeactivateQuant.Text);
         }
+
+        private async void BtnClose_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
     }
 }
