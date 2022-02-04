@@ -156,45 +156,33 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                core.autocomponent.WSResponse<MsgWithDetails> response = null;
+                BarcodeSequence sequence = new BarcodeSequence();
 
-                //foreach (Picking picking in Pickings)
-                //{
-                //    response = await _WebService.FinishPickingOrderAsync(picking.PickingID);
-                //}
+                foreach (Picking picking in Pickings)
+                {
+                    sequence.AddSequence(new BarcodeEntity() { Picking = picking });
+                }
 
+                if (!sequence.Sequence.Any())
+                    return true;
 
-
-                //if (!skipCheck)
-                //{
-                //    response = await _WebService.FinishPickingOrderAsync(Item.PickingID);
-                //}
-                //else
-                //{
-                //    response = await _WebService.FinishPickingOrderWithoutCheckAsync(Item.PickingID);
-                //}
-
-                this.WSResponse = response;
+                var response = await _WebService.FinishPickingOrdersByMaterialAsync(sequence);
                 if (response.Suceeded)
                 {
                     result = response.Data;
                     if (result != null)
                     {
-                        if (!skipCheck)
-                        {
-                            result.MessageLevel = eMsgLevel.Question;
-                            result.MessageButton = eMsgButton.YesNo;
-                            ShowDialog(result, requestID: 1);
-                        }
-                        else
-                        {
-                            ShowDialog(result);
-                        }
+                        ShowDialog(new Msg(eMsgLevel.Error, result.DetailsAsText));
+                        return false;
                     }
                     else
                     {
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.OrderFinished_Text);
                     }
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
                 }
             }
             catch (Exception ex)

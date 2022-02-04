@@ -96,6 +96,11 @@ namespace gip.vb.mobile.Services
             return await Put<MsgWithDetails, Guid>(pickingID, VBWebServiceConst.UriPicking_FinishWithoutCheck);
         }
 
+        public async Task<WSResponse<MsgWithDetails>> FinishPickingOrdersByMaterialAsync(BarcodeSequence pickingOrders)
+        {
+            return await Put<MsgWithDetails, BarcodeSequence>(pickingOrders, VBWebServiceConst.UriPicking_FinishByMaterial);
+        }
+
         public async Task<WSResponse<MsgWithDetails>> BookAndFinishPickingOrderAsync(PickingWorkplace pickingWorkplace)
         {
             return await Put<MsgWithDetails, PickingWorkplace>(pickingWorkplace, VBWebServiceConst.UriPicking_FinishAndBook);

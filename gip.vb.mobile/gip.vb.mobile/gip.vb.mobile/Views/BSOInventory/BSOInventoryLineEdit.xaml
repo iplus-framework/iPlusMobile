@@ -59,9 +59,10 @@
                     <CheckBox IsChecked="{Binding SelectedInventoryLine.NotAvailable}" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}" />
                 </StackLayout>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
-                <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay}" HorizontalTextAlignment="End">
+                <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
+                                  HorizontalTextAlignment="End">
                     <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior IsDecimal="False" Precision="0"/>
+                        <hp:NumericTextBoxBehavior IsDecimal="False" SelectAllOnFocus="True" Precision="0"/>
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
