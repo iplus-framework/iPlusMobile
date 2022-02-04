@@ -197,5 +197,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<MsgWithDetails>> FinishPickingOrdersByMaterialAsync(BarcodeSequence pickingOrders)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
