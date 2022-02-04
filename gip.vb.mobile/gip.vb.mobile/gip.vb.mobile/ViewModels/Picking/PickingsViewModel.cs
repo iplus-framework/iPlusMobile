@@ -13,6 +13,20 @@ namespace gip.vb.mobile.ViewModels
 {
     public class PickingsViewModel : BaseViewModel
     {
+        #region c'tors
+
+        public PickingsViewModel()
+        {
+            Pickings = new ObservableCollection<Picking>();
+            PickingsByMaterial = new ObservableCollection<PickingMaterial>();
+            LoadPickingsCommand = new Command(async () => await ExecuteLoadPickingsCommand());
+            FinishOrdersCommand = new Command(async () => await ExecuteFinishOrders());
+        }
+
+        #endregion
+
+        #region Properties
+
         public ObservableCollection<Picking> Pickings { get; set; }
         public Command LoadPickingsCommand { get; set; }
         public PostingOverview Bookings {get;set;}
@@ -35,12 +49,9 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public PickingsViewModel()
-        {
-            Pickings = new ObservableCollection<Picking>();
-            PickingsByMaterial = new ObservableCollection<PickingMaterial>();
-            LoadPickingsCommand = new Command(async () => await ExecuteLoadPickingsCommand());
-        }
+        #endregion
+
+        #region Methods
 
         public async Task ExecuteLoadPickingsCommand()
         {
@@ -143,7 +154,7 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command FinishOrdersCommand { get; set; }
-        public async Task<bool> FinishOrders(bool skipCheck = false)
+        public async Task<bool> ExecuteFinishOrders(bool skipCheck = false)
         {
             MsgWithDetails result = null;
             if (IsBusy)
@@ -200,5 +211,6 @@ namespace gip.vb.mobile.ViewModels
         {
         }
 
+        #endregion
     }
 }
