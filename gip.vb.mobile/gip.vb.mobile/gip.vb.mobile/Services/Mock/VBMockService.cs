@@ -192,5 +192,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<MsgWithDetails>> BookAndFinishPickingOrderAsync(PickingWorkplace pickingWorkplace)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

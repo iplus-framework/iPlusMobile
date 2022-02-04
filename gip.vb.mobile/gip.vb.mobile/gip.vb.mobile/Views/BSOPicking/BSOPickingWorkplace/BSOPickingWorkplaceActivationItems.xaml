@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivationItems"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
-              Title="{Binding Title}"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Name="BrowseBSOPicking">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
@@ -17,7 +17,7 @@
     <StackLayout>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
 
-        <SearchBar x:Name="sbActivateDeactivateQuant" Text="Scan quant and activate/deactivate" SearchButtonPressed="SearchBar_SearchButtonPressed" />
+        <SearchBar x:Name="sbActivateDeactivateQuant" Placeholder="{i18n:Translate Text=ScanQuantActDeact_Text}" SearchButtonPressed="SearchBar_SearchButtonPressed" />
 
         <ListView x:Name="FacilityChargeActivationListView"
                 ItemsSource="{Binding ActivationQuants}"
@@ -30,6 +30,6 @@
                 ItemTapped="FacilityChargeActivationListView_ItemTapped">
         </ListView>
 
-        <Button x:Name="BtnClose" Text="Close" VerticalOptions="EndAndExpand" />
+        <Button x:Name="BtnClose" Text="{i18n:Translate Text=BtnClose_Text}" VerticalOptions="EndAndExpand" />
     </StackLayout>
 </v:BSOPageBase>

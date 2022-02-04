@@ -174,6 +174,9 @@
   <data name="BtnBlockQuant_Text" xml:space="preserve">
     <value>Blokiraj kvant</value>
   </data>
+  <data name="BtnBookAndFinish_Text" xml:space="preserve">
+    <value>Knjiži i završi</value>
+  </data>
   <data name="BtnClose_Text" xml:space="preserve">
     <value>Zatvori</value>
   </data>
@@ -429,6 +432,9 @@
   <data name="PickingByMaterial_Header" xml:space="preserve">
     <value>Grupirano po materijalu</value>
   </data>
+  <data name="PickingOrders_Text" xml:space="preserve">
+    <value>Nalozi za komisioniranje</value>
+  </data>
   <data name="PickingPosPivot_Header" xml:space="preserve">
     <value>Info</value>
   </data>
@@ -483,6 +489,9 @@
   <data name="ProdOrderInOutInfo_Header" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="QuantActivationDeactivation_Text" xml:space="preserve">
+    <value>Aktivacija/Deaktivacija kvanta</value>
+  </data>
   <data name="QuantDiffQuantity_Text" xml:space="preserve">
     <value>Kol. razl. od kvanta:</value>
   </data>
@@ -498,11 +507,17 @@
   <data name="QuantSplit_Text" xml:space="preserve">
     <value>Podjela kvanta</value>
   </data>
+  <data name="RegisterToWorkplace_Text" xml:space="preserve">
+    <value>Prijava na radno mjesto komisioniranja:</value>
+  </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
   </data>
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
     <value>Barkod/RFID</value>
+  </data>
+  <data name="ScanQuantActDeact_Text" xml:space="preserve">
+    <value>Skeniraj kvant za aktivaciju ili deaktivaciju</value>
   </data>
   <data name="SelectBatch_Text" xml:space="preserve">
     <value>Izaberite ciljanu seriju:</value>
@@ -584,6 +599,9 @@
   </data>
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Pozicije skladišta</value>
+  </data>
+  <data name="WrongScanWorkplace_Text" xml:space="preserve">
+    <value>Pogrešan sken. Molimo skenirajte radno mjesto.</value>
   </data>
   <data name="ZXingOverlay_Text" xml:space="preserve">
     <value>Potpuno pozicionirajte barkod na liniju</value>

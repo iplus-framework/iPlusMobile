@@ -19,6 +19,7 @@ namespace gip.vb.mobile.Views
             BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
             BindingContext = _ViewModel = new PickingWorkplaceViewModel();
             BarcodeScan._ViewModel = new BarcodeScanACClassModel(_ViewModel);
+            _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             InitializeComponent();
         }
 

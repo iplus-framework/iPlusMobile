@@ -22,7 +22,7 @@ namespace gip.vb.mobile.Views
             BarcodeScan = new BarcodeScanner();
             BarcodeScan._ViewModel = _ViewModel.BarcodeScanModel;
             BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
-
+            Title = Strings.AppStrings.QuantActivationDeactivation_Text;
             InitializeComponent();
         }
 

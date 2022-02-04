@@ -18,6 +18,7 @@ namespace gip.vb.mobile.Views
         public BSOPickingWorkplaceActivation()
         {
             BindingContext = _ViewModel = new PickingWorkplaceActViewModel();
+            Title = Strings.AppStrings.QuantActivationDeactivation_Text;
             InitializeComponent();
         }
 

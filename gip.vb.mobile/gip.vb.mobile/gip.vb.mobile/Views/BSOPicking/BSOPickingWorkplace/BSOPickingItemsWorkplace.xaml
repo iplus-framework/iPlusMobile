@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPickingItemsWorkplace"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
-              Title="{Binding Title}"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Name="BrowseBSOPicking">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>
@@ -32,7 +33,7 @@
             <Label Text="Odaberi grupu" />
             <StackLayout Orientation="Horizontal">
                 <Picker x:Name="PGroupItem" ItemsSource="{Binding GroupItems}" SelectedItem="{Binding SelectedGroupItem, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
-                <Button x:Name="cmdClearGroupItem" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large"  />
+                <Button x:Name="cmdClearGroupItem" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearGroupItem_Clicked"  />
             </StackLayout>
         </StackLayout>
 
@@ -49,6 +50,6 @@
                 ItemTapped="PickingsListView_ItemTapped">
         </ListView>
 
-        <Button x:Name="BtnFinishOrders" Text="Završi i knjiži" VerticalOptions="EndAndExpand" Command="{Binding FinishAndBookOrdersCommand}" />
+        <!--<Button x:Name="BtnFinishOrders" Text="{i18n:Translate Text=BtnBookAndFinish_Text}" VerticalOptions="EndAndExpand" Command="{Binding FinishAndBookOrdersCommand}" />-->
     </StackLayout>
 </v:BSOPageBase>

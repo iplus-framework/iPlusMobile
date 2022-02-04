@@ -589,4 +589,22 @@
   <data name="NewQuant_Text" xml:space="preserve">
     <value>New quant</value>
   </data>
+  <data name="BtnBookAndFinish_Text" xml:space="preserve">
+    <value>Post and finish</value>
+  </data>
+  <data name="PickingOrders_Text" xml:space="preserve">
+    <value>Picking orders</value>
+  </data>
+  <data name="QuantActivationDeactivation_Text" xml:space="preserve">
+    <value>Quant activation/deactivation</value>
+  </data>
+  <data name="RegisterToWorkplace_Text" xml:space="preserve">
+    <value>Register to picking workplace:</value>
+  </data>
+  <data name="ScanQuantActDeact_Text" xml:space="preserve">
+    <value>Scan quant to activate or deactivate</value>
+  </data>
+  <data name="WrongScanWorkplace_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan a workplace.</value>
+  </data>
 </root>

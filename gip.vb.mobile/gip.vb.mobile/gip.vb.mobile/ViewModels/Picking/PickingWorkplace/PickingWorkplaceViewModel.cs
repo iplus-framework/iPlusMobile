@@ -23,6 +23,12 @@ namespace gip.vb.mobile.ViewModels
 
         public void OnACClassScanned(ACClass acClass)
         {
+            Message = null;
+            if (acClass == null)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, Strings.AppStrings.WrongScanWorkplace_Text);
+                return;
+            }
             RegisteredWorkplace = acClass;
         }
     }

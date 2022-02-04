@@ -19,7 +19,7 @@ namespace gip.vb.mobile.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppStrings {
@@ -273,6 +273,15 @@ namespace gip.vb.mobile.Strings {
         internal static string BtnBlockQuant_Text {
             get {
                 return ResourceManager.GetString("BtnBlockQuant_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post and finish.
+        /// </summary>
+        internal static string BtnBookAndFinish_Text {
+            get {
+                return ResourceManager.GetString("BtnBookAndFinish_Text", resourceCulture);
             }
         }
         
@@ -997,6 +1006,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picking orders.
+        /// </summary>
+        internal static string PickingOrders_Text {
+            get {
+                return ResourceManager.GetString("PickingOrders_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Info.
         /// </summary>
         internal static string PickingPosPivot_Header {
@@ -1159,6 +1177,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quant activation/deactivation.
+        /// </summary>
+        internal static string QuantActivationDeactivation_Text {
+            get {
+                return ResourceManager.GetString("QuantActivationDeactivation_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quant diff. Q:.
         /// </summary>
         internal static string QuantDiffQuantity_Text {
@@ -1204,6 +1231,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register to picking workplace:.
+        /// </summary>
+        internal static string RegisterToWorkplace_Text {
+            get {
+                return ResourceManager.GetString("RegisterToWorkplace_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!.
         /// </summary>
         internal static string RelocatedQuantDataMissing_Text {
@@ -1218,6 +1254,15 @@ namespace gip.vb.mobile.Strings {
         internal static string ScanBarcodePivot_Header {
             get {
                 return ResourceManager.GetString("ScanBarcodePivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan quant to activate or deactivate.
+        /// </summary>
+        internal static string ScanQuantActDeact_Text {
+            get {
+                return ResourceManager.GetString("ScanQuantActDeact_Text", resourceCulture);
             }
         }
         
@@ -1461,6 +1506,15 @@ namespace gip.vb.mobile.Strings {
         internal static string WarehousePositions_Text {
             get {
                 return ResourceManager.GetString("WarehousePositions_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong scan. Please scan a workplace..
+        /// </summary>
+        internal static string WrongScanWorkplace_Text {
+            get {
+                return ResourceManager.GetString("WrongScanWorkplace_Text", resourceCulture);
             }
         }
         

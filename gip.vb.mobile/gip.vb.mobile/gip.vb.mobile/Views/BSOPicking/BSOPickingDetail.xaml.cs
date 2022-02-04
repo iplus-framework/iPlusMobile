@@ -4,6 +4,8 @@ using Xamarin.Forms.Xaml;
 using gip.vb.mobile.ViewModels;
 using gip.mes.webservices;
 using System.Collections.Generic;
+using System.Linq;
+using gip.core.webservices;
 
 namespace gip.vb.mobile.Views
 {
@@ -25,6 +27,12 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
+        public ACClass RegisteredWorkplace
+        {
+            get;
+            private set;
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -38,9 +46,29 @@ namespace gip.vb.mobile.Views
 
         private void InitPageOnNavigation()
         {
+            Picking picking;
+            RegisteredWorkplace = null;
+
+            List<object> parameters = NavParam.Arguments as List<object>;
+            if (parameters != null)
+            {
+                picking = parameters.FirstOrDefault() as Picking;
+                RegisteredWorkplace = parameters.LastOrDefault() as ACClass;
+                if (RegisteredWorkplace != null)
+                {
+                    btnFinishOrder.Text = Strings.AppStrings.BtnBookAndFinish_Text;
+                    _ViewModel.RegisteredWorkplace = RegisteredWorkplace;
+                }
+            }
+            else
+            {
+                picking = NavParam.Arguments as Picking;
+                btnFinishOrder.Text = Strings.AppStrings.BtnFinishOrder;
+            }
+
             if (NavParam != null && _ViewModel.Item == null)
-                _ViewModel.Item = NavParam.Arguments as Picking;
-            
+                _ViewModel.Item = picking;
+
             if (_ViewModel.Item != null)
                 _ViewModel.Item.RefreshPickingPosInView();
 
@@ -64,5 +92,17 @@ namespace gip.vb.mobile.Views
 
             await Navigation.PushAsync(new BSOPickingPosDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new object[] { _ViewModel.Item, pickingPos } } });
         }
+
+        private void btnFinishOrder_Clicked(object sender, EventArgs e)
+        {
+            if (RegisteredWorkplace != null)
+            {
+                _ViewModel.FinishAndBookOrderCommand.Execute(null);
+            }
+            else
+            {
+                _ViewModel.FinishOrderCommand.Execute(null);
+            }
+        }   
     }
 }

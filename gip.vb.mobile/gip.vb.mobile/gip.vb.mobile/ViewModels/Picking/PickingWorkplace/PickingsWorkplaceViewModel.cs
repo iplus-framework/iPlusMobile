@@ -154,7 +154,7 @@ namespace gip.vb.mobile.ViewModels
                             aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;
 
 
-                            if (pickingItem.PickingType.MDKey == mes.datamodel.GlobalApp.PickingType.Issue.ToString())
+                            if (pickingItem.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.Issue)
                             {
                                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingOutward;
                             }

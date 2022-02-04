@@ -531,4 +531,22 @@
   <data name="MaterialNotSelected_Text" xml:space="preserve">
     <value>Das Material ist nicht ausgewählt. Bitte, wählen Sie das Material.</value>
   </data>
+  <data name="BtnBookAndFinish_Text" xml:space="preserve">
+    <value>Buchen und beenden</value>
+  </data>
+  <data name="PickingOrders_Text" xml:space="preserve">
+    <value>Kommissionauftragen</value>
+  </data>
+  <data name="QuantActivationDeactivation_Text" xml:space="preserve">
+    <value>Quant Aktivierung/Deaktivierung</value>
+  </data>
+  <data name="RegisterToWorkplace_Text" xml:space="preserve">
+    <value>Anmeldung zum Kommissionierarbeitsplatz</value>
+  </data>
+  <data name="ScanQuantActDeact_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WrongScanWorkplace_Text" xml:space="preserve">
+    <value>Falscher Scan. Bitte scannen Sie einen Arbeitsplatz.</value>
+  </data>
 </root>

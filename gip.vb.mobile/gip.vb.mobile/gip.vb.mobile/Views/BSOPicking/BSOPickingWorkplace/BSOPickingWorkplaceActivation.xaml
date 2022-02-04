@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gip.vb.mobile.Views.BSOPickingWorkplaceActivation"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
-              Title="{Binding Title}"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
              x:Name="BrowseBSOPicking">
     <v:BSOPageBase.Resources>
         <ResourceDictionary>

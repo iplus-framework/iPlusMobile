@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using gip.vb.mobile.ViewModels;
 using gip.mes.webservices;
+using System.Collections.Generic;
 
 namespace gip.vb.mobile.Views
 {
@@ -14,7 +15,7 @@ namespace gip.vb.mobile.Views
         public BSOPickingItemsWorkplace()
         {
             BindingContext = _ViewModel = new PickingsWorkplaceViewModel();
-            _ViewModel.SetTitleFromType(typeof(BSOPickingItemsWorkplace), App.UserRights);
+            _ViewModel.Title = Strings.AppStrings.PickingOrders_Text;
             InitializeComponent();
         }
 
@@ -56,7 +57,7 @@ namespace gip.vb.mobile.Views
             if (picking == null)
                 return;
 
-            await Navigation.PushAsync(new BSOPickingDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = picking } });
+            await Navigation.PushAsync(new BSOPickingDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new List<object>() { picking, _ViewModel.RegisteredWorkplace } } });
 
             PickingsListView.SelectedItem = null;
 
@@ -65,6 +66,11 @@ namespace gip.vb.mobile.Views
         private async void TBQuantActivation_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BSOPickingWorkplaceActivationItems() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
+        }
+
+        private void cmdClearGroupItem_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedGroupItem = null;
         }
     }
 }
