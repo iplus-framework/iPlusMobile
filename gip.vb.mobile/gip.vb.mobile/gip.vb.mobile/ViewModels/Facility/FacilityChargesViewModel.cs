@@ -527,8 +527,13 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public void ShowPrintDialog()
+        {
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PrintCopies_Question) { MessageButton = eMsgButton.OKCancel }, "", Keyboard.Numeric, "1", 3);
+        }
+
         public Command PrintCommand { get; set; }
-        public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0, PrintEntity printEntity = null)
+        public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0, PrintEntity printEntity = null, int copyCount = 1)
         {
             if (IsBusy
                 || Item == null)
@@ -541,7 +546,7 @@ namespace gip.vb.mobile.ViewModels
                 if (printEntity == null || printEntity.Sequence == null)
                 {
                     printEntity = new PrintEntity();
-                    printEntity.CopyCount = 1;
+                    printEntity.CopyCount = copyCount;
                     printEntity.MaxPrintJobsInSpooler = maxPrintJobsInSpooler;
                     printEntity.Sequence = new List<BarcodeEntity>()
                     {
@@ -710,6 +715,13 @@ namespace gip.vb.mobile.ViewModels
 
                 }
                 _TempFacilityCharge = null;
+            }
+            else if (DialogOptions.RequestID == 3 && result == Global.MsgResult.OK)
+            {
+                int copyCount = 1;
+                int.TryParse(entredValue, out copyCount);
+
+                await (ExecutePrintCommand(3, null, copyCount));
             }
         }
 

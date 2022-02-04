@@ -93,7 +93,8 @@ namespace gip.vb.mobile.Views
 
         private void Print_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.PrintCommand.Execute(null);
+            //_ViewModel.PrintCommand.Execute(null);
+            _ViewModel.ShowPrintDialog();
         }
 
         private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
