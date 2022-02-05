@@ -190,8 +190,16 @@ namespace gip.vb.mobile.ViewModels
                         if (!isdeactivation)
                         {
                             Message = new Msg(eMsgLevel.Info, Strings.AppStrings.ActSuccessful_Text);
+
+                            var temp = ActivationQuants?.FirstOrDefault();
+                            if (temp != null && temp != itemToActivateDeactivate && temp.FacilityChargeID != Guid.Empty)
+                            {
+                                ActivationQuants.Remove(temp);
+                                ActivationQuants.Add(temp);
+                            }
+
                             ActivationQuants.Remove(itemToActivateDeactivate);
-                            ActivationQuants.Add(fc);
+                            ActivationQuants.Insert(0, fc);
                         }
                         else
                         {
