@@ -62,7 +62,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Σ" FontSize="Title" VerticalOptions="CenterAndExpand"  TextColor="Red" />
                 <ctl:NumericEntry x:Name="SumEntry" Grid.Column="0" Grid.Row="1" Keyboard="Numeric" HorizontalOptions="FillAndExpand" Focused="SumEntry_Focused" FontSize="Title"
-                                          TextNumeric="{Binding SumQuantity, Mode=TwoWay}" HorizontalTextAlignment="End">
+                                          TextNumeric="{Binding SumQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End">
                     <Entry.Behaviors>
                         <hp:NumericTextBoxBehavior IsDecimal="False" Precision="3"/>
                     </Entry.Behaviors>

@@ -32,6 +32,12 @@ namespace gip.vb.mobile.Views
             EnableButtons();
         }
 
+        protected override void OnDisappearing()
+        {
+            barcodeScanner.OnDisappearing();
+            base.OnDisappearing();
+        }
+
         private void barcodeScanner_OnBarcodeCommandInvoked(object sender, EventArgs e)
         {
             EnableButtons();

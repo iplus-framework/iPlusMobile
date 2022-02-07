@@ -87,7 +87,7 @@ namespace gip.vb.mobile.Views
 
         private void UnSubcribeToBarcodeService()
         {
-            if (_BarcodeService != null && _BarcodeServiceSubcribed)
+            if (_BarcodeService != null)
             {
                 _BarcodeService.Read -= _BarcodeService_Read;
                 _BarcodeServiceSubcribed = false;

@@ -23,6 +23,8 @@ namespace gip.vb.mobile.Views
         {
             lblVersion.Text = VersionTracking.CurrentVersion;
             lblBuild.Text = VersionTracking.CurrentBuild;
+
+            lblCurrentUser.Text = App.UserRights.UserName;
         }
 
         protected override bool OnBackButtonPressed()

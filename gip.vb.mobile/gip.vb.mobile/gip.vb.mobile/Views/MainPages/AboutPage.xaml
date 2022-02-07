@@ -4,6 +4,7 @@
              x:Class="gip.vb.mobile.Views.AboutPage"
              xmlns:v="clr-namespace:gip.vb.mobile.Views"
              xmlns:vm="clr-namespace:gip.vb.mobile.ViewModels"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
@@ -30,6 +31,12 @@
             <ColumnDefinition Width="80" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <StackLayout Grid.ColumnSpan="7">
+            <Label Text="{i18n:Translate Text=Username_Text}" />
+            <Label x:Name="lblCurrentUser" />
+        </StackLayout>
+
         <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="1" Grid.Column="1" />
         <StackLayout Spacing="5" Grid.Row="1" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
             <Label Text="Version" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
