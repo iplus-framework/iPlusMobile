@@ -480,6 +480,9 @@ namespace gip.vb.mobile.ViewModels
                 || SelectedFacility == null)
                 return;
 
+            if (BookingQuantity >= -0.00001 && BookingQuantity <= 0.00001)
+                return;
+
             IsBusy = true;
 
             try
