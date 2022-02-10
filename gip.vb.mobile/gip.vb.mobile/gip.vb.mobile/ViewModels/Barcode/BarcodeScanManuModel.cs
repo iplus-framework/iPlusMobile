@@ -21,7 +21,6 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _Item, value);
-                OnPropertyChanged();
                 if (_Item != null
                     && Item.Sequence != null
                     && Item.Sequence.Any())
@@ -46,6 +45,13 @@ namespace gip.vb.mobile.ViewModels
                     BarcodeSequence = new List<object>();
                 }
             }
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+            BarcodeSequence = new List<object>();
+            CurrentBarcode = null;
         }
     }
 }

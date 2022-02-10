@@ -56,7 +56,9 @@
                         IsPullToRefreshEnabled="false"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
-                <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End">
+                <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" 
+                                  TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
+                                  Keyboard="Numeric">
                     <Entry.Behaviors>
                         <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                     </Entry.Behaviors>

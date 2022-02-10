@@ -11,7 +11,7 @@ namespace gip.vb.mobile.ViewModels
         {
             Title = "iPlus Mobile";
 
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://iplus-framework.com")));
+            OpenWebCommand = new Command( async () => await Xamarin.Essentials.Launcher.OpenAsync(new Uri("https://iplus-framework.com")));
         }
 
         public ICommand OpenWebCommand { get; }

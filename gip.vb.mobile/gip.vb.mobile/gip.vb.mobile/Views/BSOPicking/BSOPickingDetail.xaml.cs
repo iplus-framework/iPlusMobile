@@ -116,6 +116,6 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.FinishOrderCommand.Execute(null);
             }
-        }   
+        }
     }
 }

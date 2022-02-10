@@ -78,6 +78,8 @@ namespace gip.vb.mobile.ViewModels
                     toDate = PickingFilter.DateTo.ToString("o");
                 }
 
+                await Task.Delay(100); // hack for ListView - because IsRefreshing won't stop
+
                 var response = await _WebService.SearchPickingsAsync(pickingType, fromFacility, toFacility, fromDate, toDate);
                 this.WSResponse = response;
                 if (response.Suceeded)

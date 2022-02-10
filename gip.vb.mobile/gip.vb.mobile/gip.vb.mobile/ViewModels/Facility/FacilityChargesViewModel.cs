@@ -664,7 +664,7 @@ namespace gip.vb.mobile.ViewModels
             }
             catch (Exception e)
             {
-
+                Message = new Msg(eMsgLevel.Exception, e.Message);
             }
             finally
             {

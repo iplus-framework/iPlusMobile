@@ -52,7 +52,7 @@ namespace gip.vb.mobile.Controls
         {
             SubcribeToBarcodeService();
             InitZXing();
-            
+
             BindingContext = _ViewModel;
         }
 
@@ -62,7 +62,6 @@ namespace gip.vb.mobile.Controls
         public void OnDisappearing()
         {
             UnSubcribeToBarcodeService();
-            
             _IsZXingInitialized = false;
         }
 

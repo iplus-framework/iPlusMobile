@@ -355,7 +355,7 @@
     <value>Ulazni materijali</value>
   </data>
   <data name="Input_Text" xml:space="preserve">
-    <value>Ulaz</value>
+    <value>Ulaz (sirovine, poluproizv.,...)</value>
   </data>
   <data name="Intermediate_Text" xml:space="preserve">
     <value>Međuproizvod</value>
@@ -436,7 +436,7 @@
     <value>Nalog je završen!</value>
   </data>
   <data name="Output_Text" xml:space="preserve">
-    <value>Izlaz</value>
+    <value>Izlaz (gotovi proizv., poluproizv.)</value>
   </data>
   <data name="PartslistName_Label" xml:space="preserve">
     <value>Naziv sastavnice</value>

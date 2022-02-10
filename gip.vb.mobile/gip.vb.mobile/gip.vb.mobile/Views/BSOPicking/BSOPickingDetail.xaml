@@ -30,6 +30,7 @@
                 ItemSelected="PickingPosListView_ItemSelected"
                 ItemTapped="PickingPosListView_ItemTapped"
                 IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
                 RefreshCommand="{Binding UpdatePickingCommand}">
         </ListView>
 

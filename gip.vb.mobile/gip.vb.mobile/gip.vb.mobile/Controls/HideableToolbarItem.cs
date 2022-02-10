@@ -135,11 +135,11 @@ namespace gip.vb.mobile.Controls
             {
                 if (!IsChecked.Value)
                 {
-                    Icon = IconUnChecked;
+                    IconImageSource = IconUnChecked;
                 }
                 else
                 {
-                    Icon = IconChecked;
+                    IconImageSource = IconChecked;
                 }
             }
         }

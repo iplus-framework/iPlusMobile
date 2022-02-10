@@ -353,16 +353,17 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
-                    BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        BookingMessage = response.Data.DetailsAsText;
+                        Message = response.Data;
                     else
                     {
                         IsBusy = false;
                         await ExecuteReadPostingsCommand();
                         IsBusy = false;
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                     }
                 }
             }
@@ -397,11 +398,11 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
-                    BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        BookingMessage = response.Data.DetailsAsText;
+                        Message = response.Data;
                     else
                     {
                         CurrentBarcodeEntity = null;
@@ -410,6 +411,7 @@ namespace gip.vb.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadPostingsCommand();
                         IsBusy = false;
+                        Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                     }
                 }
             }

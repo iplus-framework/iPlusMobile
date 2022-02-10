@@ -96,7 +96,8 @@
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
             <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
                          HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
-                         RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}">
+                         RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}"
+                         IsRefreshing="{Binding IsBusy}">
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
                     <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" Width="1*"/>
