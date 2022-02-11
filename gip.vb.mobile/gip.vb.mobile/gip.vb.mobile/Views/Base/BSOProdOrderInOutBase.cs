@@ -26,8 +26,15 @@ namespace gip.vb.mobile.Views
 
         protected async override void OnAppearing()
         {
+            SubcribeToBarcodeService();
             base.OnAppearing();
             await _ViewModel.ExecuteReadPostingsCommand();
+        }
+
+        protected override void OnDisappearing()
+        {
+            UnSubcribeToBarcodeService();
+            base.OnDisappearing();
         }
 
         #region Barcode
