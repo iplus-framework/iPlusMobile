@@ -643,4 +643,7 @@
   <data name="WrongMaterial_Text" xml:space="preserve">
     <value>Wrong quant is scanned, please scan the quant with right material.</value>
   </data>
+  <data name="BtnEnterACMParams_Text" xml:space="preserve">
+    <value>Enter production data</value>
+  </data>
 </root>

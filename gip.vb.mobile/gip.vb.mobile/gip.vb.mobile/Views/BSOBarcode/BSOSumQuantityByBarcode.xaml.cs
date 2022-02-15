@@ -19,8 +19,7 @@ namespace gip.vb.mobile.Views
         {
             BindingContext = _ViewModel = viewModel;
             InitializeComponent();
-            BtnOkMinus.Text = Strings.AppStrings.BtnApply_Text + " - ";
-            BtnOkPlus.Text = Strings.AppStrings.BtnApply_Text + " + ";
+            //BtnApply_Text
         }
 
         private bool _ClosedFromOKButton = false;

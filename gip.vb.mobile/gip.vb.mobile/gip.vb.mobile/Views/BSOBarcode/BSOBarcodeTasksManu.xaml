@@ -43,6 +43,7 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <StackLayout Grid.Row="0" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
                     <Label x:Name="ScanMessageLabel" Text="{Binding Item.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Medium">
@@ -65,6 +66,7 @@
                 <Button Grid.Row="2" x:Name="BtnDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="BtnDoBooking_Clicked" />
                 <Button Grid.Row="3" x:Name="BtnOccupyMachine" Text="{i18n:Translate Text=BtnOccupyMachine_Text}" Clicked="BtnOccupyMachine_Clicked" />
                 <Button Grid.Row="4" x:Name="BtnReleaseMachine" Text="{i18n:Translate Text=BtnReleaseMachine_Text}" Clicked="BtnReleaseMachine_Clicked" />
+                <Button Grid.Row="5" x:Name="BtnEnterACMParams" Text="{i18n:Translate Text=BtnEnterACMParams_Text}" Clicked="BtnEnterACMParams_Clicked" />
             </Grid>
         </Grid>
     </ContentPage.Content>

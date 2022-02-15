@@ -585,4 +585,7 @@
   <data name="WrongMaterial_Text" xml:space="preserve">
     <value>Falsches Quant wurde gescannt, bitte scannen Sie das Quant mit dem richtigen Material.</value>
   </data>
+  <data name="BtnEnterACMParams_Text" xml:space="preserve">
+    <value>Betriebsdaten eingeben</value>
+  </data>
 </root>

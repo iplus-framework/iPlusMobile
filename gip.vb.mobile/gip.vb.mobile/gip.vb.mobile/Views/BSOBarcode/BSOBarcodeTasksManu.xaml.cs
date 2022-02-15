@@ -63,6 +63,7 @@ namespace gip.vb.mobile.Views
             SetAndSendSelectedMachine();
         }
 
+
         private void SetAndSendSelectedMachine()
         {
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
@@ -107,11 +108,23 @@ namespace gip.vb.mobile.Views
             _ViewModel.ResetScanSequence();
         }
 
+        private async void BtnEnterACMParams_Clicked(object sender, EventArgs e)
+        {
+            if (!IsEnabledBtnEnterACMParams())
+                return;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            if (wfInfo == null || wfInfo.WFMethod == null)
+                return;
+            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
+        }
+
+
         private void EnableButtons()
         {
             BtnDoBooking.IsEnabled = IsEnabledBtnDoBooking();
             BtnOccupyMachine.IsEnabled = IsEnabledBtnOccupyMachine();
             BtnReleaseMachine.IsEnabled = IsEnabledBtnReleaseMachine();
+            BtnEnterACMParams.IsEnabled = IsEnabledBtnEnterACMParams();
         }
 
         private bool IsEnabledBtnDoBooking()
@@ -153,6 +166,16 @@ namespace gip.vb.mobile.Views
         {
             ExitOnBackButtonPressed();
             return true;
+        }
+
+        private bool IsEnabledBtnEnterACMParams()
+        {
+            if (_ViewModel == null)
+                return false;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            if (wfInfo == null)
+                return false;
+            return wfInfo.WFMethod != null;
         }
     }
 }

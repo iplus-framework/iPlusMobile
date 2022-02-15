@@ -137,6 +137,9 @@
     <Compile Update="Themes\LightTheme.xaml.cs">
       <DependentUpon>LightTheme.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOBarcode\BSOACMethodEditor.xaml.cs">
+      <DependentUpon>BSOACMethodEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>

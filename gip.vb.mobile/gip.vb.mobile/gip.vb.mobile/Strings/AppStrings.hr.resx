@@ -204,6 +204,9 @@
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
     <value>Kvant nije dostupan</value>
   </data>
+  <data name="BtnEnterACMParams_Text" xml:space="preserve">
+    <value>Unos proizvodnih parametra</value>
+  </data>
   <data name="BtnFinishOrder" xml:space="preserve">
     <value>Završi nalog</value>
   </data>
