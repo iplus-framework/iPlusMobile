@@ -588,4 +588,10 @@
   <data name="BtnEnterACMParams_Text" xml:space="preserve">
     <value>Betriebsdaten eingeben</value>
   </data>
+  <data name="ACMethodParamPivot_Header" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ACMethodResultPivot_Header" xml:space="preserve">
+    <value>Istwerte</value>
+  </data>
 </root>

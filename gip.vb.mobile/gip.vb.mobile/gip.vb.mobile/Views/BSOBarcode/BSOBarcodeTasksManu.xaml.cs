@@ -30,6 +30,7 @@ namespace gip.vb.mobile.Views
             barcodeScanner._ViewModel = _ViewModel;
             barcodeScanner.OnAppearing();
             EnableButtons();
+            SendChangedACMethod();
         }
 
         protected override void OnDisappearing()
@@ -115,9 +116,27 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo == null || wfInfo.WFMethod == null)
                 return;
+            wfInfo.WFMethod.AutoRemove = false;
             await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
         }
 
+        private void SendChangedACMethod()
+        {
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            if (wfInfo != null && wfInfo.WFMethod != null && wfInfo.WFMethod.AutoRemove == true)
+            {
+                wfInfo.WFMethod.AutoRemove = false;
+                BarcodeEntity entity = _ViewModel.Item.Sequence.LastOrDefault();
+                if (entity == null)
+                {
+                    _ViewModel.ResetScanSequence();
+                    return;
+                }
+                entity.SelectedOrderWF = wfInfo;
+                entity.WFMethod = wfInfo.WFMethod;
+                _ViewModel.InvokeBarcodeCommand.Execute(null);
+            }
+        }
 
         private void EnableButtons()
         {

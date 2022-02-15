@@ -70,6 +70,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        internal static string ACMethodParamPivot_Header {
+            get {
+                return ResourceManager.GetString("ACMethodParamPivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual values.
+        /// </summary>
+        internal static string ACMethodResultPivot_Header {
+            get {
+                return ResourceManager.GetString("ACMethodResultPivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activation/deactivation is not successful..
         /// </summary>
         internal static string ActIsNotSuccessful_Text {

@@ -120,6 +120,12 @@
   <data name="About_Label" xml:space="preserve">
     <value>O aplikaciji</value>
   </data>
+  <data name="ACMethodParamPivot_Header" xml:space="preserve">
+    <value>Parametri</value>
+  </data>
+  <data name="ACMethodResultPivot_Header" xml:space="preserve">
+    <value>Ostvareni vrijednosti</value>
+  </data>
   <data name="ActIsNotSuccessful_Text" xml:space="preserve">
     <value>Aktivacija/deaktivacija nije uspješna.</value>
   </data>

@@ -646,4 +646,10 @@
   <data name="BtnEnterACMParams_Text" xml:space="preserve">
     <value>Enter production data</value>
   </data>
+  <data name="ACMethodParamPivot_Header" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="ACMethodResultPivot_Header" xml:space="preserve">
+    <value>Actual values</value>
+  </data>
 </root>

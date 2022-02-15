@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BSOACMethodEditor : BSOPageBase
+    public partial class BSOACMethodEditor : BSOTabbedPageBase
     {
         ACMethod _ViewModel;
 
@@ -22,8 +22,6 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
-        private bool _ClosedFromOKButton = false;
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -31,16 +29,12 @@ namespace gip.vb.mobile.Views
 
         protected override void OnDisappearing()
         {
-            if (!_ClosedFromOKButton)
-            {
-            }
-
             base.OnDisappearing();
         }
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            _ClosedFromOKButton = true;
+            _ViewModel.AutoRemove = true;
             _ = await Navigation.PopAsync();
         }
     }
