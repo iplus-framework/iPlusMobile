@@ -199,9 +199,34 @@ namespace gip.vb.mobile.ViewModels
                     if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count() == 1 && Item != null 
                         && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
                     {
-                        CurrentBarcodeEntity.Add(response.Data.ValidEntity);
-                        CurrentBarcodeEntity = CurrentBarcodeEntity.ToList();
-                        ScanMessage = null;
+                        FacilityCharge fcNew = response.Data.ValidEntity as FacilityCharge;
+                        if (fcNew != null)
+                        {
+                            object addedEntity = CurrentBarcodeEntity.FirstOrDefault();
+                            FacilityCharge fc = addedEntity as FacilityCharge;
+                            if (fc != null)
+                            {
+                                CurrentBarcodeEntity.Remove(addedEntity);
+                            }
+                        }
+
+                        Facility fNew = response.Data.ValidEntity as Facility;
+                        if (fNew != null)
+                        {
+                            object addedEntity = CurrentBarcodeEntity.FirstOrDefault();
+                            Facility f = addedEntity as Facility;
+                            if (f != null)
+                            {
+                                CurrentBarcodeEntity.Remove(addedEntity);
+                            }
+                        }
+
+                        if (fcNew != null || fNew != null)
+                        {
+                            CurrentBarcodeEntity.Add(response.Data.ValidEntity);
+                            CurrentBarcodeEntity = CurrentBarcodeEntity.ToList();
+                            ScanMessage = null;
+                        }
                     }
                     else
                     {

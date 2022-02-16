@@ -123,6 +123,18 @@ namespace gip.vb.mobile.Views
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            if (_ViewModel.BarcodeScannerModel.IsListVisible)
+            {
+                _ViewModel.CleanBarcodeAndSetCurrentFacility();
+                return true;
+            }
+            else
+            {
+                return base.OnBackButtonPressed();
+            }
+        }
 
         #endregion
 
