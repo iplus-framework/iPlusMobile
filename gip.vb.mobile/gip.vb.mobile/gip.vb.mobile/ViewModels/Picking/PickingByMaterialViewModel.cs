@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
+using gip.mes.facility;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -144,7 +145,7 @@ namespace gip.vb.mobile.ViewModels
 
                 foreach (PickingPos pp in Item.PickingItems)
                 {
-                    if (pp.PostingQuantity > 0.00001 || pp.PostingQuantity < -0.00001)
+                    if (!FacilityConst.IsDoubleZeroForPosting(pp.PostingQuantity))
                     {
                         ACMethodBooking aCMethodBooking = new ACMethodBooking();
                         aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility;

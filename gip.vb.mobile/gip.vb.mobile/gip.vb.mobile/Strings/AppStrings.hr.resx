@@ -343,13 +343,13 @@
     <value>Skenirani kvant (ID: {0}) ne odgovara selektiranom (ID: {1})!</value>
   </data>
   <data name="FC_QuantAlreadyFinished" xml:space="preserve">
-    <value>Kvant je već završen! Možete ga ponovo uređivati!</value>
+    <value>Kvant je već prebrojan!</value>
   </data>
   <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
     <value>Kvant je dostupan na drugoj poziciji skladištenja: {0}!</value>
   </data>
   <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
-    <value>Kvant nije dostupan! Možete ga ponovo vratiti na stanje!</value>
+    <value>Kvant nije dostupan! Vratite ga nazat u stanje zaliha ako postoji!</value>
   </data>
   <data name="Filter_Text" xml:space="preserve">
     <value>Filtar</value>
@@ -546,11 +546,14 @@
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
     <value>Barkod/RFID</value>
   </data>
+  <data name="ScanFActivate_Text" xml:space="preserve">
+    <value>Skenirajte skladište / mjesto.</value>
+  </data>
   <data name="ScanFCActivate_Text" xml:space="preserve">
-    <value>Molimo, skenirajte prvo kvant onda pokušajte aktivirati. </value>
+    <value>Skenirajte prvo kvant za aktivaciju. </value>
   </data>
   <data name="ScanFCToActivate_Text" xml:space="preserve">
-    <value>Skeniraj kvant za aktivaciju/deaktivaciju</value>
+    <value>Morate skenirati kvanta!</value>
   </data>
   <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
     <value>Skenirani kvant nije trenutačno potreban.</value>
@@ -560,9 +563,6 @@
   </data>
   <data name="SelectBatch_Text" xml:space="preserve">
     <value>Izaberite ciljanu seriju:</value>
-  </data>
-  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
-    <value>Izabrana stavka nije valjano mjesto / pozicija skladišta.</value>
   </data>
   <data name="SelectFacility_Text" xml:space="preserve">
     <value>Izaberite skladište</value>
@@ -574,7 +574,7 @@
     <value>ili izaberite sastavnicu:</value>
   </data>
   <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
-    <value>Odaberite/skenirajte odredišnu skl. lokaciju/poziciju:</value>
+    <value>Odaberite/skenirajte odredišnu skl. lokaciju/poziciju</value>
   </data>
   <data name="SelectTargetFacility_Text" xml:space="preserve">
     <value>ili izaberite odredišno skladište</value>

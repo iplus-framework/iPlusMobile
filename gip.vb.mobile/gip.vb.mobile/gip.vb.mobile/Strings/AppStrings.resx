@@ -370,19 +370,19 @@
     <value>Quant not exist!</value>
   </data>
   <data name="FC_Match_Text" xml:space="preserve">
-    <value>Quant match!</value>
+    <value>Quant matches the inventory line.</value>
   </data>
   <data name="FC_NotMatch_Text" xml:space="preserve">
     <value>Scaned quant (ID: {0}) not match selected (ID: {1})!</value>
   </data>
   <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
-    <value>Quant is not available! You can restore quant to stock!</value>
+    <value>The quant is not available! Get the quant back into stock if there is physical inventory.</value>
   </data>
   <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
     <value>Quant is available on different Faciltiy: {0}!</value>
   </data>
   <data name="FC_QuantAlreadyFinished" xml:space="preserve">
-    <value>Quant is already finished! You can edit again!</value>
+    <value>Quant was already counted.</value>
   </data>
   <data name="Btn_AddQuantToStock" xml:space="preserve">
     <value>Add quant to stock</value>
@@ -401,9 +401,6 @@
   </data>
   <data name="Inv_OpenPositions" xml:space="preserve">
     <value>Inventory - open positions</value>
-  </data>
-  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
-    <value>Selected line is not valid facility!</value>
   </data>
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
     <value>Barcode sequence already have scanned code!</value>
@@ -430,10 +427,10 @@
     <value>Barcode entity is empty! Please scan first.</value>
   </data>
   <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
-    <value>Wrong scan. Please scan quant or facility!</value>
+    <value>Wrong scan. Please scan a quant or storage place!</value>
   </data>
   <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
-    <value>Wrong scan. Please scan quant!</value>
+    <value>Wrong scan. Please scan a quant!</value>
   </data>
   <data name="PickingWrongMaterial_Text" xml:space="preserve">
     <value>Material of the quant does not match the material of the picking position!</value>
@@ -463,10 +460,10 @@
     <value>The posting was successful.</value>
   </data>
   <data name="PrintFBCMissing_Text" xml:space="preserve">
-    <value>The facility booking charge for print cannot be found.</value>
+    <value>The stock movement line (posting line) coudn't be found for printing.</value>
   </data>
   <data name="PrintQuantMissing_Text" xml:space="preserve">
-    <value>The quant for print cannot be found.</value>
+    <value>The quant coudn't be found for printing.</value>
   </data>
   <data name="AssignedPrinter_Label" xml:space="preserve">
     <value>Assigned printer:</value>
@@ -481,7 +478,7 @@
     <value>Search only in list (filter list)</value>
   </data>
   <data name="SelectFacility_Text" xml:space="preserve">
-    <value>Select facility</value>
+    <value>Select a store</value>
   </data>
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Warehouse positions</value>
@@ -508,7 +505,7 @@
     <value>Ok. Scan now quant that you want relocate.</value>
   </data>
   <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
-    <value>Ok. Post now or scan facility where you want relocate.</value>
+    <value>Ok. Post now or scan the storage place where you want to relocate.</value>
   </data>
   <data name="PostingQuantity_Text" xml:space="preserve">
     <value>Posting Q:</value>
@@ -529,10 +526,10 @@
     <value>Previous Login-Request is still active. Please wait for response!</value>
   </data>
   <data name="PickingByMaterialWarning_Text" xml:space="preserve">
-    <value>Order picking Grouped by material is only recommended with the picking type filter selected!</value>
+    <value>Order picking grouped by material is only recommended with the picking type filter selected!</value>
   </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
-    <value>Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!</value>
+    <value>Posting was successful but data for relocated quant couldn't be retrieved! Please go to warehouse overview then scan the storage place, select the relocated quant and print label manually!</value>
   </data>
   <data name="BtnSplitQuant_Text" xml:space="preserve">
     <value>Split quant</value>
@@ -565,7 +562,7 @@
     <value>Quant split</value>
   </data>
   <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
-    <value>Select target facility location/bin:</value>
+    <value>Select target facility location/bin</value>
   </data>
   <data name="Spent_Text" xml:space="preserve">
     <value>Not available (spent, relocated,...)</value>
@@ -602,7 +599,7 @@
     <value>Register to picking workplace:</value>
   </data>
   <data name="ScanQuantActDeact_Text" xml:space="preserve">
-    <value>Scan quant to activate or deactivate</value>
+    <value>Scan a quant for activation or deactivation.</value>
   </data>
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Wrong scan. Please scan a workplace.</value>
@@ -629,10 +626,10 @@
     <value>Deactivation is successful.</value>
   </data>
   <data name="ScanFCActivate_Text" xml:space="preserve">
-    <value>Please, scan quant first then try activate.</value>
+    <value>Please scan a quant for activation or deactivation.</value>
   </data>
   <data name="ScanFCToActivate_Text" xml:space="preserve">
-    <value>Please, scan quant to activate/deactivate</value>
+    <value>A quant must be scanned!</value>
   </data>
   <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
     <value>Scanned quant is not currently required!</value>
@@ -651,5 +648,8 @@
   </data>
   <data name="ACMethodResultPivot_Header" xml:space="preserve">
     <value>Actual values</value>
+  </data>
+  <data name="ScanFActivate_Text" xml:space="preserve">
+    <value>A storage place must be scanned!</value>
   </data>
 </root>

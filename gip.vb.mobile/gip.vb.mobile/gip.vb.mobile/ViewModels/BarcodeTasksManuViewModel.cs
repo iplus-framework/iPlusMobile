@@ -71,7 +71,14 @@ namespace gip.vb.mobile.ViewModels
                                                         .Select(c => c.OrderWFInfos)
                                                         .LastOrDefault();
                         if (latestOrderInfos != null && latestOrderInfos.Any())
+                        {
+                            foreach (ProdOrderPartslistWFInfo wfInfo in latestOrderInfos)
+                            {
+                                if (wfInfo.WFMethod != null)
+                                    wfInfo.WFMethod.UseCultureInfoForConversion = true;
+                            }
                             barcodeSequence.AddRange(latestOrderInfos);
+                        }
                     }
                     SelectedSequence = null;
                     BarcodeSequence = barcodeSequence;

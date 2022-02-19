@@ -27,14 +27,19 @@ namespace gip.vb.mobile.Views
             BarcodeEntity barcodeEntity = _ViewModel.WSBarcodeEntityResult;
             if (barcodeEntity == null || barcodeEntity.FacilityCharge == null)
             {
-                _ViewModel.Message = new core.datamodel.Msg() { Message = "Kein Quant gescannt!" };
+                _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, Message = Strings.AppStrings.ScanFCToActivate_Text };
                 return;
             }
-            //if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
-            //{
-            //    _ViewModel.Message = new core.datamodel.Msg() { Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
-            //    return;
-            //}
+            else if (barcodeEntity.FacilityCharge.NotAvailable)
+            {
+                _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Info, Message = Strings.AppStrings.FC_QuantRestoreNotAvailable };
+                return;
+            }
+            else if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.PosRelation.SourcePos.Material.MaterialID)
+            {
+                _ViewModel.Message = new core.datamodel.Msg() { MessageLevel = core.datamodel.eMsgLevel.Error, Message = Strings.AppStrings.PickingWrongMaterial_Text };
+                return;
+            }
 
             _ViewModel.BookFacilityCommand.Execute(null);
         }

@@ -121,10 +121,10 @@
     <value>Hinzufügen</value>
   </data>
   <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
-    <value>Scan or Enter the process function Barcode</value>
+    <value>Scannen oder geben Sie den Barcode der Prozessfunktion ein</value>
   </data>
   <data name="BarcodeScan_Text" xml:space="preserve">
-    <value>Barcode Scannen oder Eingeben</value>
+    <value>Barcode scannen oder eingeben</value>
   </data>
   <data name="BookingHistory_Header" xml:space="preserve">
     <value>Buchungshistorie</value>
@@ -268,7 +268,7 @@
     <value>oder wählen Sie die Stückliste:</value>
   </data>
   <data name="SelectTargetFacility_Text" xml:space="preserve">
-    <value>oder wählen Sie den Zielspeicher:</value>
+    <value>oder wählen Sie den Ziellagerplatz aus:</value>
   </data>
   <data name="StockQuantity_Text" xml:space="preserve">
     <value>Bestand</value>
@@ -316,40 +316,37 @@
     <value>Quant existiert nicht!</value>
   </data>
   <data name="FC_Match_Text" xml:space="preserve">
-    <value>Quant passt!</value>
+    <value>Quant stimmt mit Inventurposition überein.</value>
   </data>
   <data name="FC_NotMatch_Text" xml:space="preserve">
-    <value>Gescannt Quant (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1})!</value>
+    <value>Gescanntes quant (ID: {0}) stimmt nicht mit dem ausgewählten (ID: {1}) überein!</value>
   </data>
   <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
-    <value>Quant ist nicht verfügbar! Sie können Quant auf Lager wiederherstellen!</value>
+    <value>Das Quant ist nicht verfügbar! Holen sie das Quant wieder zurück in den Lagerbestand falls physikalischer Bestand vorliegt.</value>
   </data>
   <data name="FC_QuantAlreadyFinished" xml:space="preserve">
-    <value>Quant ist schon fertig! Sie können wieder bearbeiten!</value>
+    <value>The quant has already been counted.</value>
   </data>
   <data name="Btn_AddQuantToStock" xml:space="preserve">
-    <value>Quant auf Lager hinzufügen</value>
+    <value>Quant im Lager hinzufügen</value>
   </data>
   <data name="Btn_EditQuantAgain" xml:space="preserve">
     <value>Erneut bearbeiten</value>
   </data>
   <data name="Inv_SelectStorage" xml:space="preserve">
-    <value>Inventur - wahl Lagerort / Platz</value>
+    <value>Inventur - Lagerort/Lagerlatz auswählen</value>
   </data>
   <data name="Inv_EditLine" xml:space="preserve">
-    <value>Inventur - Linie bearbeiten</value>
+    <value>Inventur - Position bearbeiten</value>
   </data>
   <data name="Inv_EditLineS" xml:space="preserve">
-    <value>Inventory - Linie suchen</value>
+    <value>Inventory - Position suchen</value>
   </data>
   <data name="Inv_OpenPositions" xml:space="preserve">
-    <value>Inventur - offene Linien</value>
-  </data>
-  <data name="SelectedBarcodeEntityNotValidFacility_Text" xml:space="preserve">
-    <value>Ausgewählter Linie ist keine gültige Lagerplatz!</value>
+    <value>Inventur - Offene Positionen</value>
   </data>
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
-    <value>Barcode-Sequenz hat bereits gescannten Code!</value>
+    <value>Barcode-Sequenz hat bereits einen gescannten Code!</value>
   </data>
   <data name="SelPickingType_Text" xml:space="preserve">
     <value>Kommissionierart auswählen</value>
@@ -358,7 +355,7 @@
     <value>Aufträge anzeigen</value>
   </data>
   <data name="FromStorageLocation_Text" xml:space="preserve">
-    <value>Vom Lagerort</value>
+    <value>Von Lagerort</value>
   </data>
   <data name="ToStorageLocation_Text" xml:space="preserve">
     <value>Nach Lagerort</value>
@@ -370,10 +367,10 @@
     <value>Gruppiert nach Material</value>
   </data>
   <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
-    <value>Barcode-Einheit ist leer! Bitte erst scannen.</value>
+    <value>Das Barcode-Objekt ist leer! Bitte erst scannen.</value>
   </data>
   <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
-    <value>Falscher Scan. Bitte scannen Sie Quant oder Lager!</value>
+    <value>Falscher Scan. Bitte scannen Sie ein Quant oder Lagerplatz!</value>
   </data>
   <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
     <value>Falscher Scan. Bitte Quant scannen!</value>
@@ -385,13 +382,13 @@
     <value>Wie viele Etiketten wollen Sie drucken?</value>
   </data>
   <data name="BtnFinishOrder" xml:space="preserve">
-    <value>Bestellung beenden</value>
+    <value>Auftrag beenden</value>
   </data>
   <data name="ChangePostingQ_Text" xml:space="preserve">
     <value>Ändern Sie die Buchungsmenge:</value>
   </data>
   <data name="OrderFinished_Text" xml:space="preserve">
-    <value>Die Bestellung ist abgeschlossen!</value>
+    <value>Der Auftrag ist abgeschlossen!</value>
   </data>
   <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
     <value>Die Buchung war erfolgreich. Bitte drucken Sie jetzt Etiketten aus und kleben Sie sie auf das Material. Wie viele Etiketten möchten Sie drucken?</value>
@@ -406,10 +403,10 @@
     <value>Die Buchung war erfolgreich.</value>
   </data>
   <data name="PrintFBCMissing_Text" xml:space="preserve">
-    <value>Die Buchungsgebühr für den Druck kann nicht gefunden werden.</value>
+    <value>Die Lagerbewegung konnte für einen Etikettendruck nicht gefunden werden.</value>
   </data>
   <data name="PrintQuantMissing_Text" xml:space="preserve">
-    <value>Das Quant für den Druck kann nicht gefunden werden.</value>
+    <value>Das Quant konnte für einen Etikettendruck nicht gefunden werden.</value>
   </data>
   <data name="AssignedPrinter_Label" xml:space="preserve">
     <value>Zugewiesener Drucker:</value>
@@ -424,13 +421,13 @@
     <value>Nur in Liste suchen (Filterliste)</value>
   </data>
   <data name="SelectFacility_Text" xml:space="preserve">
-    <value>Einrichtung auswählen</value>
+    <value>Lager auswählen</value>
   </data>
   <data name="WarehousePositions_Text" xml:space="preserve">
     <value>Positionen im Lager</value>
   </data>
   <data name="BtnApply_Text" xml:space="preserve">
-    <value>Bewerbung</value>
+    <value>Anwenden</value>
   </data>
   <data name="StorageLocationSortPriority_Text" xml:space="preserve">
     <value>Priorität des Lagerorts:</value>
@@ -451,7 +448,7 @@
     <value>Ok. Scan now quant that you want relocate.</value>
   </data>
   <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
-    <value>Ok. Buchen Sie jetzt oder scannen Sie die Einrichtung, in der Sie sich niederlassen möchten.</value>
+    <value>Ok. Buchen Sie jetzt oder scannen Sie den Lagerplatz in die sie umbuchen möchten.</value>
   </data>
   <data name="PostingQuantity_Text" xml:space="preserve">
     <value>Buchungsmenge:</value>
@@ -460,7 +457,7 @@
     <value>Quant Differenzm.:</value>
   </data>
   <data name="About_Label" xml:space="preserve">
-    <value>About</value>
+    <value>Über</value>
   </data>
   <data name="LoginError_Text" xml:space="preserve">
     <value>Kann keine Verbindung zum iPlus-Service herstellen. Bitte überprüfen Sie, ob iPlus-Service läuft oder Ihre Netzwerk- und Firewall-Einstellungen.</value>
@@ -472,10 +469,10 @@
     <value>Die vorherige Login-Anfrage ist noch aktiv. Bitte warten Sie auf Antwort!</value>
   </data>
   <data name="PickingByMaterialWarning_Text" xml:space="preserve">
-    <value>Kommissionierung Nach Material gruppiert ist nur bei gewähltem Kommissioniertyp-Filter zu empfehlen!</value>
+    <value>Kommissionierung per gruppiertem Material ist nur empfehlenswert wenn eine Filterung nach Kommissioniertyp gemacht wird.</value>
   </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
-    <value>Die Buchung war erfolgreich, aber die Daten für das umgelagerte Quant können nicht abgerufen werden. Bitte gehen Sie zur Lagerübersicht, scannen Sie dann die Zielanlage, wählen Sie das umgelagerte Quant aus und drucken Sie das Etikett manuell aus!</value>
+    <value>Die Buchung war erfolgreich, aber die Daten für das umgelagerte Quant können nicht abgerufen werden. Bitte gehen Sie zur Lagerübersicht, scannen Sie dann den Lagerplatz, wählen Sie das umgelagerte Quant aus und drucken Sie das Etikett manuell aus!</value>
   </data>
   <data name="BtnSplitQuant_Text" xml:space="preserve">
     <value>Quant Splitten</value>
@@ -487,7 +484,7 @@
     <value>Das gescannte Element hat ein anderes Ablaufdatum als die Elemente in der Liste. Es dürfen nur Artikel mit gleichem Ablaufdatum summiert werden.</value>
   </data>
   <data name="DifferentLotInList_Text" xml:space="preserve">
-    <value>Der gescannte Artikel hat eine andere LOT als die Artikel in der Liste. Es ist nur erlaubt, Artikel mit derselben LOT-Nummer zu summieren.</value>
+    <value>Der gescannte Artikel hat eine andere Chargennummer als die Artikel in der Liste. Es ist nur erlaubt, Artikel mit derselben Chargennummer zu summieren.</value>
   </data>
   <data name="NetWeightParseError_Text" xml:space="preserve">
     <value>Das Nettogewicht kann nicht geparst werden.</value>
@@ -508,10 +505,10 @@
     <value>Quant Splitten</value>
   </data>
   <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
-    <value>Standort/Abfallplatz der Zieleinrichtung auswählen:</value>
+    <value>Ziellagerplatz auswählen</value>
   </data>
   <data name="Spent_Text" xml:space="preserve">
-    <value>Verbrachten</value>
+    <value>Nicht verfügbare</value>
   </data>
   <data name="StockCorrectionReason_Text" xml:space="preserve">
     <value>Korrekturgrund:</value>
@@ -535,7 +532,7 @@
     <value>Buchen und beenden</value>
   </data>
   <data name="PickingOrders_Text" xml:space="preserve">
-    <value>Kommissionauftragen</value>
+    <value>Kommissionieraufträge</value>
   </data>
   <data name="QuantActivationDeactivation_Text" xml:space="preserve">
     <value>Quant Aktivierung/Deaktivierung</value>
@@ -544,7 +541,7 @@
     <value>Anmeldung zum Kommissionierarbeitsplatz</value>
   </data>
   <data name="ScanQuantActDeact_Text" xml:space="preserve">
-    <value />
+    <value>Scannen Sie ein Quant zur Aktivierung bzw. Deaktivierung.</value>
   </data>
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Falscher Scan. Bitte scannen Sie einen Arbeitsplatz.</value>
@@ -571,10 +568,10 @@
     <value>Die Deaktivierung ist erfolgreich.</value>
   </data>
   <data name="ScanFCActivate_Text" xml:space="preserve">
-    <value>Bitte scannen Sie zuerst Quant und versuchen Sie dann zu aktivieren.</value>
+    <value>Bitte scannen Sie ein Quant zur Aktivierung bzw. Deaktivierung.</value>
   </data>
   <data name="ScanFCToActivate_Text" xml:space="preserve">
-    <value>Bitte scannen Sie Quant zum Aktivieren/Deaktivieren</value>
+    <value>Es muss ein Quant gescannt werden.</value>
   </data>
   <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
     <value>Das eingescannte Quant ist derzeit nicht erforderlich!</value>
@@ -593,5 +590,8 @@
   </data>
   <data name="ACMethodResultPivot_Header" xml:space="preserve">
     <value>Istwerte</value>
+  </data>
+  <data name="ScanFActivate_Text" xml:space="preserve">
+    <value>Es muss ein Lagerplatz gescannt werden!</value>
   </data>
 </root>

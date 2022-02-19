@@ -264,7 +264,8 @@ namespace gip.vb.mobile.ViewModels
             BookingMessage = null;
             ScanMessage = null;
 
-            if (IsBusy || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
+            if (IsBusy 
+                || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
             BarcodeEntity barcodeEntity = WSBarcodeEntityResult;
@@ -485,7 +486,8 @@ namespace gip.vb.mobile.ViewModels
 
         public double? GetQuantityFromSumModel()
         {
-            if (_SumByBarcodeModel != null && (_SumByBarcodeModel.SumQuantity >= 0.00001 || _SumByBarcodeModel.SumQuantity <= 0.00001))
+            if (_SumByBarcodeModel != null 
+                && !FacilityConst.IsDoubleZeroForPosting(_SumByBarcodeModel.SumQuantity))
                 return _SumByBarcodeModel.SumQuantity;
             return null;
         }

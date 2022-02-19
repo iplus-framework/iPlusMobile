@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using gip.core.webservices;
 using System.Linq;
 using gip.core.autocomponent;
+using gip.mes.facility;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -239,7 +240,7 @@ namespace gip.vb.mobile.ViewModels
         {
             if (IsBusy
                 || Item == null
-                || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
+                || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
             IsBusy = true;
@@ -480,7 +481,7 @@ namespace gip.vb.mobile.ViewModels
                 || SelectedFacility == null)
                 return;
 
-            if (BookingQuantity >= -0.00001 && BookingQuantity <= 0.00001)
+            if (FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
             IsBusy = true;
@@ -686,7 +687,8 @@ namespace gip.vb.mobile.ViewModels
 
         public double? GetQuantityFromSumModel()
         {
-            if (_SumByBarcodeModel != null && (_SumByBarcodeModel.SumQuantity >= 0.00001 || _SumByBarcodeModel.SumQuantity <= 0.00001))
+            if (   _SumByBarcodeModel != null 
+                && !FacilityConst.IsDoubleZeroForPosting(_SumByBarcodeModel.SumQuantity))
                 return _SumByBarcodeModel.SumQuantity;
             return null;
         }

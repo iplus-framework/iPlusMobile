@@ -27,20 +27,34 @@ namespace gip.vb.mobile.Views
 
         public void ButtonDoBooking_Clicked(object sender, EventArgs e)
         {
-            //BarcodeEntity barcodeEntity = _ViewModel.WSBarcodeEntityResult;
-            //if (barcodeEntity == null || barcodeEntity.Facility == null)
-            //{
-            //    _ViewModel.Message = new core.datamodel.Msg() { Message = "Kein Facility gescannt!" };
-            //    return;
-            //}
-            //if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
-            //{
-            //    _ViewModel.Message = new core.datamodel.Msg() { Message = "Material des Quants stimmt nicht mit dem Material der Kommissionierposition überein!" };
-            //    return;
-            //}
-
+            if (_ViewModel.CurrentFacility == null)
+            {
+                _ViewModel.Message = new core.datamodel.Msg() { Message = Strings.AppStrings.SelectTargetFacilityLocationOrBin_Text };
+                return;
+            }
             _ViewModel.BookFacilityCommand.Execute(null);
         }
+
+        private void TabPrint_Clicked(object sender, EventArgs e)
+        {
+            if (CurrentPage == ProdOrderInOutHistory)
+            {
+                _ViewModel.Print(Strings.AppStrings.PrintCopies_Question);
+            }
+        }
+
+        private void BSOTabbedPageBase_CurrentPageChanged(object sender, EventArgs e)
+        {
+            if (CurrentPage == ProdOrderInOutHistory)
+            {
+                TBPrint.IsEnabled = true;
+            }
+            else
+            {
+                TBPrint.IsEnabled = false;
+            }
+        }
+
 
         private async void TBItemRefresh_Clicked(object sender, EventArgs e)
         {

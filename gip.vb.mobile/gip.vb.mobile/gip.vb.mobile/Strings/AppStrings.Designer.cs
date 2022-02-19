@@ -709,7 +709,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quant match!.
+        ///   Looks up a localized string similar to Quant matches the inventory line..
         /// </summary>
         internal static string FC_Match_Text {
             get {
@@ -736,7 +736,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quant is already finished! You can edit again!.
+        ///   Looks up a localized string similar to Quant was already counted..
         /// </summary>
         internal static string FC_QuantAlreadyFinished {
             get {
@@ -754,7 +754,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quant is not available! You can restore quant to stock!.
+        ///   Looks up a localized string similar to The quant is not available! Get the quant back into stock if there is physical inventory..
         /// </summary>
         internal static string FC_QuantRestoreNotAvailable {
             get {
@@ -1087,7 +1087,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Order picking Grouped by material is only recommended with the picking type filter selected!.
+        ///   Looks up a localized string similar to Order picking grouped by material is only recommended with the picking type filter selected!.
         /// </summary>
         internal static string PickingByMaterialWarning_Text {
             get {
@@ -1114,7 +1114,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok. Post now or scan facility where you want relocate..
+        ///   Looks up a localized string similar to Ok. Post now or scan the storage place where you want to relocate..
         /// </summary>
         internal static string PickingRelocationScanFacility_Text {
             get {
@@ -1132,7 +1132,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong scan. Please scan quant!.
+        ///   Looks up a localized string similar to Wrong scan. Please scan a quant!.
         /// </summary>
         internal static string PickingWrongBarcodeEntityQ_Text {
             get {
@@ -1141,7 +1141,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong scan. Please scan quant or facility!.
+        ///   Looks up a localized string similar to Wrong scan. Please scan a quant or storage place!.
         /// </summary>
         internal static string PickingWrongBarcodeEntityQF_Text {
             get {
@@ -1222,7 +1222,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The facility booking charge for print cannot be found..
+        ///   Looks up a localized string similar to The stock movement line (posting line) coudn&apos;t be found for printing..
         /// </summary>
         internal static string PrintFBCMissing_Text {
             get {
@@ -1231,7 +1231,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The quant for print cannot be found..
+        ///   Looks up a localized string similar to The quant coudn&apos;t be found for printing..
         /// </summary>
         internal static string PrintQuantMissing_Text {
             get {
@@ -1330,7 +1330,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posting was successful but data for relocated quant cannot be retrieved, please go to warehouse overview then scan target facility, select relocated quant and print label manually!.
+        ///   Looks up a localized string similar to Posting was successful but data for relocated quant couldn&apos;t be retrieved! Please go to warehouse overview then scan the storage place, select the relocated quant and print label manually!.
         /// </summary>
         internal static string RelocatedQuantDataMissing_Text {
             get {
@@ -1348,7 +1348,16 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, scan quant first then try activate..
+        ///   Looks up a localized string similar to A storage place must be scanned!.
+        /// </summary>
+        internal static string ScanFActivate_Text {
+            get {
+                return ResourceManager.GetString("ScanFActivate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please scan a quant for activation or deactivation..
         /// </summary>
         internal static string ScanFCActivate_Text {
             get {
@@ -1357,7 +1366,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, scan quant to activate/deactivate.
+        ///   Looks up a localized string similar to A quant must be scanned!.
         /// </summary>
         internal static string ScanFCToActivate_Text {
             get {
@@ -1375,7 +1384,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scan quant to activate or deactivate.
+        ///   Looks up a localized string similar to Scan a quant for activation or deactivation..
         /// </summary>
         internal static string ScanQuantActDeact_Text {
             get {
@@ -1393,16 +1402,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected line is not valid facility!.
-        /// </summary>
-        internal static string SelectedBarcodeEntityNotValidFacility_Text {
-            get {
-                return ResourceManager.GetString("SelectedBarcodeEntityNotValidFacility_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select facility.
+        ///   Looks up a localized string similar to Select a store.
         /// </summary>
         internal static string SelectFacility_Text {
             get {
@@ -1438,7 +1438,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select target facility location/bin:.
+        ///   Looks up a localized string similar to Select target facility location/bin.
         /// </summary>
         internal static string SelectTargetFacilityLocationOrBin_Text {
             get {

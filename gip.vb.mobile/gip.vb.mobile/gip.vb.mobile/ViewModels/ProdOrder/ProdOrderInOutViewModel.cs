@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.facility;
 using gip.mes.webservices;
 using Xamarin.Forms;
 
@@ -23,6 +25,7 @@ namespace gip.vb.mobile.ViewModels
             ReadPostingsCommand = new Command(async () => await ExecuteReadPostingsCommand());
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
+            PrintCommand = new Command(async () => await ExecutePrintCommand());
         }
 
         #endregion
@@ -307,6 +310,7 @@ namespace gip.vb.mobile.ViewModels
                             List<object> entries = new List<object>();
                             entries.Add(response.Data.ValidEntity);
                             CurrentBarcodeEntity = entries;
+                            BookingQuantity = response.Data.FacilityCharge.StockQuantity;
                         }
                     }
                 }
@@ -324,7 +328,8 @@ namespace gip.vb.mobile.ViewModels
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand()
         {
-            if (IsBusy || (BookingQuantity <= 0.00001 && BookingQuantity >= -0.00001))
+            if (IsBusy 
+                || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
             if (IsInput)
@@ -364,6 +369,7 @@ namespace gip.vb.mobile.ViewModels
                         await ExecuteReadPostingsCommand();
                         IsBusy = false;
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
+                        Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
                     }
                 }
             }
@@ -437,9 +443,48 @@ namespace gip.vb.mobile.ViewModels
                 Title = "ProdOrderInOutViewModel";
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
+            if (DialogOptions.RequestID == 1)
+            {
+                if (result == Global.MsgResult.OK)
+                {
+                    int copies = 0;
+                    if (int.TryParse(entredValue, out copies))
+                    {
+                        if (copies > 0)
+                        {
+                            PrintEntity printEntity = new PrintEntity();
+                            printEntity.CopyCount = copies;
 
+                            var facilityBookingCharge = GetPrintFacilityBookingCharge();
+                            if (facilityBookingCharge == null)
+                            {
+                                Msg msg = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintFBCMissing_Text);
+                                ShowDialog(msg, requestID: 2);
+                                return;
+                            }
+
+                            Guid? facilityChargeID = facilityBookingCharge.InwardFacilityChargeID.HasValue ? facilityBookingCharge.InwardFacilityChargeID : facilityBookingCharge.OutwardFacilityChargeID;
+
+                            if (!facilityChargeID.HasValue)
+                            {
+                                Msg msg = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintQuantMissing_Text);
+                                ShowDialog(msg, requestID: 2);
+                                return;
+                            }
+
+                            FacilityCharge fc = new FacilityCharge() { FacilityChargeID = facilityChargeID.Value };
+                            printEntity.Sequence = new List<BarcodeEntity>()
+                                                    {
+                                                        new BarcodeEntity(){ FacilityCharge = fc }
+                                                    };
+
+                            await ExecutePrintCommand(printEntity);
+                        }
+                    }
+                }
+            }
         }
 
         public async Task LoadTargetFacilities()
@@ -457,6 +502,60 @@ namespace gip.vb.mobile.ViewModels
                     TargetFacilities = new List<Facility>();
             }
         }
+
+        public Command PrintCommand { get; set; }
+        public async Task<bool> ExecutePrintCommand(PrintEntity printEntity = null)
+        {
+
+            if (IsBusy)
+                return false;
+
+            IsBusy = true;
+            bool success = false;
+            try
+            {
+                if (printEntity == null)
+                    return false;
+
+                WSResponse<bool> result = await _WebService.Print(printEntity);
+                success = result.Data;
+                Message = result.Message;
+            }
+            catch (Exception ex)
+            {
+                Message = new Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return success;
+        }
+
+        public void Print(string message)
+        {
+            var facilityBookingCharge = GetPrintFacilityBookingCharge();
+            if (facilityBookingCharge == null)
+            {
+                Msg msgError = new Msg(eMsgLevel.Error, Strings.AppStrings.PrintFBCMissing_Text);
+                Message = msgError;
+                return;
+            }
+
+            Msg msg = new Msg(eMsgLevel.QuestionPrompt, message);
+            ShowDialog(msg, "", Keyboard.Numeric, "1", 1);
+        }
+
+        public FacilityBookingChargeOverview GetPrintFacilityBookingCharge()
+        {
+            if (Overview == null || Overview.PostingsFBC == null)
+                return null;
+            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            if (result == null)
+                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            return result;
+        }
+
 
 
         #endregion
