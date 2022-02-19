@@ -70,9 +70,9 @@
             </StackLayout>
         </StackLayout>
 
-        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Clicked="BtnOkMinus_Clicked" />
+        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Text="-" Clicked="BtnOkMinus_Clicked" />
 
-        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand"  Clicked="BtnOkPlus_Clicked" />
+        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand" Text="+"  Clicked="BtnOkPlus_Clicked" />
 
     </Grid>
 </v:BSOPageBase>
