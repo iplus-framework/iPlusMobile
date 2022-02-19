@@ -238,6 +238,11 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 {
                     if (SelectedInventoryLine != null)
                     {
+                        if (!SelectedInventoryLine.NotAvailable && 
+                            (!SelectedInventoryLine.NewStockQuantity.HasValue || (SelectedInventoryLine.NewStockQuantity > -0.00001 
+                                                                                 && SelectedInventoryLine.NewStockQuantity < 0.00001)))
+                            return false;
+
                         SelectedInventoryLine.UpdateName = App.SettingsViewModel.LastUser;
                         SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
                         if (InventoryNavArgument.EditMode == EditModeEnum.Confirm || InventoryNavArgument.IsValidateAndComplete)

@@ -150,7 +150,10 @@ namespace gip.vb.mobile.Views
 
         private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
         {
-            LineQuantity.Text = null;
+            if (_ViewModel != null && _ViewModel.SelectedInventoryLine != null)
+            {
+                _ViewModel.SelectedInventoryLine.NewStockQuantity = null;
+            }
         }
     }
 }
