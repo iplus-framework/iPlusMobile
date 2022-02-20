@@ -24,7 +24,7 @@
         <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png" />
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" />
     </ContentPage.ToolbarItems>
-    <ScrollView>
+    <ScrollView x:Name="scrollView">
         <StackLayout Orientation="Vertical">
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
         <ctl:BarcodeScanner
@@ -68,12 +68,17 @@
                     </StackLayout>
                 </StackLayout>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=NewStockQuantity}" Style="{StaticResource LabelForDesc}" />
-                <ctl:NumericEntry x:Name="LineQuantity" TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
-                                  HorizontalTextAlignment="End" Keyboard="Numeric">
-                    <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior IsDecimal="False" SelectAllOnFocus="True" Precision="0"/>
-                    </Entry.Behaviors>
-                </ctl:NumericEntry>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="LineQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding SelectedInventoryLine.NewStockQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
                 <Editor Text="{Binding SelectedInventoryLine.Comment, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
                 <Button x:Name="cmdUpdate" Text="{i18n:Translate Text=BtnUpdate_Text}" Clicked="cmdUpdate_Clicked" IsEnabled="{Binding IsEnabledUpdateFacilityInventoryPosCommand}"/>

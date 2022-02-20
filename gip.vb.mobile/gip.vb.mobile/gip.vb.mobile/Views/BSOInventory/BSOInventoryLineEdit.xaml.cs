@@ -142,5 +142,18 @@ namespace gip.vb.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityChargeMaker() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.InventoryNavArgument.FacilityInventoryID } });
         }
+
+        private async void cmdSumByScan_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOSumQuantityByBarcode(_ViewModel.GetSumByBarcodeModel()));
+        }
+
+        private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
+        {
+            if (_ViewModel != null && _ViewModel.SelectedInventoryLine != null)
+            {
+                _ViewModel.SelectedInventoryLine.NewStockQuantity = null;
+            }
+        }
     }
 }

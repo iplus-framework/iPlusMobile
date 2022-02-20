@@ -1,5 +1,6 @@
 ﻿using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.facility;
 using gip.mes.webservices;
 using gip.vb.mobile.Strings;
 using System;
@@ -52,6 +53,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
         #endregion
 
         #region Properties
+
+        private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         /// <summary>
         /// Inventory navigation argument
@@ -197,6 +200,27 @@ namespace gip.vb.mobile.ViewModels.Inventory
             IsChargeAddCommandVisible = false;
         }
 
+        #region Methods => SumByBarcode
+
+        public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
+        {
+            string material = "Material";
+            if (SelectedInventoryLine != null && SelectedInventoryLine.MaterialName != null)
+                material = SelectedInventoryLine.MaterialName;
+
+            _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
+            return _SumByBarcodeModel;
+        }
+
+        public double? GetQuantityFromSumModel()
+        {
+            if (_SumByBarcodeModel != null
+                && !FacilityConst.IsDoubleZeroForPosting(_SumByBarcodeModel.SumQuantity))
+                return _SumByBarcodeModel.SumQuantity;
+            return null;
+        }
+
+        #endregion
 
 
         #endregion
@@ -214,6 +238,11 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 {
                     if (SelectedInventoryLine != null)
                     {
+                        if (!SelectedInventoryLine.NotAvailable && 
+                            (!SelectedInventoryLine.NewStockQuantity.HasValue || (SelectedInventoryLine.NewStockQuantity > -0.00001 
+                                                                                 && SelectedInventoryLine.NewStockQuantity < 0.00001)))
+                            return false;
+
                         SelectedInventoryLine.UpdateName = App.SettingsViewModel.LastUser;
                         SelectedInventoryLine.MDFacilityInventoryPosStateIndex = (short)MDFacilityInventoryPosState.FacilityInventoryPosStates.InProgress;
                         if (InventoryNavArgument.EditMode == EditModeEnum.Confirm || InventoryNavArgument.IsValidateAndComplete)
@@ -435,6 +464,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
             }
             else
                 IsEditPanelVisible = false;
+
+            double? sumQuantity = GetQuantityFromSumModel();
+            if (sumQuantity.HasValue && SelectedInventoryLine != null)
+            {
+                SelectedInventoryLine.NewStockQuantity = sumQuantity.Value;
+                _SumByBarcodeModel = null;
+            }
         }
 
         public void CleanBarcodeAndSetCurrentFacility()
