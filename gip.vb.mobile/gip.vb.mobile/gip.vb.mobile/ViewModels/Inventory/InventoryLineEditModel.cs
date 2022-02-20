@@ -278,8 +278,9 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                     else if (responseStates.Contains(FacilityChargeStateEnum.AlreadyFinished))
                                     {
                                         // Message line already finished can be edited again
-                                        IsChargeCommandPanelVisible = true;
-                                        IsChargeEditCommandVisible = true;
+                                        //IsChargeCommandPanelVisible = true;
+                                        //IsChargeEditCommandVisible = true;
+                                        IsEditPanelVisible = true;
                                         wSResponse.Message = new Msg(eMsgLevel.Info, AppStrings.FC_QuantAlreadyFinished);
                                         SelectedInventoryLine = wSResponse.Data.FacilityInventoryPos;
                                     }
