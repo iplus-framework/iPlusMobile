@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
@@ -77,97 +78,111 @@ namespace gip.vb.mobile.ViewModels
             set;
         }
 
+        private string _TempCurrentBarcode;
+
         public async Task OnBarcodeScanned(string currentBarcode)
         {
             Message = null;
 
-            if (string.IsNullOrEmpty(currentBarcode))
+            if (string.IsNullOrEmpty(currentBarcode) || !string.IsNullOrEmpty(_TempCurrentBarcode))
                 return;
 
             try
             {
                 await Task.Run(() =>
                 {
-                    currentBarcode = currentBarcode.TrimStart();
-                    currentBarcode = currentBarcode.TrimEnd();
-
-                    Helpers.GS1.HasCheckSum = false;
-                    var parseResult = Helpers.GS1.Parse(currentBarcode);
-
-                    if (parseResult != null && parseResult.Any())
-                    {
-                        Helpers.GS1.ParseResult externLotNo, expDate, netWeight;
-
-                        parseResult.TryGetValue(NetWeightInKgAI, out netWeight);
-                        parseResult.TryGetValue(ExpDateAI, out expDate);
-                        parseResult.TryGetValue(ExternLotNoAI, out externLotNo);
-
-
-                        if (netWeight.StringResult != null)
-                        {
-                            if (SumItemQuantites != null && SumItemQuantites.Any(c => c.Barcode == currentBarcode))
-                            {
-                                Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.AlreadAddedItem_Text);
-                                return;
-                            }
-
-                            if (!netWeight.DoubleResult.HasValue)
-                            {
-                                Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.NetWeightParseError_Text);
-                                return;
-                            }
-
-                            if (externLotNo.StringResult != null)
-                            {
-                                if (SumItemsLotNo == null)
-                                {
-                                    if (SumItemQuantites.Count > 0)
-                                        return;
-
-                                    SumItemsLotNo = externLotNo.StringResult;
-                                }    
-                                else if (SumItemsLotNo != externLotNo.StringResult)
-                                {
-                                    Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentLotInList_Text);
-                                    return;
-                                }
-                            }
-
-                            DateTime? expirationDate = null;
-                            if (expDate.StringResult != null)
-                            {
-                                DateTime dt;
-                                if (DateTime.TryParseExact(expDate.StringResult, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
-                                {
-                                    expirationDate = dt;
-                                    if (SumItemsExpDate == null)
-                                    {
-                                        if (SumItemQuantites.Count > 0)
-                                            return;
-
-                                        SumItemsExpDate = dt;
-                                    }
-                                    else if (dt != SumItemsExpDate)
-                                    {
-                                        Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentExpDateInList_Text);
-                                        return;
-                                    }
-                                }
-                            }
-
-                            if (expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0)
-                                return;
-
-                            SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = netWeight.DoubleResult.Value, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };
-                            SumItemQuantites.Add(sItem);
-                            SumQuantity = SumItemQuantites.Sum(x => x.Quantity);
-                        }
-                    }
+                    ProcessBarcode(currentBarcode);
                 });
             }
             catch (Exception e)
             {
                 Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+        }
+
+        private void ProcessBarcode(string currentBarcode, bool skipSameItemCheck = false)
+        {
+            currentBarcode = currentBarcode.TrimStart();
+            currentBarcode = currentBarcode.TrimEnd();
+
+            Helpers.GS1.HasCheckSum = false;
+            var parseResult = Helpers.GS1.Parse(currentBarcode);
+
+            if (parseResult != null && parseResult.Any())
+            {
+                Helpers.GS1.ParseResult externLotNo, expDate, netWeight;
+
+                parseResult.TryGetValue(NetWeightInKgAI, out netWeight);
+                parseResult.TryGetValue(ExpDateAI, out expDate);
+                parseResult.TryGetValue(ExternLotNoAI, out externLotNo);
+
+
+                if (netWeight.StringResult != null)
+                {
+                    if (!skipSameItemCheck && SumItemQuantites != null && SumItemQuantites.Any(c => c.Barcode == currentBarcode))
+                    {
+                        var question = new Msg(eMsgLevel.Question, Strings.AppStrings.AlreadAddedItem_Text) { MessageButton = eMsgButton.YesNo };
+                        _TempCurrentBarcode = currentBarcode;
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            ShowDialog(question, "", null, "", 1);
+                        });
+                        return;
+                    }
+
+                    _TempCurrentBarcode = null;
+
+                    if (!netWeight.DoubleResult.HasValue)
+                    {
+                        Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.NetWeightParseError_Text);
+                        return;
+                    }
+
+                    if (externLotNo.StringResult != null)
+                    {
+                        if (SumItemsLotNo == null)
+                        {
+                            if (SumItemQuantites.Count > 0)
+                                return;
+
+                            SumItemsLotNo = externLotNo.StringResult;
+                        }
+                        else if (SumItemsLotNo != externLotNo.StringResult)
+                        {
+                            Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentLotInList_Text);
+                            return;
+                        }
+                    }
+
+                    DateTime? expirationDate = null;
+                    if (expDate.StringResult != null)
+                    {
+                        DateTime dt;
+                        if (DateTime.TryParseExact(expDate.StringResult, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
+                        {
+                            expirationDate = dt;
+                            if (SumItemsExpDate == null)
+                            {
+                                if (SumItemQuantites.Count > 0)
+                                    return;
+
+                                SumItemsExpDate = dt;
+                            }
+                            else if (dt != SumItemsExpDate)
+                            {
+                                Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentExpDateInList_Text);
+                                return;
+                            }
+                        }
+                    }
+
+                    if (expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0)
+                        return;
+
+                    SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = netWeight.DoubleResult.Value, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };
+                    SumItemQuantites.Add(sItem);
+                    SumQuantity = SumItemQuantites.Sum(x => x.Quantity);
+                }
             }
         }
 
@@ -185,7 +200,11 @@ namespace gip.vb.mobile.ViewModels
 
         public override void DialogResponse(Global.MsgResult result, string enteredValue = null)
         {
-
+            if (DialogOptions.RequestID == 1 && result == Global.MsgResult.Yes && !string.IsNullOrEmpty(_TempCurrentBarcode))
+            {
+                ProcessBarcode(_TempCurrentBarcode, true);
+            }
+            _TempCurrentBarcode = null;
         }
     }
 }

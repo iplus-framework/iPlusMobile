@@ -172,24 +172,27 @@
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="3" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
+                    <RowDefinition Height="3" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
-                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="4" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
-                <Label Grid.Row="0" Text="{Binding Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Row="1" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
-                <Label Grid.Column="1" Text="T: " VerticalOptions="Start" HorizontalTextAlignment="End" />
-                <Label Grid.Column="2" Text="{Binding TotalQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-                <Label Grid.Column="1" Grid.Row="1" Text="A: " VerticalOptions="Start" HorizontalTextAlignment="End" />
-                <Label Grid.Column="2" Grid.Row="1" Text="{Binding ActualQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-
-                <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
+                <BoxView Grid.RowSpan="4" Grid.ColumnSpan="5" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="1" Text="{Binding Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="2" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="T: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Grid.Row="1" Text="{Binding TotalQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Column="1" Grid.Row="2" Text="A: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Grid.Row="2" Text="{Binding ActualQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
+                <BoxView Grid.Column="4" Grid.RowSpan="4" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

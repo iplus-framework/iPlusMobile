@@ -67,12 +67,12 @@
                         <hp:NumericTextBoxBehavior IsDecimal="False" Precision="3"/>
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
-            </StackLayout>
+            </StackLayout> 
         </StackLayout>
 
-        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Text="-" Clicked="BtnOkMinus_Clicked" />
+        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Text="{hp:Translate Text=BtnTakeQuantityNegative}" Clicked="BtnOkMinus_Clicked" />
 
-        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand" Text="+"  Clicked="BtnOkPlus_Clicked" />
+        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand" Text="{hp:Translate Text=BtnTakeQuantityPositive}"  Clicked="BtnOkPlus_Clicked" />
 
     </Grid>
 </v:BSOPageBase>

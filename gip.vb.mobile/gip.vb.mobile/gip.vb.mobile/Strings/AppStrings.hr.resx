@@ -139,7 +139,7 @@
     <value>Dodaj</value>
   </data>
   <data name="AlreadAddedItem_Text" xml:space="preserve">
-    <value>Već postoji stavka s skeniranim barkodom u listi.</value>
+    <value>Već postoji stavka s skeniranim barkodom u listi. Želite li ipak dodati stavku?</value>
   </data>
   <data name="AssignedPrinter_Label" xml:space="preserve">
     <value>Povezani pisač:</value>
@@ -245,6 +245,12 @@
   </data>
   <data name="BtnStart_Text" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="BtnTakeQuantityNegative" xml:space="preserve">
+    <value>Preuzmi kol. negativno</value>
+  </data>
+  <data name="BtnTakeQuantityPositive" xml:space="preserve">
+    <value>Preuzmi kol. pozitivno</value>
   </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
     <value>Kvant je dostupan</value>
@@ -524,6 +530,9 @@
   </data>
   <data name="QuantDiffQuantity_Text" xml:space="preserve">
     <value>Kol. razl. od kvanta:</value>
+  </data>
+  <data name="QuantIsNotAvailableCheck" xml:space="preserve">
+    <value>Kvant nije dostupan. Provjerite jeste li skenirali ispravan kvant.</value>
   </data>
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>

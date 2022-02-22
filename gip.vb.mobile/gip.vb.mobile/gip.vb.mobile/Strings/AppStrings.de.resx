@@ -594,4 +594,13 @@
   <data name="ScanFActivate_Text" xml:space="preserve">
     <value>Es muss ein Lagerplatz gescannt werden!</value>
   </data>
+  <data name="BtnTakeQuantityNegative" xml:space="preserve">
+    <value>Nehmen Menge negativ</value>
+  </data>
+  <data name="BtnTakeQuantityPositive" xml:space="preserve">
+    <value>Nehmen Menge positiv</value>
+  </data>
+  <data name="QuantIsNotAvailableCheck" xml:space="preserve">
+    <value>Quant ist nicht verfügbar. Bitte prüfen Sie, ob Sie das richtige Quant scannen.</value>
+  </data>
 </root>

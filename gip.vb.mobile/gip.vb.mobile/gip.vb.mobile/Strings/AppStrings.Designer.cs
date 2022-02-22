@@ -124,7 +124,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The item with scanned barcode is already in the list..
+        ///   Looks up a localized string similar to The item with scanned barcode is already in the list. Do you still want add item?.
         /// </summary>
         internal static string AlreadAddedItem_Text {
             get {
@@ -489,6 +489,24 @@ namespace gip.vb.mobile.Strings {
         internal static string BtnStart_Text {
             get {
                 return ResourceManager.GetString("BtnStart_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take quantity negative.
+        /// </summary>
+        internal static string BtnTakeQuantityNegative {
+            get {
+                return ResourceManager.GetString("BtnTakeQuantityNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take quantity positive.
+        /// </summary>
+        internal static string BtnTakeQuantityPositive {
+            get {
+                return ResourceManager.GetString("BtnTakeQuantityPositive", resourceCulture);
             }
         }
         
@@ -1281,6 +1299,15 @@ namespace gip.vb.mobile.Strings {
         internal static string QuantDiffQuantity_Text {
             get {
                 return ResourceManager.GetString("QuantDiffQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quant is not available. Please check are you scan correct quant..
+        /// </summary>
+        internal static string QuantIsNotAvailableCheck {
+            get {
+                return ResourceManager.GetString("QuantIsNotAvailableCheck", resourceCulture);
             }
         }
         

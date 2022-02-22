@@ -208,6 +208,11 @@ namespace gip.vb.mobile.ViewModels
                             {
                                 CurrentBarcodeEntity.Remove(addedEntity);
                             }
+
+                            if (fcNew.NotAvailable)
+                            {
+                                Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.QuantIsNotAvailableCheck);
+                            }
                         }
 
                         Facility fNew = response.Data.ValidEntity as Facility;
