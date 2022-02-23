@@ -173,7 +173,7 @@ namespace gip.vb.mobile.ViewModels
 
                 foreach (Picking picking in Pickings)
                 {
-                    sequence.AddSequence(new BarcodeEntity() { Picking = picking });
+                    sequence.AddSequence(new BarcodeEntity() { Picking = new Picking() { PickingID = picking.PickingID } });
                 }
 
                 if (!sequence.Sequence.Any())

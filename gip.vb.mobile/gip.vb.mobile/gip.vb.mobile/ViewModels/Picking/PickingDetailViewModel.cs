@@ -31,8 +31,6 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _Item, value);
-                if (_Item != null)
-                    _Item.RefreshPickingPosInView();
                 RebuildTitle();
             }
         }
@@ -82,8 +80,10 @@ namespace gip.vb.mobile.ViewModels
                 if (response.Suceeded)
                 {
                     Item = response.Data;
-
-
+                    if (Item != null)
+                    {
+                        Item.RefreshPickingPosInView();
+                    }
 
                     return true;
                 }
