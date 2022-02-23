@@ -15,9 +15,9 @@ namespace gip.vb.mobile.ViewModels
     {
         #region c'tors
 
-        public ProdOrderInOutViewModel(bool isInput, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch)
+        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch)
         {
-            IsInput = isInput;
+            IsInward = isInward;
             PosRelation = relation;
             IntermOrIntermBatch = intermOrIntermBatch;
             RebuildTitle();
@@ -32,7 +32,7 @@ namespace gip.vb.mobile.ViewModels
 
         #region Properties
 
-        public bool IsInput
+        public bool IsInward
         {
             get;
             set;
@@ -155,7 +155,7 @@ namespace gip.vb.mobile.ViewModels
             if (IsBusy)
                 return;
 
-            if (IsInput)
+            if (IsInward)
                 await ReadPostignsIn();
             else
                 await ReadPostingsOut();
@@ -290,7 +290,7 @@ namespace gip.vb.mobile.ViewModels
 
                 if (response.Suceeded)
                 {
-                    if (IsInput)
+                    if (IsInward)
                     {
                         if (response.Data.Facility != null)
                         {
@@ -332,7 +332,7 @@ namespace gip.vb.mobile.ViewModels
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
-            if (IsInput)
+            if (IsInward)
                 await BookFacilityIn();
             else
                 await BookFacilityOut();
