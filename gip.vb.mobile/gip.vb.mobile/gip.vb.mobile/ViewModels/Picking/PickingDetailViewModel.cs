@@ -170,11 +170,11 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 var requiredQuants = Item.PickingPos_Picking
-                                            .Select(p => new FacilityCharge()
-                                            {
-                                                Material = p.Material,
-                                                MDUnit = p.MDUnit
-                                            }).ToList();
+                                         .Select(p => new FacilityCharge()
+                                         {
+                                             Material = p.Material,
+                                             MDUnit = p.MDUnit
+                                         }).ToList();
 
                 IsBusy = true;
 
@@ -194,14 +194,36 @@ namespace gip.vb.mobile.ViewModels
                     {
                         foreach (FacilityCharge fc in actQuants)
                         {
-                            var matchQuant = requiredQuants.FirstOrDefault(c => !c.NotAvailable && c.Material != null && c.Material.MaterialID == fc.Material.MaterialID);
-                            requiredQuants.Remove(matchQuant);
+                            var matchingQuants = requiredQuants.Where(c => c.Material != null && c.Material.MaterialID == fc.Material.MaterialID).ToArray();
+                            foreach (var matchQuant in matchingQuants)
+                            {
+                                if (fc.NotAvailable)
+                                {
+                                    matchQuant.NotAvailable = true;
+                                    continue;
+                                }
+
+                                requiredQuants.Remove(matchQuant);
+                            }
                         }
                     }
 
                     if (requiredQuants.Any())
                     {
-                        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, "All required quants are not scanned. Please scan all required quants.");
+                        string message = Strings.AppStrings.BookAndFinishPickingError_Text + System.Environment.NewLine;
+                        foreach (var quant in requiredQuants)
+                        {
+                            message += quant.Material.MaterialName1;
+                            if (quant.NotAvailable)
+                            {
+                                message += " - " + Strings.AppStrings.InventoryPosNotAvailable_Text;
+                            }
+
+                            message += System.Environment.NewLine;
+                        }
+
+                        ShowDialog(new Msg(eMsgLevel.Error, message));
+                        
                         return;
                     }
 

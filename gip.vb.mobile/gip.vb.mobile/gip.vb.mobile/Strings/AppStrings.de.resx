@@ -603,4 +603,7 @@
   <data name="QuantIsNotAvailableCheck" xml:space="preserve">
     <value>Quant ist nicht verfügbar. Bitte prüfen Sie, ob Sie das richtige Quant scannen.</value>
   </data>
+  <data name="BookAndFinishPickingError_Text" xml:space="preserve">
+    <value>Die folgenden Quants sind nicht registriert oder haben Probleme:</value>
+  </data>
 </root>

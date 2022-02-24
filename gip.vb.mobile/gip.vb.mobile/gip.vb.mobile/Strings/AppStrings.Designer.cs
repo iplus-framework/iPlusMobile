@@ -232,6 +232,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following quants are not registered or have problem:.
+        /// </summary>
+        internal static string BookAndFinishPickingError_Text {
+            get {
+                return ResourceManager.GetString("BookAndFinishPickingError_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting journal.
         /// </summary>
         internal static string BookingHistory_Header {

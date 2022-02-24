@@ -661,4 +661,7 @@
   <data name="QuantIsNotAvailableCheck" xml:space="preserve">
     <value>Quant is not available. Please check are you scan correct quant.</value>
   </data>
+  <data name="BookAndFinishPickingError_Text" xml:space="preserve">
+    <value>The following quants are not registered or have problem:</value>
+  </data>
 </root>
