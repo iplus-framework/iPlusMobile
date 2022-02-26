@@ -310,7 +310,17 @@ namespace gip.vb.mobile.ViewModels
                             List<object> entries = new List<object>();
                             entries.Add(response.Data.ValidEntity);
                             CurrentBarcodeEntity = entries;
-                            BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+
+                            double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
+                            if (requiredQuantity > response.Data.FacilityCharge.StockQuantity)
+                            {
+                                BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+                            }
+                            else
+                            {
+                                BookingQuantity = requiredQuantity;
+                            }
+                            
                         }
                     }
                 }
