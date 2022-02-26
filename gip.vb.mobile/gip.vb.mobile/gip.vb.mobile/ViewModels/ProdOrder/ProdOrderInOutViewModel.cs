@@ -427,6 +427,8 @@ namespace gip.vb.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadPostingsCommand();
                         IsBusy = false;
+                        await RefreshPosRelation();
+                        IsBusy = false;
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                     }
                 }
