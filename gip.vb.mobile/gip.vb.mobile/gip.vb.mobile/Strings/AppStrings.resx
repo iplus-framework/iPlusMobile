@@ -664,4 +664,7 @@
   <data name="BookAndFinishPickingError_Text" xml:space="preserve">
     <value>The following quants are not registered or have problem:</value>
   </data>
+  <data name="ReleaseMachine_Question" xml:space="preserve">
+    <value>Are you sure that you want RELEASE machine? If you are, then enter number 1 and confirm to release machine.</value>
+  </data>
 </root>

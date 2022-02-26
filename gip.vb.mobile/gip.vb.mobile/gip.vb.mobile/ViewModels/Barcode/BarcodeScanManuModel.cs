@@ -1,8 +1,10 @@
-﻿using gip.mes.webservices;
+﻿using gip.core.datamodel;
+using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -54,11 +56,44 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public void ReleaseMachine()
+        {
+            ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "",  Keyboard.Numeric, "", 10);
+        }
+
+        public void InvokeActionOnMachine()
+        {
+            ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
+            BarcodeEntity entity = Item.Sequence.LastOrDefault();
+            if (entity == null)
+            {
+                ResetScanSequence();
+                return;
+            }
+            entity.SelectedOrderWF = wfInfo;
+            InvokeBarcodeCommand.Execute(null);
+        }
+
         public override void Clear()
         {
             base.Clear();
             BarcodeSequence = new List<object>();
             CurrentBarcode = null;
+        }
+
+        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        {
+            if (DialogOptions.RequestID == 10)
+            {
+                if (result == Global.MsgResult.OK && entredValue == "1")
+                {
+                    InvokeActionOnMachine();
+                }
+
+                return;
+            }
+
+            base.DialogResponse(result, entredValue);
         }
     }
 }

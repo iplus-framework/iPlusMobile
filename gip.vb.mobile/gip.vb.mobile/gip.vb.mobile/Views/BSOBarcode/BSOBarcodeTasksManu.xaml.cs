@@ -54,28 +54,16 @@ namespace gip.vb.mobile.Views
         {
             if (!IsEnabledBtnReleaseMachine())
                 return;
-            SetAndSendSelectedMachine();
+
+            _ViewModel.ReleaseMachine();
         }
 
         private void BtnOccupyMachine_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnOccupyMachine())
                 return;
-            SetAndSendSelectedMachine();
-        }
 
-
-        private void SetAndSendSelectedMachine()
-        {
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
-            BarcodeEntity entity = _ViewModel.Item.Sequence.LastOrDefault();
-            if (entity == null)
-            {
-                _ViewModel.ResetScanSequence();
-                return;
-            }
-            entity.SelectedOrderWF = wfInfo;
-            _ViewModel.InvokeBarcodeCommand.Execute(null);
+            _ViewModel.InvokeActionOnMachine();
         }
 
         private async void BtnDoBooking_Clicked(object sender, EventArgs e)

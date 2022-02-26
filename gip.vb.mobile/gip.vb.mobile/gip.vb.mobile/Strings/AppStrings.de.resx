@@ -606,4 +606,7 @@
   <data name="BookAndFinishPickingError_Text" xml:space="preserve">
     <value>Die folgenden Quants sind nicht registriert oder haben Probleme:</value>
   </data>
+  <data name="ReleaseMachine_Question" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie die Maschine freigeben wollen? Wenn ja, geben Sie die Nummer 1 ein und bestätigen Sie die Freigabe der Maschine.</value>
+  </data>
 </root>

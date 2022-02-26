@@ -552,6 +552,9 @@
   <data name="RegisterToWorkplace_Text" xml:space="preserve">
     <value>Prijava na radno mjesto komisioniranja:</value>
   </data>
+  <data name="ReleaseMachine_Question" xml:space="preserve">
+    <value>Jeste li stvarno sigurni da želite OSLOBODITI stroj? Ako jeste, molim upišite broj 1 i potvrdite kako bi oslobodili stroj.</value>
+  </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
   </data>

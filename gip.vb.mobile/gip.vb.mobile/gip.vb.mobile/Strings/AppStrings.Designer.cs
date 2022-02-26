@@ -1366,6 +1366,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want RELEASE machine? If you are, then enter number 1 and confirm to release machine..
+        /// </summary>
+        internal static string ReleaseMachine_Question {
+            get {
+                return ResourceManager.GetString("ReleaseMachine_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting was successful but data for relocated quant couldn&apos;t be retrieved! Please go to warehouse overview then scan the storage place, select the relocated quant and print label manually!.
         /// </summary>
         internal static string RelocatedQuantDataMissing_Text {
