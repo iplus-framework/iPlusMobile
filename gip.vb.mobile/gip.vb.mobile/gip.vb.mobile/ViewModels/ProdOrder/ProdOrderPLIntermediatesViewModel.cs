@@ -20,7 +20,8 @@ namespace gip.vb.mobile.ViewModels
 
         public ProdOrderPartslist ProdOrderPartslistItem
         {
-            get;set;
+            get;
+            set;
         }
 
         public ObservableCollection<ProdOrderPartslistPos> ProdOrderPLIntermediates { get; set; }

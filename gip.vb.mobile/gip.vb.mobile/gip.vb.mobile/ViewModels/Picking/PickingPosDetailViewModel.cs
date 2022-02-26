@@ -213,6 +213,10 @@ namespace gip.vb.mobile.ViewModels
                             {
                                 Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.QuantIsNotAvailableCheck);
                             }
+                            else if (BookingQuantity > fc.StockQuantity)
+                            {
+                                BookingQuantity = fc.StockQuantity;
+                            }
                         }
 
                         Facility fNew = response.Data.ValidEntity as Facility;
@@ -236,6 +240,13 @@ namespace gip.vb.mobile.ViewModels
                     else
                     {
                         CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+
+                        FacilityCharge fc = response.Data.ValidEntity as FacilityCharge;
+                        if (fc != null && BookingQuantity > fc.StockQuantity)
+                        {
+                            BookingQuantity = fc.StockQuantity;
+                        }
+
                         if (Item != null && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
                         {
                             var entity = CurrentBarcodeEntity.FirstOrDefault();

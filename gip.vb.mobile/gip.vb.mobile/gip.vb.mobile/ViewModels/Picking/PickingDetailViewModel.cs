@@ -170,6 +170,7 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 var requiredQuants = Item.PickingPos_Picking
+                                         .Where(x => x.CompleteFactor < 70)
                                          .Select(p => new FacilityCharge()
                                          {
                                              Material = p.Material,
