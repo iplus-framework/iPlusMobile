@@ -18,9 +18,11 @@ namespace gip.vb.mobile.Views
     public partial class BSOProdOrderOutwardMatSel : BSOPageBase
     {
         ProdOrderInMaterialsViewModel _ViewModel;
+        BarcodeScanManuModel _FromTaskModel;
 
-        public BSOProdOrderOutwardMatSel(ProdOrderPartslistPos targetPos)
+        public BSOProdOrderOutwardMatSel(ProdOrderPartslistPos targetPos, BarcodeScanManuModel taskModel)
         {
+            _FromTaskModel = taskModel;
             BindingContext = _ViewModel = new ProdOrderInMaterialsViewModel(targetPos);
             InitializeComponent();
         }
@@ -45,7 +47,7 @@ namespace gip.vb.mobile.Views
             if (rel == null)
                 return;
 
-            await Navigation.PushAsync(new BSOProdOrderOutward(rel));
+            await Navigation.PushAsync(new BSOProdOrderOutward(rel, _FromTaskModel));
         }
     }
 }

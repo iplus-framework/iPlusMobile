@@ -31,6 +31,8 @@ namespace gip.vb.mobile.Views
             barcodeScanner.OnAppearing();
             EnableButtons();
             SendChangedACMethod();
+            //if (_ViewModel != null)
+            //    _ViewModel.ResetScanSequence();
         }
 
         protected override void OnDisappearing()
@@ -75,26 +77,25 @@ namespace gip.vb.mobile.Views
             {
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
-                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch));
+                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel));
                 }
                 else if (!wfInfo.IntermediateBatch.HasInputMaterials)
                 {
-                    await Navigation.PushAsync(new BSOProdOrderInward(wfInfo.IntermediateBatch));
+                    await Navigation.PushAsync(new BSOProdOrderInward(wfInfo.IntermediateBatch, _ViewModel));
                 }
                 else
                 {
-                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch));
+                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel));
                 }
             }
             else if (wfInfo.Intermediate != null)
             {
-                await Navigation.PushAsync(new BSOProdOrderBatch(wfInfo.Intermediate));
+                await Navigation.PushAsync(new BSOProdOrderBatch(wfInfo.Intermediate, _ViewModel));
             }
             else
             {
-                await Navigation.PushAsync(new BSOProdOrderIntermediate(wfInfo.ProdOrderPartslist));
+                await Navigation.PushAsync(new BSOProdOrderIntermediate(wfInfo.ProdOrderPartslist, _ViewModel));
             }
-            _ViewModel.ResetScanSequence();
         }
 
         private async void BtnEnterACMParams_Clicked(object sender, EventArgs e)

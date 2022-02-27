@@ -93,6 +93,19 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private string _PropertyACUrl;
+        public string PropertyACUrl
+        {
+            get
+            {
+                return _PropertyACUrl;
+            }
+            set
+            {
+                SetProperty(ref _PropertyACUrl, value);
+            }
+        }
+
         public string _CurrentBarcode;
         public string CurrentBarcode
         {
@@ -364,7 +377,9 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.InwardMaterialID = IntermOrIntermBatch.BookingMaterialID;
                 aCMethodBooking.InwardFacilityLotID = IntermOrIntermBatch.FacilityLotID;
                 aCMethodBooking.MDUnitID = IntermOrIntermBatch.MDUnit?.MDUnitID;
+                aCMethodBooking.PropertyACUrl = this.PropertyACUrl;
                 BookingQuantity = 0;
+                PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
@@ -410,7 +425,9 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.OutwardFacilityID = barcodeEntity.FacilityCharge.Facility.FacilityID;
                 aCMethodBooking.OutwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
                 aCMethodBooking.OutwardMaterialID = PosRelation.SourcePos.Material.MaterialID;
+                aCMethodBooking.PropertyACUrl = PropertyACUrl;
                 BookingQuantity = 0;
+                PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)

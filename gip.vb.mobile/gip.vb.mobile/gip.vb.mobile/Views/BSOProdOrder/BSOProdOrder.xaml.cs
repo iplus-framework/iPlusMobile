@@ -50,7 +50,7 @@ namespace gip.vb.mobile.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new BSOProdOrderIntermediate(item));
+            await Navigation.PushAsync(new BSOProdOrderIntermediate(item, null));
         }
 
         private void ProdOrderPartslistsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -90,7 +90,7 @@ namespace gip.vb.mobile.Views
                     if (result != null)
                     {
                         _ViewModel.CurrentBarcode = null;
-                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(result));
+                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null));
                     }
                 }
             }
@@ -104,7 +104,7 @@ namespace gip.vb.mobile.Views
                 if(result != null)
                 {
                     _ViewModel.CurrentBarcode = null;
-                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(result));
+                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null));
                 }
 
             }

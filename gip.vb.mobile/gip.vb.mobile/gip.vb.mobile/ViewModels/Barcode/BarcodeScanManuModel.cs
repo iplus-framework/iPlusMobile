@@ -95,5 +95,15 @@ namespace gip.vb.mobile.ViewModels
 
             base.DialogResponse(result, entredValue);
         }
+
+        public BarcodeEntity ScannedMachine
+        {
+            get
+            {
+                if (this.Item == null || !this.Item.Sequence.Any())
+                    return null;
+                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
+            }
+        }
     }
 }

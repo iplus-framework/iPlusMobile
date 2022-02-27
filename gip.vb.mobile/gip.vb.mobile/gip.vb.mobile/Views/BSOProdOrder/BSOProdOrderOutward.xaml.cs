@@ -1,4 +1,6 @@
-﻿using gip.mes.webservices;
+﻿using gip.core.datamodel;
+using gip.mes.webservices;
+using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,10 @@ namespace gip.vb.mobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BSOProdOrderOutward : BSOProdOrderInOutBase
 	{
-		public BSOProdOrderOutward (ProdOrderPartslistPosRelation relation)
+        BarcodeScanManuModel _FromTaskModel;
+        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel)
 		{
+            _FromTaskModel = taskModel;
             BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null);
 			InitializeComponent();
 		}
@@ -41,6 +45,8 @@ namespace gip.vb.mobile.Views
                 return;
             }
 
+            if (_FromTaskModel != null && _FromTaskModel.ScannedMachine != null)
+                _ViewModel.PropertyACUrl = ACUrlHelper.GetParentACUrl(_FromTaskModel.ScannedMachine.ACClass.ACUrlComponent);
             _ViewModel.BookFacilityCommand.Execute(null);
         }
 

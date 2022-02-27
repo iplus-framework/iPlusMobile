@@ -15,9 +15,10 @@ namespace gip.vb.mobile.Views
 	public partial class BSOProdOrderIntermediate : BSOPageBase
 	{
         ProdOrderPLIntermediatesViewModel _ViewModel;
-
-		public BSOProdOrderIntermediate(ProdOrderPartslist prodOrderPartslist)
+        BarcodeScanManuModel _FromTaskModel;
+        public BSOProdOrderIntermediate(ProdOrderPartslist prodOrderPartslist, BarcodeScanManuModel taskModel)
 		{
+            _FromTaskModel = taskModel;
             BindingContext = _ViewModel = new ProdOrderPLIntermediatesViewModel(prodOrderPartslist);
             _ViewModel.Title = prodOrderPartslist.Partslist.PartslistNo;
             InitializeComponent ();
@@ -42,7 +43,7 @@ namespace gip.vb.mobile.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new BSOProdOrderBatch(item));
+            await Navigation.PushAsync(new BSOProdOrderBatch(item, _FromTaskModel));
         }
     }
 }
