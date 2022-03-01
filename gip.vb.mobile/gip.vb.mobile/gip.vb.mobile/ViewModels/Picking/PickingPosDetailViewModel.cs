@@ -251,19 +251,22 @@ namespace gip.vb.mobile.ViewModels
                         CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
 
                         FacilityCharge fc = response.Data.ValidEntity as FacilityCharge;
-
-                        double requiredQuantity = Item.TargetQuantity - Item.ActualQuantity;
-                        if (requiredQuantity > 0)
+                        if (fc != null)
                         {
-                            if (requiredQuantity > fc.StockQuantity)
+                            double requiredQuantity = Item.TargetQuantity - Item.ActualQuantity;
+                            if (requiredQuantity > 0)
                             {
-                                BookingQuantity = fc.StockQuantity;
-                            }
-                            else if (BookingQuantity != requiredQuantity)
-                            {
-                                BookingQuantity = requiredQuantity;
+                                if (requiredQuantity > fc.StockQuantity)
+                                {
+                                    BookingQuantity = fc.StockQuantity;
+                                }
+                                else if (BookingQuantity != requiredQuantity)
+                                {
+                                    BookingQuantity = requiredQuantity;
+                                }
                             }
                         }
+
                         if (Item != null && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
                         {
                             var entity = CurrentBarcodeEntity.FirstOrDefault();
