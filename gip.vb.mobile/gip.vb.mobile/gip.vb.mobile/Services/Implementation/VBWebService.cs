@@ -24,7 +24,10 @@ namespace gip.vb.mobile.Services
         {
             if (string.IsNullOrEmpty(barcodeID))
                 return await Task.FromResult(new WSResponse<BarcodeEntity>(null, new Msg(eMsgLevel.Error, "barcodeID is empty")));
-            return await Get<BarcodeEntity>(String.Format(VBWebServiceConst.UriBarcodeEntity_BarcodeID_F, barcodeID));
+
+            return await Post<BarcodeEntity, string>(barcodeID, VBWebServiceConst.UriBarcodeEntity);
+
+            //return await Get<BarcodeEntity>(String.Format(VBWebServiceConst.UriBarcodeEntity_BarcodeID_F, barcodeID));
         }
 
         public async Task<WSResponse<BarcodeSequence>> InvokeBarcodeSequenceAsync(BarcodeSequence sequence)

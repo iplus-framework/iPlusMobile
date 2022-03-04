@@ -18,9 +18,9 @@ namespace gip.vb.mobile.ViewModels
             Title = "Σ " + material;
         }
 
-        public static Helpers.GS1.AII NetWeightInKgAI = Helpers.GS1.GetAII("310d");
-        public static Helpers.GS1.AII ExternLotNoAI = Helpers.GS1.GetAII("10");
-        public static Helpers.GS1.AII ExpDateAI = Helpers.GS1.GetAII("15");
+        public static GS1.AII NetWeightInKgAI = GS1.GetAII("310d");
+        public static GS1.AII ExternLotNoAI = GS1.GetAII("10");
+        public static GS1.AII ExpDateAI = GS1.GetAII("15");
 
         public struct SumItem
         {
@@ -105,12 +105,11 @@ namespace gip.vb.mobile.ViewModels
             currentBarcode = currentBarcode.TrimStart();
             currentBarcode = currentBarcode.TrimEnd();
 
-            Helpers.GS1.HasCheckSum = false;
-            var parseResult = Helpers.GS1.Parse(currentBarcode);
+            var parseResult = GS1.Parse(currentBarcode, false);
 
             if (parseResult != null && parseResult.Any())
             {
-                Helpers.GS1.ParseResult externLotNo, expDate, netWeight;
+                GS1.ParseResult externLotNo, expDate, netWeight;
 
                 parseResult.TryGetValue(NetWeightInKgAI, out netWeight);
                 parseResult.TryGetValue(ExpDateAI, out expDate);
