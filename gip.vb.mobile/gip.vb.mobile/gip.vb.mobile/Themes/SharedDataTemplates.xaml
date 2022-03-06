@@ -337,8 +337,9 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
-                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="4" CornerRadius="4" />
                 <Label Grid.Row="0" Grid.Column="0" Text="{Binding Sequence, StringFormat=' {0}'}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding SourcePos.Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
                 <Label Grid.Row="0" Grid.Column="2" Text="{Binding SourcePos.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
@@ -349,6 +350,8 @@
                     <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.#}'}" />
                     <Label Text="{Binding SourcePos.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
                 </StackLayout>
+                
+                <BoxView Grid.Column="3" Grid.RowSpan="3" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

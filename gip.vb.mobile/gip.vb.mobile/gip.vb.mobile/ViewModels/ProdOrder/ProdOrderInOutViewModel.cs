@@ -585,8 +585,6 @@ namespace gip.vb.mobile.ViewModels
             return result;
         }
 
-
-
         #endregion
     }
 }
