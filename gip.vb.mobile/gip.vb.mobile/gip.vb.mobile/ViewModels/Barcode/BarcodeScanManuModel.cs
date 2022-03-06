@@ -27,25 +27,58 @@ namespace gip.vb.mobile.ViewModels
                     && Item.Sequence != null
                     && Item.Sequence.Any())
                 {
+                    object prevBarcodeSeq = BarcodeSequence;
+                    object prevSelectedSequence = SelectedSequence;
+                    object newSelectedSequence = null;
+
                     List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection)
+                    if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
+                        || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
-                        ProdOrderPartslistWFInfo[] latestOrderInfos = Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any())
-                                                        .Select(c => c.OrderWFInfos)
-                                                        .LastOrDefault();
-                        if (latestOrderInfos != null && latestOrderInfos.Any())
+                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
+                        foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
                         {
-                            foreach (ProdOrderPartslistWFInfo wfInfo in latestOrderInfos)
+                            bool refreshedWithSameReference = false;
+                            //ProdOrderPartslistWFInfo[] latestOrderInfos = barcodeEntitiesWithOrderInfos.Select(c => c.OrderWFInfos).LastOrDefault();
+                            var orderInfos = barcodeEntity.OrderWFInfos.ToList();
+                            foreach (var wfOrderInfo in barcodeEntity.OrderWFInfos)
                             {
-                                if (wfInfo.WFMethod != null)
-                                    wfInfo.WFMethod.UseCultureInfoForConversion = true;
+                                ProdOrderPartslistWFInfo existingWFInfo =
+                                barcodeSequence.Where(c => c is ProdOrderPartslistWFInfo
+                                                            && (c as ProdOrderPartslistWFInfo).ACUrlWF == wfOrderInfo.ACUrlWF
+                                                            && (c as ProdOrderPartslistWFInfo).IntermediateBatch != null
+                                                            && wfOrderInfo.IntermediateBatch != null
+                                                            && (c as ProdOrderPartslistWFInfo).IntermediateBatch.ProdOrderPartslistPosID == wfOrderInfo.IntermediateBatch.ProdOrderPartslistPosID)
+                                                .OfType<ProdOrderPartslistWFInfo>()
+                                                .FirstOrDefault();
+                                if (existingWFInfo == null)
+                                    barcodeSequence.Add(wfOrderInfo);
+                                else
+                                {
+                                    orderInfos.Remove(wfOrderInfo);
+                                    orderInfos.Add(existingWFInfo);
+                                    refreshedWithSameReference = true;
+                                }
                             }
-                            barcodeSequence.AddRange(latestOrderInfos);
+                            if (refreshedWithSameReference)
+                                barcodeEntity.OrderWFInfos = orderInfos.ToArray();
                         }
                     }
-                    SelectedSequence = null;
+                    foreach (ProdOrderPartslistWFInfo wfInfo in barcodeSequence.Where(c => c is ProdOrderPartslistWFInfo))
+                    {
+                        if (wfInfo.WFMethod != null)
+                            wfInfo.WFMethod.UseCultureInfoForConversion = true;
+                        if (newSelectedSequence == null && prevSelectedSequence != null && prevSelectedSequence is ProdOrderPartslistWFInfo)
+                        {
+                            ProdOrderPartslistWFInfo wfInfoPrev = prevSelectedSequence as ProdOrderPartslistWFInfo;
+                            if (wfInfoPrev.IntermediateBatch != null && wfInfo.IntermediateBatch != null && wfInfoPrev.IntermediateBatch.ProdOrderPartslistPosID == wfInfo.IntermediateBatch.ProdOrderPartslistPosID)
+                                newSelectedSequence = wfInfo;
+                        }
+                    }
+
+                    SelectedSequence = newSelectedSequence;
                     BarcodeSequence = barcodeSequence;
                 }
                 else
