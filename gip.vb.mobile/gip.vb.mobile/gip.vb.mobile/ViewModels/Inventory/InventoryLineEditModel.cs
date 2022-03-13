@@ -300,9 +300,25 @@ namespace gip.vb.mobile.ViewModels.Inventory
                                     else if (responseStates.Contains(FacilityChargeStateEnum.QuantNotAvailable))
                                     {
                                         // message quant there, can be restored - FC_QuantRestoreNotAvailable
-                                        IsChargeCommandPanelVisible = true;
-                                        IsChargeAddCommandVisible = true;
+                                        //IsChargeCommandPanelVisible = true;
+                                        //IsChargeAddCommandVisible = true;
+
+                                        //SearchFacilityCharge sFC = wSResponse.Data.
+
                                         wSResponse.Message = new Msg(eMsgLevel.Error, AppStrings.FC_QuantRestoreNotAvailable);
+                                        SelectedInventoryLine = new FacilityInventoryPos()
+                                        {
+                                            MaterialNo = CurrentFacilityCharge.Material.MaterialNo,
+                                            MaterialName = CurrentFacilityCharge.Material.MaterialName1,
+                                            FacilityChargeID = CurrentFacilityCharge.FacilityChargeID,
+                                            FacilityInventoryNo = InventoryNavArgument.FacilityInventoryNo,
+                                            FacilityNo = CurrentFacilityCharge.Facility.FacilityNo,
+                                            FacilityName = CurrentFacilityCharge.Facility.FacilityName,
+                                            LotNo = CurrentFacilityCharge.FacilityLot.LotNo,
+                                            NotAvailable = true
+                                        };
+                                        IsEditPanelVisible = true;
+
                                     }
                                     else if (responseStates.Contains(FacilityChargeStateEnum.AlreadyFinished))
                                     {
