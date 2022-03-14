@@ -350,8 +350,18 @@
                     <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.#}'}" />
                     <Label Text="{Binding SourcePos.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
                 </StackLayout>
-                
-                <BoxView Grid.Column="3" Grid.RowSpan="3" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
+
+                <BoxView Grid.Column="3" Grid.RowSpan="3">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="True">
+                            <Setter Property="Color" Value="LightSteelBlue" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="False">
+                            <Setter Property="Color" Value="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                    
+                </BoxView>
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

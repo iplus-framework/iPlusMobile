@@ -31,7 +31,7 @@ namespace gip.vb.mobile.Views
         {
             base.OnAppearing();
 
-            if (!_ViewModel.ProdOrderInMaterials.Any())
+            //if (!_ViewModel.ProdOrderInMaterials.Any())
                 _ViewModel.LoadProdOrderInMaterialsCommand.Execute(null);
         }
 
