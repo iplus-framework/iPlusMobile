@@ -122,6 +122,7 @@ namespace gip.vb.mobile.Views
         private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
         {
             BookingQuantity.Text = null;
+            RelocationQuantity.Text = null;
         }
 
         private void cmdClearMovementReason_Clicked(object sender, EventArgs e)

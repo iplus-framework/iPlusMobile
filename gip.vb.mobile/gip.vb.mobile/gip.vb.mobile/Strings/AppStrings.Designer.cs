@@ -601,6 +601,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correction.
+        /// </summary>
+        internal static string Correction_Text {
+            get {
+                return ResourceManager.GetString("Correction_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string DateFrom_Text {
@@ -1380,6 +1389,15 @@ namespace gip.vb.mobile.Strings {
         internal static string RelocatedQuantDataMissing_Text {
             get {
                 return ResourceManager.GetString("RelocatedQuantDataMissing_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relocation.
+        /// </summary>
+        internal static string Relocation_Text {
+            get {
+                return ResourceManager.GetString("Relocation_Text", resourceCulture);
             }
         }
         

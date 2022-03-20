@@ -59,7 +59,7 @@
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>
-    <v:BSOPageBase x:Name="PostingFCPivotItem" Title="{i18n:Translate Text=PostingFCPivot_Header}">
+    <v:BSOPageBase x:Name="PostingFCPivotItem" Title="{i18n:Translate Text=Correction_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -86,8 +86,38 @@
                 </StackLayout>
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
 
+                <BoxView HeightRequest="5" />
 
-                <BoxView HeightRequest="2" />
+                <Label Text="{i18n:Translate Text=QuantSplit_Text}" FontAttributes="Bold" />
+                <Label Text="{i18n:Translate Text=QuantSplitNo_Text}" Style="{StaticResource LabelForDesc}" />
+                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="True" Precision="0"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocation_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScanRelocation" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="RelocationQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearRelocationQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="4" />
 
                 <Label Text="{i18n:Translate Text=QuantRelocation_Text}" FontAttributes="Bold"  />
                 <Label Text="{i18n:Translate Text=SelectTargetFacilityLocationOrBin_Text}" Style="{StaticResource LabelForDesc}" />
@@ -99,15 +129,6 @@
                 <Button x:Name="ButtonRelocate" Text="{i18n:Translate Text=BtnRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
 
                 <BoxView HeightRequest="2" />
-
-                <Label Text="{i18n:Translate Text=QuantSplit_Text}" FontAttributes="Bold" />
-                <Label Text="{i18n:Translate Text=QuantSplitNo_Text}" Style="{StaticResource LabelForDesc}" />
-                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay}" HorizontalTextAlignment="End">
-                    <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="True" Precision="0"/>
-                    </Entry.Behaviors>
-                </ctl:NumericEntry>
-                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
 
             </StackLayout>
         </ScrollView>

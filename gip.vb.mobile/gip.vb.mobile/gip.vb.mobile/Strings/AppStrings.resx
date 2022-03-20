@@ -667,4 +667,10 @@
   <data name="ReleaseMachine_Question" xml:space="preserve">
     <value>Are you sure that you want RELEASE machine? If you are, then enter number 1 and confirm to release machine.</value>
   </data>
+  <data name="Correction_Text" xml:space="preserve">
+    <value>Correction</value>
+  </data>
+  <data name="Relocation_Text" xml:space="preserve">
+    <value>Relocation</value>
+  </data>
 </root>

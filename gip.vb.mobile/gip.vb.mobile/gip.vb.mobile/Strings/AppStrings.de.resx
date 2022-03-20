@@ -609,4 +609,10 @@
   <data name="ReleaseMachine_Question" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie die Maschine freigeben wollen? Wenn ja, geben Sie die Nummer 1 ein und bestätigen Sie die Freigabe der Maschine.</value>
   </data>
+  <data name="Correction_Text" xml:space="preserve">
+    <value>Berichtigung</value>
+  </data>
+  <data name="Relocation_Text" xml:space="preserve">
+    <value>Umzug</value>
+  </data>
 </root>

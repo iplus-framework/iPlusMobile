@@ -297,6 +297,9 @@
   <data name="Comment_Text" xml:space="preserve">
     <value>Komentar</value>
   </data>
+  <data name="Correction_Text" xml:space="preserve">
+    <value>Korekcija</value>
+  </data>
   <data name="DateFrom_Text" xml:space="preserve">
     <value>Od</value>
   </data>
@@ -557,6 +560,9 @@
   </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
+  </data>
+  <data name="Relocation_Text" xml:space="preserve">
+    <value>Premještanje</value>
   </data>
   <data name="ScanBarcodePivot_Header" xml:space="preserve">
     <value>Barkod/RFID</value>
