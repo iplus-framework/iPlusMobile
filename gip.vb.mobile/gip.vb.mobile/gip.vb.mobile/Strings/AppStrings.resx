@@ -673,4 +673,28 @@
   <data name="Relocation_Text" xml:space="preserve">
     <value>Relocation</value>
   </data>
+  <data name="Correct_Text" xml:space="preserve">
+    <value>Correct</value>
+  </data>
+  <data name="Reassign_Text" xml:space="preserve">
+    <value>Reassign</value>
+  </data>
+  <data name="Relocate_Text" xml:space="preserve">
+    <value>Relocate</value>
+  </data>
+  <data name="State_Text" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="ChooseNewMaterail_Text" xml:space="preserve">
+    <value>Choose new material:</value>
+  </data>
+  <data name="MaterialReassign_Text" xml:space="preserve">
+    <value>Material reassign</value>
+  </data>
+  <data name="ReassignRelocate_Text" xml:space="preserve">
+    <value>Reassign and relocate</value>
+  </data>
+  <data name="ReassignRelocation_Text" xml:space="preserve">
+    <value>Reassign and relocation</value>
+  </data>
 </root>

@@ -615,4 +615,28 @@
   <data name="Relocation_Text" xml:space="preserve">
     <value>Umzug</value>
   </data>
+  <data name="Correct_Text" xml:space="preserve">
+    <value>Korrekt</value>
+  </data>
+  <data name="Reassign_Text" xml:space="preserve">
+    <value>Neu zuordnen</value>
+  </data>
+  <data name="Relocate_Text" xml:space="preserve">
+    <value>Umziehen</value>
+  </data>
+  <data name="State_Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ChooseNewMaterail_Text" xml:space="preserve">
+    <value>Neues Material auswählen:</value>
+  </data>
+  <data name="MaterialReassign_Text" xml:space="preserve">
+    <value>Material neu zuordnen</value>
+  </data>
+  <data name="ReassignRelocate_Text" xml:space="preserve">
+    <value>Neu zuweisen und verlegen</value>
+  </data>
+  <data name="ReassignRelocation_Text" xml:space="preserve">
+    <value>Neuzuweisung und Umzug</value>
+  </data>
 </root>

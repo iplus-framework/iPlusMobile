@@ -89,6 +89,14 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.BookRelocateCommand.Execute(null);
             }
+            else if (sender == ButtonReassign)
+            {
+                _ViewModel.BookReassignCommand.Execute(null);
+            }
+            else if (sender == ButtonReassignRelocate)
+            {
+                _ViewModel.BookReassignRelocateCommand.Execute(null);
+            }
         }
 
         private void Print_Clicked(object sender, EventArgs e)
@@ -102,6 +110,7 @@ namespace gip.vb.mobile.Views
             _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
             await Navigation.PushModalAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
             FacilityEntry.Unfocus();
+            FacilityEntryReassignment.Unfocus();
         }
 
         private void cmdClearFacility_Clicked(object sender, EventArgs e)
@@ -130,6 +139,38 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedMovementReason = null;
         }
 
+        private void lvMaterials_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (_ViewModel.SelectedMaterial != null)
+            {
+                _ViewModel.Item.Material = _ViewModel.SelectedMaterial;
+                _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + " " + _ViewModel.SelectedMaterial.MaterialName1;
+            }
+        }
+
+        private void BtnSelectMaterialCancel_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.IsSelectMaterialVisible = false;
+        }
+
+
         #endregion
+
+        private void sbMaterial_Focused(object sender, FocusEventArgs e)
+        {
+            if (_ViewModel.SelectedMaterial != null)
+            {
+                _ViewModel.SelectedMaterial = null;
+            }
+            if (_ViewModel.MaterialList != null && _ViewModel.MaterialList.Any())
+            {
+                _ViewModel.IsSelectMaterialVisible = true;
+            }
+            else 
+            {
+                _ViewModel.GetSuggestedMaterials.Execute(null);
+                sbMaterial.Unfocus();
+            }
+        }
     }
 }

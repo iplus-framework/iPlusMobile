@@ -202,5 +202,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<WSResponse<List<Material>>> GetSuggestedMaterialsAsync(string materialID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

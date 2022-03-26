@@ -592,11 +592,29 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose new material:.
+        /// </summary>
+        internal static string ChooseNewMaterail_Text {
+            get {
+                return ResourceManager.GetString("ChooseNewMaterail_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         internal static string Comment_Text {
             get {
                 return ResourceManager.GetString("Comment_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correct.
+        /// </summary>
+        internal static string Correct_Text {
+            get {
+                return ResourceManager.GetString("Correct_Text", resourceCulture);
             }
         }
         
@@ -1033,6 +1051,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Material reassign.
+        /// </summary>
+        internal static string MaterialReassign_Text {
+            get {
+                return ResourceManager.GetString("MaterialReassign_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter Material No. or Name.
         /// </summary>
         internal static string MaterialSearch_Text {
@@ -1366,6 +1393,33 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reassign.
+        /// </summary>
+        internal static string Reassign_Text {
+            get {
+                return ResourceManager.GetString("Reassign_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reassign and relocate.
+        /// </summary>
+        internal static string ReassignRelocate_Text {
+            get {
+                return ResourceManager.GetString("ReassignRelocate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reassign and relocation.
+        /// </summary>
+        internal static string ReassignRelocation_Text {
+            get {
+                return ResourceManager.GetString("ReassignRelocation_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register to picking workplace:.
         /// </summary>
         internal static string RegisterToWorkplace_Text {
@@ -1380,6 +1434,15 @@ namespace gip.vb.mobile.Strings {
         internal static string ReleaseMachine_Question {
             get {
                 return ResourceManager.GetString("ReleaseMachine_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relocate.
+        /// </summary>
+        internal static string Relocate_Text {
+            get {
+                return ResourceManager.GetString("Relocate_Text", resourceCulture);
             }
         }
         
@@ -1524,6 +1587,15 @@ namespace gip.vb.mobile.Strings {
         internal static string Spent_Text {
             get {
                 return ResourceManager.GetString("Spent_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string State_Text {
+            get {
+                return ResourceManager.GetString("State_Text", resourceCulture);
             }
         }
         

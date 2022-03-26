@@ -26,7 +26,7 @@
         <ToolbarItem x:Name="TabPrint" Order="Primary" Priority="1" Text="Print" Clicked="Print_Clicked" IconImageSource="Print.png">
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
-    <v:BSOPageBase x:Name="LotPivotItem" Title="{i18n:Translate Text=QuantPivot_Header}">
+    <v:BSOPageBase x:Name="LotPivotItem" Title="INFO">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -59,7 +59,7 @@
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>
-    <v:BSOPageBase x:Name="PostingFCPivotItem" Title="{i18n:Translate Text=Correction_Text}">
+    <v:BSOPageBase x:Name="CorrectionFCPivotItem" Title="{i18n:Translate Text=Correct_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -100,7 +100,7 @@
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>
-    <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocation_Text}">
+    <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocate_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -133,7 +133,59 @@
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>
-    <v:BSOPageBase x:Name="AvailabilityFCPivotItem" Title="{i18n:Translate Text=AvailabilityFCPivotItem}">
+    <v:BSOPageBase x:Name="ReassignFCPivotItem" Title="{i18n:Translate Text=Reassign_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScanReassignment" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="ReassignmentQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=4}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="4"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearReassignQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="4" />
+
+                <Label Text="{i18n:Translate Text=MaterialReassign_Text}" FontAttributes="Bold" />
+                <Label Text="{i18n:Translate Text=ChooseNewMaterail_Text}" />
+                <SearchBar x:Name="sbMaterial" Text="{Binding MaterialSearchText}" SearchCommand="{Binding SearchMaterialCommand}" Focused="sbMaterial_Focused" />
+                <StackLayout IsVisible="{Binding IsSelectMaterialVisible}" VerticalOptions="Fill">
+                    <Button x:Name="BtnSelectMaterialCancel" Text="{i18n:Translate Text=ButtonCancel}" Clicked="BtnSelectMaterialCancel_Clicked" />
+                    <ListView x:Name="lvMaterials" ItemsSource="{Binding MaterialList}" SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}"
+                          ItemTapped="lvMaterials_ItemTapped" 
+                          ItemTemplate="{x:StaticResource Key=MaterialItemTemplate}"/>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding IsSelectMaterialVisible, Converter={x:StaticResource BooleanNegationConverter}}" Margin="0,10,0,0" >
+                    <Button x:Name="ButtonReassign" Text="{i18n:Translate Text=Reassign_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                    <BoxView HeightRequest="15" />
+
+                    <Label Text="{i18n:Translate Text=ReassignRelocation_Text}" FontAttributes="Bold"  />
+                    <Label Text="{i18n:Translate Text=SelectTargetFacilityLocationOrBin_Text}" Style="{StaticResource LabelForDesc}" />
+                    <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                        <Entry x:Name="FacilityEntryReassignment" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
+                        <Button x:Name="cmdClearFacilityReassignment" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
+                    </StackLayout>
+
+                    <Button x:Name="ButtonReassignRelocate" Text="{i18n:Translate Text=ReassignRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                    <BoxView HeightRequest="2" />
+                </StackLayout>
+
+
+               
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="AvailabilityFCPivotItem" Title="{i18n:Translate Text=State_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />

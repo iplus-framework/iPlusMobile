@@ -26,9 +26,13 @@ namespace gip.vb.mobile.ViewModels
             BookBlockQuantCommand = new Command(async () => await ExecuteBookBlockQuantCommand());
             BookReleaseQuantCommand = new Command(async () => await ExecuteBookReleaseQuantCommand());
             BookRelocateCommand = new Command(async () => await ExecuteBookRelocateCommand());
+            BookReassignCommand = new Command(async () => await ExecuteBookReassignCommand());
+            BookReassignRelocateCommand = new Command(async () => await ExecuteBookReassignRelocateCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             SplitQuantCommand = new Command(async () => await ExecuteSplitQuantCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
+            SearchMaterialCommand = new Command(async () => await ExecuteSearchMaterial());
+            GetSuggestedMaterials = new Command(async () => await ExecuteGetSuggestedMaterials());
 
             FacilityScanViewModel = new BarcodeScanFacilityModel(this);
         }
@@ -144,6 +148,52 @@ namespace gip.vb.mobile.ViewModels
 
         public BarcodeScanFacilityModel FacilityScanViewModel;
 
+        #region Properties => Reassignment
+
+        private string _MaterialSearchText;
+        public string MaterialSearchText
+        {
+            get => _MaterialSearchText;
+            set
+            {
+                SetProperty(ref _MaterialSearchText, value);
+                if (string.IsNullOrEmpty(_MaterialSearchText))
+                {
+                    SelectedMaterial = null;
+                }
+            }
+        }
+
+        private Material _SelectedMaterial;
+        public Material SelectedMaterial
+        {
+            get => _SelectedMaterial;
+            set
+            {
+                SetProperty(ref _SelectedMaterial, value);
+                IsSelectMaterialVisible = false;
+            }
+        }
+
+        private List<Material> _MaterialList;
+        public List<Material> MaterialList
+        {
+            get => _MaterialList;
+            set
+            {
+                SetProperty(ref _MaterialList, value);
+            }
+        }
+
+        private bool _IsSelectMaterialVisible;
+        public bool IsSelectMaterialVisible
+        {
+            get => _IsSelectMaterialVisible;
+            set => SetProperty(ref _IsSelectMaterialVisible, value);
+        }
+
+        #endregion
+
         #endregion
 
         #region Methods
@@ -204,7 +254,7 @@ namespace gip.vb.mobile.ViewModels
         }
 
         //public Command ReadFacilityChargeByFacilityMaterialLotCommand { get; set; }
-        public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID, string splitNo)
+        public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID, string materialNo, string splitNo)
         {
             if (IsBusy || Item == null)
                 return null;
@@ -218,7 +268,7 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), Item.Material.MaterialID.ToString(), 
+                var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), materialNo, 
                                                                                                Item.FacilityLot.FacilityLotID.ToString(), splitNoString);
                 this.WSResponse = response;
                 if (response.Suceeded)
@@ -508,7 +558,7 @@ namespace gip.vb.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
                         _TempFacilityCharge = null;
-                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, Item.SplitNo.ToString());
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, Item.Material.MaterialID.ToString(), Item.SplitNo.ToString());
                         if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
@@ -618,7 +668,7 @@ namespace gip.vb.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
                         _TempFacilityCharge = null;
-                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, QuantSplitNumber);
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, Item.Material.MaterialID.ToString(), QuantSplitNumber);
                         if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
@@ -739,6 +789,227 @@ namespace gip.vb.mobile.ViewModels
         {
             
         }
+
+        #region Reassignment
+
+        public Command SearchMaterialCommand { get; set; }
+        public async Task ExecuteSearchMaterial()
+        {
+            if (IsBusy || string.IsNullOrEmpty(MaterialSearchText))
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var response = await _WebService.SearchMaterialAsync(MaterialSearchText);
+                if (response.Suceeded)
+                {
+                    MaterialList = response.Data;
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+
+                IsSelectMaterialVisible = true;
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public Command GetSuggestedMaterials { get; set; }
+        public async Task ExecuteGetSuggestedMaterials()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var response = await _WebService.GetSuggestedMaterialsAsync(Item.Material.MaterialID.ToString());
+                if (response.Suceeded)
+                {
+                    MaterialList = response.Data;
+                    if (MaterialList.Count == 1)
+                    {
+                        SelectedMaterial = MaterialList.FirstOrDefault();
+                        MaterialSearchText = SelectedMaterial.MaterialNo + " " + SelectedMaterial.MaterialName1;
+                        return;
+                    }
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+
+                IsSelectMaterialVisible = true;
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public Command BookReassignCommand { get; set; }
+        public async Task ExecuteBookReassignCommand()
+        {
+            if (IsBusy
+                || Item == null
+                || SelectedMaterial == null)
+                return;
+
+            if (FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                ACMethodBooking aCMethodBooking = new ACMethodBooking();
+                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Reassign_FacilityCharge.ToString();
+                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardMaterialID = SelectedMaterial.MaterialID;
+                aCMethodBooking.OutwardQuantity = BookingQuantity;
+                BookingQuantity = 0;
+                var response = await _WebService.BookFacilityAsync(aCMethodBooking);
+                this.WSResponse = response;
+                if (!response.Suceeded)
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
+                else
+                {
+                    if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                        Message = response.Data;
+                    else
+                    {
+                        IsBusy = false;
+                        await ExecuteReadFacilityCharge();
+                        _TempFacilityCharge = null;
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), Item.SplitNo.ToString());
+                        if (_TempFacilityCharge == null)
+                        {
+                            Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
+                        }
+                        else
+                        {
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
+                                       Keyboard.Numeric, "1", 2);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public Command BookReassignRelocateCommand { get; set; }
+        public async Task ExecuteBookReassignRelocateCommand()
+        {
+            if (IsBusy
+                || Item == null
+                || SelectedMaterial == null
+                || SelectedFacility == null)
+                return;
+
+            if (FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                ACMethodBooking aCMethodBooking = new ACMethodBooking();
+                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Reassign_FacilityCharge.ToString();
+                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardMaterialID = SelectedMaterial.MaterialID;
+                aCMethodBooking.OutwardQuantity = BookingQuantity;
+                BookingQuantity = 0;
+                var response = await _WebService.BookFacilityAsync(aCMethodBooking);
+                this.WSResponse = response;
+                if (!response.Suceeded)
+                    Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
+                else
+                {
+                    if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                        Message = response.Data;
+                    else
+                    {
+                        IsBusy = false;
+                        await ExecuteReadFacilityCharge();
+                        var tempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), Item.SplitNo.ToString());
+                        if (tempFacilityCharge == null)
+                        {
+                            Message = new Msg(eMsgLevel.Error, "Reassignment is not successful!");
+                        }
+                        else
+                        {
+                            aCMethodBooking = new ACMethodBooking();
+                            aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility.ToString();
+                            aCMethodBooking.OutwardFacilityChargeID = tempFacilityCharge.FacilityChargeID;
+                            aCMethodBooking.InwardFacilityID = SelectedFacility.FacilityID;
+                            aCMethodBooking.OutwardQuantity = BookingQuantity;
+                            aCMethodBooking.InwardQuantity = BookingQuantity;
+                            BookingQuantity = 0;
+                            response = await _WebService.BookFacilityAsync(aCMethodBooking);
+                            this.WSResponse = response;
+                            if (!response.Suceeded)
+                                Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
+                            else
+                            {
+                                if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                                    Message = response.Data;
+                                else
+                                {
+                                    IsBusy = false;
+                                    await ExecuteReadFacilityCharge();
+                                    _TempFacilityCharge = null;
+                                    _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, tempFacilityCharge.Material.MaterialID.ToString(), 
+                                                                                                                                            tempFacilityCharge.SplitNo.ToString());
+                                    if (_TempFacilityCharge == null)
+                                    {
+                                        Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
+                                    }
+                                    else
+                                    {
+                                        ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
+                                                   Keyboard.Numeric, "1", 2);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        #endregion
+
         #endregion
 
     }

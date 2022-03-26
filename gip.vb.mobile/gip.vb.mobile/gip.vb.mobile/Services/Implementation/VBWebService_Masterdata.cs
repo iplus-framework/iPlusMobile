@@ -26,6 +26,13 @@ namespace gip.vb.mobile.Services
             return await Get<Material>(String.Format(VBWebServiceConst.UriMaterialID_F, materialID));
         }
 
+        public async Task<WSResponse<List<Material>>> GetSuggestedMaterialsAsync(string materialID)
+        {
+            if (string.IsNullOrEmpty(materialID))
+                return await Task.FromResult(new WSResponse<List<Material>>(null, new Msg(eMsgLevel.Error, "materialID is empty")));
+            return await Get<List<Material>>(String.Format(VBWebServiceConst.UriSuggestedMaterialsID_F, materialID));
+        }
+
         public async Task<WSResponse<List<Material>>> SearchMaterialAsync(string term)
         {
             if (string.IsNullOrEmpty(term))

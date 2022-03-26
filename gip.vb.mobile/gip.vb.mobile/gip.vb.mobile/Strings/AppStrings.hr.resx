@@ -294,11 +294,17 @@
   <data name="ChooseGroup_Text" xml:space="preserve">
     <value>Odaberi grupu:</value>
   </data>
+  <data name="ChooseNewMaterail_Text" xml:space="preserve">
+    <value>Izaberi novi materijal:</value>
+  </data>
   <data name="Comment_Text" xml:space="preserve">
     <value>Komentar</value>
   </data>
   <data name="Correction_Text" xml:space="preserve">
     <value>Korekcija</value>
+  </data>
+  <data name="Correct_Text" xml:space="preserve">
+    <value>Korigiraj</value>
   </data>
   <data name="DateFrom_Text" xml:space="preserve">
     <value>Od</value>
@@ -441,6 +447,9 @@
   <data name="MaterialPivot_Header" xml:space="preserve">
     <value>Materijal</value>
   </data>
+  <data name="MaterialReassign_Text" xml:space="preserve">
+    <value>Preraspodjela materijala</value>
+  </data>
   <data name="MaterialSearch_Text" xml:space="preserve">
     <value>Unesite broj ili naziv materijala</value>
   </data>
@@ -552,6 +561,15 @@
   <data name="QuantSplit_Text" xml:space="preserve">
     <value>Podjela kvanta</value>
   </data>
+  <data name="ReassignRelocate_Text" xml:space="preserve">
+    <value>Preraspodjeli i premjesti</value>
+  </data>
+  <data name="ReassignRelocation_Text" xml:space="preserve">
+    <value>Preraspodjela i premještanje</value>
+  </data>
+  <data name="Reassign_Text" xml:space="preserve">
+    <value>Preraspodjeli</value>
+  </data>
   <data name="RegisterToWorkplace_Text" xml:space="preserve">
     <value>Prijava na radno mjesto komisioniranja:</value>
   </data>
@@ -560,6 +578,9 @@
   </data>
   <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
     <value>Knjiženje je bilo uspješno, ali se podaci za premješteni kvant ne mogu dohvatiti, molimo idite na pregled skladišta, a zatim skenirajte poziciju, odaberite premješteni kvant i ispišite naljepnicu ručno!</value>
+  </data>
+  <data name="Relocate_Text" xml:space="preserve">
+    <value>Premjesti</value>
   </data>
   <data name="Relocation_Text" xml:space="preserve">
     <value>Premještanje</value>
@@ -605,6 +626,9 @@
   </data>
   <data name="Spent_Text" xml:space="preserve">
     <value>Nije dostupan (potrošen, premješten,...)</value>
+  </data>
+  <data name="State_Text" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="StockCorrectionReason_Text" xml:space="preserve">
     <value>Razlog korekcije:</value>
