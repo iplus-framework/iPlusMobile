@@ -993,7 +993,6 @@ namespace gip.vb.mobile.ViewModels
                                     }
                                 }
                             }
-
                         }
                     }
                 }
