@@ -890,7 +890,13 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        Message = response.Data;
+                    {
+                        MsgWithDetails resp = response.Data;
+                        if (string.IsNullOrEmpty(resp.Message))
+                            resp.Message = resp.DetailsAsText;
+
+                        Message = resp;
+                    }
                     else
                     {
                         IsBusy = false;
@@ -948,7 +954,13 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        Message = response.Data;
+                    {
+                        MsgWithDetails resp = response.Data;
+                        if (string.IsNullOrEmpty(resp.Message))
+                            resp.Message = resp.DetailsAsText;
+
+                        Message = resp;
+                    }
                     else
                     {
                         IsBusy = false;
@@ -974,13 +986,19 @@ namespace gip.vb.mobile.ViewModels
                             else
                             {
                                 if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                                    Message = response.Data;
+                                {
+                                    MsgWithDetails resp = response.Data;
+                                    if (string.IsNullOrEmpty(resp.Message))
+                                        resp.Message = resp.DetailsAsText;
+
+                                    Message = resp;
+                                }
                                 else
                                 {
                                     IsBusy = false;
                                     await ExecuteReadFacilityCharge();
                                     _TempFacilityCharge = null;
-                                    _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, tempFacilityCharge.Material.MaterialID.ToString(), 
+                                    _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, tempFacilityCharge.Material.MaterialID.ToString(),
                                                                                                                                             tempFacilityCharge.SplitNo.ToString());
                                     if (_TempFacilityCharge == null)
                                     {

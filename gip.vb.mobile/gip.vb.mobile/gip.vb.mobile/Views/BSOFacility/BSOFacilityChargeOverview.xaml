@@ -86,7 +86,7 @@
                 </StackLayout>
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
 
-                <BoxView HeightRequest="5" />
+                <BoxView HeightRequest="25" />
 
                 <Label Text="{i18n:Translate Text=QuantSplit_Text}" FontAttributes="Bold" />
                 <Label Text="{i18n:Translate Text=QuantSplitNo_Text}" Style="{StaticResource LabelForDesc}" />
@@ -178,9 +178,6 @@
 
                     <BoxView HeightRequest="2" />
                 </StackLayout>
-
-
-               
 
             </StackLayout>
         </ScrollView>
