@@ -84,7 +84,41 @@ namespace gip.vb.mobile.ViewModels
 
                 if (_WSBarcodeEntityResult != null && _WSBarcodeEntityResult.FacilityCharge != null)
                 {
-                    MissingBookingQuantity = WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+                    MissingBookingQuantity = _WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
+
+                    if (MissingBookingQuantity < -0.000001)
+                    {
+                        double availableQ = _WSBarcodeEntityResult.FacilityCharge.StockQuantity;
+
+                        foreach(PickingPos pPos in Item.PickingItems)
+                        {
+                            if (availableQ < 0.0000001)
+                            {
+                                pPos.PostingQuantity = 0;
+                            }
+                            else
+                            {
+                                double calcQ = pPos.TargetQuantity - pPos.ActualQuantity;
+                                if (calcQ > availableQ)
+                                {
+                                    pPos.PostingQuantity = availableQ;
+                                    availableQ = 0;
+                                }
+                                else
+                                {
+                                    pPos.PostingQuantity = calcQ;
+                                    availableQ = availableQ - calcQ;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (PickingPos pPos in Item.PickingItems)
+                        {
+                            pPos.CalculateDefaultPostingQuantity();
+                        }
+                    }
                 }
             }
         }
