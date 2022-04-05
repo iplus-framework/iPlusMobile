@@ -86,6 +86,9 @@ namespace gip.vb.mobile.ViewModels
                 {
                     MissingBookingQuantity = _WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
 
+                    if (Item == null)
+                        return;
+
                     if (MissingBookingQuantity < -0.000001)
                     {
                         double availableQ = _WSBarcodeEntityResult.FacilityCharge.StockQuantity;
