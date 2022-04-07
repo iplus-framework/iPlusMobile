@@ -697,4 +697,7 @@
   <data name="ReassignRelocation_Text" xml:space="preserve">
     <value>Reassign and relocation</value>
   </data>
+  <data name="PostingReason_Text" xml:space="preserve">
+    <value>Posting reason</value>
+  </data>
 </root>

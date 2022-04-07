@@ -1267,6 +1267,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posting reason.
+        /// </summary>
+        internal static string PostingReason_Text {
+            get {
+                return ResourceManager.GetString("PostingReason_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The posting was successful..
         /// </summary>
         internal static string PostingSuccesful_Text {

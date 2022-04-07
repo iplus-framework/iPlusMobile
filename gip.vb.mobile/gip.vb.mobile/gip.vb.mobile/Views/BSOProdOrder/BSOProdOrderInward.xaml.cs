@@ -70,6 +70,12 @@ namespace gip.vb.mobile.Views
         {
             await _ViewModel.LoadTargetFacilities();
             await _ViewModel.RefreshInItems();
+            _ViewModel.LoadMovementReasons();
+        }
+
+        private void cmdClearMovementReason_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SelectedMovementReason = null;
         }
     }
 }

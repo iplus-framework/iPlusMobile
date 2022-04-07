@@ -519,6 +519,9 @@
   <data name="PostingQuantity_Text" xml:space="preserve">
     <value>Kol. za knjiženje:</value>
   </data>
+  <data name="PostingReason_Text" xml:space="preserve">
+    <value>Razlog knjiženja</value>
+  </data>
   <data name="PostingSuccesful_Text" xml:space="preserve">
     <value>Knjiženje je uspješno izvršeno.</value>
   </data>

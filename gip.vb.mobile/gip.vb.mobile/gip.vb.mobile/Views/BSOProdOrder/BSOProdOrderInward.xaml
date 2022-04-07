@@ -60,6 +60,15 @@
                         RefreshCommand="{Binding LoadBarcodeEntityCommand}"
                         IsPullToRefreshEnabled="false"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+
+                <Label Text="{i18n:Translate Text=PostingReason_Text}" />
+                <StackLayout Orientation="Horizontal">
+                    <Picker ItemsSource="{Binding MovementReasons}" ItemDisplayBinding="{Binding MDMovementReasonName}" HorizontalOptions="FillAndExpand" SelectedItem="{Binding SelectedMovementReason}"  />
+                    <Button x:Name="cmdClearMovementReason" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearMovementReason_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="40" />
+                
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" 
                                   TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"

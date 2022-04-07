@@ -26,6 +26,7 @@ namespace gip.vb.mobile.ViewModels
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
+            GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
         }
 
         #endregion
@@ -155,6 +156,26 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _BookingMessage, value);
+            }
+        }
+
+        private MDMovementReason _SelectedMovementReason;
+        public MDMovementReason SelectedMovementReason
+        {
+            get => _SelectedMovementReason;
+            set
+            {
+                SetProperty(ref _SelectedMovementReason, value);
+            }
+        }
+
+        private IEnumerable<MDMovementReason> _MovementReasons;
+        public IEnumerable<MDMovementReason> MovementReasons
+        {
+            get => _MovementReasons;
+            set
+            {
+                SetProperty(ref _MovementReasons, value);
             }
         }
 
@@ -379,6 +400,7 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.InwardFacilityLotID = IntermOrIntermBatch.FacilityLotID;
                 aCMethodBooking.MDUnitID = IntermOrIntermBatch.MDUnit?.MDUnitID;
                 aCMethodBooking.PropertyACUrl = this.PropertyACUrl;
+                aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 BookingQuantity = 0;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -584,6 +606,43 @@ namespace gip.vb.mobile.ViewModels
             if (result == null)
                 result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
             return result;
+        }
+
+        public Command GetMovementReasonsCommand { get; set; }
+        public async Task ExecuteGetMovementReasons()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                var response = await _WebService.GetMovementReasonsAsync();
+                WSResponse = response;
+                if (response.Suceeded)
+                {
+                    MovementReasons = response.Data;
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public void LoadMovementReasons()
+        {
+            if (MovementReasons == null || !MovementReasons.Any())
+                GetMovementReasonsCommand.Execute(null);
         }
 
         #endregion

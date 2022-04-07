@@ -639,4 +639,7 @@
   <data name="ReassignRelocation_Text" xml:space="preserve">
     <value>Neuzuweisung und Umzug</value>
   </data>
+  <data name="PostingReason_Text" xml:space="preserve">
+    <value>Buchungsgrund</value>
+  </data>
 </root>
