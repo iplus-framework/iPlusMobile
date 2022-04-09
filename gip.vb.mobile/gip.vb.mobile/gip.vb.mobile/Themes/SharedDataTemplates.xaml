@@ -398,7 +398,7 @@
                         <Style TargetType="BoxView">
                             <Setter Property="Color" Value="{DynamicResource ControlBackgroundColor}"/>
                             <Style.Triggers>
-                                <DataTrigger TargetType="BoxView" Binding="{Binding ForRelease}" Value="True">
+                                <DataTrigger TargetType="BoxView" Binding="{Binding InfoState}" Value="10">
                                     <Setter Property="Color" Value="LimeGreen" />
                                 </DataTrigger>
                             </Style.Triggers>

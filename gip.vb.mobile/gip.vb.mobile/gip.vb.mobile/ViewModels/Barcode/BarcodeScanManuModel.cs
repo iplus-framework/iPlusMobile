@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
@@ -94,7 +95,14 @@ namespace gip.vb.mobile.ViewModels
             ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "",  Keyboard.Numeric, "", 10);
         }
 
-        public void InvokeActionOnMachine()
+        public void PauseOrderOnMachine()
+        {
+            ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
+            wfInfo.InfoState = POPartslistInfoState.Pause;
+            InvokeActionOnMachine();
+        }
+
+        public async void InvokeActionOnMachine()
         {
             ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
             BarcodeEntity entity = Item.Sequence.LastOrDefault();
@@ -104,7 +112,10 @@ namespace gip.vb.mobile.ViewModels
                 return;
             }
             entity.SelectedOrderWF = wfInfo;
-            InvokeBarcodeCommand.Execute(null);
+
+            bool success = await ExecuteInvokeBarcodeCommand();
+            if (success)
+                InvokeBarcodeCommand.Execute(null);
         }
 
         public override void Clear()

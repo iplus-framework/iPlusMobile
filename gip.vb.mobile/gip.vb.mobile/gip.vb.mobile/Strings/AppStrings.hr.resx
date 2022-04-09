@@ -273,6 +273,9 @@
   <data name="Btn_GroupByMaterial" xml:space="preserve">
     <value>Prikaži grupirano po materijalu</value>
   </data>
+  <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
+    <value>Pauziraj nalog na stroju</value>
+  </data>
   <data name="Btn_ShowPickingOrders" xml:space="preserve">
     <value>Prikaži naloge</value>
   </data>

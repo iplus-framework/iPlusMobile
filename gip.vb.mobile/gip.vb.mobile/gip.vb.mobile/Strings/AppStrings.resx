@@ -700,4 +700,7 @@
   <data name="PostingReason_Text" xml:space="preserve">
     <value>Posting reason</value>
   </data>
+  <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
+    <value>Pause order on machine</value>
+  </data>
 </root>

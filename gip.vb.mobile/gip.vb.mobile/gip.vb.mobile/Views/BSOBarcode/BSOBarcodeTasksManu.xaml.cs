@@ -68,6 +68,14 @@ namespace gip.vb.mobile.Views
             _ViewModel.InvokeActionOnMachine();
         }
 
+        private void BtnPauseOrderOnMachine_Clicked(object sender, EventArgs e)
+        {
+            if (!IsEnabledBtnPauseOrderOnMachine())
+                return;
+
+            _ViewModel.PauseOrderOnMachine();
+        }
+
         private async void BtnDoBooking_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnDoBooking())
@@ -130,8 +138,9 @@ namespace gip.vb.mobile.Views
         private void EnableButtons()
         {
             BtnDoBooking.IsEnabled = IsEnabledBtnDoBooking();
-            BtnOccupyMachine.IsEnabled = IsEnabledBtnOccupyMachine();
-            BtnReleaseMachine.IsEnabled = IsEnabledBtnReleaseMachine();
+            BtnOccupyMachine.IsVisible = IsEnabledBtnOccupyMachine();
+            BtnReleaseMachine.IsVisible = IsEnabledBtnReleaseMachine();
+            BtnPauseOrderOnMachine.IsVisible = IsEnabledBtnPauseOrderOnMachine();
             BtnEnterACMParams.IsEnabled = IsEnabledBtnEnterACMParams();
         }
 
@@ -142,7 +151,7 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
-            return wfInfo.ForRelease;
+            return wfInfo.InfoState > POPartslistInfoState.None;
         }
 
         private bool IsEnabledBtnOccupyMachine()
@@ -152,7 +161,7 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
-            return !wfInfo.ForRelease;
+            return wfInfo.InfoState != POPartslistInfoState.Release;
         }
 
         private bool IsEnabledBtnReleaseMachine()
@@ -162,7 +171,17 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
-            return wfInfo.ForRelease;
+            return wfInfo.InfoState > POPartslistInfoState.None;
+        }
+
+        private bool IsEnabledBtnPauseOrderOnMachine()
+        {
+            if (_ViewModel == null)
+                return false;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            if (wfInfo == null)
+                return false;
+            return wfInfo.InfoState > POPartslistInfoState.None;
         }
 
         private void barcodeScanner_OnSelectBarcodeEntity(object sender, EventArgs e)
@@ -185,5 +204,7 @@ namespace gip.vb.mobile.Views
                 return false;
             return wfInfo.WFMethod != null;
         }
+
+
     }
 }

@@ -642,4 +642,7 @@
   <data name="PostingReason_Text" xml:space="preserve">
     <value>Buchungsgrund</value>
   </data>
+  <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
+    <value>Pausenauftrag an Maschine</value>
+  </data>
 </root>

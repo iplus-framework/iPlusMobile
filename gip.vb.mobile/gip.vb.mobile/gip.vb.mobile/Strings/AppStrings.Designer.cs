@@ -295,6 +295,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pause order on machine.
+        /// </summary>
+        internal static string Btn_PauseOrderOnMachine {
+            get {
+                return ResourceManager.GetString("Btn_PauseOrderOnMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show orders.
         /// </summary>
         internal static string Btn_ShowPickingOrders {
