@@ -417,7 +417,8 @@ namespace gip.vb.mobile.ViewModels
                         await ExecuteReadPostingsCommand();
                         IsBusy = false;
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
-                        Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
+                        if (!CurrentFacility.SkipPrintQuestion)
+                            Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
                     }
                 }
             }
