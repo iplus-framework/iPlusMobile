@@ -67,10 +67,10 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=4}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="4"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
@@ -108,10 +108,10 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScanRelocation" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="RelocationQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=4}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="4"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearRelocationQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
@@ -141,10 +141,10 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScanReassignment" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
                     <ctl:NumericEntry x:Name="ReassignmentQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=4}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="4"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearReassignQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
