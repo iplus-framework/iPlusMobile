@@ -387,7 +387,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
+                    <RowDefinition Height="2" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -405,17 +405,23 @@
                         </Style>
                     </BoxView.Style>
                 </BoxView>
-                <Label Grid.Row="0" Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" />
-                <Label Grid.Row="0" Grid.Column="1" Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:MM/dd/yyyy HH:mm}'}" />
-                <Label Grid.Row="1" Grid.Column="0" Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1, StringFormat='M: {0}'}" />
-                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0">
-                    <Label Text="(" />
-                    <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" />
-                    <Label Text=")" />
-                    <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
-                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+
+                <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" />
+                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1, StringFormat='M: {0}'}" />
                 </StackLayout>
-                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Intermediate.Material.MaterialName1}" />
+
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" />
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
+                        <Label Text="Q: (" />
+                        <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" />
+                        <Label Text=")" />
+                        <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
+                        <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                    </StackLayout>
+                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" />
+                </StackLayout>
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

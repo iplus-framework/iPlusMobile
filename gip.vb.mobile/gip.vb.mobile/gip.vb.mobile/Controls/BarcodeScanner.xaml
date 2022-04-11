@@ -14,33 +14,38 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
-            <ScrollView x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
-                <StackLayout>
-                    <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-                    <SearchBar 
-                        x:Name="BarcodeSearchBar" 
-                        Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
-                        Text="{Binding Item.CurrentBarcode}" 
-                        SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
-                    <StackLayout 
-                        Orientation="Vertical"
-                        IsVisible="{Binding IsListVisible}">
-                        <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" Text="{i18n:Translate Text=ButtonClear}" />
-                        <ListView  
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" HeightRequest="50">
+                <SearchBar Grid.Row="1"
+                            x:Name="BarcodeSearchBar" 
+                            Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
+                            Text="{Binding Item.CurrentBarcode}" 
+                            HorizontalOptions="FillAndExpand"
+                            SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+
+                <Button x:Name="btnClearList" Clicked="btnClearList_Clicked"  WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+            </StackLayout>
+            <StackLayout Grid.Row="2" x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >
+                    <ListView  
                             x:Name="BarcodeListView" 
                             ItemsSource="{Binding BarcodeSequence}"
                             SelectedItem="{Binding SelectedSequence}"    
                             IsGroupingEnabled="false" 
-                            RowHeight="60"
+                            RowHeight="50"
                             ItemTemplate="{StaticResource BarcodeEntitySelector}"
                             HasUnevenRows="true"
                             IsPullToRefreshEnabled="false"
                             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                             ItemSelected="BarcodeListView_ItemSelected"
                             ItemTapped="BarcodeListView_ItemTapped"/>
-                    </StackLayout>
                 </StackLayout>
-            </ScrollView>
+
             <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
