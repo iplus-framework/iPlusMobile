@@ -114,7 +114,7 @@ namespace gip.vb.mobile.ViewModels
             entity.SelectedOrderWF = wfInfo;
 
             bool success = await ExecuteInvokeBarcodeCommand();
-            if (success)
+            if (success && Item != null && (Item.Message == null || Item.Message.MessageLevel < eMsgLevel.Warning))
                 InvokeBarcodeCommand.Execute(null);
         }
 
