@@ -385,21 +385,21 @@
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="18" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4">
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="LightSteelBlue" CornerRadius="4">
                     <BoxView.Style>
                         <Style TargetType="BoxView">
                             <Setter Property="Color" Value="{DynamicResource ControlBackgroundColor}"/>
                             <Style.Triggers>
                                 <DataTrigger TargetType="BoxView" Binding="{Binding InfoState}" Value="10">
-                                    <Setter Property="Color" Value="LimeGreen" />
+                                    <Setter Property="Color" Value="Lime" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -407,24 +407,24 @@
                 </BoxView>
 
                 <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                    <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" />
+                    <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" TextColor="Black" />
 
-                    <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" />
+                    <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" TextColor="Black" />
                     <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
-                        <Label Text="Q: (" />
-                        <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" />
-                        <Label Text=")" />
-                        <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
-                        <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                        <Label Text="Q: (" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" TextColor="Black" />
+                        <Label Text=")" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" TextColor="Black" />
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1}" />
-                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" />
+                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1}" TextColor="Black" />
+                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" TextColor="Black" />
                 </StackLayout>
 
-                <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ProdOrderPartslist.Comment}" />
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ProdOrderPartslist.Comment}" TextColor="Black" />
 
             </Grid>
         </ctl:ExtendedViewCell>

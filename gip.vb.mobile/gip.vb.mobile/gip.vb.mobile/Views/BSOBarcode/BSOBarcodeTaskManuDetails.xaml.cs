@@ -32,28 +32,31 @@ namespace gip.vb.mobile.Views
 
         #region Methods
 
-        private void BtnReleaseMachine_Clicked(object sender, EventArgs e)
+        private async void BtnReleaseMachine_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnReleaseMachine())
                 return;
 
             _ViewModel.ReleaseMachine();
+            await Navigation.PopAsync();
         }
 
-        private void BtnOccupyMachine_Clicked(object sender, EventArgs e)
+        private async void BtnOccupyMachine_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnOccupyMachine())
                 return;
 
-            _ViewModel.InvokeActionOnMachine();
+            await _ViewModel.InvokeActionOnMachine();
+            EnableButtons();
         }
 
-        private void BtnPauseOrderOnMachine_Clicked(object sender, EventArgs e)
+        private async void BtnPauseOrderOnMachine_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnPauseOrderOnMachine())
                 return;
 
-            _ViewModel.PauseOrderOnMachine();
+            await _ViewModel.PauseOrderOnMachine();
+            EnableButtons();
         }
 
         private async void BtnDoBooking_Clicked(object sender, EventArgs e)

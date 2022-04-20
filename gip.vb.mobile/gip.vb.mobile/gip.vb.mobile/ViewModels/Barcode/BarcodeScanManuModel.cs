@@ -1,4 +1,5 @@
 ﻿using gip.core.datamodel;
+using gip.core.webservices;
 using gip.mes.webservices;
 using System;
 using System.Collections.Generic;
@@ -81,11 +82,13 @@ namespace gip.vb.mobile.ViewModels
 
                     SelectedSequence = newSelectedSequence;
                     BarcodeSequence = barcodeSequence;
+                    _TempSequenceList = null;
                 }
                 else
                 {
                     SelectedSequence = null;
                     BarcodeSequence = new List<object>();
+                    _TempSequenceList = null;
                 }
             }
         }
@@ -95,14 +98,14 @@ namespace gip.vb.mobile.ViewModels
             ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "",  Keyboard.Numeric, "", 10);
         }
 
-        public void PauseOrderOnMachine()
+        public async Task PauseOrderOnMachine()
         {
             ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
             wfInfo.InfoState = POPartslistInfoState.Pause;
-            InvokeActionOnMachine();
+            await InvokeActionOnMachine();
         }
 
-        public async void InvokeActionOnMachine()
+        public async Task InvokeActionOnMachine()
         {
             ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
             BarcodeEntity entity = Item.Sequence.LastOrDefault();
@@ -115,7 +118,12 @@ namespace gip.vb.mobile.ViewModels
 
             bool success = await ExecuteInvokeBarcodeCommand();
             if (success && Item != null && (Item.Message == null || Item.Message.MessageLevel < eMsgLevel.Warning))
-                InvokeBarcodeCommand.Execute(null);
+            {
+                if (ScannedMachine != null && Item.CurrentBarcode != ScannedMachine.Barcode)
+                    Item.CurrentBarcode = ScannedMachine.Barcode;
+
+                success = await ExecuteInvokeBarcodeCommand();
+            }
         }
 
         public override void Clear()
@@ -123,15 +131,16 @@ namespace gip.vb.mobile.ViewModels
             base.Clear();
             BarcodeSequence = new List<object>();
             CurrentBarcode = null;
+            _TempSequenceList = null;
         }
 
-        public override void DialogResponse(Global.MsgResult result, string entredValue = null)
+        public async override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 10)
             {
                 if (result == Global.MsgResult.OK && entredValue == "1")
                 {
-                    InvokeActionOnMachine();
+                    await InvokeActionOnMachine();
                 }
 
                 return;
@@ -148,6 +157,39 @@ namespace gip.vb.mobile.ViewModels
                     return null;
                 return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
             }
+        }
+
+        private List<object> _TempSequenceList;
+
+        public void FilterSequenceList(string searchWord)
+        {
+            if (string.IsNullOrEmpty(searchWord))
+            {
+                if (_TempSequenceList != null)
+                {
+                    BarcodeSequence = _TempSequenceList;
+                }
+                return;
+            }
+
+            Guid temp;
+            if (Guid.TryParse(searchWord, out temp))
+                return;
+
+            if (_TempSequenceList == null)
+                _TempSequenceList = BarcodeSequence;
+
+            List<object> result = new List<object>();
+
+            object machine = _TempSequenceList.FirstOrDefault(c => c is ACClass);
+            if (machine == null)
+                return;
+
+            result.Add(machine);
+
+            result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)));
+
+            BarcodeSequence = result;
         }
     }
 }

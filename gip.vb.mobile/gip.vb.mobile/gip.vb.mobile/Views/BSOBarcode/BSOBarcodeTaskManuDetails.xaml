@@ -26,45 +26,74 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="10" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <StackLayout Grid.Row="0" Grid.ColumnSpan="2">
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrder, Text=ProgramNo}">
+                <Label Text="{Binding ScannedMachine.ACClass.ACCaption, StringFormat='{0}  '}"  TextColor="Black" Margin="0,0,0,5" HorizontalTextAlignment="End">
                     <Label.Style>
                         <Style TargetType="Label">
                             <Setter Property="BackgroundColor" Value="LightSteelBlue"/>
                             <Style.Triggers>
                                 <DataTrigger TargetType="Label" Binding="{Binding SelectedSequence.InfoState}" Value="10">
-                                    <Setter Property="BackgroundColor" Value="LimeGreen" />
+                                    <Setter Property="BackgroundColor" Value="Lime" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Label.Style>
                 </Label>
-                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.ProdOrder.ProgramNo}" Margin="0,0,0,2" />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrder, Text=ProgramNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.ProdOrder.ProgramNo}" Margin="0,0,0,1" />
 
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.MaterialNo}" Margin="0,0,0,2"  />
+                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.MaterialNo}" Margin="0,0,0,1"  />
 
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.MaterialName1}" Margin="0,0,0,2" />
+                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.MaterialName1}" Margin="0,0,0,1" />
 
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=StartDate}" Style="{StaticResource LabelForDesc}" />
-                <Label  Text="{Binding SelectedSequence.ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,0,2" />
+                <Label  Text="{Binding SelectedSequence.ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,0,1" />
 
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
-                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,2">
-                    <Label Text="{Binding SelectedSequence.ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
-                    <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,1">
+                            <Label Text="{Binding SelectedSequence.ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
+                            <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" >
+                        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,1">
+                            <Label Text="{Binding SelectedSequence.ProdOrderPartslist.ActualQuantity, StringFormat=' {0:0.#}'}" />
+                            <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
 
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
-                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,2">
-                    <Label Text="{Binding SelectedSequence.ProdOrderPartslist.ActualQuantity, StringFormat=' {0:0.#}'}" />
-                    <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
-                </StackLayout>
+                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Comment}" Margin="0,0,0,5" />
 
-                <Label Text="{Binding SelectedSequence.ProdOrderPartslist.Comment}" />
+
+                <Label x:Name="ScanMessageLabel" Text="{Binding Item.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="ScanAgain">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Selection">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Completed">
+                            <Setter Property="TextColor" Value="Lime" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Cancelled">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Question">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
             </StackLayout>
 

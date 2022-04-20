@@ -69,8 +69,13 @@ namespace gip.vb.mobile.Views
             return true;
         }
 
-
-
-
+        private void SearchTBItem_Clicked(object sender, EventArgs e)
+        {
+            if (_ViewModel.Item != null)
+            {
+                string searchText = _ViewModel.Item.CurrentBarcode;
+                _ViewModel.FilterSequenceList(searchText);
+            }
+        }
     }
 }
