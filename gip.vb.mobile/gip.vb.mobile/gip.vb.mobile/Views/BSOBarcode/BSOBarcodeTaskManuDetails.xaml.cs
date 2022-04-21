@@ -38,7 +38,7 @@ namespace gip.vb.mobile.Views
                 return;
 
             _ViewModel.ReleaseMachine();
-            await Navigation.PopAsync();
+            //await Navigation.PopAsync();
         }
 
         private async void BtnOccupyMachine_Clicked(object sender, EventArgs e)
