@@ -95,7 +95,10 @@
                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-                <Label Grid.Row="2" Grid.Column="0" Text="{Binding StockQuantity, StringFormat='{0:F5}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >
+                    <Label Text="{Binding StockQuantity, StringFormat='{0:F4}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding MDUnit.Symbol, StringFormat='  {0}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                </StackLayout>
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>

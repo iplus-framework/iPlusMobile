@@ -18,8 +18,8 @@
     <v:BSOPageBase.ToolbarItems>
         <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
         </ToolbarItem>
-        <ToolbarItem x:Name="SearchTBItem" Order="Primary" Priority="0" Text="Search" Clicked="SearchTBItem_Clicked"  IconImageSource="position_search.png">
-        </ToolbarItem>
+        <!--<ToolbarItem x:Name="SearchTBItem" Order="Primary" Priority="0" Text="Search" Clicked="SearchTBItem_Clicked"  IconImageSource="position_search.png">
+        </ToolbarItem>-->
     </v:BSOPageBase.ToolbarItems>
     <ContentPage.Content>
         <Grid>
