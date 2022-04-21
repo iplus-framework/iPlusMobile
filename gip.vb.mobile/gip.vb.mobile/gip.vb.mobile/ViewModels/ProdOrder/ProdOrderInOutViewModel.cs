@@ -415,6 +415,7 @@ namespace gip.vb.mobile.ViewModels
                     {
                         IsBusy = false;
                         await ExecuteReadPostingsCommand();
+                        await RefreshIntermOrIntermBatch();
                         IsBusy = false;
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         if (!CurrentFacility.SkipPrintQuestion)
@@ -490,6 +491,8 @@ namespace gip.vb.mobile.ViewModels
                 Title = PosRelation.SourcePos.Material?.MaterialName1;
             else if (PosRelation != null && PosRelation.TargetPos != null)
                 Title = PosRelation.TargetPos.Material?.MaterialName1;
+            else if (IntermOrIntermBatch != null && IntermOrIntermBatch.BookingMaterialInfo != null)
+                Title = IntermOrIntermBatch.BookingMaterialInfo;
             else if (IntermOrIntermBatch != null && IntermOrIntermBatch.Material != null)
                 Title = IntermOrIntermBatch.Material.MaterialName1;
             else
