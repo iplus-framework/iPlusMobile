@@ -17,39 +17,42 @@ namespace gip.vb.mobile.Helpers
         {
             QuantityMode = mode;
 
-            var parts = validSeqNo.Split(',');
-            List<Tuple<int, int>> result = new List<Tuple<int, int>>();
-
-            foreach (var part in parts)
+            if (validSeqNo != null)
             {
-                if (part.Contains("-"))
-                {
-                    var fromTo = part.Split('-');
-                    string from = fromTo.FirstOrDefault();
-                    string to = fromTo.LastOrDefault();
+                var parts = validSeqNo.Split(',');
+                List<Tuple<int, int>> result = new List<Tuple<int, int>>();
 
-                    int fromSeq = 0;
-                    if (!string.IsNullOrEmpty(part) && int.TryParse(part, out fromSeq))
+                foreach (var part in parts)
+                {
+                    if (part.Contains("-"))
                     {
-                        int toSeq = 0;
-                        if (!string.IsNullOrEmpty(part) && int.TryParse(part, out toSeq))
+                        var fromTo = part.Split('-');
+                        string from = fromTo.FirstOrDefault();
+                        string to = fromTo.LastOrDefault();
+
+                        int fromSeq = 0;
+                        if (!string.IsNullOrEmpty(from) && int.TryParse(from, out fromSeq))
                         {
-                            result.Add(new Tuple<int, int>(fromSeq, toSeq));
+                            int toSeq = 0;
+                            if (!string.IsNullOrEmpty(to) && int.TryParse(to, out toSeq))
+                            {
+                                result.Add(new Tuple<int, int>(fromSeq, toSeq));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int seq = 0;
+                        if (!string.IsNullOrEmpty(part) && int.TryParse(part, out seq))
+                        {
+                            result.Add(new Tuple<int, int>(seq, seq));
                         }
                     }
                 }
-                else
-                {
-                    int seq = 0;
-                    if (!string.IsNullOrEmpty(part) && int.TryParse(part, out seq))
-                    {
-                        result.Add(new Tuple<int, int>(seq, seq));
-                    }
-                }
-            }
 
-            if (result.Any())
-                ValidSeqNo = result;
+                if (result.Any())
+                    ValidSeqNo = result;
+            }
 
 
         }
@@ -71,7 +74,7 @@ namespace gip.vb.mobile.Helpers
             if (ValidSeqNo == null)
                 return true;
 
-            return ValidSeqNo.FirstOrDefault(c => c.Item1 >= seqenceNo && seqenceNo <= c.Item2) != null;
+            return ValidSeqNo.FirstOrDefault(c => c.Item1 <= seqenceNo && seqenceNo <= c.Item2) != null;
         }
 
     }

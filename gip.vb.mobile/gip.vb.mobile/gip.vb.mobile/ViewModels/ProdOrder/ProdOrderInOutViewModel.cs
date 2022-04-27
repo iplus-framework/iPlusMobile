@@ -373,8 +373,12 @@ namespace gip.vb.mobile.ViewModels
                                 if (stockQuantity > 0.0001)
                                     BookingQuantity = response.Data.FacilityCharge.StockQuantity;
                             }
-                            else if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.OrderQuantity 
-                                  && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
+                            else if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.None
+                                     && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
+                            {
+                                BookingQuantity = 0;
+                            }
+                            else
                             {
                                 double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
                                 if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)

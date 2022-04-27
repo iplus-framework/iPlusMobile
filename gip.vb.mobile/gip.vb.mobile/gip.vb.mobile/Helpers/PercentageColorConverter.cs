@@ -21,7 +21,7 @@ namespace gip.vb.mobile.Helpers
                 return Color.Yellow;
 
             else if (val.Value < 82)
-                return Color.LimeGreen;
+                return Color.Green;
 
             return Color.Lime;
         }
