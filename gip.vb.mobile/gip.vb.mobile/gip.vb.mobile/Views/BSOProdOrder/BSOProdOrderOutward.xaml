@@ -24,26 +24,6 @@
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
-    <v:BSOPageBase x:Name="ProdOrderInOutDetails" Title="{i18n:Translate Text=ProdOrderInOutInfo_Header}">
-        <ScrollView Orientation="Vertical">
-            <StackLayout>
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding PosRelation.SourcePos.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding PosRelation.SourcePos.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding PosRelation.TargetQuantity}" Style="{StaticResource LabelForData}"/>
-                    <Label Text="{Binding PosRelation.SourcePos.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
-                </StackLayout>
-                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding PosRelation.ActualQuantity}" Style="{StaticResource LabelForData}"/>
-                    <Label Text="{Binding PosRelation.SourcePos.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
-    </v:BSOPageBase>
     <v:BSOPageBase x:Name="ProdOrderInOutBooking" Title="{i18n:Translate Text=ProdOrderInOutBooking_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
@@ -55,6 +35,18 @@
                         RefreshCommand="{Binding LoadBarcodeEntityCommand}"
                         IsPullToRefreshEnabled="false"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center" />
+                    <Label Text="{Binding PosRelation.SourcePos.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                </StackLayout>
+
+                <Label Text="{i18n:Translate Text=TakeBookingQuantity_Text}" />
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10" >
+                    <Button HorizontalOptions="FillAndExpand" x:Name="btnScaleAccordingAnotherComp" Text="{i18n:Translate Text=BtnProportionallyAnotherComp_Text}" Clicked="btnScaleAccordingAnotherComp_Clicked" />
+                    <Button HorizontalOptions="FillAndExpand" x:Name="btnTakeQFromQuant" Text="{i18n:Translate Text=BtnQuantQuantity_Text}" Clicked="btnTakeQFromQuant_Clicked" />
+                </StackLayout>
+                
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" 
                                   TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
@@ -63,7 +55,20 @@
                         <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
-                <BoxView HeightRequest="50" />
+
+                <StackLayout HeightRequest="50" Orientation="Horizontal">
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding PosRelation.TargetQuantity, StringFormat='{0:F3}'}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding PosRelation.SourcePos.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center"
+                           Margin="15,0,0,0" />
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="{Binding PosRelation.ActualQuantity, StringFormat='{0:F3}'}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding PosRelation.SourcePos.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </StackLayout>
                 <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
             </StackLayout>
         </ScrollView>

@@ -231,6 +231,12 @@
   <data name="BtnOccupyMachine_Text" xml:space="preserve">
     <value>Zauzmi stroj s nalogom</value>
   </data>
+  <data name="BtnProportionallyAnotherComp_Text" xml:space="preserve">
+    <value>Razmjerno prvoj komp.</value>
+  </data>
+  <data name="BtnQuantQuantity_Text" xml:space="preserve">
+    <value>Količina kvanta</value>
+  </data>
   <data name="BtnReleaseMachine_Text" xml:space="preserve">
     <value>Oslobodi stroj</value>
   </data>
@@ -555,8 +561,14 @@
   <data name="QuantIsNotAvailableCheck" xml:space="preserve">
     <value>Kvant nije dostupan. Provjerite jeste li skenirali ispravan kvant.</value>
   </data>
+  <data name="QuantityFromQuant_Text" xml:space="preserve">
+    <value>Želite li preuzeti količinu od kvanta u količinu za knjiženje?</value>
+  </data>
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>
+  </data>
+  <data name="QuantQIsLess_Text" xml:space="preserve">
+    <value>Količina kvanta je manja od količine za knjiženje. Jeste li sigurni da želite knjižiti?</value>
   </data>
   <data name="QuantRelocation_Text" xml:space="preserve">
     <value>Premještanje kvanta</value>
@@ -665,6 +677,9 @@
   </data>
   <data name="SumTotal_Text" xml:space="preserve">
     <value>Ukupna suma</value>
+  </data>
+  <data name="TakeBookingQuantity_Text" xml:space="preserve">
+    <value>Preuzmi količinu za knjiženje:</value>
   </data>
   <data name="TimeRangeFilter_Header" xml:space="preserve">
     <value>Vremenski raspon</value>

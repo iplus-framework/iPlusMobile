@@ -457,6 +457,24 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proportionally first comp..
+        /// </summary>
+        internal static string BtnProportionallyAnotherComp_Text {
+            get {
+                return ResourceManager.GetString("BtnProportionallyAnotherComp_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quant quantity.
+        /// </summary>
+        internal static string BtnQuantQuantity_Text {
+            get {
+                return ResourceManager.GetString("BtnQuantQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release machine.
         /// </summary>
         internal static string BtnReleaseMachine_Text {
@@ -1375,11 +1393,29 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want take posting quantity from quant?.
+        /// </summary>
+        internal static string QuantityFromQuant_Text {
+            get {
+                return ResourceManager.GetString("QuantityFromQuant_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quants.
         /// </summary>
         internal static string QuantPivot_Header {
             get {
                 return ResourceManager.GetString("QuantPivot_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quant quantity is less than posting quantity. Are you sure that you want continue with posting?.
+        /// </summary>
+        internal static string QuantQIsLess_Text {
+            get {
+                return ResourceManager.GetString("QuantQIsLess_Text", resourceCulture);
             }
         }
         
@@ -1704,6 +1740,15 @@ namespace gip.vb.mobile.Strings {
         internal static string SumTotal_Text {
             get {
                 return ResourceManager.GetString("SumTotal_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take quantity for posting:.
+        /// </summary>
+        internal static string TakeBookingQuantity_Text {
+            get {
+                return ResourceManager.GetString("TakeBookingQuantity_Text", resourceCulture);
             }
         }
         

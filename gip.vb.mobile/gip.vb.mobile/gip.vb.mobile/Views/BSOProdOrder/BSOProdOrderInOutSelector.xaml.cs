@@ -15,14 +15,21 @@ namespace gip.vb.mobile.Views
 	public partial class BSOProdOrderInOutSelector : BSOPageBase
 	{
         BarcodeScanManuModel _FromTaskModel;
-        public BSOProdOrderInOutSelector(ProdOrderPartslistPos batch, BarcodeScanManuModel taskModel)
+        public BSOProdOrderInOutSelector(ProdOrderPartslistPos batch, BarcodeScanManuModel taskModel, bool inwardPostingQSuggestion, 
+                                         gip.mes.facility.PostingQuantitySuggestionMode outwardPostingQSuggestion)
 		{
+            _InwardPostingQSuggestion = inwardPostingQSuggestion;
+            _OutwardPostingQSuggestion = outwardPostingQSuggestion;
+
             _FromTaskModel = taskModel;
             IntermOrIntermBatch = batch;
             //Intermediate = intermediate;
             BindingContext = this;
             InitializeComponent();
 		}
+
+        private bool _InwardPostingQSuggestion;
+        private gip.mes.facility.PostingQuantitySuggestionMode _OutwardPostingQSuggestion;
 
         public new string Title
         {
@@ -43,12 +50,12 @@ namespace gip.vb.mobile.Views
 
         private async void BtnInput_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(IntermOrIntermBatch, _FromTaskModel));
+            await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(IntermOrIntermBatch, _FromTaskModel, _OutwardPostingQSuggestion));
         }
 
         private async void BtnOutput_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOProdOrderInward(IntermOrIntermBatch, _FromTaskModel));
+            await Navigation.PushAsync(new BSOProdOrderInward(IntermOrIntermBatch, _FromTaskModel, _InwardPostingQSuggestion));
         }
     }
 }

@@ -15,7 +15,8 @@ namespace gip.vb.mobile.ViewModels
     {
         #region c'tors
 
-        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch)
+        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, bool suggestInwardQuantityOnPosting,
+                                      PostingQuantitySuggestionMode outwardSuggestionMode)
         {
             IsInward = isInward;
             PosRelation = relation;
@@ -27,6 +28,8 @@ namespace gip.vb.mobile.ViewModels
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
+            _InwardSuggestionMode = suggestInwardQuantityOnPosting;
+            _OutwardSuggestionMode = outwardSuggestionMode;
         }
 
         #endregion
@@ -179,6 +182,9 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private PostingQuantitySuggestionMode _OutwardSuggestionMode;
+        private bool _InwardSuggestionMode;
+
         #endregion
 
         #region Mehods & Commands
@@ -210,6 +216,15 @@ namespace gip.vb.mobile.ViewModels
                     Overview = response.Data;
                 else
                     Overview = new PostingOverview();
+
+                if (_InwardSuggestionMode)
+                {
+                    double diff = IntermOrIntermBatch.TargetQuantityUOM - IntermOrIntermBatch.ActualQuantityUOM;
+                    if (diff < 0.00001)
+                        diff = 0;
+
+                    BookingQuantity = diff;
+                }
             }
             catch (Exception ex)
             {
@@ -345,16 +360,27 @@ namespace gip.vb.mobile.ViewModels
                             entries.Add(response.Data.ValidEntity);
                             CurrentBarcodeEntity = entries;
 
-                            BookingQuantity = 0;
+                            if (_OutwardSuggestionMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
+                                BookingQuantity = 0;
 
-                            double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
-                            if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)
+                            if (_OutwardSuggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity )
                             {
-                                BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+                                double stockQuantity = response.Data.FacilityCharge.StockQuantity;
+
+                                if (stockQuantity > 0.0001 && stockQuantity < PosRelation.TargetQuantityUOM * 3)
+                                    BookingQuantity = response.Data.FacilityCharge.StockQuantity;
                             }
-                            else if (requiredQuantity > 0.0000001)
+                            else if (_OutwardSuggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
                             {
-                                BookingQuantity = requiredQuantity;
+                                double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
+                                if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)
+                                {
+                                    BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+                                }
+                                else if (requiredQuantity > 0.0000001)
+                                {
+                                    BookingQuantity = requiredQuantity;
+                                }
                             }
                         }
                     }
@@ -380,7 +406,18 @@ namespace gip.vb.mobile.ViewModels
             if (IsInward)
                 await BookFacilityIn();
             else
-                await BookFacilityOut();
+            {
+                FacilityCharge fc = WSBarcodeEntityResult?.FacilityCharge;
+                if (fc != null && fc.StockQuantity < BookingQuantity)
+                {
+                    ShowDialog(new Msg(eMsgLevel.Question, Strings.AppStrings.QuantQIsLess_Text) { MessageButton = eMsgButton.YesNo },"",null, "", 4);
+                }
+                else
+                {
+                    await BookFacilityOut();
+                }
+
+            }
         }
 
         private async Task BookFacilityIn()
@@ -541,6 +578,21 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
             }
+            else if (DialogOptions.RequestID == 3 && result == Global.MsgResult.Yes)
+            {
+                if (WSBarcodeEntityResult == null)
+                    return;
+
+                FacilityCharge fc = WSBarcodeEntityResult.FacilityCharge;
+                if (fc == null)
+                    return;
+
+                BookingQuantity = fc.StockQuantity;
+            }
+            else if (DialogOptions.RequestID == 4 && result == Global.MsgResult.Yes)
+            {
+                await BookFacilityOut();
+            }
         }
 
         public async Task LoadTargetFacilities()
@@ -647,6 +699,28 @@ namespace gip.vb.mobile.ViewModels
         {
             if (MovementReasons == null || !MovementReasons.Any())
                 GetMovementReasonsCommand.Execute(null);
+        }
+
+        public void TakePostingQuantityFromQuant()
+        {
+            if (WSBarcodeEntityResult == null)
+                return;
+
+            FacilityCharge fc = WSBarcodeEntityResult.FacilityCharge;
+            if (fc == null)
+                return;
+
+            ShowDialog(new Msg(eMsgLevel.Question, Strings.AppStrings.QuantityFromQuant_Text) { MessageButton = eMsgButton.YesNo }, "", null, "", 3);
+        }
+
+        public void ScaleAccordingAnotherComponent(ProdOrderPartslistPosRelation relativeRelToScale)
+        {
+            double factor = relativeRelToScale.ActualQuantityUOM / relativeRelToScale.TargetQuantityUOM;
+            BookingQuantity = (PosRelation.TargetQuantityUOM * factor) - PosRelation.ActualQuantityUOM;
+            if (BookingQuantity > 0.00001)
+            {
+                _OutwardSuggestionMode = PostingQuantitySuggestionMode.ProportionallyAnotherComp;
+            }
         }
 
         #endregion

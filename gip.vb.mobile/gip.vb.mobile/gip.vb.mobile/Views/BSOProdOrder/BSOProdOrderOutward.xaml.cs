@@ -19,12 +19,26 @@ namespace gip.vb.mobile.Views
 	public partial class BSOProdOrderOutward : BSOProdOrderInOutBase
 	{
         BarcodeScanManuModel _FromTaskModel;
-        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel)
+        ProdOrderInMaterialsViewModel _InMaterialsViewModel;
+        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, gip.mes.facility.PostingQuantitySuggestionMode suggestionMode,
+                                   ProdOrderInMaterialsViewModel inMaterialsViewModel)
 		{
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null);
+            _InMaterialsViewModel = inMaterialsViewModel;
+            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null, false, suggestionMode);
 			InitializeComponent();
 		}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            btnScaleAccordingAnotherComp.IsEnabled = false;
+            if (_InMaterialsViewModel != null && _InMaterialsViewModel.ProdOrderInMaterials.Count > 1)
+            {
+                btnScaleAccordingAnotherComp.IsEnabled = true;
+            }
+        }
 
         public void ButtonDoBooking_Clicked(object sender, EventArgs e)
         {
@@ -53,6 +67,27 @@ namespace gip.vb.mobile.Views
         private async void TBItemRefresh_Clicked(object sender, EventArgs e)
         {
             await _ViewModel.RefreshOutItems();
+        }
+
+        private void btnTakeQFromQuant_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.TakePostingQuantityFromQuant();
+        }
+
+        private void btnScaleAccordingAnotherComp_Clicked(object sender, EventArgs e)
+        {
+            if (_InMaterialsViewModel != null)
+            {
+                if (_InMaterialsViewModel.ProdOrderInMaterials.Count > 1)
+                {
+                    var anotherComp = _InMaterialsViewModel.ProdOrderInMaterials.OrderBy(c => c.Sequence).FirstOrDefault();
+                    if (anotherComp != null && anotherComp.ActualQuantityUOM > 0.00001 
+                        && anotherComp.ProdOrderPartslistPosRelationID != _ViewModel.PosRelation.ProdOrderPartslistPosRelationID)
+                    {
+                        _ViewModel.ScaleAccordingAnotherComponent(anotherComp);
+                    }
+                }
+            }
         }
     }
 }

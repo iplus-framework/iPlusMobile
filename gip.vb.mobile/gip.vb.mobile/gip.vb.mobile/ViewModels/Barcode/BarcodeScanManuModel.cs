@@ -141,6 +141,7 @@ namespace gip.vb.mobile.ViewModels
                 if (result == Global.MsgResult.OK && entredValue == "1")
                 {
                     await InvokeActionOnMachine();
+                    OnPropertyChanged(nameof(ReleaseMachine));
                 }
 
                 return;

@@ -32,13 +32,22 @@ namespace gip.vb.mobile.Views
 
         #region Methods
 
-        private async void BtnReleaseMachine_Clicked(object sender, EventArgs e)
+        private void BtnReleaseMachine_Clicked(object sender, EventArgs e)
         {
             if (!IsEnabledBtnReleaseMachine())
                 return;
 
+            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
             _ViewModel.ReleaseMachine();
-            //await Navigation.PopAsync();
+        }
+
+        private async void _ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_ViewModel.ReleaseMachine) && _ViewModel.DialogOptions.RequestID == 10)
+            {
+                await Navigation.PopAsync();
+                _ViewModel.PropertyChanged -= _ViewModel_PropertyChanged;
+            }
         }
 
         private async void BtnOccupyMachine_Clicked(object sender, EventArgs e)
@@ -68,15 +77,15 @@ namespace gip.vb.mobile.Views
             {
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
-                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel));
+                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.PostingQSuggestionMode));
                 }
                 else if (!wfInfo.IntermediateBatch.HasInputMaterials)
                 {
-                    await Navigation.PushAsync(new BSOProdOrderInward(wfInfo.IntermediateBatch, _ViewModel));
+                    await Navigation.PushAsync(new BSOProdOrderInward(wfInfo.IntermediateBatch, _ViewModel, wfInfo.OrderQuantityOnInwardPosting));
                 }
                 else
                 {
-                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel));
+                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel, wfInfo.OrderQuantityOnInwardPosting, wfInfo.PostingQSuggestionMode));
                 }
             }
             else if (wfInfo.Intermediate != null)

@@ -703,4 +703,19 @@
   <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
     <value>Pause order on machine</value>
   </data>
+  <data name="BtnProportionallyAnotherComp_Text" xml:space="preserve">
+    <value>Proportionally first comp.</value>
+  </data>
+  <data name="BtnQuantQuantity_Text" xml:space="preserve">
+    <value>Quant quantity</value>
+  </data>
+  <data name="QuantityFromQuant_Text" xml:space="preserve">
+    <value>Are you sure that you want take posting quantity from quant?</value>
+  </data>
+  <data name="QuantQIsLess_Text" xml:space="preserve">
+    <value>The quant quantity is less than posting quantity. Are you sure that you want continue with posting?</value>
+  </data>
+  <data name="TakeBookingQuantity_Text" xml:space="preserve">
+    <value>Take quantity for posting:</value>
+  </data>
 </root>

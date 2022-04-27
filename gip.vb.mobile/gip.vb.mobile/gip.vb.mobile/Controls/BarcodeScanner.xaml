@@ -22,14 +22,13 @@
 
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
             <StackLayout Orientation="Horizontal" HeightRequest="50">
-                <SearchBar Grid.Row="1"
-                            x:Name="BarcodeSearchBar" 
+                <SearchBar  x:Name="BarcodeSearchBar" 
                             Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
                             Text="{Binding Item.CurrentBarcode}" 
                             HorizontalOptions="FillAndExpand"
                             SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
 
-                <Button x:Name="btnClearList" Clicked="btnClearList_Clicked"  WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+                <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" MinimumWidthRequest="40" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
             </StackLayout>
             <StackLayout Grid.Row="2" x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >
                     <ListView  

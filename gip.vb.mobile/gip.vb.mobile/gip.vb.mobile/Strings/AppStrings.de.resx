@@ -645,4 +645,19 @@
   <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
     <value>Pausenauftrag an Maschine</value>
   </data>
+  <data name="BtnProportionallyAnotherComp_Text" xml:space="preserve">
+    <value>Proportional eine andere Komp.</value>
+  </data>
+  <data name="BtnQuantQuantity_Text" xml:space="preserve">
+    <value>Quant Menge</value>
+  </data>
+  <data name="QuantityFromQuant_Text" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie die Buchungsmenge von Quant nehmen wollen?</value>
+  </data>
+  <data name="QuantQIsLess_Text" xml:space="preserve">
+    <value>Die Quantmenge ist kleiner als die Buchungsmenge. Sind Sie sicher, dass Sie mit der Buchung fortfahren möchten?</value>
+  </data>
+  <data name="TakeBookingQuantity_Text" xml:space="preserve">
+    <value>Nehmen Sie die Menge für die Buchung:</value>
+  </data>
 </root>

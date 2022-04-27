@@ -21,10 +21,10 @@ namespace gip.vb.mobile.Views
     public partial class BSOProdOrderInward : BSOProdOrderInOutBase
     {
         BarcodeScanManuModel _FromTaskModel;
-        public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel)
+        public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, bool suggestPostingQuantity)
         {
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch);
+            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch, suggestPostingQuantity, mes.facility.PostingQuantitySuggestionMode.None);
             InitializeComponent();
         }
 

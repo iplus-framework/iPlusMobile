@@ -98,7 +98,8 @@ namespace gip.vb.mobile.Views
                     {
                         string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel, null, -1, 
                                                                  _BaseViewModel.DialogOptions.DialogPrompKeyboard, _BaseViewModel.DialogOptions.DialogPromptInitialValue);
-                        _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
+                        if (_BaseViewModel != null)
+                            _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
                     }
                     else
                     {

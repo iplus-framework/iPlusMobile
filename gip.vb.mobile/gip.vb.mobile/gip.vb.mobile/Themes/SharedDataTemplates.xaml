@@ -96,7 +96,7 @@
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >
-                    <Label Text="{Binding StockQuantity, StringFormat='{0:F4}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding StockQuantity, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                     <Label Text="{Binding MDUnit.Symbol, StringFormat='  {0}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 </StackLayout>
             </Grid>
@@ -232,10 +232,6 @@
     <DataTemplate x:Key="PickingPosItemTemplate">
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
-                <Grid.Resources>
-                    
-                </Grid.Resources>
-                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
@@ -252,11 +248,11 @@
                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding FromFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding ToFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                    <Label Text="{Binding TargetQuantityUOM}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding TargetQuantityUOM, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                     <Label Text="{Binding MDUnit.MDUnitName}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                    <Label Text="{Binding ActualQuantityUOM}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding ActualQuantityUOM, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                     <Label Text="{Binding MDUnit.MDUnitName}" />
                 </StackLayout>
                 <BoxView Grid.Column="2" Grid.RowSpan="3" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
@@ -302,9 +298,9 @@
                 <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Material.MaterialName1}" />
                 <StackLayout Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Spacing="0">
                     <Label Text="(" />
-                    <Label Text="{Binding ActualQuantity, StringFormat='\{0:0.#}'}" />
+                    <Label Text="{Binding ActualQuantity, StringFormat='\{0:0.###}'}" />
                     <Label Text=")" />
-                    <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.#}'}" />
+                    <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.###}'}" />
                     <Label Text="{Binding Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
                 </StackLayout>
             </Grid>
@@ -413,13 +409,13 @@
                     <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" TextColor="Black" />
 
                     <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" TextColor="Black" />
-                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
+                    <!--<StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
                         <Label Text="Q: (" TextColor="Black" />
                         <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" TextColor="Black" />
                         <Label Text=")" TextColor="Black" />
                         <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" TextColor="Black" />
                         <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" TextColor="Black" />
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
 
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">

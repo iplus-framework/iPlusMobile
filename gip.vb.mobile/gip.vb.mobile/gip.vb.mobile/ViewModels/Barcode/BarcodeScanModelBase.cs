@@ -250,7 +250,6 @@ namespace gip.vb.mobile.ViewModels
                 Item.Message = new Msg(eMsgLevel.QuestionPrompt, entredValue);
 
             InvokeBarcodeCommand.Execute(null);
-
         }
 
         public virtual void ResetScanSequence()
