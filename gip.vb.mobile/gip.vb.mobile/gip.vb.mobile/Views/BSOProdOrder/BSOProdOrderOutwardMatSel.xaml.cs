@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using gip.mes.facility;
 using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using gip.vb.mobile.ViewModels;
 
 using Xamarin.Forms;
@@ -21,7 +22,7 @@ namespace gip.vb.mobile.Views
         ProdOrderInMaterialsViewModel _ViewModel;
         BarcodeScanManuModel _FromTaskModel;
 
-        public BSOProdOrderOutwardMatSel(ProdOrderPartslistPos targetPos, BarcodeScanManuModel taskModel, PostingQuantitySuggestionMode outwardPostingQSuggestion)
+        public BSOProdOrderOutwardMatSel(ProdOrderPartslistPos targetPos, BarcodeScanManuModel taskModel, PostingSuggestionMode outwardPostingQSuggestion)
         {
             _OutwardPostingQSuggestion = outwardPostingQSuggestion;
             //InViewModel = inViewModel;
@@ -30,7 +31,7 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
-        private PostingQuantitySuggestionMode _OutwardPostingQSuggestion;
+        private PostingSuggestionMode _OutwardPostingQSuggestion;
         //private ProdOrderInOutViewModel InViewModel;
 
         protected override void OnAppearing()

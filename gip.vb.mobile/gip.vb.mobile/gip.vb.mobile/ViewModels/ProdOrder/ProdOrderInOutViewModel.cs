@@ -7,6 +7,7 @@ using gip.core.autocomponent;
 using gip.core.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
@@ -16,7 +17,7 @@ namespace gip.vb.mobile.ViewModels
         #region c'tors
 
         public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, bool suggestInwardQuantityOnPosting,
-                                      PostingQuantitySuggestionMode outwardSuggestionMode)
+                                      PostingSuggestionMode outwardSuggestionMode)
         {
             IsInward = isInward;
             PosRelation = relation;
@@ -29,7 +30,8 @@ namespace gip.vb.mobile.ViewModels
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
             _InwardSuggestionMode = suggestInwardQuantityOnPosting;
-            _OutwardSuggestionMode = outwardSuggestionMode;
+            if (outwardSuggestionMode != null)
+                _OutwardSuggestionMode = outwardSuggestionMode;
         }
 
         #endregion
@@ -182,7 +184,7 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private PostingQuantitySuggestionMode _OutwardSuggestionMode;
+        private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
         private bool _InwardSuggestionMode;
 
         #endregion
@@ -360,17 +362,19 @@ namespace gip.vb.mobile.ViewModels
                             entries.Add(response.Data.ValidEntity);
                             CurrentBarcodeEntity = entries;
 
-                            if (_OutwardSuggestionMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
+                            if (_OutwardSuggestionMode.QuantityMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
                                 BookingQuantity = 0;
 
-                            if (_OutwardSuggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity )
+                            if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.ForceQuantQuantity
+                                && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
                             {
                                 double stockQuantity = response.Data.FacilityCharge.StockQuantity;
 
-                                if (stockQuantity > 0.0001 && stockQuantity < PosRelation.TargetQuantityUOM * 3)
+                                if (stockQuantity > 0.0001)
                                     BookingQuantity = response.Data.FacilityCharge.StockQuantity;
                             }
-                            else if (_OutwardSuggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
+                            else if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.OrderQuantity 
+                                  && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
                             {
                                 double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
                                 if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)
@@ -719,7 +723,7 @@ namespace gip.vb.mobile.ViewModels
             BookingQuantity = (PosRelation.TargetQuantityUOM * factor) - PosRelation.ActualQuantityUOM;
             if (BookingQuantity > 0.00001)
             {
-                _OutwardSuggestionMode = PostingQuantitySuggestionMode.ProportionallyAnotherComp;
+                _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.ProportionallyAnotherComp };
             }
         }
 

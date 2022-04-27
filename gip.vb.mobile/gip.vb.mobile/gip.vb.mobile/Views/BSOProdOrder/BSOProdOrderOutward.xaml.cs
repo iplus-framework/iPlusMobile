@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using gip.vb.mobile.Helpers;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,7 +21,7 @@ namespace gip.vb.mobile.Views
 	{
         BarcodeScanManuModel _FromTaskModel;
         ProdOrderInMaterialsViewModel _InMaterialsViewModel;
-        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, gip.mes.facility.PostingQuantitySuggestionMode suggestionMode,
+        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, PostingSuggestionMode suggestionMode,
                                    ProdOrderInMaterialsViewModel inMaterialsViewModel)
 		{
             _FromTaskModel = taskModel;

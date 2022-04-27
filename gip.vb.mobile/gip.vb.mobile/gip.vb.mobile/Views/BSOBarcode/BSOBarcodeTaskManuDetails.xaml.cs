@@ -77,7 +77,7 @@ namespace gip.vb.mobile.Views
             {
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
-                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.PostingQSuggestionMode));
+                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, new Helpers.PostingSuggestionMode(wfInfo.PostingQSuggestionMode, wfInfo.ValidSeqNoForPostingQSMode)));
                 }
                 else if (!wfInfo.IntermediateBatch.HasInputMaterials)
                 {
@@ -85,7 +85,7 @@ namespace gip.vb.mobile.Views
                 }
                 else
                 {
-                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel, wfInfo.OrderQuantityOnInwardPosting, wfInfo.PostingQSuggestionMode));
+                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel, wfInfo.OrderQuantityOnInwardPosting, new Helpers.PostingSuggestionMode(wfInfo.PostingQSuggestionMode, wfInfo.ValidSeqNoForPostingQSMode)));
                 }
             }
             else if (wfInfo.Intermediate != null)

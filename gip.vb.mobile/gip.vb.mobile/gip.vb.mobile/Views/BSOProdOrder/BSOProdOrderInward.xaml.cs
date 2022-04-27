@@ -24,7 +24,7 @@ namespace gip.vb.mobile.Views
         public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, bool suggestPostingQuantity)
         {
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch, suggestPostingQuantity, mes.facility.PostingQuantitySuggestionMode.None);
+            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch, suggestPostingQuantity, null);
             InitializeComponent();
         }
 

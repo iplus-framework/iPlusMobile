@@ -1,4 +1,5 @@
 ﻿using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace gip.vb.mobile.Views
 	{
         BarcodeScanManuModel _FromTaskModel;
         public BSOProdOrderInOutSelector(ProdOrderPartslistPos batch, BarcodeScanManuModel taskModel, bool inwardPostingQSuggestion, 
-                                         gip.mes.facility.PostingQuantitySuggestionMode outwardPostingQSuggestion)
+                                         PostingSuggestionMode outwardPostingQSuggestion)
 		{
             _InwardPostingQSuggestion = inwardPostingQSuggestion;
             _OutwardPostingQSuggestion = outwardPostingQSuggestion;
@@ -29,7 +30,7 @@ namespace gip.vb.mobile.Views
 		}
 
         private bool _InwardPostingQSuggestion;
-        private gip.mes.facility.PostingQuantitySuggestionMode _OutwardPostingQSuggestion;
+        private PostingSuggestionMode _OutwardPostingQSuggestion;
 
         public new string Title
         {
