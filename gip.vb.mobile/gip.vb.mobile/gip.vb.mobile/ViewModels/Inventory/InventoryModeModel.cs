@@ -83,7 +83,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set;
         }
 
-        private bool _IsValidateAndComplete;
+        private bool _IsValidateAndComplete = true;
         /// <summary>
         /// Validate and complete mode
         /// </summary>
