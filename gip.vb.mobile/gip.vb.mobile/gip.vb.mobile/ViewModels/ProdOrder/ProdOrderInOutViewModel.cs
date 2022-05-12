@@ -445,6 +445,7 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.InwardFacilityLotID = IntermOrIntermBatch.FacilityLotID;
                 aCMethodBooking.MDUnitID = IntermOrIntermBatch.MDUnit?.MDUnitID;
                 aCMethodBooking.PropertyACUrl = this.PropertyACUrl;
+                aCMethodBooking.MovementReasonID = SelectedMovementReason?.MDMovementReasonID;
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 BookingQuantity = 0;
                 PropertyACUrl = null;
