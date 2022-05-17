@@ -1402,6 +1402,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum qunatity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings..
+        /// </summary>
+        internal static string QuantityPerPostingIsTooLarge_Text {
+            get {
+                return ResourceManager.GetString("QuantityPerPostingIsTooLarge_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quants.
         /// </summary>
         internal static string QuantPivot_Header {

@@ -411,20 +411,30 @@ namespace gip.vb.mobile.ViewModels
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
+            if (BookingQuantity > FacilityConst.C_MaxQuantityPerPosting)
+            {
+                ShowDialog(new Msg(eMsgLevel.Error, Strings.AppStrings.QuantityPerPostingIsTooLarge_Text));
+                return;
+            }
+
             if (IsInward)
+            {
                 await BookFacilityIn();
+            }
             else
             {
                 FacilityCharge fc = WSBarcodeEntityResult?.FacilityCharge;
-                if (fc != null && fc.StockQuantity < BookingQuantity)
+
+                bool isQuantQMissing = fc != null && (BookingQuantity - fc.StockQuantity) > 0.1;
+
+                if (isQuantQMissing)
                 {
-                    ShowDialog(new Msg(eMsgLevel.Question, Strings.AppStrings.QuantQIsLess_Text) { MessageButton = eMsgButton.YesNo },"",null, "", 4);
+                    ShowDialog(new Msg(eMsgLevel.Question, Strings.AppStrings.QuantQIsLess_Text) { MessageButton = eMsgButton.YesNo }, "", null, "", 4);
                 }
                 else
                 {
                     await BookFacilityOut();
                 }
-
             }
         }
 

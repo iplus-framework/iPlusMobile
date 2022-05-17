@@ -564,6 +564,9 @@
   <data name="QuantityFromQuant_Text" xml:space="preserve">
     <value>Želite li preuzeti količinu od kvanta u količinu za knjiženje?</value>
   </data>
+  <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
+    <value>Maksimalna dozvoljena količna po knjiženju iznosi 100.000.000,00. Vaša količina za knjiženje je veća, ako zbilja trebate knjižiti veći iznos od 100.000.000,00 molimo vas podjelite ga u više knjiženja. </value>
+  </data>
   <data name="QuantPivot_Header" xml:space="preserve">
     <value>Kvantovi</value>
   </data>

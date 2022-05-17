@@ -660,4 +660,7 @@
   <data name="TakeBookingQuantity_Text" xml:space="preserve">
     <value>Nehmen Sie die Menge für die Buchung:</value>
   </data>
+  <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
+    <value>Maximum qunatity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings.</value>
+  </data>
 </root>

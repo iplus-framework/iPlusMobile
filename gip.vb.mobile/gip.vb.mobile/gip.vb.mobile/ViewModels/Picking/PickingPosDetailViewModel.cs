@@ -304,6 +304,12 @@ namespace gip.vb.mobile.ViewModels
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
+            if (BookingQuantity > FacilityConst.C_MaxQuantityPerPosting)
+            {
+                ShowDialog(new Msg(eMsgLevel.Error, Strings.AppStrings.QuantityPerPostingIsTooLarge_Text));
+                return;
+            }
+
             BarcodeEntity barcodeEntity = WSBarcodeEntityResult;
             if (barcodeEntity == null)
                 return;
