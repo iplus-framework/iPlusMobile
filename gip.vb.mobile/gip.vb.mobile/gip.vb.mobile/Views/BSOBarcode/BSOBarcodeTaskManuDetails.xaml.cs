@@ -24,6 +24,12 @@ namespace gip.vb.mobile.Views
             EnableButtons();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SendChangedACMethod();
+        }
+
         #region Properties
 
 
