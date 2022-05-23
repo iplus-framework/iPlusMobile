@@ -14,9 +14,8 @@ namespace gip.vb.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOInventoryMode : BSOPageBase
     {
-        #region DI
+
         InventoryModeModel _ViewModel;
-        #endregion
 
         #region ctor's
 
@@ -45,6 +44,7 @@ namespace gip.vb.mobile.Views
 
             if (inv != null)
             {
+                _ViewModel.FacilityInventory = inv;
                 _ViewModel.FacilityInventoryNo = inv.FacilityInventoryNo;
                 _ViewModel.FacilityInventoryID = inv.FacilityInventoryID;
             }

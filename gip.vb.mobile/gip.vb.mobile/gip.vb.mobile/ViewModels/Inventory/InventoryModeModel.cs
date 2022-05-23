@@ -83,6 +83,20 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set;
         }
 
+        private FacilityInventory _FacilityInventory;
+        public FacilityInventory FacilityInventory
+        {
+            get => _FacilityInventory;
+            set
+            {
+                _FacilityInventory = value;
+                if (_FacilityInventory != null && _FacilityInventory.Facility != null)
+                {
+                    SelectedFacility = _FacilityInventory.Facility;
+                }
+            }
+        }
+
         private bool _IsValidateAndComplete = true;
         /// <summary>
         /// Validate and complete mode
@@ -172,25 +186,6 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties -> Facilities -> Facilities
 
-
-        //private List<Facility> _Facilities;
-        ///// <summary>
-        ///// Facilities (end storage points)
-        ///// </summary>
-        //public List<Facility> Facilities
-        //{
-        //    get
-        //    {
-        //        if (_Facilities == null)
-        //            _Facilities = new List<Facility>();
-        //        return _Facilities;
-        //    }
-        //    set
-        //    {
-        //        SetProperty(ref _Facilities, value);
-        //    }
-        //}
-
         private Facility _SelectedFacility;
         /// <summary>
         /// Selected facility
@@ -234,6 +229,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 SelectedFacility = FacilitySelector.SelectedStorageLocation;
                 FacilitySelector = null;
             }
+
+            
         }
 
         /// <summary>
