@@ -466,7 +466,7 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        Message = response.Data;
+                        Message = new Msg(eMsgLevel.Error, response.Data.DetailsAsText);
                     else
                     {
                         IsBusy = false;
@@ -516,7 +516,7 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
-                        Message = response.Data;
+                        Message = new Msg(eMsgLevel.Error, response.Data.DetailsAsText);
                     else
                     {
                         CurrentBarcodeEntity = null;
