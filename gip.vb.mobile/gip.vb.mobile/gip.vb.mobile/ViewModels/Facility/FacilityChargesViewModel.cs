@@ -790,6 +790,12 @@ namespace gip.vb.mobile.ViewModels
             
         }
 
+        public void TakeBookingQuantityFromQuant()
+        {
+            _BookingQuantity = Item.StockQuantity;
+            //OnPropertyChanged(nameof(BookingQuantity));
+        }
+
         #region Reassignment
 
         public Command SearchMaterialCommand { get; set; }

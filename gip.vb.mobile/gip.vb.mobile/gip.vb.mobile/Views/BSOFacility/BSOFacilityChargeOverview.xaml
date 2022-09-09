@@ -140,15 +140,18 @@
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScanReassignment" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+
                     <ctl:NumericEntry x:Name="ReassignmentQuantity" Keyboard="Numeric" 
-                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
                                       HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Button x:Name="cmdClearReassignQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
                 </StackLayout>
+
+                <Button x:Name="ButtonTakeQuantQuantity" Text="{i18n:Translate Text=BtnQuantQuantity_Text}" HeightRequest="35" Clicked="ButtonTakeQuantQuantity_Clicked" />
 
                 <BoxView HeightRequest="4" />
 
@@ -173,6 +176,8 @@
                         <Entry x:Name="FacilityEntryReassignment" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
                         <Button x:Name="cmdClearFacilityReassignment" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
                     </StackLayout>
+
+                    
 
                     <Button x:Name="ButtonReassignRelocate" Text="{i18n:Translate Text=ReassignRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
 

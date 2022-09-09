@@ -172,5 +172,11 @@ namespace gip.vb.mobile.Views
                 sbMaterial.Unfocus();
             }
         }
+
+        private void ButtonTakeQuantQuantity_Clicked(object sender, EventArgs e)
+        {
+            if (_ViewModel != null)
+                _ViewModel.TakeBookingQuantityFromQuant();
+        }
     }
 }
