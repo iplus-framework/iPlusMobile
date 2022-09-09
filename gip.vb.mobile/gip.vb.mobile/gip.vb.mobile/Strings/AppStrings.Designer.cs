@@ -1762,6 +1762,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Take quant quantity.
+        /// </summary>
+        internal static string TakeQQuantity_Text {
+            get {
+                return ResourceManager.GetString("TakeQQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timerange.
         /// </summary>
         internal static string TimeRangeFilter_Header {

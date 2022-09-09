@@ -792,8 +792,9 @@ namespace gip.vb.mobile.ViewModels
 
         public void TakeBookingQuantityFromQuant()
         {
-            _BookingQuantity = Item.StockQuantity;
-            //OnPropertyChanged(nameof(BookingQuantity));
+            BookingQuantity = Item.StockQuantity;
+            if (_BookingQuantity != Item.StockQuantity)
+                BookingQuantity = Item.StockQuantity;
         }
 
         #region Reassignment

@@ -684,6 +684,9 @@
   <data name="TakeBookingQuantity_Text" xml:space="preserve">
     <value>Preuzmi količinu za knjiženje:</value>
   </data>
+  <data name="TakeQQuantity_Text" xml:space="preserve">
+    <value>Preuzmi količinu kvanta</value>
+  </data>
   <data name="TimeRangeFilter_Header" xml:space="preserve">
     <value>Vremenski raspon</value>
   </data>
