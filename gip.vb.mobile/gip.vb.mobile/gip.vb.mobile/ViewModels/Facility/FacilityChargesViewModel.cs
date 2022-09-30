@@ -313,6 +313,7 @@ namespace gip.vb.mobile.ViewModels
 
                 if (SelectedMovementReason != null)
                 {
+                    aCMethodBooking.MovementReasonID = SelectedMovementReason.MDMovementReasonID;
                     aCMethodBooking.MovementReasonIndex = SelectedMovementReason.MDMovementReasonIndex;
                 }
 

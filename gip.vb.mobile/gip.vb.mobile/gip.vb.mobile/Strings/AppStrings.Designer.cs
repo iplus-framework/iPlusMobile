@@ -1654,6 +1654,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Split no..
+        /// </summary>
+        internal static string SplitNo_Text {
+            get {
+                return ResourceManager.GetString("SplitNo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         internal static string State_Text {

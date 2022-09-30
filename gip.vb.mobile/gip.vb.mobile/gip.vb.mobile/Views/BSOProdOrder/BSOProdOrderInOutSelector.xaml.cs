@@ -1,4 +1,5 @@
-﻿using gip.mes.webservices;
+﻿using gip.core.datamodel;
+using gip.mes.webservices;
 using gip.vb.mobile.Helpers;
 using gip.vb.mobile.ViewModels;
 using System;
@@ -16,11 +17,12 @@ namespace gip.vb.mobile.Views
 	public partial class BSOProdOrderInOutSelector : BSOPageBase
 	{
         BarcodeScanManuModel _FromTaskModel;
-        public BSOProdOrderInOutSelector(ProdOrderPartslistPos batch, BarcodeScanManuModel taskModel, bool inwardPostingQSuggestion, 
-                                         PostingSuggestionMode outwardPostingQSuggestion)
+        public BSOProdOrderInOutSelector(ProdOrderPartslistPos batch, BarcodeScanManuModel taskModel, ACMethod wfMethod)
 		{
-            _InwardPostingQSuggestion = inwardPostingQSuggestion;
-            _OutwardPostingQSuggestion = outwardPostingQSuggestion;
+            //_InwardPostingQSuggestion = inwardPostingQSuggestion;
+            //_OutwardPostingQSuggestion = outwardPostingQSuggestion;
+
+            _WFMethod = wfMethod;
 
             _FromTaskModel = taskModel;
             IntermOrIntermBatch = batch;
@@ -29,8 +31,10 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
 		}
 
-        private bool _InwardPostingQSuggestion;
-        private PostingSuggestionMode _OutwardPostingQSuggestion;
+        //private bool _InwardPostingQSuggestion;
+        //private PostingSuggestionMode _OutwardPostingQSuggestion;
+
+        private ACMethod _WFMethod;
 
         public new string Title
         {
@@ -51,12 +55,12 @@ namespace gip.vb.mobile.Views
 
         private async void BtnInput_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(IntermOrIntermBatch, _FromTaskModel, _OutwardPostingQSuggestion));
+            await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(IntermOrIntermBatch, _FromTaskModel, _WFMethod));
         }
 
         private async void BtnOutput_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOProdOrderInward(IntermOrIntermBatch, _FromTaskModel, _InwardPostingQSuggestion));
+            await Navigation.PushAsync(new BSOProdOrderInward(IntermOrIntermBatch, _FromTaskModel, _WFMethod));
         }
     }
 }

@@ -43,7 +43,7 @@ namespace gip.vb.mobile.Views
                 return;
 
             batch.ProdOrderPartslist = _ViewModel.IntermediatePos.ProdOrderPartslist;
-            await Navigation.PushAsync(new BSOProdOrderInOutSelector(batch, _FromTaskModel, false, new Helpers.PostingSuggestionMode(mes.facility.PostingQuantitySuggestionMode.OrderQuantity, null)));
+            await Navigation.PushAsync(new BSOProdOrderInOutSelector(batch, _FromTaskModel, null));
         }
     }
 }

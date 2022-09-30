@@ -724,4 +724,7 @@
   <data name="TakeQQuantity_Text" xml:space="preserve">
     <value>Take quant quantity</value>
   </data>
+  <data name="SplitNo_Text" xml:space="preserve">
+    <value>Split no.</value>
+  </data>
 </root>

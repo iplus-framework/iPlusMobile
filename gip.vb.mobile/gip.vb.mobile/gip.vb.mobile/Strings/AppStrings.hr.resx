@@ -648,6 +648,9 @@
   <data name="Spent_Text" xml:space="preserve">
     <value>Nije dostupan (potrošen, premješten,...)</value>
   </data>
+  <data name="SplitNo_Text" xml:space="preserve">
+    <value>Br. podjele</value>
+  </data>
   <data name="State_Text" xml:space="preserve">
     <value>Status</value>
   </data>

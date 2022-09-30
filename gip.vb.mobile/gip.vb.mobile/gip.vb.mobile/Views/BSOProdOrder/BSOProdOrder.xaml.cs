@@ -90,7 +90,7 @@ namespace gip.vb.mobile.Views
                     if (result != null)
                     {
                         _ViewModel.CurrentBarcode = null;
-                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null, false, new Helpers.PostingSuggestionMode(mes.facility.PostingQuantitySuggestionMode.OrderQuantity, null)));
+                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null, null));
                     }
                 }
             }
@@ -104,7 +104,7 @@ namespace gip.vb.mobile.Views
                 if(result != null)
                 {
                     _ViewModel.CurrentBarcode = null;
-                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null, false, new Helpers.PostingSuggestionMode(mes.facility.PostingQuantitySuggestionMode.OrderQuantity, null)));
+                    await Navigation.PushAsync(new BSOProdOrderInOutSelector(result, null, null));
                 }
 
             }

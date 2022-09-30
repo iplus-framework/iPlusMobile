@@ -67,10 +67,10 @@
                     <Button x:Name="cmdClearMovementReason" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearMovementReason_Clicked" />
                 </StackLayout>
 
-                <BoxView HeightRequest="40" />
+                <BoxView HeightRequest="30" />
 
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
-                <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" 
+                <ctl:NumericEntry x:Name="BookingQuantity" 
                                   TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
                                   Keyboard="Numeric">
                     <Entry.Behaviors>
@@ -78,6 +78,18 @@
                     </Entry.Behaviors>
                 </ctl:NumericEntry>
                 
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=SplitNo_Text}" VerticalTextAlignment="Center" />
+                    <BoxView WidthRequest="5" />
+                    <ctl:NumericEntry x:Name="SplitNo" 
+                                      TextNumeric="{Binding InwardSplitNo, Mode=TwoWay}" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"
+                                      Keyboard="Numeric">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                </StackLayout>
+
                 <StackLayout HeightRequest="50" Orientation="Horizontal">
                     <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center" />
                     <StackLayout Orientation="Horizontal">

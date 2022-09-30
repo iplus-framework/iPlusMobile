@@ -16,8 +16,8 @@ namespace gip.vb.mobile.ViewModels
     {
         #region c'tors
 
-        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, bool suggestInwardQuantityOnPosting,
-                                      PostingSuggestionMode outwardSuggestionMode)
+        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, ACMethod wfMethod,
+                                       IEnumerable<ProdOrderPartslistPosRelation> components = null)
         {
             IsInward = isInward;
             PosRelation = relation;
@@ -29,9 +29,54 @@ namespace gip.vb.mobile.ViewModels
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
-            _InwardSuggestionMode = suggestInwardQuantityOnPosting;
-            if (outwardSuggestionMode != null)
-                _OutwardSuggestionMode = outwardSuggestionMode;
+
+            PostingQuantitySuggestionMode? mode1 = null, mode2 = null;
+
+            ACValue pqsmACValue = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode));
+            if (pqsmACValue != null)
+            {
+                mode1 = pqsmACValue.Value as PostingQuantitySuggestionMode?;
+            }
+            
+            ACValue pqsmACValue2 = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode2));
+            if (pqsmACValue2 != null)
+            {
+                mode2 = pqsmACValue2.Value as PostingQuantitySuggestionMode?;
+            }
+
+            string validSeqNo1 = null, validSeqNo2 = null;
+
+            ACValue seqNo1 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode");
+            if (seqNo1 != null)
+            {
+                validSeqNo1 = seqNo1.ParamAsString;
+            }
+
+            ACValue seqNo2 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode2");
+            if (seqNo2 != null)
+            {
+                validSeqNo2 = seqNo2.ParamAsString;
+            }
+
+            _OutwardSuggestionMode = new PostingSuggestionMode(mode1, validSeqNo1, mode2, validSeqNo2);
+
+            ACValue inwardSMode = wfMethod.ParameterValueList.GetACValue("QuantityPerRack");
+            if (inwardSMode != null)
+            {
+                _InwardSuggestionMode = inwardSMode.ParamAsDouble;
+            }
+            else
+            {
+                _InwardSuggestionMode = -1;
+            }
+
+            ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
+            if (inwardAutoSplitQuant != null)
+            {
+                _InwardAutoSplitQuant = inwardAutoSplitQuant.ParamAsInt32;
+            }
+
+            _Components = components;
         }
 
         #endregion
@@ -97,6 +142,13 @@ namespace gip.vb.mobile.ViewModels
             {
                 SetProperty(ref _BookingQuantity, value);
             }
+        }
+
+        public int? _InwardSplitNo;
+        public int? InwardSplitNo
+        {
+            get => _InwardSplitNo;
+            set => SetProperty<int?>(ref _InwardSplitNo, value);
         }
 
         private string _PropertyACUrl;
@@ -185,7 +237,9 @@ namespace gip.vb.mobile.ViewModels
         }
 
         private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
-        private bool _InwardSuggestionMode;
+        private double _InwardSuggestionMode;
+        private int _InwardAutoSplitQuant;
+        private IEnumerable<ProdOrderPartslistPosRelation> _Components;
 
         #endregion
 
@@ -219,13 +273,17 @@ namespace gip.vb.mobile.ViewModels
                 else
                     Overview = new PostingOverview();
 
-                if (_InwardSuggestionMode)
+                if (_InwardSuggestionMode < double.Epsilon)
                 {
                     double diff = IntermOrIntermBatch.TargetQuantityUOM - IntermOrIntermBatch.ActualQuantityUOM;
                     if (diff < 0.00001)
                         diff = 0;
 
                     BookingQuantity = diff;
+                }
+                else if (_InwardSuggestionMode > double.Epsilon)
+                {
+                    BookingQuantity = _InwardSuggestionMode;
                 }
             }
             catch (Exception ex)
@@ -365,20 +423,32 @@ namespace gip.vb.mobile.ViewModels
                             if (_OutwardSuggestionMode.QuantityMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
                                 BookingQuantity = 0;
 
-                            if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.ForceQuantQuantity
-                                && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
+                            PostingQuantitySuggestionMode suggestionMode = _OutwardSuggestionMode.GetPostingSuggestionMode(PosRelation.Sequence);
+
+                            if (suggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity)
                             {
                                 double stockQuantity = response.Data.FacilityCharge.StockQuantity;
 
                                 if (stockQuantity > 0.0001)
                                     BookingQuantity = response.Data.FacilityCharge.StockQuantity;
                             }
-                            else if (_OutwardSuggestionMode.QuantityMode == PostingQuantitySuggestionMode.None
-                                     && _OutwardSuggestionMode.IsSuggestionModeValidFor(PosRelation.Sequence))
+                            else if (suggestionMode == PostingQuantitySuggestionMode.ProportionallyAnotherComp)
+                            {
+                                if (_Components != null && _Components.Count() > 1)
+                                {
+                                    var anotherComp = _Components.OrderBy(c => c.Sequence).FirstOrDefault();
+                                    if (anotherComp != null && anotherComp.ActualQuantityUOM > 0.00001
+                                        && anotherComp.ProdOrderPartslistPosRelationID != PosRelation.ProdOrderPartslistPosRelationID)
+                                    {
+                                        ScaleAccordingAnotherComponent(anotherComp);
+                                    }
+                                }
+                            }
+                            else if (suggestionMode == PostingQuantitySuggestionMode.None)
                             {
                                 BookingQuantity = 0;
                             }
-                            else
+                            else if (suggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
                             {
                                 double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
                                 if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)
@@ -419,7 +489,7 @@ namespace gip.vb.mobile.ViewModels
 
             if (IsInward)
             {
-                await BookFacilityIn();
+                await BookFacilityInward();
             }
             else
             {
@@ -433,12 +503,12 @@ namespace gip.vb.mobile.ViewModels
                 }
                 else
                 {
-                    await BookFacilityOut();
+                    await BookFacilityOutward();
                 }
             }
         }
 
-        private async Task BookFacilityIn()
+        private async Task BookFacilityInward()
         {
             if (CurrentFacility == null)
                 return;
@@ -457,6 +527,8 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.PropertyACUrl = this.PropertyACUrl;
                 aCMethodBooking.MovementReasonID = SelectedMovementReason?.MDMovementReasonID;
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
+                aCMethodBooking.InwardAutoSplitQuant = _InwardAutoSplitQuant;
+                aCMethodBooking.InwardSplitNo = InwardSplitNo;
                 BookingQuantity = 0;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -489,7 +561,7 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private async Task BookFacilityOut()
+        private async Task BookFacilityOutward()
         {
             BarcodeEntity barcodeEntity = WSBarcodeEntityResult;
             if (barcodeEntity == null || barcodeEntity.FacilityCharge == null)
@@ -610,7 +682,7 @@ namespace gip.vb.mobile.ViewModels
             }
             else if (DialogOptions.RequestID == 4 && result == Global.MsgResult.Yes)
             {
-                await BookFacilityOut();
+                await BookFacilityOutward();
             }
         }
 

@@ -21,12 +21,12 @@ namespace gip.vb.mobile.Views
 	{
         BarcodeScanManuModel _FromTaskModel;
         ProdOrderInMaterialsViewModel _InMaterialsViewModel;
-        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, PostingSuggestionMode suggestionMode,
+        public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, ACMethod wfMethod,
                                    ProdOrderInMaterialsViewModel inMaterialsViewModel)
 		{
             _FromTaskModel = taskModel;
             _InMaterialsViewModel = inMaterialsViewModel;
-            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null, false, suggestionMode);
+            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null, wfMethod, inMaterialsViewModel?.ProdOrderInMaterials);
 			InitializeComponent();
 		}
 
