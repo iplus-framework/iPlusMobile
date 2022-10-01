@@ -643,7 +643,7 @@
     <value>Buchungsgrund</value>
   </data>
   <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
-    <value>Pausenauftrag an Maschine</value>
+    <value>Auftrag pausieren</value>
   </data>
   <data name="BtnProportionallyAnotherComp_Text" xml:space="preserve">
     <value>Proportional eine andere Komp.</value>
