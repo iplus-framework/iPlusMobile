@@ -300,6 +300,9 @@
   <data name="ChangePostingQ_Text" xml:space="preserve">
     <value>Promjeni količinu za knjiženje:</value>
   </data>
+  <data name="CheckQuant_Text" xml:space="preserve">
+    <value>Provjeri kvant</value>
+  </data>
   <data name="ChooseGroup_Text" xml:space="preserve">
     <value>Odaberi grupu:</value>
   </data>

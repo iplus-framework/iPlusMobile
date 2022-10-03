@@ -727,4 +727,7 @@
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split no.</value>
   </data>
+  <data name="CheckQuant_Text" xml:space="preserve">
+    <value>Check quant</value>
+  </data>
 </root>

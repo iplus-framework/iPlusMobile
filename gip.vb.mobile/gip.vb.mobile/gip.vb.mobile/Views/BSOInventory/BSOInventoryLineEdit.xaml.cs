@@ -38,7 +38,7 @@ namespace gip.vb.mobile.Views
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
             _ViewModel.Start();
             base.OnAppearing();
-            barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
+            barcodeScanner.IsVisible = false;
         }
 
         protected override void OnDisappearing()
@@ -74,7 +74,7 @@ namespace gip.vb.mobile.Views
                         break;
                 }
             }
-            barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
+            barcodeScanner.IsVisible = false;
         }
 
         private void cmdQuantEditAgain_Clicked(object sender, EventArgs e)
@@ -154,6 +154,11 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.SelectedInventoryLine.NewStockQuantity = null;
             }
+        }
+
+        private void btnCheckQuant_Clicked(object sender, EventArgs e)
+        {
+            barcodeScanner.IsVisible = !barcodeScanner.IsVisible;
         }
     }
 }

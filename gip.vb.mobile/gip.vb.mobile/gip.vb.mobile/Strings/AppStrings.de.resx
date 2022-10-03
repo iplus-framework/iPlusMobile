@@ -669,4 +669,7 @@
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split num.</value>
   </data>
+  <data name="CheckQuant_Text" xml:space="preserve">
+    <value>Prüfquant</value>
+  </data>
 </root>

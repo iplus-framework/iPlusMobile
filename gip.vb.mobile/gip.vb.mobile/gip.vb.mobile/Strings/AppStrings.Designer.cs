@@ -610,6 +610,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check quant.
+        /// </summary>
+        internal static string CheckQuant_Text {
+            get {
+                return ResourceManager.GetString("CheckQuant_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose group:.
         /// </summary>
         internal static string ChooseGroup_Text {
