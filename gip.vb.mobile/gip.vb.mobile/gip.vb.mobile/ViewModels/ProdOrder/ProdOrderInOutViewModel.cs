@@ -67,7 +67,7 @@ namespace gip.vb.mobile.ViewModels
             }
             else
             {
-                _InwardSuggestionMode = -1;
+                _InwardSuggestionMode = 0;
             }
 
             ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
@@ -252,12 +252,12 @@ namespace gip.vb.mobile.ViewModels
                 return;
 
             if (IsInward)
-                await ReadPostignsIn();
+                await ReadPostingsIn();
             else
                 await ReadPostingsOut();
         }
 
-        public async Task ReadPostignsIn()
+        public async Task ReadPostingsIn()
         {
             if (IntermOrIntermBatch == null)
                 return;
@@ -273,7 +273,7 @@ namespace gip.vb.mobile.ViewModels
                 else
                     Overview = new PostingOverview();
 
-                if (_InwardSuggestionMode < double.Epsilon)
+                if (_InwardSuggestionMode < -double.Epsilon)
                 {
                     double diff = IntermOrIntermBatch.TargetQuantityUOM - IntermOrIntermBatch.ActualQuantityUOM;
                     if (diff < 0.00001)
@@ -374,7 +374,7 @@ namespace gip.vb.mobile.ViewModels
         public async Task RefreshInItems()
         {
             await RefreshIntermOrIntermBatch();
-            await ReadPostignsIn();
+            await ReadPostingsIn();
         }
 
         public async Task RefreshOutItems()
