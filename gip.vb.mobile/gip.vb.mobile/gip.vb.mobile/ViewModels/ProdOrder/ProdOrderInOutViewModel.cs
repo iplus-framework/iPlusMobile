@@ -37,53 +37,33 @@ namespace gip.vb.mobile.ViewModels
             {
                 ACValue pqsmACValue = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode));
                 if (pqsmACValue != null)
-                {
                     mode1 = pqsmACValue.Value as PostingQuantitySuggestionMode?;
-                }
 
                 ACValue pqsmACValue2 = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode2));
                 if (pqsmACValue2 != null)
-                {
                     mode2 = pqsmACValue2.Value as PostingQuantitySuggestionMode?;
-                }
 
                 ACValue seqNo1 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode");
                 if (seqNo1 != null)
-                {
                     validSeqNo1 = seqNo1.ParamAsString;
-                }
 
                 ACValue seqNo2 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode2");
                 if (seqNo2 != null)
-                {
                     validSeqNo2 = seqNo2.ParamAsString;
-                }
             }
-
             _OutwardSuggestionMode = new PostingSuggestionMode(mode1, validSeqNo1, mode2, validSeqNo2);
 
+            _InwardSuggestionMode = 0;
+            _InwardAutoSplitQuant = 0;
             if (wfMethod != null)
             {
                 ACValue inwardSMode = wfMethod.ParameterValueList.GetACValue("QuantityPerRack");
                 if (inwardSMode != null)
-                {
                     _InwardSuggestionMode = inwardSMode.ParamAsDouble;
-                }
-                else
-                {
-                    _InwardSuggestionMode = 0;
-                }
 
                 ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
                 if (inwardAutoSplitQuant != null)
-                {
                     _InwardAutoSplitQuant = inwardAutoSplitQuant.ParamAsInt32;
-                }
-            }
-            else
-            {
-                _InwardSuggestionMode = 0;
-                _InwardAutoSplitQuant = 0;
             }
 
             _Components = components;
@@ -262,12 +242,12 @@ namespace gip.vb.mobile.ViewModels
                 return;
 
             if (IsInward)
-                await ReadPostignsIn();
+                await ReadPostingsIn();
             else
                 await ReadPostingsOut();
         }
 
-        public async Task ReadPostignsIn()
+        public async Task ReadPostingsIn()
         {
             if (IntermOrIntermBatch == null)
                 return;
@@ -283,7 +263,7 @@ namespace gip.vb.mobile.ViewModels
                 else
                     Overview = new PostingOverview();
 
-                if (_InwardSuggestionMode < double.Epsilon)
+                if (_InwardSuggestionMode < -double.Epsilon)
                 {
                     double diff = IntermOrIntermBatch.TargetQuantityUOM - IntermOrIntermBatch.ActualQuantityUOM;
                     if (diff < 0.00001)
@@ -384,7 +364,7 @@ namespace gip.vb.mobile.ViewModels
         public async Task RefreshInItems()
         {
             await RefreshIntermOrIntermBatch();
-            await ReadPostignsIn();
+            await ReadPostingsIn();
         }
 
         public async Task RefreshOutItems()
