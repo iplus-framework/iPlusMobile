@@ -23,6 +23,10 @@ namespace gip.vb.mobile.Services
         protected static Guid? _CurrentSessionId;
         private bool _WithTimeoutHandler = false;
 
+        private const int C_PerfID_Serialize = 100;
+        private const int C_PerfID_HttpComm = 200;
+        private const int C_PerfID_DeSerialize = 300;
+
         public CoreWebService()
         {
             _WithTimeoutHandler = false;
@@ -114,16 +118,40 @@ namespace gip.vb.mobile.Services
             using (var cts = new CancellationTokenSource())
             {
                 HttpResponseMessage response = null;
-                if (_TimeOutHandler != null)
-                    response = await _Client.GetAsync(uri, cts.Token);
-                else
-                    response = await _Client.GetAsync(uri);
-                //var json = await _Client.GetStringAsync(uri);
-                if (response.IsSuccessStatusCode)
+                PerformanceEvent perfEventHttp = null;
+                PerformanceEvent perfEventDeSerial = null;
+                try
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
-                    return result;
+                    perfEventHttp = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_HttpComm);
+                    if (_TimeOutHandler != null)
+                        response = await _Client.GetAsync(uri, cts.Token);
+                    else
+                        response = await _Client.GetAsync(uri);
+                    //var json = await _Client.GetStringAsync(uri);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+
+                        perfEventDeSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_DeSerialize);
+                        var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
+                        perfEventDeSerial = null;
+                        return result;
+                    }
+                    else
+                    {
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+                    }
+                }
+                finally
+                {
+                    if (perfEventHttp != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                    if (perfEventDeSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
                 }
                 return await Task.FromResult(new WSResponse<TResult>(default(TResult)));
             }
@@ -154,19 +182,52 @@ namespace gip.vb.mobile.Services
                 {
                     DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
                 };
-                var serializedItem = JsonConvert.SerializeObject(item, microsoftDateFormatSettings);
-                var buffer = Encoding.UTF8.GetBytes(serializedItem);
-                var byteContent = new ByteArrayContent(buffer);
-                HttpResponseMessage response = null;
-                if (_TimeOutHandler != null)
-                    response = await _Client.PostAsync(uri, byteContent, cts.Token);
-                else
-                    response = await _Client.PostAsync(uri, byteContent);
-                if (response.IsSuccessStatusCode)
+
+                PerformanceEvent perfEventHttp = null;
+                PerformanceEvent perfEventSerial = null;
+                PerformanceEvent perfEventDeSerial = null;
+                try
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
-                    return result;
+                    perfEventSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_Serialize);
+                    var serializedItem = JsonConvert.SerializeObject(item, microsoftDateFormatSettings);
+                    var buffer = Encoding.UTF8.GetBytes(serializedItem);
+                    var byteContent = new ByteArrayContent(buffer);
+                    App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_Serialize, perfEventSerial);
+                    perfEventSerial = null;
+
+                    perfEventHttp = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_HttpComm);
+                    HttpResponseMessage response = null;
+                    if (_TimeOutHandler != null)
+                        response = await _Client.PostAsync(uri, byteContent, cts.Token);
+                    else
+                        response = await _Client.PostAsync(uri, byteContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+
+                        perfEventDeSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_DeSerialize);
+                        var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
+                        perfEventDeSerial = null;
+                        return result;
+                    }
+                    else
+                    {
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+                    }
+                }
+                finally
+                {
+                    if (perfEventSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_Serialize, perfEventSerial);
+                    if (perfEventHttp != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                    if (perfEventDeSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
                 }
 
                 return await Task.FromResult(new WSResponse<TResult>(default(TResult)));
@@ -198,19 +259,50 @@ namespace gip.vb.mobile.Services
                 {
                     DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
                 };
-                var serializedItem = JsonConvert.SerializeObject(item, microsoftDateFormatSettings);
-                var buffer = Encoding.UTF8.GetBytes(serializedItem);
-                var byteContent = new ByteArrayContent(buffer);
-                HttpResponseMessage response = null;
-                if (_TimeOutHandler != null)
-                    response = await _Client.PutAsync(uri, byteContent, cts.Token);
-                else
-                    response = await _Client.PutAsync(uri, byteContent);
-                if (response.IsSuccessStatusCode)
+                PerformanceEvent perfEventHttp = null;
+                PerformanceEvent perfEventSerial = null;
+                PerformanceEvent perfEventDeSerial = null;
+                try
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
-                    return result;
+                    perfEventSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_Serialize);
+                    var serializedItem = JsonConvert.SerializeObject(item, microsoftDateFormatSettings);
+                    var buffer = Encoding.UTF8.GetBytes(serializedItem);
+                    var byteContent = new ByteArrayContent(buffer);
+                    App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_Serialize, perfEventSerial);
+                    perfEventSerial = null;
+
+                    perfEventHttp = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_HttpComm);
+                    HttpResponseMessage response = null;
+                    if (_TimeOutHandler != null)
+                        response = await _Client.PutAsync(uri, byteContent, cts.Token);
+                    else
+                        response = await _Client.PutAsync(uri, byteContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+
+                        perfEventDeSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_DeSerialize);
+                        var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
+                        perfEventDeSerial = null;
+                        return result;
+                    }
+                    else
+                    {
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+                    }
+                }
+                finally
+                {
+                    if (perfEventSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_Serialize, perfEventSerial);
+                    if (perfEventHttp != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                    if (perfEventDeSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
                 }
 
                 return await Task.FromResult(new WSResponse<TResult>(default(TResult)));
@@ -239,15 +331,39 @@ namespace gip.vb.mobile.Services
             using (var cts = new CancellationTokenSource())
             {
                 HttpResponseMessage response = null;
-                if (_TimeOutHandler != null)
-                    response = await _Client.DeleteAsync(uri, cts.Token);
-                else
-                    response = await _Client.DeleteAsync(uri);
-                if (response.IsSuccessStatusCode)
+                PerformanceEvent perfEventHttp = null;
+                PerformanceEvent perfEventDeSerial = null;
+                try
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
-                    return result;
+                    perfEventHttp = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_HttpComm);
+                    if (_TimeOutHandler != null)
+                        response = await _Client.DeleteAsync(uri, cts.Token);
+                    else
+                        response = await _Client.DeleteAsync(uri);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+
+                        perfEventDeSerial = App.PerfLogger.Start(uri.WebServiceMethodName(), C_PerfID_DeSerialize);
+                        var result = await Task.Run(() => JsonConvert.DeserializeObject<WSResponse<TResult>>(json));
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
+                        perfEventDeSerial = null;
+                        return result;
+                    }
+                    else
+                    {
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                        perfEventHttp = null;
+                    }
+                }
+                finally
+                {
+                    if (perfEventHttp != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_HttpComm, perfEventHttp);
+                    if (perfEventDeSerial != null)
+                        App.PerfLogger.Stop(uri.WebServiceMethodName(), C_PerfID_DeSerialize, perfEventDeSerial);
                 }
 
                 return await Task.FromResult(new WSResponse<TResult>(default(TResult)));
@@ -330,6 +446,13 @@ namespace gip.vb.mobile.Services
                 return false;
 
             return responseMsg.Row == loginAgainMsg.Row && responseMsg.Column == loginAgainMsg.Column && responseMsg.ACIdentifier == loginAgainMsg.ACIdentifier;
+        }
+
+        public async Task<WSResponse<bool>> DumpPerfLog(string perfLog)
+        {
+            if (String.IsNullOrEmpty(perfLog))
+                return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "perfLog is null.")));
+            return await Post<bool, string>(perfLog, CoreWebServiceConst.UriDumpPerfLog);
         }
 
         #endregion

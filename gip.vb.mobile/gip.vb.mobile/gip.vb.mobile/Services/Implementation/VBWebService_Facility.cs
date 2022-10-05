@@ -8,7 +8,6 @@ using gip.mes.webservices;
 using gip.core.autocomponent;
 using gip.mes.facility;
 using gip.core.datamodel;
-using gip.vb.mobile.Services.Implementation;
 
 namespace gip.vb.mobile.Services
 {

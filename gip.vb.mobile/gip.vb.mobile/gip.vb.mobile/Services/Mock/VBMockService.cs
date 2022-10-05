@@ -207,5 +207,10 @@ namespace gip.vb.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<WSResponse<bool>> DumpPerfLog(string perfLog)
+        {
+            return await Task.FromResult(new WSResponse<bool>(true));
+        }
     }
 }

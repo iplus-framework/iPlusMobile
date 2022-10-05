@@ -183,6 +183,27 @@ namespace gip.vb.mobile.ViewModels
         //    }
         //}
 
+
+        public bool? _PerfLoggingOn;
+        public bool PerfLoggingOn
+        {
+            get
+            {
+                if (!_PerfLoggingOn.HasValue)
+                {
+                    _PerfLoggingOn = XLocalSettings.GetValue<bool>("PerfLoggingOn", false);
+                }
+                return _PerfLoggingOn.Value;
+            }
+            set
+            {
+                _PerfLoggingOn = value;
+                XLocalSettings.SetValue<bool>("PerfLoggingOn", _PerfLoggingOn.Value);
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
     }

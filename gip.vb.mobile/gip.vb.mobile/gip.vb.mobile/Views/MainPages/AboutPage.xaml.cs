@@ -2,19 +2,29 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
+using gip.vb.mobile.ViewModels;
 
 namespace gip.vb.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : BSOPageBase
     {
+        static int _AppearingCounter = 0;
+
+        internal AboutViewModel _ViewModel;
         public AboutPage()
         {
+            BindingContext = _ViewModel = new AboutViewModel();
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
+            if (_AppearingCounter <= 0)
+                Settings.IsVisible = false;
+            else
+                Settings.IsVisible = true;
+            _AppearingCounter++;
             DisplayVersionInfo();
             base.OnAppearing();
         }
@@ -31,6 +41,11 @@ namespace gip.vb.mobile.Views
         {
             ExitOnBackButtonPressed();
             return true;
+        }
+
+        private void SendPerfLog_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.SendPerfLog.Execute(null);
         }
     }
 }

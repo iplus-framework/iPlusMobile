@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using gip.mes.webservices;
 using gip.core.autocomponent;
 using gip.core.datamodel;
-using gip.vb.mobile.Services.Implementation;
 
 namespace gip.vb.mobile.Services
 {

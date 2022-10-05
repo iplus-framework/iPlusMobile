@@ -6,6 +6,7 @@ using gip.vb.mobile.Views;
 using gip.core.webservices;
 using gip.vb.mobile.ViewModels;
 using gip.vb.mobile.Helpers;
+using gip.core.datamodel;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace gip.vb.mobile
@@ -67,5 +68,18 @@ namespace gip.vb.mobile
             }
         }
 
+        private static PerformanceLogger _PerfLogger = null;// new PerformanceLogger("Code-Analysis");
+        public static PerformanceLogger PerfLogger
+        {
+            get
+            {
+                if (_PerfLogger == null)
+                {
+                    _PerfLogger = new PerformanceLogger("Code-Analysis");
+                    _PerfLogger.Active = SettingsViewModel.PerfLoggingOn;
+                }
+                return _PerfLogger;
+            }
+        }
     }
 }

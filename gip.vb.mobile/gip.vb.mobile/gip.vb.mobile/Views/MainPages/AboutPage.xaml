@@ -7,9 +7,6 @@
              xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="{Binding Title}">
-    <ContentPage.BindingContext>
-        <vm:AboutViewModel />
-    </ContentPage.BindingContext>
     
     <!--<ContentPage.Resources>
         <ResourceDictionary>
@@ -18,6 +15,7 @@
 
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
             <RowDefinition Height="80" />
             <RowDefinition Height="10" />
@@ -37,12 +35,18 @@
             <Label x:Name="lblCurrentUser" />
         </StackLayout>
 
-        <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="1" Grid.Column="1" />
-        <StackLayout Spacing="5" Grid.Row="1" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="7" x:Name="Settings">
+            <Label Text="Performance logging" />
+            <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
+            <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
+        </StackLayout>
+
+        <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />
+        <StackLayout Spacing="5" Grid.Row="2" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
             <Label Text="Version" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
             <Label x:Name="lblVersion" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
         </StackLayout>
-        <StackLayout Spacing="5" Grid.Row="1" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Start">
+        <StackLayout Spacing="5" Grid.Row="2" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Start">
             <Label Text="Build" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
             <Label x:Name="lblBuild" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
         </StackLayout>
