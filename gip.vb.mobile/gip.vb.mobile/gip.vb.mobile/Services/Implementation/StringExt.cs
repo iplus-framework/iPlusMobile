@@ -18,14 +18,20 @@ namespace gip.vb.mobile.Services
             if (String.IsNullOrEmpty(uri.OriginalString))
                 return "UnkownMethodName";
             int i = uri.OriginalString.IndexOf('{');
-            if (i < 0)
+            if (i > 1)
+                i--;
+            else
+            {
                 i = uri.OriginalString.IndexOf('*');
-            if (i < 0)
-                i = uri.OriginalString.LastIndexOf('/');
+                if (i > 1)
+                    i--;
+                else
+                    i = uri.OriginalString.LastIndexOf('/');
+            }
             if (i <= 1)
                 return uri.OriginalString;
             else
-                return uri.OriginalString.Substring(0, i-1);
+                return uri.OriginalString.Substring(0, i);
         }
     }
 }
