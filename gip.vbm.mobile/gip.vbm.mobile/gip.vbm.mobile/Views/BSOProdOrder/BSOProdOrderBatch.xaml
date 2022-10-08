@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOProdOrderBatch"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOProdOrderBatch">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*"  />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Text="{i18n:Translate Text=PartslistName_Label}" Style="{StaticResource LabelForDesc}" FontSize="Micro" />
+        <Label Grid.Row="0" Grid.Column="1" Text="{Binding IntermediatePos.ProdOrderPartslist.Partslist.PartslistName}" Style="{StaticResource LabelForData}" FontSize="Micro"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrder, Text=ProgramNo}" Style="{StaticResource LabelForDesc}" FontSize="Micro" />
+        <Label Grid.Row="1" Grid.Column="1" Text="{Binding IntermediatePos.ProdOrderPartslist.ProdOrder.ProgramNo}" Style="{StaticResource LabelForData}" FontSize="Micro"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" FontSize="Micro" />
+        <Label Grid.Row="2" Grid.Column="1" Text="{Binding IntermediatePos.ProdOrderPartslist.Partslist.Material.MaterialNo}" Style="{StaticResource LabelForData}" FontSize="Micro"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" FontSize="Micro" />
+        <Label Grid.Row="3" Grid.Column="1" Text="{Binding IntermediatePos.ProdOrderPartslist.Partslist.Material.MaterialName1}" Style="{StaticResource LabelForData}" FontSize="Micro"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Text="Intermediate product" Style="{StaticResource LabelForDesc}" FontSize="Micro" />
+        <Label Grid.Row="4" Grid.Column="1" Text="{Binding IntermediatePos.Material.MaterialName1}" Style="{StaticResource LabelForData}" FontSize="Micro"/>
+        
+        <BoxView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="1" BackgroundColor="Red" />
+
+        <Label Grid.Row="6" Grid.ColumnSpan="2" Text="{i18n:Translate Text=SelectBatch_Text}" Style="{StaticResource LabelForDesc}" />
+        
+        <ListView  Grid.Row="7" Grid.ColumnSpan="2" x:Name="ProdOrderIntermediateBatches"
+                ItemsSource="{Binding ProdOrderIntermediateBatches}"
+                ItemTemplate="{StaticResource ProdOrderBatchItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadProdOrderIntermBatchesCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemTapped="ProdOrderIntermediateBatches_ItemTapped">
+        </ListView>
+    </Grid>
+</v:BSOPageBase>

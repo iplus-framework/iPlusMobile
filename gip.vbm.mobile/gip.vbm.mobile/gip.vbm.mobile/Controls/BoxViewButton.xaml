@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             x:Class="gip.vbm.mobile.Controls.BoxViewButton">
+  <ContentView.Content>
+        <Grid>
+            <ctl:RoundedBoxView x:Name="ctlBoxView" />
+            <Image x:Name="ctlImage" Aspect="AspectFit" />
+        </Grid>
+  </ContentView.Content>
+</ContentView>

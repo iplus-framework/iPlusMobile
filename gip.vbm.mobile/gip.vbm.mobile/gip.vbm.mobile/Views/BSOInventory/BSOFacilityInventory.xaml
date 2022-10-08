@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOFacilityInventory"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="PageBSOFacilityInventory">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView Orientation="Vertical">
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="From" />
+                <DatePicker Grid.Row="1" Format="yyyy" Date="{Binding FilterInventoryStartDate}" />
+                <Label Grid.Column="1" Text="To" />
+                <DatePicker Grid.Column="1" Grid.Row="1" Format="yyyy" Date="{Binding FilterInventoryEndDate}" />
+            </Grid>
+
+            <Label Text="Inventories:" />
+            <ListView x:Name="InventoryListView"
+                    ItemsSource="{Binding FacilityInventories}"
+                    ItemTemplate="{StaticResource FacilityInventoryTemplate}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="true"
+                    RefreshCommand="{Binding GetFacilityInventoriesCommand}"
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="InventoryListView_ItemSelected"
+                    ItemTapped="InventoryListView_ItemTapped" />
+        </StackLayout>
+    </ScrollView>
+</v:BSOPageBase>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOInventoryLines"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="PageBSOInventoryLines">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+   
+    <StackLayout>
+        <ListView x:Name="lstOpenLines"
+                    ItemsSource="{Binding OpenLines}"
+                    ItemTemplate="{StaticResource FacilityInventoryPosTemplate}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="true"
+                    RefreshCommand="{Binding GetOpenLinesCOmmand}"
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    ItemSelected="lstOpenLines_ItemSelected"
+                    ItemTapped="lstOpenLines_ItemTapped" 
+                  VerticalScrollBarVisibility="Default" />
+
+        <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" />
+
+    </StackLayout>
+
+</v:BSOPageBase>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="gip.vbm.mobile.Controls.BarcodeScanner">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Horizontal" HeightRequest="50">
+                <SearchBar  x:Name="BarcodeSearchBar" 
+                            Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
+                            Text="{Binding Item.CurrentBarcode}" 
+                            HorizontalOptions="FillAndExpand"
+                            SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+
+                <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" MinimumWidthRequest="40" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+            </StackLayout>
+            <StackLayout Grid.Row="2" x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >
+                    <ListView  
+                            x:Name="BarcodeListView" 
+                            ItemsSource="{Binding BarcodeSequence}"
+                            SelectedItem="{Binding SelectedSequence}"    
+                            IsGroupingEnabled="false" 
+                            RowHeight="50"
+                            ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                            HasUnevenRows="true"
+                            IsPullToRefreshEnabled="false"
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            ItemSelected="BarcodeListView_ItemSelected"
+                            ItemTapped="BarcodeListView_ItemTapped"/>
+                </StackLayout>
+
+            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <zxing:ZXingScannerView 
+                    x:Name="scanView"
+                    OnScanResult="scanView_OnScanResult"
+                    IsScanning="{Binding ZXingIsScanning}"
+                    WidthRequest="300"
+                    HeightRequest="300"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding ZXingIsScanning}" />
+                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
+                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

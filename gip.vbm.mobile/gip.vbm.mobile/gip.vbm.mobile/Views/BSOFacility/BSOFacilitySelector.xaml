@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOFacilitySelector"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:vb="clr-namespace:gip.vbm.mobile.Controls"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="FacilitySelector">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" >
+        </ToolbarItem>-->
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3" />
+
+            <RowDefinition />
+
+            <RowDefinition Height="3"  />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3" />
+
+            <ColumnDefinition />
+
+            <ColumnDefinition Width="3" />
+        </Grid.ColumnDefinitions>
+        <BoxView Grid.RowSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.Column="2" Grid.RowSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.ColumnSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <Grid Grid.Row="1" Grid.Column="1" BackgroundColor="{DynamicResource PageBackgroundColor}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="2" />
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="{DynamicResource SecondaryPageBackgroundColor}" />
+            <Label Text="{i18n:Translate Text=SelectFacility_Text}" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Subtitle" />
+
+            <!--<ScrollView >-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+
+
+                <StackLayout Grid.Row="0" Orientation="Horizontal" >
+                    <Label Text="{i18n:Translate Text=FacilitySelSearchOnlyList_text}" VerticalOptions="Center" />
+                    <Switch x:Name="switchOnlyListSearch" VerticalOptions="Center" HorizontalOptions="EndAndExpand" IsToggled="{Binding SearchOnlyInList}" />
+                </StackLayout>
+
+                <vb:BarcodeScanner x:Name="barcodeScanner" Grid.Row="1" VerticalOptions="Start" IsEnabledInvokeBarcodeOnServer="True" />
+
+                <Label Grid.Row="2" Text="Path" />
+
+                <SwipeView BackgroundColor="Transparent" Grid.Row="3">
+                    <SwipeView.LeftItems>
+                        <SwipeItem  IconImageSource="DeleteIcon.png"
+                                                Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.ClearFacilityPath}"/>
+                    </SwipeView.LeftItems>
+                    <SwipeView.RightItems>
+                        <SwipeItem IconImageSource="RemoveIcon.png"
+                                                Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.RemoveLastFacilityInPath}"/>
+                    </SwipeView.RightItems>
+                    <FlexLayout  BackgroundColor="{DynamicResource ControlBackgroundColor}" Direction="Row" Wrap="Wrap"  AlignItems="Start"  JustifyContent="Start"
+                                        x:Name="storageLocationPathLayout" >
+
+
+                    </FlexLayout>
+                </SwipeView>
+
+                <Label Grid.Row="4" Text="{i18n:Translate Text=WarehousePositions_Text}" />
+
+                <ListView x:Name="FacilitiesList"  Grid.Row="5" ItemsSource="{Binding StorageLocations}" IsGroupingEnabled="false" 
+                        RowHeight="50"
+                        HasUnevenRows="true"
+                        SelectedItem="{Binding SelectedStorageLocation, Mode=TwoWay}" 
+                        IsPullToRefreshEnabled="true"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                        CachingStrategy="RecycleElement"
+                        ItemTapped="ListView_ItemTapped"
+                        PropertyChanged="FacilitiesList_PropertyChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <vb:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}" >
+                                <!--<SwipeView BackgroundColor="Transparent" VerticalOptions="Start" Margin="0,2,0,0">
+                                        <SwipeView.LeftItems>
+                                            <SwipeItem Text="Add" BackgroundColor="AliceBlue"
+                                                       Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.AddFacilityToPath}"
+                                                       CommandParameter="{Binding .}"/>
+                                        </SwipeView.LeftItems>-->
+                                <vb:ExtendedViewCell.ContextActions>
+                                    <MenuItem Text="{i18n:Translate Text=ExploreStorage_Text}" CommandParameter="{Binding .}"
+                                              Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.AddFacilityToPath}"/>
+                                </vb:ExtendedViewCell.ContextActions>
+                                <Grid Margin="0,3,0,0" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="18" />
+                                        <RowDefinition Height="18" />
+                                    </Grid.RowDefinitions>
+
+                                    <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                                    <Label Grid.Row="0" Text="{Binding FacilityNo}" VerticalOptions="End"  HorizontalTextAlignment="Start"/>
+                                    <Label Grid.Row="1" Text="{Binding FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                                </Grid>
+                                <!--</SwipeView>-->
+                            </vb:ExtendedViewCell>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+            <!--</ScrollView>-->
+            <Button Grid.Row="2" x:Name="btnCancel"  Text="{i18n:Translate Text=ButtonCancel}" Clicked="btnCancel_Clicked" />
+        </Grid>
+    </Grid>
+</v:BSOPageBase>

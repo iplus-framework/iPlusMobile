@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOACMethodEditor"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:b="http://xamarin.com/schemas/2020/toolkit"
+               xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               BarBackgroundColor="{DynamicResource NavigationBarColor}"
+               BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding ACIdentifier}">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOPageBase x:Name="ACMethodResultPivotItem" Title="{i18n:Translate Text=ACMethodResultPivot_Header}">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding ResultValueList}" RowHeight="68">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ctl:ExtendedViewCell>
+                        <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="44" />
+                            </Grid.RowDefinitions>
+                            <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                                <Label Text="{Binding Label}" Grid.ColumnSpan="2" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource LabelForDesc}" />
+                                <ctl:NumericEntry Grid.Row="1" Grid.ColumnSpan="2" TextNumeric="{Binding Value, Mode=TwoWay}" TransferValueAtEnd="True"></ctl:NumericEntry>
+                                <!--<Label Grid.Row="1" Grid.Column="1" Text="{Binding Value}"></Label>-->
+                                <!--<Entry x:Name="TheEntry" Grid.Row="1" Text="{Binding Value}" VerticalOptions="Start" VerticalTextAlignment="Start">
+                                    <Entry.Behaviors>
+                                        <b:EventToCommandBehavior
+                                        Command="{Binding EditCommand}"
+                                        CommandParameter="{Binding Source={x:Reference TheEntry}, Path=Text}"
+                                        EventName="Unfocused" />
+                                    </Entry.Behaviors>
+                                </Entry>-->
+                        </Grid>
+                    </ctl:ExtendedViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--<StackLayout Orientation="Horizontal">
+            <Label Text="Σ" FontSize="Title" VerticalOptions="CenterAndExpand"  TextColor="Red" />
+            <ctl:NumericEntry x:Name="SumEntry" Grid.Column="0" Grid.Row="1" Keyboard="Numeric" HorizontalOptions="FillAndExpand" Focused="SumEntry_Focused" FontSize="Title"
+                                        TextNumeric="{Binding SumQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End">
+                <Entry.Behaviors>
+                    <hp:NumericTextBoxBehavior IsDecimal="False" Precision="3"/>
+                </Entry.Behaviors>
+            </ctl:NumericEntry>
+        </StackLayout>-->
+        <Button x:Name="BtnApply" Grid.Row="1" Margin="0,5,0,0" HorizontalOptions="FillAndExpand"  Text="{i18n:Translate Text=BtnApply_Text}" Clicked="BtnApply_Clicked" />
+        </Grid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="ACMethodParamPivotItem" Title="{i18n:Translate Text=ACMethodParamPivot_Header}">
+        <ListView ItemsSource="{Binding ParameterValueList}" RowHeight="42">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ctl:ExtendedViewCell>
+                        <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                            <Grid.ColumnDefinitions>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                            <Label Text="{Binding Label}" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource LabelForDesc}" />
+                            <Label Grid.Row="1" Text="{Binding Value}" VerticalOptions="Start" VerticalTextAlignment="Start" />
+                        </Grid>
+                    </ctl:ExtendedViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

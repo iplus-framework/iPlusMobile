@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOProdOrderInOutSelector"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BSOInOutSelector">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+    <ScrollView Orientation="Vertical">
+        <StackLayout>
+
+            <Button Text="{i18n:Translate Text=Input_Text}" x:Name="BtnInput" Clicked="BtnInput_Clicked" />
+            <Button Text="{i18n:Translate Text=Output_Text}" x:Name="BtnOutput" Clicked="BtnOutput_Clicked" />
+
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrder, Text=ProgramNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.ProdOrderPartslist.ProdOrder.ProgramNo}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Partslist, Text=PartslistNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.ProdOrderPartslist.Partslist.PartslistNo}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Partslist, Text=PartslistName}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.ProdOrderPartslist.Partslist.PartslistName}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate Text=Intermediate_Text}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderBatch, Text=SeqNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.ProdOrderBatch.BatchSeqNo}" Style="{StaticResource LabelForData}"/>
+            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderBatch, Text=BatchNo}" Style="{StaticResource LabelForDesc}" />
+            <Label Text="{Binding IntermOrIntermBatch.ProdOrderBatch.ProdOrderBatchNo}" Style="{StaticResource LabelForData}"/>
+        </StackLayout>
+    </ScrollView>
+</v:BSOPageBase>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOProdOrder"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOProdOrder">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScanProdOrder_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+        <Label Text="{i18n:Translate Text=SelectPartslist_Text}" />
+        <ListView x:Name="ProdOrderPartslists"
+                ItemsSource="{Binding ProdOrderPartslists}"
+                ItemTemplate="{StaticResource ProdOrderPartslistItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadProdOrderPartslistsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemSelected="ProdOrderPartslistsListView_ItemSelected"
+                ItemTapped="ProdOrderPartslistsListView_ItemTapped">
+        </ListView>
+    </StackLayout>
+</v:BSOPageBase>

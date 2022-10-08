@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.AboutPage"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:vm="clr-namespace:gip.vbm.mobile.ViewModels"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="{Binding Title}">
+    
+    <!--<ContentPage.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </ContentPage.Resources>-->
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout Grid.ColumnSpan="7">
+            <Label Text="{i18n:Translate Text=Username_Text}" />
+            <Label x:Name="lblCurrentUser" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="7" x:Name="Settings">
+            <Label Text="Performance logging" />
+            <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
+            <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
+        </StackLayout>
+
+        <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />
+        <StackLayout Spacing="5" Grid.Row="2" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="Version" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
+            <Label x:Name="lblVersion" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
+        </StackLayout>
+        <StackLayout Spacing="5" Grid.Row="2" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="Build" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
+            <Label x:Name="lblBuild" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
+        </StackLayout>
+    </Grid>
+
+
+        <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
+                <Label FontSize="22">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="AppName" FontAttributes="Bold" FontSize="22" />
+                                <Span Text=" " />
+                                <Span Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="This app is written in C# and native APIs using the" />
+                                <Span Text=" " />
+                                <Span Text="Xamarin Platform" FontAttributes="Bold" />
+                                <Span Text="." />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="It shares code with its" />
+                                <Span Text=" " />
+                                <Span Text="iOS, Android, and Windows" FontAttributes="Bold" />
+                                <Span Text=" " />
+                                <Span Text="versions." />
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Margin="0,10,0,0" Text="Learn more"
+                        Command="{Binding OpenWebCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />
+            </StackLayout>
+        </ScrollView>-->
+</v:BSOPageBase>
