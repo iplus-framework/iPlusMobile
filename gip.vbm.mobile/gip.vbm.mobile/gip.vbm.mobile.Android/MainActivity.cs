@@ -20,16 +20,16 @@ namespace gip.vbm.mobile.Droid
 {
     [Activity(Label = "iPlus Mobile", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 #if DATALOGIC
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, IReadListener
+    public class MainActivity : MauiAppCompatActivity, IReadListener
     {
         BarcodeManager _DLBarcodeManager = null;
 #else
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : MauiAppCompatActivity
     { 
 #endif
         public MainActivity()
         {
-            Forms.SetFlags("SwipeView_Experimental");
+            //Forms.SetFlags("SwipeView_Experimental");
         }
 
     //Com.Datalogic.Device.Nfc.NfcManager _DLNfcManager = null;
@@ -39,31 +39,30 @@ namespace gip.vbm.mobile.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
+            //TabLayoutResource = Resource.Layout.Tabbar;
+            //ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            //global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             XResourceLoader.SetResourceLoader(new MyXResourceLoader());
             XLocalSettings.SetLocalSettings(new MyXLocalSettings());
 
-            _DLBarcodeService = Xamarin.Forms.DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
-
-            LoadApplication(new App());
+            _DLBarcodeService = new DatalogicBarcodeService(); // Xamarin.Forms.DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
+            //ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            //LoadApplication(new App());
         }
 
 
-        public override void OnRequestPermissionsResult(int requestCode,
-        string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //public override void OnRequestPermissionsResult(int requestCode,
+        //string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        //{
+        //    Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //    global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //}
 
         protected override void OnResume()
         {

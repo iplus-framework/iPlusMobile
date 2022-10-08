@@ -25,8 +25,8 @@
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Text="{Binding Item.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Item.Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />

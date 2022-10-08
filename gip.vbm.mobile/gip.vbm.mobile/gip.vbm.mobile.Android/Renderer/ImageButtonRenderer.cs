@@ -6,12 +6,13 @@ using Android.Graphics.Drawables;
 using Android.Views;
 using View = Android.Views.View;
 using gip.vbm.mobile.Controls;
-using gip.vbm.mobile.Droid.Extensions;
+//using gip.vbm.mobile.Droid.Extensions;
 using Android.Content;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
+/*
 [assembly: ExportRenderer(typeof (gip.vbm.mobile.Controls.ImageButton), typeof(gip.vbm.mobile.Droid.ImageButtonRenderer))]
 namespace gip.vbm.mobile.Droid
 {
@@ -272,3 +273,4 @@ namespace gip.vbm.mobile.Droid
         }
     }
 }
+*/

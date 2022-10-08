@@ -5,7 +5,7 @@
                xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
                xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
                xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
-               xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+               xmlns:zxing="clr-namespace:ZXing.Net.Maui;assembly=ZXing.Net.Maui"
                BackgroundColor="{DynamicResource PageBackgroundColor}"
                Title="{Binding Title}"
              x:Class="gip.vbm.mobile.Views.BSOPrinterSettings">

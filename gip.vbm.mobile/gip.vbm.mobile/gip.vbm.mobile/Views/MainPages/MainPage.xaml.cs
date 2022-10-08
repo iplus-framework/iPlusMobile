@@ -9,12 +9,11 @@ using Microsoft.Maui.Controls;
 namespace gip.vbm.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : MasterDetailPage
+    public partial class MainPage : FlyoutPage
     {
         public MainPage()
         {
             InitializeComponent();
-            MasterBehavior = MasterBehavior.Popover;
             MenuPages.Add(typeof(AboutPage).Name, (NavigationPage)Detail);
         }
 
@@ -66,7 +65,7 @@ namespace gip.vbm.mobile.Views
 
                 Detail = newPage;
 
-                if (Device.RuntimePlatform == Device.Android)
+                //if (Device.RuntimePlatform == Device.Android)
                     await Task.Delay(100);
 
                 IsPresented = false;

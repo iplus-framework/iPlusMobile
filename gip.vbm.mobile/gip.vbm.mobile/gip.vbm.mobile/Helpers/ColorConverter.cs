@@ -13,7 +13,7 @@ namespace gip.vbm.mobile.Helpers
             {
                 String strColor = value as String;
                 if (String.IsNullOrEmpty(strColor))
-                    return Color.White;
+                    return Colors.White;
                 HexColor hexColor = new HexColor(strColor);
                 Color color = hexColor;
                 return color;
@@ -21,7 +21,7 @@ namespace gip.vbm.mobile.Helpers
             catch
             {
             }
-            return Color.White;
+            return Colors.White;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

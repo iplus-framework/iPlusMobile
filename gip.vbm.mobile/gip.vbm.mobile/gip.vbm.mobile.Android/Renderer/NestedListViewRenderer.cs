@@ -7,7 +7,7 @@ using gip.vbm.mobile.Controls;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
-[assembly: ExportRenderer(typeof(NestedListView), typeof(ListViewRenderer))]
+/*[assembly: ExportRenderer(typeof(NestedListView), typeof(ListViewRenderer))]
 
 namespace gip.vbm.mobile.Droid
 {
@@ -35,3 +35,4 @@ namespace gip.vbm.mobile.Droid
         }
     }
 }
+*/

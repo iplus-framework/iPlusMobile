@@ -8,9 +8,21 @@ namespace gip.vbm.mobile
     {
         public T GetValue<T>(string key, T defaultValue)
         {
-            if (Application.Current.Properties.ContainsKey(key))
+            if (Microsoft.Maui.Storage.Preferences.ContainsKey(key))
             {
-                return (T)Application.Current.Properties[key];
+                var typeOfT = typeof(T);
+                if (typeOfT == typeof(string))
+                {
+                    string pValue = defaultValue as string;
+                    return (T)(object)Microsoft.Maui.Storage.Preferences.Get(key, pValue);
+                }
+                else if (typeOfT == typeof(bool))
+                {
+                    bool pValue = (bool)(object)defaultValue;
+                    return (T)(object)Microsoft.Maui.Storage.Preferences.Get(key, pValue);
+                }
+                else
+                    return defaultValue;
             }
             else
                 return defaultValue; //default(T);
@@ -18,8 +30,11 @@ namespace gip.vbm.mobile
 
         public void SetValue<T>(string key, T value)
         {
-            Application.Current.Properties[key] = (T)value;
-            Application.Current.SavePropertiesAsync();
+            if (value is string)
+                Microsoft.Maui.Storage.Preferences.Set(key, value as string);
+            else if (value is bool)
+                Microsoft.Maui.Storage.Preferences.Set(key, (bool)(object)value);
+            //Application.Current.SavePropertiesAsync();
         }
     }
 }

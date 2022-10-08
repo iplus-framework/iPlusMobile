@@ -5,6 +5,7 @@ using Android.Graphics;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
+/*
 namespace gip.vbm.mobile.Droid.Extensions
 {
     /// <summary>
@@ -225,3 +226,4 @@ namespace gip.vbm.mobile.Droid.Extensions
         }
     }
 }
+*/

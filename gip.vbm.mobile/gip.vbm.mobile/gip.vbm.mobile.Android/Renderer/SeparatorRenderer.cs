@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
+/*
 [assembly: ExportRenderer(typeof(Separator), typeof(SeparatorRenderer))]
 
 namespace gip.vbm.mobile.Droid
@@ -66,4 +67,4 @@ namespace gip.vbm.mobile.Droid
 		}
 	}
 }
-
+*/

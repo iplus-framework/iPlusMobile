@@ -13,18 +13,18 @@ namespace gip.vbm.mobile.Helpers
         {
             double? val = value as double?;
             if (!val.HasValue || val.Value < 25)
-                return Color.Red;
+                return Colors.Red;
 
             else if (val.Value < 50)
-                return Color.Orange;
+                return Colors.Orange;
 
             else if (val.Value < 66)
-                return Color.Yellow;
+                return Colors.Yellow;
 
             else if (val.Value < 82)
-                return Color.Green;
+                return Colors.Green;
 
-            return Color.Lime;
+            return Colors.Lime;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

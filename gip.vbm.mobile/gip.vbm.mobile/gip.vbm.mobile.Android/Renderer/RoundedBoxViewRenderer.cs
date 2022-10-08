@@ -9,6 +9,7 @@ using Android.OS;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
+/*
 [assembly: ExportRenderer(typeof(RoundedBoxView), typeof(RoundedBoxViewRenderer))]
 
 namespace gip.vbm.mobile.Droid
@@ -121,3 +122,4 @@ namespace gip.vbm.mobile.Droid
 
     }
 }
+*/

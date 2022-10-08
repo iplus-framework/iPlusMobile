@@ -203,13 +203,13 @@ namespace gip.vbm.mobile.Controls
             if (scanView.Options != null)
             {
                 //scanView.Options.AutoRotate = false;
-                scanView.Options.TryHarder = true;
-                scanView.Options.UseNativeScanning = true;
-                scanView.Options.PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
-                                                                               ZXing.BarcodeFormat.CODE_39,
-                                                                               ZXing.BarcodeFormat.EAN_13,
-                                                                               ZXing.BarcodeFormat.EAN_8,
-                                                                               ZXing.BarcodeFormat.QR_CODE};
+                //scanView.Options.TryHarder = true;
+                //scanView.Options.UseNativeScanning = true;
+                //scanView.Options.Formats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
+                //                                                               ZXing.BarcodeFormat.CODE_39,
+                //                                                               ZXing.BarcodeFormat.EAN_13,
+                //                                                               ZXing.BarcodeFormat.EAN_8,
+                //                                                               ZXing.BarcodeFormat.QR_CODE};
                 //if (scanView.Options.CameraResolutionSelector == null)
                 //{
                 //    scanView.Options.CameraResolutionSelector = SelectCameraResolution;
@@ -266,15 +266,21 @@ namespace gip.vbm.mobile.Controls
             }
         }
 
-        /// <summary>
-        /// handle returned code from barcoode service 
-        /// </summary>
-        /// <param name="result"></param>
-        private void scanView_OnScanResult(ZXing.Result result)
+        //private void scanView_OnScanResult(ZXing.Result result)
+        //{
+        //    _ViewModel.CurrentBarcode = result.Text;
+        //    _ViewModel.ZXingIsScanning = false;
+        //    HandleScanProcess();
+        //}
+
+        private void scanView_OnScanResult(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
         {
-            _ViewModel.CurrentBarcode = result.Text;
-            _ViewModel.ZXingIsScanning = false;
-            HandleScanProcess();
+            if (e.Results != null && e.Results.Any())
+            {
+                _ViewModel.CurrentBarcode = e.Results.FirstOrDefault().Value;
+                _ViewModel.ZXingIsScanning = false;
+                HandleScanProcess();
+            }
         }
 
         /// <summary>
@@ -349,8 +355,8 @@ namespace gip.vbm.mobile.Controls
             HandleScanProcess();
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

@@ -71,7 +71,7 @@ namespace gip.vbm.mobile.Controls
 		/// <summary>
 		/// The color property
 		/// </summary>
-		public static readonly BindableProperty ColorProperty = BindableProperty.Create("Color", typeof(Color), typeof(Separator), Color.Default, BindingMode.OneWay, null, null, null, null);
+		public static readonly BindableProperty ColorProperty = BindableProperty.Create("Color", typeof(Color), typeof(Separator), Color.FromRgba(-1,-1,-1,-1), BindingMode.OneWay, null, null, null, null);
 
 		/**
 		 * Color of the separator. Black is a default color

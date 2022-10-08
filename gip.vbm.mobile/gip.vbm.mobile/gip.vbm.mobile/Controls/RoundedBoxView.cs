@@ -25,7 +25,7 @@ namespace gip.vbm.mobile.Controls
             set { SetValue(BorderThicknessProperty, value); }
         }
 
-        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create("BorderColor", typeof(Color), typeof(RoundedBoxView), Color.White);
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create("BorderColor", typeof(Color), typeof(RoundedBoxView), Colors.White);
 
         public Color BorderColor
         {

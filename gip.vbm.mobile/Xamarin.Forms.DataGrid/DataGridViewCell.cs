@@ -62,7 +62,7 @@ namespace Xamarin.Forms.DataGrid
 
 			foreach (var col in DataGrid.Columns)
 			{
-				ColumnDefinitions.Add(new ColumnDefinition {Width = col.Width});
+				ColumnDefinitions.Add(new ColumnDefinition {Width = col.Width });
 				View cell;
 
 				if (col.CellTemplate != null)

@@ -108,7 +108,7 @@ namespace gip.vbm.mobile.Helpers
 
             //double result;
             //bool isValid = double.TryParse(args.NewTextValue, out result);
-            //((Entry)sender).TextColor = isValid ? Color.Default : Color.Red;
+            //((Entry)sender).TextColor = isValid ? Color.FromRgba(-1,-1,-1,-1) : Color.Red;
         }
 
         private string _lastText;

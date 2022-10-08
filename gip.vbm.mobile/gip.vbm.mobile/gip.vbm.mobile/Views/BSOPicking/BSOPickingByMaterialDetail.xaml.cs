@@ -35,11 +35,11 @@ namespace gip.vbm.mobile.Views
             {
                 if (_ViewModel.MissingBookingQuantity < 0)
                 {
-                    lblMissingQuantity.TextColor = Color.Red;
+                    lblMissingQuantity.TextColor = Colors.Red;
                 }
                 else
                 {
-                    lblMissingQuantity.TextColor = Color.Lime;
+                    lblMissingQuantity.TextColor = Colors.Lime;
                 }
             }
         }

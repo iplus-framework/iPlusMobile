@@ -53,6 +53,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj" />
     <ProjectReference Include="..\gip.vbm.mobile\gip.vbm.mobile.csproj" />
   </ItemGroup>
   <ProjectExtensions>

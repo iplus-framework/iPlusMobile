@@ -68,7 +68,7 @@ namespace gip.vbm.mobile.Views
                     {
                         Label entry = new Label();
                         entry.Text = item.ToString() + " > ";
-                        entry.TextColor = Color.White;
+                        entry.TextColor = Colors.White;
                         thisObject.storageLocationPathLayout.Children.Add(entry);
                     }
                 }

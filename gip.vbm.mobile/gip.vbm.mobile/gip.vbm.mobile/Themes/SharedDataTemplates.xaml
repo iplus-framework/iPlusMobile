@@ -87,8 +87,8 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
                 <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>

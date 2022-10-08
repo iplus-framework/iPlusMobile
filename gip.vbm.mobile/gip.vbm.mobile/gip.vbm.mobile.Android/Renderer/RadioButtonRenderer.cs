@@ -8,7 +8,7 @@ using gip.vbm.mobile.Droid;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
-[assembly: ExportRenderer(typeof (gip.vbm.mobile.Controls.RadioButton), typeof (gip.vbm.mobile.Droid.RadioButtonRenderer))]
+/*[assembly: ExportRenderer(typeof (gip.vbm.mobile.Controls.RadioButton), typeof (gip.vbm.mobile.Droid.RadioButtonRenderer))]
 namespace gip.vbm.mobile.Droid
 {
     //  using NativeRadioButton = RadioButton;
@@ -144,10 +144,11 @@ namespace gip.vbm.mobile.Droid
             if (Control == null || Element == null)
                 return;
 
-            if (Element.TextColor == Xamarin.Forms.Color.Default)
+            if (Element.TextColor == Xamarin.Forms.Color.FromRgba(-1,-1,-1,-1))
                 Control.SetTextColor(_defaultTextColor);
             else
                 Control.SetTextColor(Element.TextColor.ToAndroid());
         }
     }
 }
+*/

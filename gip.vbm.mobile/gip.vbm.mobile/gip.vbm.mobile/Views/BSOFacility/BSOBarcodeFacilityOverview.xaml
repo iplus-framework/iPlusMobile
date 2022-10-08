@@ -5,7 +5,7 @@
                xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
                xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
                xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
-               xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+               xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
                BackgroundColor="{DynamicResource PageBackgroundColor}"
                BarBackgroundColor="{DynamicResource NavigationBarColor}"
                BarTextColor="{DynamicResource NavigationBarTextColor}"
@@ -42,15 +42,16 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <zxing:ZXingScannerView x:Name="scanView"
-                                                OnScanResult="scanView_OnScanResult"
-                                                IsScanning="{Binding ZXingIsScanning}"
+                <zxing:CameraBarcodeReaderView x:Name="scanView"
+                                                BarcodesDetected="scanView_OnScanResult"
+                                                IsDetecting="{Binding ZXingIsScanning}"
                                                 WidthRequest="300"
                                                 HeightRequest="300"
                                                 VerticalOptions="CenterAndExpand"
                                                 HorizontalOptions="CenterAndExpand"
-                                                IsVisible="{Binding ZXingIsScanning}" />
-                <zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>
+                                                IsVisible="{Binding ZXingIsScanning}"
+                                                />
+                <!--<zxing: TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>-->
                 <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
             </Grid>
         </Grid>

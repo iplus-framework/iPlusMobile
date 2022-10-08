@@ -15,7 +15,7 @@ namespace gip.vbm.mobile.Controls
     /// </summary>
     public class Pivot : StackLayout
     {
-        public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create("SelectedColor", typeof(Color), typeof(Pivot), Color.White, BindingMode.Default);
+        public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create("SelectedColor", typeof(Color), typeof(Pivot), Colors.White, BindingMode.Default);
         public Color SelectedColor
         {
             get
@@ -29,7 +29,7 @@ namespace gip.vbm.mobile.Controls
             }
         }
 
-        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create("UnselectedColor", typeof(Color), typeof(Pivot), Color.Silver, BindingMode.Default);
+        public static readonly BindableProperty UnselectedColorProperty = BindableProperty.Create("UnselectedColor", typeof(Color), typeof(Pivot), Colors.Silver, BindingMode.Default);
         public Color UnselectedColor
         {
             get

@@ -64,7 +64,7 @@ namespace gip.vbm.mobile.Controls
         /// <summary>
         /// The text color property
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(BindableRadioGroup), Color.Black, BindingMode.Default);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(BindableRadioGroup), Color.FromRgb(0x00,0x00,0x00), BindingMode.Default);
 
         /// <summary>
         /// The font size property

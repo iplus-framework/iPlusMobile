@@ -39,23 +39,23 @@ namespace gip.vbm.mobile.Controls
                 {
                     if (msgLabel.Msg.MessageLevel < eMsgLevel.Info)
                     {
-                        msgLabel.BackgroundColor = Color.Green;
-                        msgLabel.TextColor = Color.Black;
+                        msgLabel.BackgroundColor = Colors.Green;
+                        msgLabel.TextColor = Colors.Black;
                     }
                     else if (msgLabel.Msg.MessageLevel < eMsgLevel.Warning)
                     {
-                        msgLabel.BackgroundColor = Color.Lime;
-                        msgLabel.TextColor = Color.Black;
+                        msgLabel.BackgroundColor = Colors.Lime;
+                        msgLabel.TextColor = Colors.Black;
                     }
                     else if (msgLabel.Msg.MessageLevel == eMsgLevel.Warning)
                     {
-                        msgLabel.BackgroundColor = Color.Yellow;
-                        msgLabel.TextColor = Color.Black;
+                        msgLabel.BackgroundColor = Colors.Yellow;
+                        msgLabel.TextColor = Colors.Black;
                     }
                     else
                     {
-                        msgLabel.BackgroundColor = Color.Red;
-                        msgLabel.TextColor = Color.Black;
+                        msgLabel.BackgroundColor = Colors.Red;
+                        msgLabel.TextColor = Colors.Black;
                     }
                     msgLabel.Text = msgLabel.Msg.Message;
                     msgLabel.IsVisible = true;

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+/*
 [assembly: global::Android.Runtime.ResourceDesignerAttribute("gip.vbm.mobile.Droid.Resource", IsApplication=true)]
 
 namespace gip.vbm.mobile.Droid
@@ -36455,3 +36456,4 @@ namespace gip.vbm.mobile.Droid
 	}
 }
 #pragma warning restore 1591
+*/

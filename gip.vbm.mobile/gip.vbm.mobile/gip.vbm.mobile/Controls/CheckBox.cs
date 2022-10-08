@@ -35,7 +35,7 @@ namespace gip.vbm.mobile.Controls
         /// </summary>
         /// 
         /// <remarks/>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(CheckBox), Color.Default, BindingMode.Default);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("TextColor", typeof(Color), typeof(CheckBox), Color.FromRgba(-1,-1,-1,-1), BindingMode.Default);
 
         /// <summary>
         /// The font size property

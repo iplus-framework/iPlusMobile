@@ -13,7 +13,7 @@ namespace gip.vbm.mobile.ViewModels
         {
             Title = "iPlus Mobile";
 
-            OpenWebCommand = new Command( async () => await Xamarin.Essentials.Launcher.OpenAsync(new Uri("https://iplus-framework.com")));
+            OpenWebCommand = new Command( async () => await Launcher.Default.OpenAsync(new Uri("https://iplus-framework.com")));
             SendPerfLog = new Command(async () => await ExecuteSendPerfLog());
         }
 

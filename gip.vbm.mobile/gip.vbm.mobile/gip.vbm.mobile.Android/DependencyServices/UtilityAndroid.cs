@@ -10,8 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using gip.vbm.mobile.DependencyServices;
-using gip.vbm.mobile.Droid.DependencyServices;
+//using gip.vbm.mobile.Droid.DependencyServices;
 
+/*
 [assembly: Xamarin.Forms.Dependency(typeof(UtilityAndroid))]
 namespace gip.vbm.mobile.Droid.DependencyServices
 {
@@ -35,3 +36,4 @@ namespace gip.vbm.mobile.Droid.DependencyServices
 
     }
 }
+*/

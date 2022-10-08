@@ -13,7 +13,7 @@ using Xamarin.Forms.DataGrid.Utils;
 [assembly: InternalsVisibleTo("Xamarin.Forms.DataGrid.UnitTest")]
 namespace Xamarin.Forms.DataGrid
 {
-	//[Xaml.XamlCompilation(Xaml.XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DataGrid
 	{
 		public event EventHandler Refreshing;

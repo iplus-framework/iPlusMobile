@@ -59,25 +59,25 @@ namespace gip.vbm.mobile.Views
             if (scanView.Options != null)
             {
                 //scanView.Options.AutoRotate = false;
-                scanView.Options.TryHarder = true;
-                scanView.Options.UseNativeScanning = true;
-                scanView.Options.PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
-                                                                               ZXing.BarcodeFormat.CODE_39,
-                                                                               ZXing.BarcodeFormat.EAN_13,
-                                                                               ZXing.BarcodeFormat.EAN_8,
-                                                                               ZXing.BarcodeFormat.QR_CODE};
-                if (scanView.Options.CameraResolutionSelector == null)
-                {
-                    scanView.Options.CameraResolutionSelector = SelectCameraResolution;
-                }
+                //scanView.Options.TryHarder = true;
+                //scanView.Options.UseNativeScanning = true;
+                //scanView.Options.PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
+                //                                                               ZXing.BarcodeFormat.CODE_39,
+                //                                                               ZXing.BarcodeFormat.EAN_13,
+                //                                                               ZXing.BarcodeFormat.EAN_8,
+                //                                                               ZXing.BarcodeFormat.QR_CODE};
+                //if (scanView.Options.CameraResolutionSelector == null)
+                //{
+                //    scanView.Options.CameraResolutionSelector = SelectCameraResolution;
+                //}
             }
         }
 
-        ZXing.Mobile.CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
-        {
-            var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
-            return highestResolution;
-        }
+        //ZXing.Mobile.CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
+        //{
+        //    var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
+        //    return highestResolution;
+        //}
 
         private void SubcribeToBarcodeService()
         {
@@ -108,11 +108,14 @@ namespace gip.vbm.mobile.Views
             }
         }
 
-        private void scanView_OnScanResult(ZXing.Result result)
+        private void scanView_OnScanResult(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
         {
-            _ViewModel.CurrentBarcode = result.Text;
-            _ViewModel.ZXingIsScanning = false;
-            SendScanRequest();
+            if (e.Results != null && e.Results.Any())
+            {
+                _ViewModel.CurrentBarcode = e.Results.FirstOrDefault().Value;
+                _ViewModel.ZXingIsScanning = false;
+                SendScanRequest();
+            }
         }
 
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)

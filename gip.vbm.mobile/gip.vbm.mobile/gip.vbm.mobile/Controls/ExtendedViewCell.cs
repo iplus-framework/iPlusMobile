@@ -10,7 +10,7 @@ namespace gip.vbm.mobile.Controls
             BindableProperty.Create("SelectedBackgroundColor",
                                     typeof(Color),
                                     typeof(ExtendedViewCell),
-                                    Color.Default);
+                                    Color.FromRgba(-1,-1,-1,-1));
 
         public Color SelectedBackgroundColor
         {

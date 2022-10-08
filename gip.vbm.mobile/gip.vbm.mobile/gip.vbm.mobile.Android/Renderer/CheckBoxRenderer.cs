@@ -7,6 +7,7 @@ using gip.vbm.mobile.Controls;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
+/*
 [assembly: ExportRenderer(typeof(gip.vbm.mobile.Controls.CheckBox), typeof(gip.vbm.mobile.Droid.CheckBoxRenderer))]
 
 namespace gip.vbm.mobile.Droid
@@ -141,10 +142,11 @@ namespace gip.vbm.mobile.Droid
             if (Control == null || Element == null)
                 return;
 
-            if (Element.TextColor == Xamarin.Forms.Color.Default)
+            if (Element.TextColor == Xamarin.Forms.Color.FromRgba(-1,-1,-1,-1))
                 Control.SetTextColor(defaultTextColor);
             else
                 Control.SetTextColor(Element.TextColor.ToAndroid());
         }
     }
 }
+*/
