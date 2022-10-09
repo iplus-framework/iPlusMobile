@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </v:BSOTabbedPageBase.Resources>
     <v:BSOTabbedPageBase.ToolbarItems>
-        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase Title="{i18n:Translate Text=ScanBarcodePivot_Header}" x:Name="ScanBarcodePivotItem">

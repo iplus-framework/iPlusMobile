@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configurations>Debug;Release;DebugEmulator;DebugDatalogic</Configurations>
     <UseMaui>true</UseMaui>
-    <TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
+    <TargetFrameworks>net6.0-android;net6.0-ios;</TargetFrameworks>
     <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -22,6 +22,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-ios|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <AndroidResource Remove="Resources\Images\deleteicon.png" />
+    <AndroidResource Remove="Resources\Images\iconcamera.png" />
+    <AndroidResource Remove="Resources\Images\inventories.png" />
+    <AndroidResource Remove="Resources\Images\inventory_search.png" />
+    <AndroidResource Remove="Resources\Images\ipluslogo.png" />
+    <AndroidResource Remove="Resources\Images\naviconcamera.png" />
+    <AndroidResource Remove="Resources\Images\naviconhistory.png" />
+    <AndroidResource Remove="Resources\Images\naviconquant.png" />
+    <AndroidResource Remove="Resources\Images\naviconrefresh.png" />
+    <AndroidResource Remove="Resources\Images\positions.png" />
+    <AndroidResource Remove="Resources\Images\position_edit.png" />
+    <AndroidResource Remove="Resources\Images\position_search.png" />
+    <AndroidResource Remove="Resources\Images\print.png" />
+    <AndroidResource Remove="Resources\Images\removeicon.png" />
+    <AndroidResource Remove="Resources\Images\scanbarcodeicon.png" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controls\ErrorControl.xaml.cs" />
     <Compile Remove="Controls\GridView.cs" />
@@ -70,6 +87,21 @@
     <None Remove="Models\JsonMock\ProdOrderPartslists.json" />
     <None Remove="Models\JsonMock\ProdOrderPLIntermediates.json" />
     <None Remove="Models\JsonMock\VBUserRights.json" />
+    <None Remove="Resources\Images\deleteicon.png" />
+    <None Remove="Resources\Images\iconcamera.png" />
+    <None Remove="Resources\Images\inventories.png" />
+    <None Remove="Resources\Images\inventory_search.png" />
+    <None Remove="Resources\Images\ipluslogo.png" />
+    <None Remove="Resources\Images\naviconcamera.png" />
+    <None Remove="Resources\Images\naviconhistory.png" />
+    <None Remove="Resources\Images\naviconquant.png" />
+    <None Remove="Resources\Images\naviconrefresh.png" />
+    <None Remove="Resources\Images\positions.png" />
+    <None Remove="Resources\Images\position_edit.png" />
+    <None Remove="Resources\Images\position_search.png" />
+    <None Remove="Resources\Images\print.png" />
+    <None Remove="Resources\Images\removeicon.png" />
+    <None Remove="Resources\Images\scanbarcodeicon.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Models\JsonMock\FacilityInventories.json" />
@@ -111,6 +143,21 @@
     <EmbeddedResource Include="Models\JsonMock\Materials.json" />
     <EmbeddedResource Include="Models\JsonMock\MaterialsBookings.json" />
     <EmbeddedResource Include="Models\JsonMock\MaterialsSum.json" />
+    <MauiImage Include="Resources\Images\deleteicon.png" />
+    <MauiImage Include="Resources\Images\iconcamera.png" />
+    <MauiImage Include="Resources\Images\inventories.png" />
+    <MauiImage Include="Resources\Images\inventory_search.png" />
+    <MauiImage Include="Resources\Images\ipluslogo.png" />
+    <MauiImage Include="Resources\Images\naviconcamera.png" />
+    <MauiImage Include="Resources\Images\naviconhistory.png" />
+    <MauiImage Include="Resources\Images\naviconquant.png" />
+    <MauiImage Include="Resources\Images\naviconrefresh.png" />
+    <MauiImage Include="Resources\Images\positions.png" />
+    <MauiImage Include="Resources\Images\position_edit.png" />
+    <MauiImage Include="Resources\Images\position_search.png" />
+    <MauiImage Include="Resources\Images\print.png" />
+    <MauiImage Include="Resources\Images\removeicon.png" />
+    <MauiImage Include="Resources\Images\scanbarcodeicon.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

@@ -22,9 +22,9 @@
         </ResourceDictionary>
     </v:BSOTabbedPageBase.Resources>
     <v:BSOTabbedPageBase.ToolbarItems>
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
-        <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="Print.png">
+        <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="print.png">
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <!--<v:BSOPageBase x:Name="ProdOrderInOutDetails" Title="{i18n:Translate Text=ProdOrderInOutInfo_Header}">

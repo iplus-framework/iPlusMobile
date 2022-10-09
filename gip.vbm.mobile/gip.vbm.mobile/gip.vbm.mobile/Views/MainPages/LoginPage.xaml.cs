@@ -111,7 +111,7 @@ namespace gip.vbm.mobile.Views
                 MainGrid.ColumnDefinitions.Clear();
                 if (width > height)
                 {
-                    MainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) } );
+                    MainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
                     MainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
                     Grid.SetColumn(Image, 0);
                     Grid.SetRow(Image, 0);

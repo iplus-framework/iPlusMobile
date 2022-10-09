@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
-        <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked" >
+        <!--<ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked" >
         </ToolbarItem>-->
     </ContentPage.ToolbarItems>
 
@@ -71,11 +71,11 @@
 
                 <SwipeView BackgroundColor="Transparent" Grid.Row="3">
                     <SwipeView.LeftItems>
-                        <SwipeItem  IconImageSource="DeleteIcon.png"
+                        <SwipeItem  IconImageSource="deleteicon.png"
                                                 Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.ClearFacilityPath}"/>
                     </SwipeView.LeftItems>
                     <SwipeView.RightItems>
-                        <SwipeItem IconImageSource="RemoveIcon.png"
+                        <SwipeItem IconImageSource="removeicon.png"
                                                 Command="{Binding Source={x:Reference FacilitySelector}, Path=BindingContext.RemoveLastFacilityInPath}"/>
                     </SwipeView.RightItems>
                     <FlexLayout  BackgroundColor="{DynamicResource ControlBackgroundColor}" Direction="Row" Wrap="Wrap"  AlignItems="Start"  JustifyContent="Start"

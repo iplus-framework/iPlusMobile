@@ -14,9 +14,9 @@
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
-        <ToolbarItem x:Name="TBQuantActivation" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconQuant.png" Clicked="TBQuantActivation_Clicked" >
+        <ToolbarItem x:Name="TBQuantActivation" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconquant.png" Clicked="TBQuantActivation_Clicked" >
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 

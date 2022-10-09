@@ -7,6 +7,7 @@ using System.Linq;
 using static gip.mes.datamodel.BarcodeSequenceBase;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using ZXing.Net.Maui;
 
 namespace gip.vbm.mobile.Controls
 {
@@ -200,23 +201,13 @@ namespace gip.vbm.mobile.Controls
             if (_IsZXingInitialized)
                 return;
 
-            if (scanView.Options != null)
+            scanView.Options = new BarcodeReaderOptions
             {
-                //scanView.Options.AutoRotate = false;
-                //scanView.Options.TryHarder = true;
-                //scanView.Options.UseNativeScanning = true;
-                //scanView.Options.Formats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.CODE_128,
-                //                                                               ZXing.BarcodeFormat.CODE_39,
-                //                                                               ZXing.BarcodeFormat.EAN_13,
-                //                                                               ZXing.BarcodeFormat.EAN_8,
-                //                                                               ZXing.BarcodeFormat.QR_CODE};
-                //if (scanView.Options.CameraResolutionSelector == null)
-                //{
-                //    scanView.Options.CameraResolutionSelector = SelectCameraResolution;
-                //}
-
-                _IsZXingInitialized = true;
-            }
+                AutoRotate = false,
+                TryHarder = true,
+                Formats = BarcodeFormat.Code128 | BarcodeFormat.Code39 | BarcodeFormat.Ean13 | BarcodeFormat.Ean8 | BarcodeFormat.QrCode,
+            };
+            _IsZXingInitialized = true;
         }
 
         ///// <summary>
@@ -278,9 +269,9 @@ namespace gip.vbm.mobile.Controls
             if (e.Results != null && e.Results.Any())
             {
                 _ViewModel.CurrentBarcode = e.Results.FirstOrDefault().Value;
-                _ViewModel.ZXingIsScanning = false;
                 HandleScanProcess();
             }
+            _ViewModel.ZXingIsScanning = false;
         }
 
         /// <summary>

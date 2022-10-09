@@ -41,7 +41,7 @@
             <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
         </StackLayout>
 
-        <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />
+        <Image x:Name="Image" Source="ipluslogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />
         <StackLayout Spacing="5" Grid.Row="2" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">
             <Label Text="Version" Style="{StaticResource LabelForDesc}" HorizontalOptions="Center" />
             <Label x:Name="lblVersion" Style="{StaticResource LabelForData}" HorizontalOptions="Center" />
