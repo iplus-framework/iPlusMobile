@@ -33,8 +33,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         
-        <ctl:BarcodeScanner Grid.ColumnSpan="3" x:Name="barcodeScanner" MinimumHeightRequest="70" IsEnabledInvokeBarcodeOnServer="False" OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
-                            />
+        <ctl:BarcodeScanner Grid.ColumnSpan="3" 
+                            x:Name="barcodeScanner" 
+                            MinimumHeightRequest="70" 
+                            IsEnabledInvokeBarcodeOnServer="False" 
+                            OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked" />
         <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
             <ListView ItemsSource="{Binding SumItemQuantites}">
                 <ListView.ItemTemplate>

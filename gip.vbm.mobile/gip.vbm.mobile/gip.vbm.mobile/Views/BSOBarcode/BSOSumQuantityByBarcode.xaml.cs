@@ -68,10 +68,12 @@ namespace gip.vbm.mobile.Views
             SumEntry.Unfocus();
         }
 
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner.OpenCameraPanel();
+            //_ViewModel.Clear();
+            await barcodeScanner.OpenBarcodeCamera();
         }
+
 
         private async void BtnOkMinus_Clicked(object sender, EventArgs e)
         {

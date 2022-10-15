@@ -11,7 +11,7 @@ using Microsoft.Maui.Controls;
 
 namespace gip.vbm.mobile.ViewModels
 {
-    public class BarcodeFacilityOverviewModel : BaseViewModel
+    public class BarcodeFacilityOverviewModel : BarcodeScanModelBase
     {
         public BarcodeFacilityOverviewModel()
         {
@@ -19,7 +19,7 @@ namespace gip.vbm.mobile.ViewModels
             LoadLocationsCommand = new Command(async () => await ExecuteLoadLocationsCommand());
             LoadFilteredFacilitiesCommand = new Command(async () => await ExecuteLoadFilteredFacilitiesCommand());
             LoadFilteredLotsCommand = new Command(async () => await ExecuteLoadFilteredLotsCommand());
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            //LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
 
             //MessagingCenter.Subscribe<NewItemPage, FacilityCharge>(this, "AddItem", async (obj, item) =>
             //{
@@ -30,19 +30,6 @@ namespace gip.vbm.mobile.ViewModels
         }
 
         #region Properties
-        private bool _ZXingIsScanning;
-        public bool ZXingIsScanning
-        {
-            get
-            {
-                return _ZXingIsScanning;
-            }
-            set
-            {
-                SetProperty(ref _ZXingIsScanning, value);
-                OnPropertyChanged();
-            }
-        }
 
         private List<Material> _FilteredMaterials = new List<Material>();
         public List<Material> FilteredMaterials
@@ -154,32 +141,6 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
-
-        public List<object> _CurrentBarcodeEntity;
-        public List<object> CurrentBarcodeEntity
-        {
-            get
-            {
-                return _CurrentBarcodeEntity;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
-
         public FacilitySelectorViewModel FacilitySelector
         {
             get;
@@ -189,10 +150,6 @@ namespace gip.vbm.mobile.ViewModels
         #endregion
 
         #region Methods
-        public void Clear()
-        {
-            CurrentBarcode = "";
-        }
 
         public Command LoadFilteredMaterialsCommand { get; set; }
         public async Task ExecuteLoadFilteredMaterialsCommand()
@@ -308,32 +265,32 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public Command LoadBarcodeEntityCommand { get; set; }
-        public async Task ExecuteLoadBarcodeEntityCommand()
-        {
-            if (IsBusy)
-                return;
+        //public Command LoadBarcodeEntityCommand { get; set; }
+        //public async Task ExecuteLoadBarcodeEntityCommand()
+        //{
+        //    if (IsBusy)
+        //        return;
 
-            IsBusy = true;
+        //    IsBusy = true;
 
-            try
-            {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-                this.WSResponse = response;
-                if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-                else
-                    CurrentBarcodeEntity = new List<object>();
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        //    try
+        //    {
+        //        var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
+        //        this.WSResponse = response;
+        //        if (response.Suceeded)
+        //            CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+        //        else
+        //            CurrentBarcodeEntity = new List<object>();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
 
         public void OnAppear()
         {

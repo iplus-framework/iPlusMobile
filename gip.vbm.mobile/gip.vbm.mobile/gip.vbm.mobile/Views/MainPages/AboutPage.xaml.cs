@@ -1,14 +1,16 @@
 ﻿using System;
+using gip.vbm.mobile.Controls;
 using gip.vbm.mobile.ViewModels;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using CommunityToolkit.Maui.Views;
 
 namespace gip.vbm.mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : BSOPageBase
     {
-        static int _AppearingCounter = 0;
+        static int _AppearingCounter = 1;
 
         internal AboutViewModel _ViewModel;
         public AboutPage()
@@ -33,7 +35,7 @@ namespace gip.vbm.mobile.Views
             lblVersion.Text = VersionTracking.CurrentVersion;
             lblBuild.Text = VersionTracking.CurrentBuild;
 
-            lblCurrentUser.Text = App.UserRights.UserName;
+            lblCurrentUser.Text = App.UserRights?.UserName;
         }
 
         protected override bool OnBackButtonPressed()
@@ -44,7 +46,29 @@ namespace gip.vbm.mobile.Views
 
         private void SendPerfLog_Clicked(object sender, EventArgs e)
         {
+            DisplayPopup();
             _ViewModel.SendPerfLog.Execute(null);
+        }
+
+        public void DisplayPopup()
+        {
+            var popup = new BarcodePopup();
+
+            this.ShowPopup(popup);
+            //App._Root.DisplayPopup();
+            //var result = await this.ShowPopupAsync(popup);
+
+            //if (result is bool boolResult)
+            //{
+            //    if (boolResult)
+            //    {
+            //        // Yes was tapped
+            //    }
+            //    else
+            //    {
+            //        // No was tapped
+            //    }
+            //}
         }
     }
 }

@@ -37,7 +37,8 @@
                     BarcodeIssuer="Production"
                     OnSelectBarcodeEntity="barcodeScanner_OnSelectBarcodeEntity" />
 
-            <Grid x:Name="BgPAnel" Grid.Row="2" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+            <Grid x:Name="BgPAnel" Grid.Row="2">
+                <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

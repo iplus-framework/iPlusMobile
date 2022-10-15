@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using ZXing.Net.Maui;
+using CommunityToolkit.Maui.Views;
+using gip.vbm.mobile.Controls;
 
 namespace gip.vbm.mobile.Views
 {
@@ -32,22 +34,21 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            barcodeScanner._ViewModel = _ViewModel;
+            barcodeScanner.OnAppearing();
             InitPageOnNavigation();
-            InitZXing();
         }
 
         private void InitPageOnNavigation()
         {
-            SubcribeToBarcodeService();
-
             _ViewModel.OnAppear();
             this.PageState = PageStateEnum.View;
         }
 
         protected override void OnDisappearing()
         {
+            barcodeScanner.OnDisappearing();
             base.OnDisappearing();
-            UnSubcribeToBarcodeService();
         }
 
         private void Pivot_SelectionChanged(object sender, EventArgs e)
@@ -55,102 +56,24 @@ namespace gip.vbm.mobile.Views
         }
 
         #region Barcode
-        private void InitZXing()
-        {
-            scanView.Options = new BarcodeReaderOptions
-            {
-                AutoRotate = false,
-                TryHarder = true,
-                Formats = BarcodeFormat.Code128 | BarcodeFormat.Code39 | BarcodeFormat.Ean13 | BarcodeFormat.Ean8 | BarcodeFormat.QrCode,
-                Multiple = true
-            };
-        }
-
-        //ZXing.Mobile.CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
-        //{
-        //    var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
-        //    return highestResolution;
-        //}
-
-        private void SubcribeToBarcodeService()
-        {
-            if (_BarcodeService == null)
-                _BarcodeService = DependencyService.Get<IBarcodeService>();
-            if (!_BarcodeServiceSubcribed)
-            {
-                _BarcodeService.Read += _BarcodeService_Read;
-                _BarcodeServiceSubcribed = true;
-            }
-        }
-
-        private void UnSubcribeToBarcodeService()
-        {
-            if (_BarcodeService != null && _BarcodeServiceSubcribed)
-            {
-                _BarcodeService.Read -= _BarcodeService_Read;
-                _BarcodeServiceSubcribed = false;
-            }
-        }
-
-        private void _BarcodeService_Read(object sender, BarcodeReadEventArgs e)
-        {
-            if (e != null)
-            {
-                _ViewModel.CurrentBarcode = e.Text;
-                SendScanRequest();
-            }
-        }
-
-        private void scanView_OnScanResult(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
-        {
-            if (e.Results != null && e.Results.Any())
-            {
-                _ViewModel.CurrentBarcode = e.Results.FirstOrDefault().Value;
-                SendScanRequest();
-            }
-            _ViewModel.ZXingIsScanning = false;
-        }
-
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             _ViewModel.Clear();
-            _ViewModel.ZXingIsScanning = true;
+            await barcodeScanner.OpenBarcodeCamera();
         }
 
-        private void BtnOpenZXingPanel_Clicked(object sender, EventArgs e)
+        private async void barcodeScanner_OnSelectBarcodeEntity(object sender, BarcodeScannerEventArgs e)
         {
-            _ViewModel.Clear();
-            _ViewModel.ZXingIsScanning = true;
-        }
-
-        private void BtnCloseZXingPanel_Clicked(object sender, EventArgs e)
-        {
-            _ViewModel.ZXingIsScanning = false;
-        }
-
-        private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
-        {
-            SendScanRequest();
-        }
-
-        private void SendScanRequest()
-        {
-            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-                _ViewModel.LoadBarcodeEntityCommand.Execute(null);
-        }
-
-        private async void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            FacilityCharge fc = e.Item as FacilityCharge;
+            FacilityCharge fc = e.Value as FacilityCharge;
             if (fc != null)
                 await NavigateToFacilityChargeOverview(fc);
-            Material material = e.Item as Material;
+            Material material = e.Value as Material;
             if (material != null)
                 await NavigateToMaterialOverview(material);
-            FacilityLot facilityLot = e.Item as FacilityLot;
+            FacilityLot facilityLot = e.Value as FacilityLot;
             if (facilityLot != null)
                 await NavigateToFacilityLotOverview(facilityLot);
-            Facility facility = e.Item as Facility;
+            Facility facility = e.Value as Facility;
             if (facility != null)
             {
                 if (facility.MDFacilityType != null && facility.MDFacilityType.FacilityType == FacilityTypesEnum.StorageLocation)
@@ -158,11 +81,6 @@ namespace gip.vbm.mobile.Views
                 else
                     await NavigateToFacilityOverview(facility);
             }
-
-        }
-
-        private void BarcodeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
         }
 
         private async Task NavigateToFacilityChargeOverview(FacilityCharge fc)
@@ -305,5 +223,6 @@ namespace gip.vbm.mobile.Views
         {
             _ViewModel.SelectedLocation = null;
         }
+
     }
 }

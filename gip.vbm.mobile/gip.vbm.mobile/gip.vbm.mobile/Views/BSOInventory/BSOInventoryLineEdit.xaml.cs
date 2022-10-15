@@ -112,10 +112,11 @@ namespace gip.vbm.mobile.Views
             }
         }
 
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner._ViewModel.ZXingIsScanning = true;
+            await barcodeScanner.OpenBarcodeCamera();
         }
+
 
         private void barcodeScanner_OnCleanUpForm(object sender, EventArgs e)
         {

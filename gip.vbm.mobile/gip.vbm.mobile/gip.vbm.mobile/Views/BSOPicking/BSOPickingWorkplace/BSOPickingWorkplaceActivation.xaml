@@ -12,7 +12,9 @@
             <ResourceDictionary Source="../../../Themes/SharedDataTemplates.xaml" />
         </ResourceDictionary>
     </v:BSOPageBase.Resources>
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png" />
+    </ContentPage.ToolbarItems>
 
     <StackLayout>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />

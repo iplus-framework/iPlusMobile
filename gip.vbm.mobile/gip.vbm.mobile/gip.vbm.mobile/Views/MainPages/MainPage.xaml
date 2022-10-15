@@ -12,7 +12,7 @@
     <FlyoutPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:AboutPage />
+                <views:AboutPage x:Name="aboutPage" />
             </x:Arguments>
         </NavigationPage>
     </FlyoutPage.Detail>

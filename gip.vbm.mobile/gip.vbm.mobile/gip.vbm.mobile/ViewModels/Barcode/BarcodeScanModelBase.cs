@@ -262,6 +262,7 @@ namespace gip.vbm.mobile.ViewModels
         {
             if (_Item != null)
                 _Item.CurrentBarcode = "";
+            CurrentBarcode = "";
         }
         #endregion
     }

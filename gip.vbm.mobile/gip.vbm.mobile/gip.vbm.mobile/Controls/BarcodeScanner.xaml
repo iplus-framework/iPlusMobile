@@ -15,13 +15,12 @@
     <ContentView.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-            <StackLayout Orientation="Horizontal" HeightRequest="50">
+            <StackLayout Orientation="Horizontal" HeightRequest="50" Grid.Row="0">
                 <SearchBar  x:Name="BarcodeSearchBar" 
                             Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
                             Text="{Binding Item.CurrentBarcode}" 
@@ -30,38 +29,21 @@
 
                 <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" MinimumWidthRequest="40" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
             </StackLayout>
-            <StackLayout Grid.Row="2" x:Name="BgPAnel" Orientation="Vertical" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >
-                    <ListView  
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" Grid.Row="1" />
+            <ListView  Grid.Row="2"
                             x:Name="BarcodeListView" 
                             ItemsSource="{Binding BarcodeSequence}"
                             SelectedItem="{Binding SelectedSequence}"    
                             IsGroupingEnabled="false" 
-                            RowHeight="50"
+                            RowHeight="70"
                             ItemTemplate="{StaticResource BarcodeEntitySelector}"
                             HasUnevenRows="true"
                             IsPullToRefreshEnabled="false"
                             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                             ItemSelected="BarcodeListView_ItemSelected"
                             ItemTapped="BarcodeListView_ItemTapped"/>
-                </StackLayout>
+            <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >-->
 
-            <Grid x:Name="ZXingOverlayPanel" IsVisible="{Binding ZXingIsScanning}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <zxing:CameraBarcodeReaderView 
-                    x:Name="scanView"
-                    BarcodesDetected="scanView_OnScanResult"    
-                    IsDetecting="{Binding ZXingIsScanning}"
-                    WidthRequest="300"
-                    HeightRequest="300"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding ZXingIsScanning}" />
-                <!--<zxing:ZXingDefaultOverlay TopText="{i18n:Translate Text=ZXingOverlay_Text}" IsVisible="{Binding ZXingIsScanning}"/>-->
-                <Button Grid.Row="1" x:Name="BtnCloseZXingPanel" Clicked="BtnCloseZXingPanel_Clicked" Text="{i18n:Translate Text=ButtonCancel}" />
-            </Grid>
         </Grid>
     </ContentView.Content>
 </ContentView>

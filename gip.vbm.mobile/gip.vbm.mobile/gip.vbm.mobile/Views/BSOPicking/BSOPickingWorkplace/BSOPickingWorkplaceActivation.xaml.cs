@@ -57,5 +57,12 @@ namespace gip.vbm.mobile.Views
         private void barcodeScanner_OnBarcodeCommandInvoked(object sender, EventArgs e)
         {
         }
+
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            //_ViewModel.Clear();
+            await barcodeScanner.OpenBarcodeCamera();
+        }
+
     }
 }

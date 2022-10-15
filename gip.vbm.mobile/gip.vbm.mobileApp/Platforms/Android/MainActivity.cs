@@ -19,6 +19,7 @@ namespace gip.vbm.mobileApp
     public class MainActivity : MauiAppCompatActivity, IReadListener
     {
         BarcodeManager _DLBarcodeManager = null;
+        DatalogicBarcodeService _DLBarcodeService = null;
 #else
     public class MainActivity : MauiAppCompatActivity
     {
@@ -31,6 +32,8 @@ namespace gip.vbm.mobileApp
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            _DLBarcodeService = DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
+
             base.OnCreate(savedInstanceState);
         }
 

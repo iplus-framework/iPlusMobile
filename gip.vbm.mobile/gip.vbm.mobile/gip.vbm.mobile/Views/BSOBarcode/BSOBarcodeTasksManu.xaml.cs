@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Controls;
 
 namespace gip.vbm.mobile.Views
 {
@@ -45,15 +46,13 @@ namespace gip.vbm.mobile.Views
         //    EnableButtons();
         //}
 
-        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             _ViewModel.Clear();
-            barcodeScanner.OpenCameraPanel();
+            await barcodeScanner.OpenBarcodeCamera();
         }
 
-
-
-        private async void barcodeScanner_OnSelectBarcodeEntity(object sender, EventArgs e)
+        private async void barcodeScanner_OnSelectBarcodeEntity(object sender, BarcodeScannerEventArgs e)
         {
             ProdOrderPartslistWFInfo selectedWfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (selectedWfInfo != null)

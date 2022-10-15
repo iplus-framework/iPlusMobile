@@ -7,6 +7,7 @@ using gip.vbm.mobile.Helpers;
 using gip.core.datamodel;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Controls;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace gip.vbm.mobile
@@ -22,8 +23,18 @@ namespace gip.vbm.mobile
             }
         }
 
+        private static App _Root;
+        public static App Root
+        {
+            get
+            {
+                return _Root;
+            }
+        }
+
         public App()
         {
+            _Root = this;
             InitializeComponent();
 
             if (!IsUserLoggedIn)
@@ -42,6 +53,8 @@ namespace gip.vbm.mobile
         public void DisplayMainPage()
         {
             MainPage = new MainPage();
+            //MainPage = new AboutPage();
+            //MainPage = new AppShell();
         }
 
         protected override void OnStart()
@@ -59,6 +72,10 @@ namespace gip.vbm.mobile
             // Handle when your app resumes
         }
 
+        public async Task<object?> OpenBarcodeCamera()
+        {
+            return await (MainPage as MainPage).OpenBarcodeCamera();
+        }
 
         public static SettingsViewModel SettingsViewModel
         {

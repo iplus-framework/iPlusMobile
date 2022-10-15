@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
+             x:Class="gip.vbm.mobile.Controls.BarcodePopup">
+    <VerticalStackLayout>
+        <zxing:CameraBarcodeReaderView x:Name="scanView"
+                                                BarcodesDetected="scanView_BarcodesDetected"
+                                                IsTorchOn="True"
+                                                WidthRequest="300"
+                                                HeightRequest="300"
+                                                VerticalOptions="CenterAndExpand"
+                                                HorizontalOptions="CenterAndExpand" />
+        <Button Text="OK" Clicked="OnOKButtonClicked" />
+    </VerticalStackLayout>
+</toolkit:Popup>

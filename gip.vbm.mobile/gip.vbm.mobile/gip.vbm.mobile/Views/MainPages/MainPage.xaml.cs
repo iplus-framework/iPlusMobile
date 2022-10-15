@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Controls;
+using CommunityToolkit.Maui.Views;
 
 namespace gip.vbm.mobile.Views
 {
@@ -14,7 +16,7 @@ namespace gip.vbm.mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            MenuPages.Add(typeof(AboutPage).Name, (NavigationPage)Detail);
+            MenuPages.Add(typeof(AboutPage).Name, aboutPage);
         }
 
         #region Properties
@@ -26,7 +28,7 @@ namespace gip.vbm.mobile.Views
             }
         }
 
-        Dictionary<string, NavigationPage> MenuPages = new Dictionary<string, NavigationPage>();
+        Dictionary<string, Page> MenuPages = new Dictionary<string, Page>();
         #endregion
 
         public async Task NavigateFromMenu(VBMenuItem menuItem)
@@ -38,32 +40,36 @@ namespace gip.vbm.mobile.Views
         {
             if (String.IsNullOrEmpty(pageClassName))
                 pageClassName = pageType.Name;
+            Page bso = null;
             if (!MenuPages.ContainsKey(pageClassName))
             {
-                MenuPages.Add(pageClassName, new NavigationPage((Page)Activator.CreateInstance(pageType)));
+                bso = (Page)Activator.CreateInstance(pageType);
+                MenuPages.Add(pageClassName, bso);
             }
+            else
+                bso = MenuPages[pageClassName];
 
-            var newPage = MenuPages[pageClassName];
-
-            if (newPage != null && Detail != newPage)
+            NavigationPage currentNavPage = Detail as NavigationPage;
+            if (bso != null && (currentNavPage == null || currentNavPage.CurrentPage != bso))
             {
-                NavigationPage currentPage = Detail as NavigationPage;
-                if (currentPage != null)
+                if (currentNavPage != null)
                 {
-                    currentPage.Pushed -= NavPage_Pushed;
-                    currentPage.Popped -= NavPage_Popped;
-                    currentPage.PoppedToRoot -= NavPage_PoppedToRoot;
+                    currentNavPage.Pushed -= NavPage_Pushed;
+                    currentNavPage.Popped -= NavPage_Popped;
+                    currentNavPage.PoppedToRoot -= NavPage_PoppedToRoot;
                 }
 
-                IBSOPage iPage = newPage.CurrentPage as IBSOPage;
+                IBSOPage iPage = bso as IBSOPage;
                 if (iPage != null && navParam != null)
                     iPage.NavParam = navParam;
-                newPage.Pushed += NavPage_Pushed;
-                newPage.Popped += NavPage_Popped;
-                newPage.PoppedToRoot += NavPage_PoppedToRoot;
+
+                currentNavPage = new NavigationPage(bso);
+                currentNavPage.Pushed += NavPage_Pushed;
+                currentNavPage.Popped += NavPage_Popped;
+                currentNavPage.PoppedToRoot += NavPage_PoppedToRoot;
                 this.NavigationMode = NavigationMode.New;
 
-                Detail = newPage;
+                Detail = currentNavPage;
 
                 //if (Device.RuntimePlatform == Device.Android)
                     await Task.Delay(100);
@@ -121,5 +127,10 @@ namespace gip.vbm.mobile.Views
                 page.OnNavigatedTo(e, this.NavigationMode);
         }
 
+        public async Task<object?> OpenBarcodeCamera()
+        {
+            var popup = new BarcodePopup();
+            return await this.ShowPopupAsync(popup);
+        }
     }
 }
