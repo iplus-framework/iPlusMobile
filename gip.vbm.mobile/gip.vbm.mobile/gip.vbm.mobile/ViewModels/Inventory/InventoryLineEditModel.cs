@@ -376,13 +376,13 @@ namespace gip.vbm.mobile.ViewModels.Inventory
             // reset filter if another facility is selected
             if (
                     InventoryNavArgument.SelectedFacility != null
-                    && BarcodeScannerModel.Item != null
-                    && BarcodeScannerModel.Item.Sequence != null
+                    && BarcodeScannerModel.ExchangedBarcodeSeq != null
+                    && BarcodeScannerModel.ExchangedBarcodeSeq.Sequence != null
                 )
             {
                 Facility paramFacility =
                     BarcodeScannerModel
-                    .Item
+                    .ExchangedBarcodeSeq
                     .Sequence
                     .Where(c => c.Facility != null)
                     .Select(c => c.Facility)

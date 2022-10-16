@@ -19,8 +19,8 @@ namespace gip.vbm.mobile.ViewModels
         public BarcodeScanModelBase(bool addToListOnScan = false)
         {
             ResetScanSequence();
-            InvokeBarcodeCommand = new Command(async () => await ExecuteInvokeBarcodeCommand());
-            GetBarcodeEntityCommand = new Command(async () => await ExecuteGetBarcodeEntityCommand());
+            InvokeBarcodeSequenceCommand = new Command(async () => await ExecuteInvokeBarcodeSequenceCommand());
+            DecodeEntityCommand = new Command(async () => await ExecuteDecodeEntityCommand());
             _AddToListOnScan = addToListOnScan;
         }
 
@@ -43,50 +43,61 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        private protected BarcodeSequence _Item;
-        public virtual BarcodeSequence Item
+        private protected BarcodeSequence _ExchangedBarcodeSeq;
+        /// <summary>
+        /// Barcode-Sequences that are exchanged beetween the client and server
+        /// The server decodes the barcodes and appends the decoded entitites into the Squence-Collection
+        /// </summary>
+        public virtual BarcodeSequence ExchangedBarcodeSeq
         {
             get
             {
-                return _Item;
+                return _ExchangedBarcodeSeq;
             }
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _ExchangedBarcodeSeq, value);
                 if (_AddToListOnScan)
                 {
-                    List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
+                    List<object> barcodeSequence = ExchangedBarcodeSeq.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                             .Select(c => c.ValidEntity)
                                             .ToList();
-                    SelectedSequence = null;
-                    BarcodeSequence = barcodeSequence;
+                    SelectedEntity = null;
+                    DecodedEntitiesList = barcodeSequence;
                 }
             }
         }
 
-        public List<object> _BarcodeSequence;
-        public List<object> BarcodeSequence
+        public List<object> _DecodedEntitiesList;
+        /// <summary>
+        /// This List contains Entities that have been decoded on server-side
+        /// Material, Facility, FacilityCharge...
+        /// </summary>
+        public List<object> DecodedEntitiesList
         {
             get
             {
-                return _BarcodeSequence;
+                return _DecodedEntitiesList;
             }
             set
             {
-                SetProperty(ref _BarcodeSequence, value);
+                SetProperty(ref _DecodedEntitiesList, value);
             }
         }
 
-        private object _SelectedSequence;
-        public object SelectedSequence
+        private object _SelectedEntity;
+        /// <summary>
+        /// Selected object from DecodedEntitiesList
+        /// </summary>
+        public object SelectedEntity
         {
             get
             {
-                return _SelectedSequence;
+                return _SelectedEntity;
             }
             set
             {
-                SetProperty(ref _SelectedSequence, value);
+                SetProperty(ref _SelectedEntity, value);
             }
         }
 
@@ -145,25 +156,20 @@ namespace gip.vbm.mobile.ViewModels
 
         #region Methods
 
-        public virtual async Task<bool> ExecuteInvokeBarcode()
-        {
-            return await ExecuteInvokeBarcodeCommand();
-        }
-
-        public Command InvokeBarcodeCommand { get; set; }
-        public virtual async Task<bool> ExecuteInvokeBarcodeCommand()
+        public Command InvokeBarcodeSequenceCommand { get; set; }
+        public virtual async Task<bool> ExecuteInvokeBarcodeSequenceCommand()
         {
             bool success = false;
 
-            if (IsBusy || Item == null)
+            if (IsBusy || ExchangedBarcodeSeq == null)
                 return false;
 
             IsBusy = true;
-            Item.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Production;
+            ExchangedBarcodeSeq.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Production;
 
             try
             {
-                var response = await _WebService.InvokeBarcodeSequenceAsync(Item);
+                var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
@@ -175,12 +181,12 @@ namespace gip.vbm.mobile.ViewModels
                     if (questionMessage != null)
                         ShowDialog(questionMessage);
 
-                    Item = response.Data;
+                    ExchangedBarcodeSeq = response.Data;
                     success = response.Suceeded;
                     IsListVisible = true;
                 }
                 else
-                    Item = new BarcodeSequence();
+                    ExchangedBarcodeSeq = new BarcodeSequence();
             }
             catch (Exception ex)
             {
@@ -194,9 +200,8 @@ namespace gip.vbm.mobile.ViewModels
             return success;
         }
 
-        public Command GetBarcodeEntityCommand { get; set; }
-
-        public async Task<bool> ExecuteGetBarcodeEntityCommand()
+        public Command DecodeEntityCommand { get; set; }
+        public virtual async Task<bool> ExecuteDecodeEntityCommand()
         {
             if (IsBusy)
                 return false;
@@ -208,9 +213,9 @@ namespace gip.vbm.mobile.ViewModels
             bool alreadyFetchedBarcode = false;
             try
             {
-                if (BarcodeSequence != null)
+                if (DecodedEntitiesList != null)
                 {
-                    if (BarcodeSequence.Any(c => c is BarcodeEntity && (c as BarcodeEntity).Barcode == CurrentBarcode))
+                    if (DecodedEntitiesList.Any(c => c is BarcodeEntity && (c as BarcodeEntity).Barcode == CurrentBarcode))
                     {
                         Message = new Msg() { MessageLevel = eMsgLevel.Error, Message = AppStrings.BarcodeSequenceAlreadyHaveCode_Text };
                         alreadyFetchedBarcode = true;
@@ -223,11 +228,11 @@ namespace gip.vbm.mobile.ViewModels
                     this.WSResponse = response;
                     if (response.Suceeded && response.Data != null)
                     {
-                        BarcodeSequence = new List<object> { response.Data.ValidEntity };
+                        DecodedEntitiesList = new List<object> { response.Data.ValidEntity };
                         IsListVisible = true;
                     }
                     else
-                        BarcodeSequence = new List<object>();
+                        DecodedEntitiesList = new List<object>();
                 }
             }
             catch (Exception ex)
@@ -241,28 +246,37 @@ namespace gip.vbm.mobile.ViewModels
             return success;
         }
 
+        public Command CustomBarcodeCommand { get; set; }
+        public virtual async Task<bool> ExecuteCustomBarcodeCommand()
+        {
+            await Task.Run(() => _ = true);
+            return true;
+        }
+
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
-            var res = Item.Sequence.FirstOrDefault(c => c.MsgResult == Global.MsgResult.Cancel);
+            var res = ExchangedBarcodeSeq.Sequence.FirstOrDefault(c => c.MsgResult == Global.MsgResult.Cancel);
             if (res != null)
                 res.MsgResult = result;
 
             if (entredValue != null && result == Global.MsgResult.OK)
-                Item.Message = new Msg(eMsgLevel.QuestionPrompt, entredValue);
+                ExchangedBarcodeSeq.Message = new Msg(eMsgLevel.QuestionPrompt, entredValue);
 
-            InvokeBarcodeCommand.Execute(null);
+            InvokeBarcodeSequenceCommand.Execute(null);
         }
 
         public virtual void ResetScanSequence()
         {
-            _Item = new BarcodeSequence() { Sequence = new List<BarcodeEntity>() };
+            _ExchangedBarcodeSeq = new BarcodeSequence() { Sequence = new List<BarcodeEntity>() };
         }
 
         public virtual void Clear()
         {
-            if (_Item != null)
-                _Item.CurrentBarcode = "";
+            if (_ExchangedBarcodeSeq != null)
+                _ExchangedBarcodeSeq.CurrentBarcode = "";
             CurrentBarcode = "";
+            DecodedEntitiesList = new List<object>();
+            ExchangedBarcodeSeq = new BarcodeSequence();
         }
         #endregion
     }

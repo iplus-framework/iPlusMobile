@@ -41,16 +41,16 @@ namespace gip.vbm.mobile.ViewModels
         #endregion
 
         #region Properties
-        private FacilityCharge _Item;
-        public FacilityCharge Item
+        private FacilityCharge _FacilityChargeItem;
+        public FacilityCharge FacilityChargeItem
         {
             get
             {
-                return _Item;
+                return _FacilityChargeItem;
             }
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _FacilityChargeItem, value);
                 RebuildTitle();
             }
         }
@@ -200,8 +200,8 @@ namespace gip.vbm.mobile.ViewModels
         #region Methods
         void RebuildTitle()
         {
-            if (Item != null)
-                Title = String.Format("{0}: {1}", Item.FacilityLot.LotNo, Item.Material.MaterialName1);
+            if (FacilityChargeItem != null)
+                Title = String.Format("{0}: {1}", FacilityChargeItem.FacilityLot.LotNo, FacilityChargeItem.Material.MaterialName1);
             else
                 Title = "QuantOverview";
         }
@@ -215,7 +215,7 @@ namespace gip.vbm.mobile.ViewModels
             }
             else if (facilityCharge != null)
             {
-                Item = facilityCharge;
+                FacilityChargeItem = facilityCharge;
             }
 
             if (MovementReasons == null || !MovementReasons.Any())
@@ -231,17 +231,17 @@ namespace gip.vbm.mobile.ViewModels
         public Command ReadFacilityChargeCommand { get; set; }
         public async Task ExecuteReadFacilityCharge()
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || FacilityChargeItem == null)
                 return;
 
             IsBusy = true;
 
             try
             {
-                var response = await _WebService.GetFacilityChargeAsync(Item.FacilityChargeID.ToString());
+                var response = await _WebService.GetFacilityChargeAsync(FacilityChargeItem.FacilityChargeID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
-                    Item = response.Data;
+                    FacilityChargeItem = response.Data;
             }
             catch (Exception ex)
             {
@@ -257,7 +257,7 @@ namespace gip.vbm.mobile.ViewModels
         //public Command ReadFacilityChargeByFacilityMaterialLotCommand { get; set; }
         public async Task<FacilityCharge> ExecuteReadFacilityChargeByFacilityMaterialLot(Guid facilityID, string materialNo, string splitNo)
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || FacilityChargeItem == null)
                 return null;
 
             IsBusy = true;
@@ -270,7 +270,7 @@ namespace gip.vbm.mobile.ViewModels
             try
             {
                 var response = await _WebService.GetFacilityChargeFromFacilityMaterialLotAsync(facilityID.ToString(), materialNo, 
-                                                                                               Item.FacilityLot.FacilityLotID.ToString(), splitNoString);
+                                                                                               FacilityChargeItem.FacilityLot.FacilityLotID.ToString(), splitNoString);
                 this.WSResponse = response;
                 if (response.Suceeded)
                     return response.Data;
@@ -290,7 +290,7 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookFacilityCommand()
         {
             if (IsBusy
-                || Item == null
+                || FacilityChargeItem == null
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
@@ -303,13 +303,13 @@ namespace gip.vbm.mobile.ViewModels
                 {
                     aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_OutwardMovement_FacilityCharge.ToString();
                     aCMethodBooking.OutwardQuantity = Math.Abs(BookingQuantity);
-                    aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                    aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 }
                 else
                 {
                     aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_InwardMovement_FacilityCharge.ToString();
                     aCMethodBooking.InwardQuantity = Math.Abs(BookingQuantity);
-                    aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
+                    aCMethodBooking.InwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 }
 
                 if (SelectedMovementReason != null)
@@ -350,8 +350,8 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookZeroStockCommand()
         {
             if (IsBusy
-                || Item == null
-                || Item.NotAvailable
+                || FacilityChargeItem == null
+                || FacilityChargeItem.NotAvailable
                 )
                 return;
 
@@ -361,7 +361,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ZeroStock_FacilityCharge.ToString();
-                aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.ZeroStockStateIndex = 2; // MDZeroStockState.ZeroStockStates.SetNotAvailable;
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -395,8 +395,8 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookUnZeroStockCommand()
         {
             if (IsBusy
-                || Item == null
-                || !Item.NotAvailable
+                || FacilityChargeItem == null
+                || !FacilityChargeItem.NotAvailable
                 )
                 return;
 
@@ -406,7 +406,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ZeroStock_FacilityCharge.ToString();
-                aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.ZeroStockStateIndex = 3; // MDZeroStockState.ZeroStockStates.ResetIfNotAvailable;
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -439,8 +439,8 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookBlockQuantCommand()
         {
             if (IsBusy
-                || Item == null
-                || (Item.MDReleaseState != null && Item.MDReleaseState.ReleaseState >= MDReleaseState.ReleaseStates.Locked)
+                || FacilityChargeItem == null
+                || (FacilityChargeItem.MDReleaseState != null && FacilityChargeItem.MDReleaseState.ReleaseState >= MDReleaseState.ReleaseStates.Locked)
                 )
                 return;
 
@@ -450,7 +450,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ReleaseState_FacilityCharge.ToString();
-                aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.ReleaseStateIndex = (int)MDReleaseState.ReleaseStates.Locked;
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -484,8 +484,8 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookReleaseQuantCommand()
         {
             if (IsBusy
-                || Item == null
-                || (Item.MDReleaseState != null && Item.MDReleaseState.ReleaseState < MDReleaseState.ReleaseStates.Locked)
+                || FacilityChargeItem == null
+                || (FacilityChargeItem.MDReleaseState != null && FacilityChargeItem.MDReleaseState.ReleaseState < MDReleaseState.ReleaseStates.Locked)
                 )
                 return;
 
@@ -495,7 +495,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ReleaseState_FacilityCharge.ToString();
-                aCMethodBooking.InwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.InwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.ReleaseStateIndex = (int)MDReleaseState.ReleaseStates.Free;
                 BookingQuantity = 0;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -529,7 +529,7 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookRelocateCommand()
         {
             if (IsBusy
-                || Item == null
+                || FacilityChargeItem == null
                 || SelectedFacility == null)
                 return;
 
@@ -542,7 +542,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Relocation_FacilityCharge_Facility.ToString();
-                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.InwardFacilityID = SelectedFacility.FacilityID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
                 aCMethodBooking.InwardQuantity = BookingQuantity;
@@ -560,7 +560,7 @@ namespace gip.vbm.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
                         _TempFacilityCharge = null;
-                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, Item.Material.MaterialID.ToString(), Item.SplitNo.ToString());
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(SelectedFacility.FacilityID, FacilityChargeItem.Material.MaterialID.ToString(), FacilityChargeItem.SplitNo.ToString());
                         if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
@@ -592,7 +592,7 @@ namespace gip.vbm.mobile.ViewModels
         public async Task<bool> ExecutePrintCommand(int maxPrintJobsInSpooler = 0, PrintEntity printEntity = null, int copyCount = 1)
         {
             if (IsBusy
-                || Item == null)
+                || FacilityChargeItem == null)
                 return false;
 
             IsBusy = true;
@@ -606,7 +606,7 @@ namespace gip.vbm.mobile.ViewModels
                     printEntity.MaxPrintJobsInSpooler = maxPrintJobsInSpooler;
                     printEntity.Sequence = new List<BarcodeEntity>()
                     {
-                        new BarcodeEntity(){ FacilityCharge = Item }
+                        new BarcodeEntity(){ FacilityCharge = FacilityChargeItem }
                     };
                 }
                 WSResponse<bool> result = await _WebService.Print(printEntity);
@@ -639,7 +639,7 @@ namespace gip.vbm.mobile.ViewModels
         public Command SplitQuantCommand { get; set; }
         public async Task ExecuteSplitQuantCommand()
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || FacilityChargeItem == null)
                 return;
 
             IsBusy = true;
@@ -652,7 +652,7 @@ namespace gip.vbm.mobile.ViewModels
 
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Split_FacilityCharge.ToString();
-                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
                 aCMethodBooking.InwardSplitNo = splitNo;
 
@@ -670,7 +670,7 @@ namespace gip.vbm.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
                         _TempFacilityCharge = null;
-                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, Item.Material.MaterialID.ToString(), QuantSplitNumber);
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(FacilityChargeItem.Facility.FacilityID, FacilityChargeItem.Material.MaterialID.ToString(), QuantSplitNumber);
                         if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
@@ -730,8 +730,8 @@ namespace gip.vbm.mobile.ViewModels
         public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
         {
             string material = "Material";
-            if (Item != null && Item.Material != null)
-                material = Item.Material.MaterialName1;
+            if (FacilityChargeItem != null && FacilityChargeItem.Material != null)
+                material = FacilityChargeItem.Material.MaterialName1;
 
             _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
             return _SumByBarcodeModel;
@@ -794,9 +794,9 @@ namespace gip.vbm.mobile.ViewModels
 
         public void TakeBookingQuantityFromQuant()
         {
-            BookingQuantity = Item.StockQuantity;
-            if (_BookingQuantity != Item.StockQuantity)
-                BookingQuantity = Item.StockQuantity;
+            BookingQuantity = FacilityChargeItem.StockQuantity;
+            if (_BookingQuantity != FacilityChargeItem.StockQuantity)
+                BookingQuantity = FacilityChargeItem.StockQuantity;
         }
 
         #region Reassignment
@@ -843,7 +843,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 IsBusy = true;
 
-                var response = await _WebService.GetSuggestedMaterialsAsync(Item.Material.MaterialID.ToString());
+                var response = await _WebService.GetSuggestedMaterialsAsync(FacilityChargeItem.Material.MaterialID.ToString());
                 if (response.Suceeded)
                 {
                     MaterialList = response.Data;
@@ -875,7 +875,7 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookReassignCommand()
         {
             if (IsBusy
-                || Item == null
+                || FacilityChargeItem == null
                 || SelectedMaterial == null)
                 return;
 
@@ -888,7 +888,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Reassign_FacilityCharge.ToString();
-                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.InwardMaterialID = SelectedMaterial.MaterialID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
                 BookingQuantity = 0;
@@ -911,7 +911,7 @@ namespace gip.vbm.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
                         _TempFacilityCharge = null;
-                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), Item.SplitNo.ToString());
+                        _TempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(FacilityChargeItem.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), FacilityChargeItem.SplitNo.ToString());
                         if (_TempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, Strings.AppStrings.RelocatedQuantDataMissing_Text);
@@ -938,7 +938,7 @@ namespace gip.vbm.mobile.ViewModels
         public async Task ExecuteBookReassignRelocateCommand()
         {
             if (IsBusy
-                || Item == null
+                || FacilityChargeItem == null
                 || SelectedMaterial == null
                 || SelectedFacility == null)
                 return;
@@ -952,7 +952,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Reassign_FacilityCharge.ToString();
-                aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
+                aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.InwardMaterialID = SelectedMaterial.MaterialID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
                 BookingQuantity = 0;
@@ -974,7 +974,7 @@ namespace gip.vbm.mobile.ViewModels
                     {
                         IsBusy = false;
                         await ExecuteReadFacilityCharge();
-                        var tempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(Item.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), Item.SplitNo.ToString());
+                        var tempFacilityCharge = await ExecuteReadFacilityChargeByFacilityMaterialLot(FacilityChargeItem.Facility.FacilityID, SelectedMaterial.MaterialID.ToString(), FacilityChargeItem.SplitNo.ToString());
                         if (tempFacilityCharge == null)
                         {
                             Message = new Msg(eMsgLevel.Error, "Reassignment is not successful!");

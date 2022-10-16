@@ -25,36 +25,38 @@
         </ToolbarItem>
         <ToolbarItem x:Name="TabPrint" Order="Primary" Priority="1" Text="Print" Clicked="Print_Clicked" IconImageSource="print.png">
         </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="2" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
+        </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="LotPivotItem" Title="INFO">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Facility.FacilityName}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.Facility.FacilityName}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FacilityLot.LotNo}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FacilityLot.LotNo}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.StockQuantity}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.StockQuantity}" Style="{StaticResource LabelForData}" />
 
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=FillingDate}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FillingDate}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FillingDate}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ProductionDate}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FacilityLot.ProductionDate}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FacilityLot.ProductionDate}" Style="{StaticResource LabelForData}" />
 
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExpirationDate}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=StorageLife}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}" />
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExternLotNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FacilityLot.ExternLotNo}" Style="{StaticResource LabelForData}" />
+                <Label Text="{Binding FacilityChargeItem.FacilityLot.ExternLotNo}" Style="{StaticResource LabelForData}" />
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" VerticalOptions="Center" Style="{StaticResource LabelForDesc}" />
-                    <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" VerticalOptions="Center" />
+                    <CheckBox IsChecked="{Binding FacilityChargeItem.NotAvailable}" IsEnabled="False" VerticalOptions="Center" />
                 </StackLayout>
             </StackLayout>
         </ScrollView>
@@ -103,6 +105,11 @@
     <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocate_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
+                <ctl:BarcodeScannerView x:Name="barcodeScanner" 
+                            BindingContext="{Binding Path=FacilityScanViewModel}"
+                            MinimumHeightRequest="70"
+                            BarcodeServiceMethod="UseBarcodeSequences"
+                            ShowDecodedEntities="False"/>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
@@ -199,27 +206,27 @@
                     </Grid.ColumnDefinitions>
                     <BoxView >
                         <BoxView.Triggers>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="True">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.NotAvailable}" Value="True">
                                 <Setter Property="BackgroundColor" Value="Red" />
                             </DataTrigger>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="False">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.NotAvailable}" Value="False">
                                 <Setter Property="BackgroundColor" Value="Lime" />
                             </DataTrigger>
                         </BoxView.Triggers>
                     </BoxView>
                     <Label FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
                         <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="True">
+                            <DataTrigger TargetType="Label" Binding="{Binding FacilityChargeItem.NotAvailable}" Value="True">
                                 <Setter Property="Text" Value="{i18n:Translate Text=Spent_Text}" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="False">
+                            <DataTrigger TargetType="Label" Binding="{Binding FacilityChargeItem.NotAvailable}" Value="False">
                                 <Setter Property="Text" Value="{i18n:Translate Text=Available_Text}" />
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
                 </Grid>
-                <Button x:Name="ButtonDoZeroStock" Text="{i18n:Translate Text=BtnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable, Converter={StaticResource BooleanNegationConverter}}" Clicked="ButtonDoBooking_Clicked"/>
-                <Button x:Name="ButtonUnDoZeroStock" Text="{i18n:Translate Text=BtnUnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable}" Clicked="ButtonDoBooking_Clicked"/>
+                <Button x:Name="ButtonDoZeroStock" Text="{i18n:Translate Text=BtnDoZeroStock_Text}" IsEnabled="{Binding FacilityChargeItem.NotAvailable, Converter={StaticResource BooleanNegationConverter}}" Clicked="ButtonDoBooking_Clicked"/>
+                <Button x:Name="ButtonUnDoZeroStock" Text="{i18n:Translate Text=BtnUnDoZeroStock_Text}" IsEnabled="{Binding FacilityChargeItem.NotAvailable}" Clicked="ButtonDoBooking_Clicked"/>
 
                 <BoxView HeightRequest="50" />
 
@@ -230,52 +237,52 @@
                     </Grid.RowDefinitions>
                     <BoxView Grid.Row="1">
                         <BoxView.Triggers>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="1">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="1">
                                 <Setter Property="BackgroundColor" Value="LimeGreen" />
                             </DataTrigger>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="2">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="2">
                                 <Setter Property="BackgroundColor" Value="Lime" />
                             </DataTrigger>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="3">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="3">
                                 <Setter Property="BackgroundColor" Value="Red" />
                             </DataTrigger>
-                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="4">
+                            <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="4">
                                 <Setter Property="BackgroundColor" Value="DarkRed" />
                             </DataTrigger>
                         </BoxView.Triggers>
                     </BoxView>
                     <Label Text="Status:" Style="{StaticResource LabelForDesc}" />
-                    <Label Grid.Row="1" Text="{Binding Item.MDReleaseState.MDReleaseStateName}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                    <Label Grid.Row="1" Text="{Binding FacilityChargeItem.MDReleaseState.MDReleaseStateName}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
                     </Label>
                 </Grid>
                 <Button x:Name="ButtonBlockQuant" Text="{i18n:Translate Text=BtnBlockQuant_Text}" Clicked="ButtonDoBooking_Clicked">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Free">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="Free">
                             <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsFree">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="AbsFree">
                             <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Locked">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="Locked">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsLocked">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="AbsLocked">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
                 <Button x:Name="ButtonReleaseQuant" Text="{i18n:Translate Text=BtnReleaseQuant_Text}" Clicked="ButtonDoBooking_Clicked">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Free">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="Free">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsFree">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="AbsFree">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Locked">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="Locked">
                             <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsLocked">
+                        <DataTrigger TargetType="Button" Binding="{Binding FacilityChargeItem.MDReleaseState.ReleaseState}" Value="AbsLocked">
                             <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
                     </Button.Triggers>

@@ -31,11 +31,11 @@
             
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
 
-            <ctl:BarcodeScanner Grid.Row="1" VerticalOptions="CenterAndExpand"
+            <ctl:BarcodeScannerView Grid.Row="1" VerticalOptions="CenterAndExpand"
                     x:Name="barcodeScanner" 
-                    IsEnabledInvokeBarcodeOnServer="True"
                     BarcodeIssuer="Production"
-                    OnSelectBarcodeEntity="barcodeScanner_OnSelectBarcodeEntity" />
+                    BarcodeServiceMethod="UseBarcodeSequences"
+                    OnBarcodeEntityTapped="barcodeScanner_OnBarcodeEntityTapped" />
 
             <Grid x:Name="BgPAnel" Grid.Row="2">
                 <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">-->
@@ -48,18 +48,18 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackLayout Grid.Row="0" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
-                    <Label x:Name="ScanMessageLabel" Text="{Binding Item.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
+                    <Label x:Name="ScanMessageLabel" Text="{Binding ExchangedBarcodeSeq.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
                         <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="ScanAgain">
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="ScanAgain">
                                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Completed">
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Completed">
                                 <Setter Property="TextColor" Value="Lime" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Cancelled">
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Cancelled">
                                 <Setter Property="TextColor" Value="Red" />
                             </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding Item.State}" Value="Question">
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Question">
                                 <Setter Property="IsVisible" Value="False" />
                             </DataTrigger>
                         </Label.Triggers>

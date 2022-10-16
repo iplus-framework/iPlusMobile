@@ -15,23 +15,23 @@ namespace gip.vbm.mobile.ViewModels
     {
         public PickingDetailViewModel(Picking item = null)
         {
-            Item = item;
+            PickingItem = item;
             UpdatePickingCommand = new Command(async () => await UpdatePicking());
             FinishOrderCommand = new Command(async () => await FinishOrder());
             FinishAndBookOrderCommand = new Command(async () => await ExecuteFinishAndBookOrder());
         }
 
         #region Properties
-        private Picking _Item;
-        public Picking Item
+        private Picking _PickingItem;
+        public Picking PickingItem
         {
             get
             {
-                return _Item;
+                return _PickingItem;
             }
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _PickingItem, value);
                 RebuildTitle();
             }
         }
@@ -59,8 +59,8 @@ namespace gip.vbm.mobile.ViewModels
         #region Methods
         void RebuildTitle()
         {
-            if (Item != null)
-                Title = Item.PickingNo;
+            if (PickingItem != null)
+                Title = PickingItem.PickingNo;
             else
                 Title = "PickingDetailViewModel";
         }
@@ -76,14 +76,14 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.GetPickingAsync(Item.PickingID.ToString());
+                var response = await _WebService.GetPickingAsync(PickingItem.PickingID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
-                    Item = response.Data;
-                    if (Item != null)
+                    PickingItem = response.Data;
+                    if (PickingItem != null)
                     {
-                        Item.RefreshPickingPosInView();
+                        PickingItem.RefreshPickingPosInView();
                     }
 
                     return true;
@@ -114,11 +114,11 @@ namespace gip.vbm.mobile.ViewModels
                 core.autocomponent.WSResponse<MsgWithDetails> response = null;
                 if (!skipCheck)
                 {
-                    response = await _WebService.FinishPickingOrderAsync(Item.PickingID);
+                    response = await _WebService.FinishPickingOrderAsync(PickingItem.PickingID);
                 }
                 else
                 {
-                    response = await _WebService.FinishPickingOrderWithoutCheckAsync(Item.PickingID);
+                    response = await _WebService.FinishPickingOrderWithoutCheckAsync(PickingItem.PickingID);
                 }
 
                 this.WSResponse = response;
@@ -170,7 +170,7 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
-                var requiredQuants = Item.PickingPos_Picking
+                var requiredQuants = PickingItem.PickingPos_Picking
                                          .Where(x => x.CompleteFactor < 70)
                                          .Select(p => new FacilityCharge()
                                          {
@@ -229,7 +229,7 @@ namespace gip.vbm.mobile.ViewModels
                         return;
                     }
 
-                    PickingWorkplace pickingWorkplace = new PickingWorkplace() { PickingID = Item.PickingID, WorkplaceID = RegisteredWorkplace.ACClassID };
+                    PickingWorkplace pickingWorkplace = new PickingWorkplace() { PickingID = PickingItem.PickingID, WorkplaceID = RegisteredWorkplace.ACClassID };
                     var response = await _WebService.BookAndFinishPickingOrderAsync(pickingWorkplace);
 
                     if (response.Suceeded)

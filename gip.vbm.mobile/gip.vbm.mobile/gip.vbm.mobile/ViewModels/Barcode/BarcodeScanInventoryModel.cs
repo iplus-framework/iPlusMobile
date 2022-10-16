@@ -32,15 +32,15 @@ namespace gip.vbm.mobile.ViewModels
 
         #region Tasks
 
-        public override async Task<bool> ExecuteInvokeBarcode()
+        public override async Task<bool> ExecuteCustomBarcodeCommand()
         {
             if (ParentBSO is BSOInventoryMode)
-                return await ExecuteGetBarcodeEntityCommand();
+                return await ExecuteDecodeEntityCommand();
             else
-                return await ExecuteInvokeBarcodeCommand();
+                return await ExecuteInvokeBarcodeSequenceCommand();
         }
 
-        public override async Task<bool> ExecuteInvokeBarcodeCommand()
+        public override async Task<bool> ExecuteInvokeBarcodeSequenceCommand()
         {
             bool success = false;
             if (IsBusy)
@@ -50,23 +50,23 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
-                if (Item.State == ActionState.ScanAgain)
+                if (ExchangedBarcodeSeq.State == ActionState.ScanAgain)
                 {
-                    if (Item.Sequence == null || !Item.Sequence.Any(c => c.Barcode.ToLower() == CurrentBarcode.Trim().ToLower()))
+                    if (ExchangedBarcodeSeq.Sequence == null || !ExchangedBarcodeSeq.Sequence.Any(c => c.Barcode.ToLower() == CurrentBarcode.Trim().ToLower()))
                     {
-                        Item.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Inventory;
+                        ExchangedBarcodeSeq.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Inventory;
 
                         IsListVisible = false;
                         List<object> barcodeEntryTemp = new List<object>();
-                        Item.CurrentBarcode = CurrentBarcode;
-                        Item.Message = null;
-                        var response = await _WebService.InvokeBarcodeSequenceAsync(Item);
+                        ExchangedBarcodeSeq.CurrentBarcode = CurrentBarcode;
+                        ExchangedBarcodeSeq.Message = null;
+                        var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
                         WSResponse = response;
                         success = response.Suceeded;
                         if (response.Suceeded && response.Data != null)
                         {
-                            Item = response.Data;
-                            BarcodeSequence = response.Data.Sequence.Select(c => c.ValidEntity).DefaultIfEmpty().ToList();
+                            ExchangedBarcodeSeq = response.Data;
+                            DecodedEntitiesList = response.Data.Sequence.Select(c => c.ValidEntity).DefaultIfEmpty().ToList();
                             Message = response.Data.Message; // now use sequence related message
                             IsListVisible = true;
                         }
@@ -99,11 +99,11 @@ namespace gip.vbm.mobile.ViewModels
             //Item = null;
             ZXingIsScanning = false;
             IsListVisible = false;
-            BarcodeSequence = null;
-            if (Item != null)
+            DecodedEntitiesList = null;
+            if (ExchangedBarcodeSeq != null)
             {
-                Item.Sequence.Clear();
-                Item.State = ActionState.ScanAgain;
+                ExchangedBarcodeSeq.Sequence.Clear();
+                ExchangedBarcodeSeq.State = ActionState.ScanAgain;
             }
             Message = null;
         }
@@ -111,11 +111,11 @@ namespace gip.vbm.mobile.ViewModels
         public void AddToCurrentBarcodeEntity(object validEntity)
         {
             List<object> entityList = new List<object>();
-            if (BarcodeSequence != null && BarcodeSequence.Any())
-                foreach (var item in BarcodeSequence)
+            if (DecodedEntitiesList != null && DecodedEntitiesList.Any())
+                foreach (var item in DecodedEntitiesList)
                     entityList.Add(item);
             entityList.Add(validEntity);
-            BarcodeSequence = entityList;
+            DecodedEntitiesList = entityList;
         }
 
 
@@ -129,7 +129,7 @@ namespace gip.vbm.mobile.ViewModels
         public void AddBarcodeEntity(BarcodeEntity barcodeEntity)
         {
             AddToCurrentBarcodeEntity(barcodeEntity.ValidEntity);
-            Item.AddSequence(barcodeEntity);
+            ExchangedBarcodeSeq.AddSequence(barcodeEntity);
         }
         #endregion
     }

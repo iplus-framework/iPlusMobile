@@ -27,12 +27,7 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            barcodeScanner._ViewModel = _ViewModel;
             barcodeScanner.OnAppearing();
-            //EnableButtons();
-            //SendChangedACMethod();
-            //if (_ViewModel != null)
-            //    _ViewModel.ResetScanSequence();
         }
 
         protected override void OnDisappearing()
@@ -48,13 +43,12 @@ namespace gip.vbm.mobile.Views
 
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.Clear();
             await barcodeScanner.OpenBarcodeCamera();
         }
 
-        private async void barcodeScanner_OnSelectBarcodeEntity(object sender, BarcodeScannerEventArgs e)
+        private async void barcodeScanner_OnBarcodeEntityTapped(object sender, BarcodeScannerEventArgs e)
         {
-            ProdOrderPartslistWFInfo selectedWfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo selectedWfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (selectedWfInfo != null)
             {
                 await Navigation.PushAsync(new BSOBarcodeTaskManuDetails(_ViewModel));
@@ -69,9 +63,9 @@ namespace gip.vbm.mobile.Views
 
         private void SearchTBItem_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel.Item != null)
+            if (_ViewModel.ExchangedBarcodeSeq != null)
             {
-                string searchText = _ViewModel.Item.CurrentBarcode;
+                string searchText = _ViewModel.ExchangedBarcodeSeq.CurrentBarcode;
                 _ViewModel.FilterSequenceList(searchText);
             }
         }

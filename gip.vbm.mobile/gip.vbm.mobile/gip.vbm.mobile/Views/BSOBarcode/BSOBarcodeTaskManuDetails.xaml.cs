@@ -77,7 +77,7 @@ namespace gip.vbm.mobile.Views
         {
             if (!IsEnabledBtnDoBooking())
                 return;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo.IntermediateBatch != null)
             {
                 wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode});
@@ -113,7 +113,7 @@ namespace gip.vbm.mobile.Views
         {
             if (!IsEnabledBtnEnterACMParams())
                 return;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null || wfInfo.WFMethod == null)
                 return;
             wfInfo.WFMethod.AutoRemove = false;
@@ -122,11 +122,11 @@ namespace gip.vbm.mobile.Views
 
         private void SendChangedACMethod()
         {
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo != null && wfInfo.WFMethod != null && wfInfo.WFMethod.AutoRemove == true)
             {
                 wfInfo.WFMethod.AutoRemove = false;
-                BarcodeEntity entity = _ViewModel.Item.Sequence.LastOrDefault();
+                BarcodeEntity entity = _ViewModel.ExchangedBarcodeSeq.Sequence.LastOrDefault();
                 if (entity == null)
                 {
                     _ViewModel.ResetScanSequence();
@@ -134,7 +134,7 @@ namespace gip.vbm.mobile.Views
                 }
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
-                _ViewModel.InvokeBarcodeCommand.Execute(null);
+                _ViewModel.InvokeBarcodeSequenceCommand.Execute(null);
             }
         }
 
@@ -151,7 +151,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel == null)
                 return false;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
             return wfInfo.InfoState > POPartslistInfoState.None;
@@ -161,7 +161,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel == null)
                 return false;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
             return wfInfo.InfoState != POPartslistInfoState.Release;
@@ -171,7 +171,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel == null)
                 return false;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
             return wfInfo.InfoState > POPartslistInfoState.None;
@@ -181,7 +181,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel == null)
                 return false;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
             return wfInfo.InfoState > POPartslistInfoState.None;
@@ -191,7 +191,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel == null)
                 return false;
-            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo == null)
                 return false;
             return wfInfo.WFMethod != null;

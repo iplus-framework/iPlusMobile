@@ -5,7 +5,7 @@
              xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
              xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
-             x:Class="gip.vbm.mobile.Controls.BarcodeScanner">
+             x:Class="gip.vbm.mobile.Controls.BarcodeScannerView">
     <ContentView.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
@@ -23,7 +23,7 @@
             <StackLayout Orientation="Horizontal" HeightRequest="50" Grid.Row="0">
                 <SearchBar  x:Name="BarcodeSearchBar" 
                             Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
-                            Text="{Binding Item.CurrentBarcode}" 
+                            Text="{Binding CurrentBarcode}" 
                             HorizontalOptions="FillAndExpand"
                             SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
 
@@ -32,8 +32,8 @@
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" Grid.Row="1" />
             <ListView  Grid.Row="2"
                             x:Name="BarcodeListView" 
-                            ItemsSource="{Binding BarcodeSequence}"
-                            SelectedItem="{Binding SelectedSequence}"    
+                            ItemsSource="{Binding DecodedEntitiesList}"
+                            SelectedItem="{Binding SelectedEntity}"    
                             IsGroupingEnabled="false" 
                             RowHeight="70"
                             ItemTemplate="{StaticResource BarcodeEntitySelector}"
@@ -41,7 +41,8 @@
                             IsPullToRefreshEnabled="false"
                             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                             ItemSelected="BarcodeListView_ItemSelected"
-                            ItemTapped="BarcodeListView_ItemTapped"/>
+                            ItemTapped="BarcodeListView_ItemTapped"
+                            IsVisible="{Binding Source={RelativeSource Self}, Path=ShowDecodedEntities}"/>
             <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >-->
 
         </Grid>

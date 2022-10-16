@@ -30,14 +30,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Item.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Item.Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Item.FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Item.SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
-            <Label Grid.Row="2" Grid.Column="0" Text="{Binding Item.StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="0" Grid.Column="0" Text="{Binding FacilityChargeItem.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="{Binding FacilityChargeItem.Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityChargeItem.FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding FacilityChargeItem.SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            <Label Grid.Row="2" Grid.Column="0" Text="{Binding FacilityChargeItem.StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
         </Grid>
 
-        <ctl:BarcodeScanner x:Name="barcodeScanner" IsEnabledInvokeBarcodeOnServer="True" OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked" />
+        <ctl:BarcodeScannerView x:Name="barcodeScanner" OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeCommandInvoked" BarcodeServiceMethod="UseBarcodeSequences" />
 
         <StackLayout VerticalOptions="EndAndExpand">
             <Button x:Name="BtnActivate" Text="{i18n:Translate Text=BtnActivate_Text}" VerticalOptions="EndAndExpand" Command="{Binding ActivateFacilityChargeCommand}" />

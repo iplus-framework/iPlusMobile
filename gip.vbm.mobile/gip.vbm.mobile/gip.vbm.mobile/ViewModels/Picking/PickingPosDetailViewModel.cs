@@ -19,11 +19,10 @@ namespace gip.vbm.mobile.ViewModels
 
         public PickingPosDetailViewModel(PickingPos item = null, Picking pickingItem = null)
         {
-            Item = item;
+            PickingPosItem = item;
             PickingItem = pickingItem;
 
             ReadPickingPosCommand = new Command(async () => await ReadPickingPos());
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             ReadPostingsCommand = new Command(async () => await ExecuteReadPostingsCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
@@ -46,20 +45,20 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        private PickingPos _Item;
-        public PickingPos Item
+        private PickingPos _PickingPosItem;
+        public PickingPos PickingPosItem
         {
             get
             {
-                return _Item;
+                return _PickingPosItem;
             }
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _PickingPosItem, value);
                 RebuildTitle();
-                if (_Item != null)
+                if (_PickingPosItem != null)
                 {
-                    double restQuantity = _Item.TargetQuantity - _Item.ActualQuantity;
+                    double restQuantity = _PickingPosItem.TargetQuantity - _PickingPosItem.ActualQuantity;
                     BookingQuantity = restQuantity;
                 }
             }
@@ -121,8 +120,8 @@ namespace gip.vbm.mobile.ViewModels
         #region Methods
         void RebuildTitle()
         {
-            if (Item != null)
-                Title = Item.Material.MaterialName1;
+            if (PickingPosItem != null)
+                Title = PickingPosItem.Material.MaterialName1;
             else if (PickingItem != null)
                 Title = PickingItem.PickingNo;
             else
@@ -132,17 +131,17 @@ namespace gip.vbm.mobile.ViewModels
         public Command ReadPickingPosCommand { get; set; }
         public async Task ReadPickingPos()
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || PickingPosItem == null)
                 return;
 
             IsBusy = true;
 
             try
             {
-                var response = await _WebService.GetPickingPosAsync(Item.PickingPosID.ToString());
+                var response = await _WebService.GetPickingPosAsync(PickingPosItem.PickingPosID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
-                    Item = response.Data;
+                    PickingPosItem = response.Data;
             }
             catch (Exception ex)
             {
@@ -158,14 +157,14 @@ namespace gip.vbm.mobile.ViewModels
         public Command ReadPostingsCommand { get; set; }
         public async Task ExecuteReadPostingsCommand()
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || PickingPosItem == null)
                 return;
 
             IsBusy = true;
 
             try
             {
-                var response = await _WebService.GetPickingPosPostingsAsync(Item.PickingPosID.ToString());
+                var response = await _WebService.GetPickingPosPostingsAsync(PickingPosItem.PickingPosID.ToString());
                 this.WSResponse = response;
                 if (response.Suceeded)
                     Overview = response.Data;
@@ -182,11 +181,10 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public Command LoadBarcodeEntityCommand { get; set; }
-        public async Task ExecuteLoadBarcodeEntityCommand()
+        public override async Task<bool> ExecuteDecodeEntityCommand()
         {
             if (IsBusy)
-                return;
+                return false;
 
             IsBusy = true;
 
@@ -197,17 +195,17 @@ namespace gip.vbm.mobile.ViewModels
                 this.WSBarcodeEntityResult = response.Data;
                 if (response.Suceeded)
                 {
-                    if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count() == 1 && Item != null 
-                        && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
+                    if (DecodedEntitiesList != null && DecodedEntitiesList.Count() == 1 && PickingPosItem != null 
+                        && (PickingPosItem.PostingType == PostingTypeEnum.Relocation || PickingPosItem.PostingType == PostingTypeEnum.NotDefined))
                     {
                         FacilityCharge fcNew = response.Data.ValidEntity as FacilityCharge;
                         if (fcNew != null)
                         {
-                            object addedEntity = CurrentBarcodeEntity.FirstOrDefault();
+                            object addedEntity = DecodedEntitiesList.FirstOrDefault();
                             FacilityCharge fc = addedEntity as FacilityCharge;
                             if (fc != null)
                             {
-                                CurrentBarcodeEntity.Remove(addedEntity);
+                                DecodedEntitiesList.Remove(addedEntity);
                             }
 
                             if (fcNew.NotAvailable)
@@ -215,7 +213,7 @@ namespace gip.vbm.mobile.ViewModels
                                 Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.QuantIsNotAvailableCheck);
                             }
 
-                            double requiredQuantity = Item.TargetQuantity - Item.ActualQuantity;
+                            double requiredQuantity = PickingPosItem.TargetQuantity - PickingPosItem.ActualQuantity;
                             if (requiredQuantity > 0)
                             {
                                 if (requiredQuantity > fcNew.StockQuantity)
@@ -232,29 +230,29 @@ namespace gip.vbm.mobile.ViewModels
                         Facility fNew = response.Data.ValidEntity as Facility;
                         if (fNew != null)
                         {
-                            object addedEntity = CurrentBarcodeEntity.FirstOrDefault();
+                            object addedEntity = DecodedEntitiesList.FirstOrDefault();
                             Facility f = addedEntity as Facility;
                             if (f != null)
                             {
-                                CurrentBarcodeEntity.Remove(addedEntity);
+                                DecodedEntitiesList.Remove(addedEntity);
                             }
                         }
 
                         if (fcNew != null || fNew != null)
                         {
-                            CurrentBarcodeEntity.Add(response.Data.ValidEntity);
-                            CurrentBarcodeEntity = CurrentBarcodeEntity.ToList();
+                            DecodedEntitiesList.Add(response.Data.ValidEntity);
+                            DecodedEntitiesList = DecodedEntitiesList.ToList();
                             ScanMessage = null;
                         }
                     }
                     else
                     {
-                        CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+                        DecodedEntitiesList = new List<object> { response.Data.ValidEntity };
 
                         FacilityCharge fc = response.Data.ValidEntity as FacilityCharge;
                         if (fc != null)
                         {
-                            double requiredQuantity = Item.TargetQuantity - Item.ActualQuantity;
+                            double requiredQuantity = PickingPosItem.TargetQuantity - PickingPosItem.ActualQuantity;
                             if (requiredQuantity > 0)
                             {
                                 if (requiredQuantity > fc.StockQuantity)
@@ -268,9 +266,9 @@ namespace gip.vbm.mobile.ViewModels
                             }
                         }
 
-                        if (Item != null && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
+                        if (PickingPosItem != null && (PickingPosItem.PostingType == PostingTypeEnum.Relocation || PickingPosItem.PostingType == PostingTypeEnum.NotDefined))
                         {
-                            var entity = CurrentBarcodeEntity.FirstOrDefault();
+                            var entity = DecodedEntitiesList.FirstOrDefault();
                             if (entity != null && entity is FacilityCharge)
                             {
                                 ScanMessage = Strings.AppStrings.PickingRelocationScanFacility_Text;
@@ -283,7 +281,7 @@ namespace gip.vbm.mobile.ViewModels
                     }
                 }
                 else
-                    CurrentBarcodeEntity = new List<object>();
+                    DecodedEntitiesList = new List<object>();
             }
             catch (Exception ex)
             {
@@ -293,6 +291,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 IsBusy = false;
             }
+            return true;
         }
 
         public Command BookFacilityCommand { get; set; }
@@ -323,24 +322,24 @@ namespace gip.vbm.mobile.ViewModels
 
                 ACMethodBooking aCMethodBooking = new ACMethodBooking();
 
-                if (Item.PostingType == PostingTypeEnum.Inward)
+                if (PickingPosItem.PostingType == PostingTypeEnum.Inward)
                 {
                     PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
                     aCMethodBooking.InwardQuantity = BookingQuantity;
                 }
-                else if (Item.PostingType == PostingTypeEnum.Outward)
+                else if (PickingPosItem.PostingType == PostingTypeEnum.Outward)
                 {
                     PrepareParamForPickingOutward(aCMethodBooking, barcodeEntity);
                     aCMethodBooking.OutwardQuantity = BookingQuantity;
                 }
                 else
                 {
-                    PrepareParamForPickingRelocation(aCMethodBooking, barcodeEntity, Item);
+                    PrepareParamForPickingRelocation(aCMethodBooking, barcodeEntity, PickingPosItem);
                     aCMethodBooking.OutwardQuantity = BookingQuantity;
                     aCMethodBooking.InwardQuantity = BookingQuantity;
                 }
 
-                aCMethodBooking.PickingPosID = Item.PickingPosID;
+                aCMethodBooking.PickingPosID = PickingPosItem.PickingPosID;
 
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -378,8 +377,8 @@ namespace gip.vbm.mobile.ViewModels
                         IsBusy = false;
                         await ReadPickingPos();
                         BookingMessage = "";
-                        if (PickingItem != null && Item != null)
-                            PickingItem.ReplacePickingPosItem(Item);
+                        if (PickingItem != null && PickingPosItem != null)
+                            PickingItem.ReplacePickingPosItem(PickingPosItem);
 
                         Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
                     }
@@ -434,10 +433,10 @@ namespace gip.vbm.mobile.ViewModels
             acMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingRelocation;
             if (barcodeEntity != null)
             {
-                if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count == 2)
+                if (DecodedEntitiesList != null && DecodedEntitiesList.Count == 2)
                 {
-                    FacilityCharge fc = CurrentBarcodeEntity.OfType<FacilityCharge>().FirstOrDefault();
-                    Facility facility = CurrentBarcodeEntity.OfType<Facility>().FirstOrDefault();
+                    FacilityCharge fc = DecodedEntitiesList.OfType<FacilityCharge>().FirstOrDefault();
+                    Facility facility = DecodedEntitiesList.OfType<Facility>().FirstOrDefault();
                     if (facility != null && fc != null)
                     {
                         acMethodBooking.InwardFacilityID = facility.FacilityID;
@@ -462,7 +461,7 @@ namespace gip.vbm.mobile.ViewModels
         {
 
             if (IsBusy
-                || Item == null)
+                || PickingPosItem == null)
                 return false;
 
             IsBusy = true;
@@ -520,8 +519,8 @@ namespace gip.vbm.mobile.ViewModels
         public SumQuantityByBarcodeViewModel GetSumByBarcodeModel()
         {
             string material = "Material";
-            if (Item != null && Item.Material != null)
-                material = Item.Material.MaterialName1;
+            if (PickingPosItem != null && PickingPosItem.Material != null)
+                material = PickingPosItem.Material.MaterialName1;
 
             _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
             return _SumByBarcodeModel;
@@ -588,8 +587,8 @@ namespace gip.vbm.mobile.ViewModels
                 IsBusy = false;
                 await ReadPickingPos();
                 BookingMessage = "";
-                if (PickingItem != null && Item != null)
-                    PickingItem.ReplacePickingPosItem(Item);
+                if (PickingItem != null && PickingPosItem != null)
+                    PickingItem.ReplacePickingPosItem(PickingPosItem);
 
                 Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
             }

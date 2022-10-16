@@ -32,12 +32,13 @@
             <ColumnDefinition Width="15" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        <ctl:BarcodeScanner Grid.ColumnSpan="3" 
+
+        <ctl:BarcodeScannerView Grid.ColumnSpan="3" 
                             x:Name="barcodeScanner" 
-                            MinimumHeightRequest="70" 
-                            IsEnabledInvokeBarcodeOnServer="False" 
-                            OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked" />
+                            MinimumHeightRequest="70"
+                            BarcodeServiceMethod="CustomCommand"
+                            OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
+                            ShowDecodedEntities="False"/>
         <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
             <ListView ItemsSource="{Binding SumItemQuantites}">
                 <ListView.ItemTemplate>

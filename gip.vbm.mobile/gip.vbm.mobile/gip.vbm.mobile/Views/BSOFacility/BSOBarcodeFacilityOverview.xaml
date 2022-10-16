@@ -23,11 +23,10 @@
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase Title="{i18n:Translate Text=ScanBarcodePivot_Header}" x:Name="ScanBarcodePivotItem">
         <Grid>
-            <ctl:BarcodeScanner VerticalOptions="CenterAndExpand"
+            <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
                     x:Name="barcodeScanner" 
-                    BarcodeServiceMethod="GetBarcodeEntityCommand"
-                    IsEnabledInvokeBarcodeOnServer="True"
-                    OnSelectBarcodeEntity="barcodeScanner_OnSelectBarcodeEntity" />
+                    BarcodeServiceMethod="DecodeEntity"
+                    OnBarcodeEntityTapped="barcodeScanner_OnBarcodeEntityTapped" />
         </Grid>
     </v:BSOPageBase>
     <v:BSOPageBase Title="{i18n:Translate Text=MaterialPivot_Header}" x:Name="MaterialPivotItem">

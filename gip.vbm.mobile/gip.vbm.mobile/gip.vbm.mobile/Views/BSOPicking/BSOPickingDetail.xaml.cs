@@ -68,11 +68,11 @@ namespace gip.vbm.mobile.Views
                 btnFinishOrder.Text = Strings.AppStrings.BtnFinishOrder;
             }
 
-            if (NavParam != null && _ViewModel.Item == null)
-                _ViewModel.Item = picking;
+            if (NavParam != null && _ViewModel.PickingItem == null)
+                _ViewModel.PickingItem = picking;
 
-            if (_ViewModel.Item != null)
-                _ViewModel.Item.RefreshPickingPosInView();
+            if (_ViewModel.PickingItem != null)
+                _ViewModel.PickingItem.RefreshPickingPosInView();
 
             this.PageState = PageStateEnum.View;
         }
@@ -103,7 +103,7 @@ namespace gip.vbm.mobile.Views
             if (pickingPos == null)
                 return;
 
-            await Navigation.PushAsync(new BSOPickingPosDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new object[] { _ViewModel.Item, pickingPos } } });
+            await Navigation.PushAsync(new BSOPickingPosDetail() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = new object[] { _ViewModel.PickingItem, pickingPos } } });
         }
 
         private void btnFinishOrder_Clicked(object sender, EventArgs e)

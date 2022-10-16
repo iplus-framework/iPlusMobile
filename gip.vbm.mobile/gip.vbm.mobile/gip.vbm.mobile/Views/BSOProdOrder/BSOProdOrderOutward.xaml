@@ -23,12 +23,16 @@
     <v:BSOTabbedPageBase.ToolbarItems>
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
         </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="1" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
+        </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="ProdOrderInOutBooking" Title="{i18n:Translate Text=ProdOrderInOutBooking_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
-                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-                <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+                <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                                x:Name="barcodeScanner" 
+                                ShowDecodedEntities="False"
+                                BarcodeServiceMethod="DecodeEntity" />
                 <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
                         ItemTemplate="{StaticResource BarcodeEntitySelector}"
                         HasUnevenRows="true"

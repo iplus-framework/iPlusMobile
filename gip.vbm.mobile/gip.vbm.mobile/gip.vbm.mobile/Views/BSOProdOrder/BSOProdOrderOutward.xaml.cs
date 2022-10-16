@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Controls;
 
 namespace gip.vbm.mobile.Views
 {
@@ -18,6 +19,15 @@ namespace gip.vbm.mobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BSOProdOrderOutward : BSOProdOrderInOutBase
 	{
+
+        protected override BarcodeScannerView BarcodeScanner
+        {
+            get
+            {
+                return barcodeScanner;
+            }
+        }
+
         BarcodeScanManuModel _FromTaskModel;
         ProdOrderInMaterialsViewModel _InMaterialsViewModel;
         public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, ACMethod wfMethod,
@@ -62,6 +72,11 @@ namespace gip.vbm.mobile.Views
             if (_FromTaskModel != null && _FromTaskModel.ScannedMachine != null)
                 _ViewModel.PropertyACUrl = ACUrlHelper.GetParentACUrl(_FromTaskModel.ScannedMachine.ACClass.ACUrlComponent);
             _ViewModel.BookFacilityCommand.Execute(null);
+        }
+
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            await BarcodeScanner.OpenBarcodeCamera();
         }
 
         private async void TBItemRefresh_Clicked(object sender, EventArgs e)

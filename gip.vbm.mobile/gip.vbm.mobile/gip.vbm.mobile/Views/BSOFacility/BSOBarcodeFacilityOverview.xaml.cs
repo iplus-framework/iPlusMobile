@@ -19,8 +19,6 @@ namespace gip.vbm.mobile.Views
 	public partial class BSOBarcodeFacilityOverview : BSOTabbedPageBase
     {
         BarcodeFacilityOverviewModel _ViewModel;
-        IBarcodeService _BarcodeService;
-        bool _BarcodeServiceSubcribed;
 
         public BSOBarcodeFacilityOverview()
 		{
@@ -34,7 +32,6 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            barcodeScanner._ViewModel = _ViewModel;
             barcodeScanner.OnAppearing();
             InitPageOnNavigation();
         }
@@ -62,7 +59,7 @@ namespace gip.vbm.mobile.Views
             await barcodeScanner.OpenBarcodeCamera();
         }
 
-        private async void barcodeScanner_OnSelectBarcodeEntity(object sender, BarcodeScannerEventArgs e)
+        private async void barcodeScanner_OnBarcodeEntityTapped(object sender, BarcodeScannerEventArgs e)
         {
             FacilityCharge fc = e.Value as FacilityCharge;
             if (fc != null)

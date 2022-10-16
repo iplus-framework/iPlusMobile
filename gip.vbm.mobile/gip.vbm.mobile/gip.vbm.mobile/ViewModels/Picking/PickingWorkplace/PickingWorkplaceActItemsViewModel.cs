@@ -134,7 +134,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task ExecuteActivateDeactivateQuant()
         {
-            BarcodeSequence sequence = BarcodeScanModel.Item;
+            BarcodeSequence sequence = BarcodeScanModel.ExchangedBarcodeSeq;
             if (sequence == null)
             {
                 Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCActivate_Text);

@@ -22,7 +22,7 @@
     </v:BSOPageBase.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png" />
-        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked" />
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="1" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked" />
     </ContentPage.ToolbarItems>
     <ScrollView x:Name="scrollView">
         <StackLayout Orientation="Vertical">
@@ -30,13 +30,13 @@
 
             <Button HeightRequest="40" x:Name="btnCheckQuant" Text="{i18n:Translate Text=CheckQuant_Text}" Clicked="btnCheckQuant_Clicked"/>
 
-            <ctl:BarcodeScanner
+            <ctl:BarcodeScannerView
                 x:Name="barcodeScanner" 
-                IsEnabledInvokeBarcodeOnServer="True"
                 BarcodeIssuer="Inventory"
-                IsVisible="{Binding IsSearchPanelVisible}"
+                BindingContext="{Binding Path=BarcodeScannerModel}"
+                BarcodeServiceMethod="CustomCommand"
                 OnBarcodeCommandInvoked="barcodeScanner_OnBarcodeReceived"
-                OnSelectBarcodeEntity="barcodeScanner_OnSendSelectedCode"
+                OnBarcodeEntityTapped="barcodeScanner_OnBarcodeEntityTapped"
                 OnCleanUpForm="barcodeScanner_OnCleanUpForm" />
 
             <StackLayout x:Name="spChargeCommands" Orientation="Vertical" IsVisible="{Binding IsChargeCommandPanelVisible}">

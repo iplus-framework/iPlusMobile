@@ -21,9 +21,9 @@ namespace gip.vbm.mobile.ViewModels
 
             FacilityScanViewModel = new BarcodeScanFacilityModel(this);
 
-            Item = new FacilityCharge();
-            Item.FacilityLot = new FacilityLot();
-            Item.Material = material;
+            FacilityChargeItem = new FacilityCharge();
+            FacilityChargeItem.FacilityLot = new FacilityLot();
+            FacilityChargeItem.Material = material;
             Title = Strings.AppStrings.NewQuant_Text;
         }
 
@@ -39,13 +39,13 @@ namespace gip.vbm.mobile.ViewModels
 
         private FacilityCharge _TempFacilityChargeForPrint;
 
-        public FacilityCharge _Item;
-        public FacilityCharge Item
+        public FacilityCharge _FacilityChargeItem;
+        public FacilityCharge FacilityChargeItem
         {
-            get => _Item;
+            get => _FacilityChargeItem;
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _FacilityChargeItem, value);
             }
         }
 
@@ -104,7 +104,7 @@ namespace gip.vbm.mobile.ViewModels
         public Command CreateNewFacilityChargeCommand { get; set; }
         public async Task ExecuteCreateNewFacilityCharge()
         {
-            if (IsBusy || Item == null)
+            if (IsBusy || FacilityChargeItem == null)
                 return;
 
             try
@@ -113,29 +113,29 @@ namespace gip.vbm.mobile.ViewModels
 
                 Message = null;
 
-                if (Item.Material == null)
+                if (FacilityChargeItem.Material == null)
                 {
                     Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.MaterialNotSelected_Text);
                     return;
                 }
 
-                if (Item.Facility == null)
+                if (FacilityChargeItem.Facility == null)
                 {
                     Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.FacilityNotSelected_Text);
                     return;
                 }
 
-                if (Item.FacilityLot == null)
+                if (FacilityChargeItem.FacilityLot == null)
                 {
                     Message = new Msg(eMsgLevel.Error, "FacilityLot is null.");
                     return;
                 }
 
                 FacilityChargeParamItem fcParam = new FacilityChargeParamItem();
-                fcParam.Material = Item.Material;
-                fcParam.Facility = Item.Facility;
-                fcParam.FacilityLot = Item.FacilityLot;
-                fcParam.StockQuantity = Item.StockQuantity;
+                fcParam.Material = FacilityChargeItem.Material;
+                fcParam.Facility = FacilityChargeItem.Facility;
+                fcParam.FacilityLot = FacilityChargeItem.FacilityLot;
+                fcParam.StockQuantity = FacilityChargeItem.StockQuantity;
 
                 if (FacilityInventoryID.HasValue)
                 {
@@ -253,10 +253,10 @@ namespace gip.vbm.mobile.ViewModels
 
         public void OnAppear()
         {
-            if (FacilitySelector != null && Item != null)
+            if (FacilitySelector != null && FacilityChargeItem != null)
             {
-                Item.Facility = FacilitySelector.SelectedStorageLocation;
-                Item.OnPropChanged(nameof(Item.Facility));
+                FacilityChargeItem.Facility = FacilitySelector.SelectedStorageLocation;
+                FacilityChargeItem.OnPropChanged(nameof(FacilityChargeItem.Facility));
                 FacilitySelector = null;
             }
         }
@@ -281,10 +281,10 @@ namespace gip.vbm.mobile.ViewModels
 
         public void OnFacilityScanned(Facility facility)
         {
-            if (Item != null)
+            if (FacilityChargeItem != null)
             {
-                Item.Facility = facility;
-                Item.OnPropChanged(nameof(Item.Facility));
+                FacilityChargeItem.Facility = facility;
+                FacilityChargeItem.OnPropChanged(nameof(FacilityChargeItem.Facility));
             }
         }
 

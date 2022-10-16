@@ -55,7 +55,7 @@ public partial class BarcodePopup : Popup
         }
     }
 
-    void OnOKButtonClicked(object? sender, EventArgs e)
+    void OnOKButtonClicked(object sender, EventArgs e)
     {
         Close(_Results);
     }

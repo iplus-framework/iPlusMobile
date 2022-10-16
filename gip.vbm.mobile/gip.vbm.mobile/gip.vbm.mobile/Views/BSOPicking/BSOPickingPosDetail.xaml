@@ -23,40 +23,36 @@
     </v:BSOTabbedPageBase.Resources>
     <v:BSOTabbedPageBase.ToolbarItems>
         <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
-            <!--<ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="UWP" Value="add.png"/>
-                </OnPlatform>
-            </ToolbarItem.Icon>-->
         </ToolbarItem>
         <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="print.png">
-
+        </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="2" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="PickingPosPivotItem" Title="{i18n:Translate Text=PickingPosPivot_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=FromFacility}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.FromFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.FromFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ToFacility}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.ToFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.ToFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Comment}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.Comment}" Style="{StaticResource LabelForData}"/>
                 <Label Text="Info" Style="{StaticResource LabelForDesc}" />
-                <Label Text="{Binding Item.Comment1}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{Binding PickingPosItem.Comment1}" Style="{StaticResource LabelForData}"/>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding Item.TargetQuantity}" Style="{StaticResource LabelForData}"/>
-                    <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.TargetQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
                 </StackLayout>
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding Item.ActualQuantity}" Style="{StaticResource LabelForData}"/>
-                    <Label Text="{Binding Item.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.ActualQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
                 </StackLayout>
 
                 <Button x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
@@ -66,16 +62,10 @@
     <v:BSOPageBase x:Name="DoPickingPivotItem" Title="{i18n:Translate Text=DoPickingPivot_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
-                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-                <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" 
-                           SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
                 <Label x:Name="ScanMessageLabel" Text="{Binding ScanMessage}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
-                <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
-                        ItemTemplate="{StaticResource BarcodeEntitySelector}"
-                        HasUnevenRows="true"
-                        RefreshCommand="{Binding LoadBarcodeEntityCommand}"
-                        IsPullToRefreshEnabled="false"
-                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+                <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                                x:Name="barcodeScanner" 
+                                BarcodeServiceMethod="DecodeEntity" />
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="scanbarcodeicon.png" Clicked="cmdSumByScan_Clicked" />

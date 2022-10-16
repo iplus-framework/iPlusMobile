@@ -28,7 +28,6 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            barcodeScanner._ViewModel = _ViewModel.FacilityScanViewModel;
             barcodeScanner.OnAppearing();
             _ViewModel.LoadStorageLocationsCommand.Execute(null);
         }
@@ -53,7 +52,7 @@ namespace gip.vbm.mobile.Views
 
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            //_ViewModel.Clear();
+            _ViewModel.FacilityScanViewModel.Clear();
             await barcodeScanner.OpenBarcodeCamera();
         }
 

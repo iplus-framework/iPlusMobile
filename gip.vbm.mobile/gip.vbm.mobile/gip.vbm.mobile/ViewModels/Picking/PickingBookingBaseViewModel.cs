@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gip.vbm.mobile.ViewModels
 {
-    public abstract class PickingBookingBaseViewModel : BaseViewModel
+    public abstract class PickingBookingBaseViewModel : BarcodeScanModelBase
     {
 
         private double _BookingQuantity;
@@ -45,19 +45,6 @@ namespace gip.vbm.mobile.ViewModels
             set
             {
                 SetProperty(ref _CurrentBarcodeEntity, value);
-            }
-        }
-
-        public string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
             }
         }
 

@@ -17,30 +17,30 @@ namespace gip.vbm.mobile.ViewModels
         {
         }
 
-        public override BarcodeSequence Item
+        public override BarcodeSequence ExchangedBarcodeSeq
         {
             get
             {
-                return _Item;
+                return _ExchangedBarcodeSeq;
             }
             set
             {
-                SetProperty(ref _Item, value);
-                if (_Item != null
-                    && Item.Sequence != null
-                    && Item.Sequence.Any())
+                SetProperty(ref _ExchangedBarcodeSeq, value);
+                if (_ExchangedBarcodeSeq != null
+                    && ExchangedBarcodeSeq.Sequence != null
+                    && ExchangedBarcodeSeq.Sequence.Any())
                 {
-                    object prevBarcodeSeq = BarcodeSequence;
-                    object prevSelectedSequence = SelectedSequence;
+                    object prevBarcodeSeq = DecodedEntitiesList;
+                    object prevSelectedSequence = SelectedEntity;
                     object newSelectedSequence = null;
 
-                    List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
+                    List<object> barcodeSequence = ExchangedBarcodeSeq.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
-                        || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
+                    if (   ExchangedBarcodeSeq.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
+                        || ExchangedBarcodeSeq.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
-                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
+                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  ExchangedBarcodeSeq.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
                         foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
                         {
                             bool refreshedWithSameReference = false;
@@ -81,14 +81,14 @@ namespace gip.vbm.mobile.ViewModels
                         }
                     }
 
-                    SelectedSequence = newSelectedSequence;
-                    BarcodeSequence = barcodeSequence;
+                    SelectedEntity = newSelectedSequence;
+                    DecodedEntitiesList = barcodeSequence;
                     _TempSequenceList = null;
                 }
                 else
                 {
-                    SelectedSequence = null;
-                    BarcodeSequence = new List<object>();
+                    SelectedEntity = null;
+                    DecodedEntitiesList = new List<object>();
                     _TempSequenceList = null;
                 }
             }
@@ -101,15 +101,15 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task PauseOrderOnMachine()
         {
-            ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
+            ProdOrderPartslistWFInfo wfInfo = SelectedEntity as ProdOrderPartslistWFInfo;
             wfInfo.InfoState = POPartslistInfoState.Pause;
             await InvokeActionOnMachine();
         }
 
         public async Task InvokeActionOnMachine()
         {
-            ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
-            BarcodeEntity entity = Item.Sequence.LastOrDefault();
+            ProdOrderPartslistWFInfo wfInfo = SelectedEntity as ProdOrderPartslistWFInfo;
+            BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
             if (entity == null)
             {
                 ResetScanSequence();
@@ -117,20 +117,20 @@ namespace gip.vbm.mobile.ViewModels
             }
             entity.SelectedOrderWF = wfInfo;
 
-            bool success = await ExecuteInvokeBarcodeCommand();
-            if (success && Item != null && (Item.Message == null || Item.Message.MessageLevel < eMsgLevel.Warning))
+            bool success = await ExecuteInvokeBarcodeSequenceCommand();
+            if (success && ExchangedBarcodeSeq != null && (ExchangedBarcodeSeq.Message == null || ExchangedBarcodeSeq.Message.MessageLevel < eMsgLevel.Warning))
             {
-                if (ScannedMachine != null && Item.CurrentBarcode != ScannedMachine.Barcode)
-                    Item.CurrentBarcode = ScannedMachine.Barcode;
+                if (ScannedMachine != null && ExchangedBarcodeSeq.CurrentBarcode != ScannedMachine.Barcode)
+                    ExchangedBarcodeSeq.CurrentBarcode = ScannedMachine.Barcode;
 
-                success = await ExecuteInvokeBarcodeCommand();
+                success = await ExecuteInvokeBarcodeSequenceCommand();
             }
         }
 
         public override void Clear()
         {
             base.Clear();
-            BarcodeSequence = new List<object>();
+            DecodedEntitiesList = new List<object>();
             CurrentBarcode = null;
             _TempSequenceList = null;
         }
@@ -155,9 +155,9 @@ namespace gip.vbm.mobile.ViewModels
         {
             get
             {
-                if (this.Item == null || !this.Item.Sequence.Any())
+                if (this.ExchangedBarcodeSeq == null || !this.ExchangedBarcodeSeq.Sequence.Any())
                     return null;
-                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
+                return this.ExchangedBarcodeSeq.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
             }
         }
 
@@ -169,7 +169,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 if (_TempSequenceList != null)
                 {
-                    BarcodeSequence = _TempSequenceList;
+                    DecodedEntitiesList = _TempSequenceList;
                 }
                 return;
             }
@@ -179,7 +179,7 @@ namespace gip.vbm.mobile.ViewModels
                 return;
 
             if (_TempSequenceList == null)
-                _TempSequenceList = BarcodeSequence;
+                _TempSequenceList = DecodedEntitiesList;
 
             List<object> result = new List<object>();
 
@@ -191,7 +191,7 @@ namespace gip.vbm.mobile.ViewModels
 
             result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)));
 
-            BarcodeSequence = result;
+            DecodedEntitiesList = result;
         }
     }
 }

@@ -19,9 +19,9 @@ namespace gip.vbm.mobile.ViewModels
             set;
         }
 
-        public override Task<bool> ExecuteInvokeBarcodeCommand()
+        public override Task<bool> ExecuteInvokeBarcodeSequenceCommand()
         {
-            string currentBarcode = Item?.CurrentBarcode;
+            string currentBarcode = ExchangedBarcodeSeq?.CurrentBarcode;
             Guid temp;
             if (!string.IsNullOrEmpty(currentBarcode))
             {
@@ -32,18 +32,18 @@ namespace gip.vbm.mobile.ViewModels
                 }
                 else
                 {
-                    return base.ExecuteInvokeBarcodeCommand();
+                    return base.ExecuteInvokeBarcodeSequenceCommand();
                 }
             }
             return new Task<bool>(() => false);
         }
 
-        public override BarcodeSequence Item 
+        public override BarcodeSequence ExchangedBarcodeSeq 
         { 
-            get => base.Item;
+            get => base.ExchangedBarcodeSeq;
             set
             { 
-                base.Item = value;
+                base.ExchangedBarcodeSeq = value;
                 Facility facility = value?.LastAddedSequence?.ValidEntity as Facility;
                 if (BarcodeScannerHost != null)
                     BarcodeScannerHost.OnFacilityScanned(facility);

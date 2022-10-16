@@ -20,19 +20,13 @@ namespace gip.vbm.mobile.Views
         public BSOFacilityChargeOverview()
 		{
             BindingContext = _ViewModel = new FacilityChargesViewModel();
-            barcodeScanner = new BarcodeScanner();
-            barcodeScanner.IsEnabledInvokeBarcodeOnServer = true;
             InitializeComponent();
         }
 
         #endregion
 
         #region Properties
-
         FacilityChargesViewModel _ViewModel;
-
-        BarcodeScanner barcodeScanner;
-
         #endregion
 
         #region Methods
@@ -40,7 +34,6 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            barcodeScanner._ViewModel = _ViewModel.FacilityScanViewModel;
             barcodeScanner.OnAppearing();
             InitPageOnNavigation();
         }
@@ -59,7 +52,7 @@ namespace gip.vbm.mobile.Views
 
         private async void TBItemHistory_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new BSOFacilityBookingHistory() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.Item } });
+            await Navigation.PushAsync(new BSOFacilityBookingHistory() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel.FacilityChargeItem } });
         }
 
         private void ButtonDoBooking_Clicked(object sender, EventArgs e)
@@ -96,6 +89,12 @@ namespace gip.vbm.mobile.Views
             {
                 _ViewModel.BookReassignRelocateCommand.Execute(null);
             }
+        }
+
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            _ViewModel.FacilityScanViewModel.Clear();
+            await barcodeScanner.OpenBarcodeCamera();
         }
 
         private void Print_Clicked(object sender, EventArgs e)
@@ -142,7 +141,7 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel.SelectedMaterial != null)
             {
-                _ViewModel.Item.Material = _ViewModel.SelectedMaterial;
+                _ViewModel.FacilityChargeItem.Material = _ViewModel.SelectedMaterial;
                 _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + " " + _ViewModel.SelectedMaterial.MaterialName1;
             }
         }

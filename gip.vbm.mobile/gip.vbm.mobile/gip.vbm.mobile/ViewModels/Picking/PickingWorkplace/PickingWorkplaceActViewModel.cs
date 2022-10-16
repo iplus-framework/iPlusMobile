@@ -20,13 +20,13 @@ namespace gip.vbm.mobile.ViewModels
             DeactivateFacilityChargeCommand = new Command(async () => await ExecuteDeactivateFacilityCharge());
         }
 
-        private FacilityCharge _Item;
-        public FacilityCharge Item
+        private FacilityCharge _FacilityChargeItem;
+        public FacilityCharge FacilityChargeItem
         {
-            get => _Item;
+            get => _FacilityChargeItem;
             set
             {
-                SetProperty(ref _Item, value);
+                SetProperty(ref _FacilityChargeItem, value);
             }
         }
 
@@ -50,7 +50,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task ExecuteActivateFacilityCharge()
         {
-            if (IsBusy || BarcodeScanModel == null || Item == null)
+            if (IsBusy || BarcodeScanModel == null || FacilityChargeItem == null)
                 return;
 
             if (Workplace == null)
@@ -61,7 +61,7 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
-                BarcodeSequence sequence = BarcodeScanModel.Item;
+                BarcodeSequence sequence = BarcodeScanModel.ExchangedBarcodeSeq;
                 if (sequence == null)
                 {
                     Message = new Msg(eMsgLevel.Error, Strings.AppStrings.ScanFCActivate_Text);
@@ -75,7 +75,7 @@ namespace gip.vbm.mobile.ViewModels
                     return;
                 }
 
-                if (fc.Material.MaterialID != Item.Material.MaterialID)
+                if (fc.Material.MaterialID != FacilityChargeItem.Material.MaterialID)
                 {
                     Message = new Msg(eMsgLevel.Error, Strings.AppStrings.WrongMaterial_Text);
                     return;
@@ -101,7 +101,7 @@ namespace gip.vbm.mobile.ViewModels
                     if (response.Data)
                     {
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.ActSuccessful_Text);
-                        Item = fc;
+                        FacilityChargeItem = fc;
                     }
                     else
                     {
@@ -132,7 +132,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task ExecuteDeactivateFacilityCharge()
         {
-            if (IsBusy || BarcodeScanModel == null || Item == null)
+            if (IsBusy || BarcodeScanModel == null || FacilityChargeItem == null)
                 return;
 
             if (Workplace == null)
@@ -145,8 +145,8 @@ namespace gip.vbm.mobile.ViewModels
             {
                 FacilityChargeParamItem deactItem = new FacilityChargeParamItem()
                 {
-                    FacilityChargeID = Item.FacilityChargeID,
-                    Material = Item.Material,
+                    FacilityChargeID = FacilityChargeItem.FacilityChargeID,
+                    Material = FacilityChargeItem.Material,
                     ParamID = Workplace.ACClassID
                 };
 

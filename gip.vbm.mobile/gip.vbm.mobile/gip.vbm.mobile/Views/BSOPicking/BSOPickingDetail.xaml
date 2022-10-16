@@ -17,13 +17,10 @@
         </ToolbarItem>
     </v:BSOPageBase.ToolbarItems>
     <StackLayout>
-        <!--<Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.PickingNo}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />-->
-        <Label Text="{Binding Item.DeliveryDateFrom}" Style="{StaticResource LabelForData}"/>
+        <Label Text="{Binding PickingItem.DeliveryDateFrom}" Style="{StaticResource LabelForData}"/>
         <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
         <ListView x:Name="PickingPosListView"
-                ItemsSource="{Binding Item.PickingPosObservable}"
+                ItemsSource="{Binding PickingItem.PickingPosObservable}"
                 ItemTemplate="{StaticResource PickingPosItemTemplate}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"

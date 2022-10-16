@@ -39,20 +39,20 @@ namespace gip.vbm.mobile.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            UnSubcribeToBarcodeService();
+            barcodeScanner.OnDisappearing();
         }
 
         private void InitPageOnNavigation()
         {
-            SubcribeToBarcodeService();
+            barcodeScanner.OnAppearing();
             if (NavParam != null)
             {
                 object[] arguments = NavParam.Arguments as object[];
                 if (arguments != null && arguments.Count() >= 2)
                 {
                     _ViewModel.PickingItem = arguments[0] as Picking;
-                    if (_ViewModel.Item == null)
-                        _ViewModel.Item = arguments[1] as PickingPos;
+                    if (_ViewModel.PickingPosItem == null)
+                        _ViewModel.PickingPosItem = arguments[1] as PickingPos;
                 }
             }
 
@@ -74,41 +74,12 @@ namespace gip.vbm.mobile.Views
         #endregion
 
         #region Barcode
-        private void SubcribeToBarcodeService()
+
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            if (_BarcodeService == null)
-                _BarcodeService = DependencyService.Get<IBarcodeService>();
-            if (!_BarcodeServiceSubcribed)
-            {
-                _BarcodeService.Read += _BarcodeService_Read;
-                _BarcodeServiceSubcribed = true;
-            }
+            await barcodeScanner.OpenBarcodeCamera();
         }
 
-        private void UnSubcribeToBarcodeService()
-        {
-            if (_BarcodeService != null)
-            {
-                _BarcodeService.Read -= _BarcodeService_Read;
-                _BarcodeServiceSubcribed = false;
-            }
-        }
-
-        private void _BarcodeService_Read(object sender, BarcodeReadEventArgs e)
-        {
-            if (e != null)
-            {
-                _ViewModel.CurrentBarcode = e.Text;
-                if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-                    _ViewModel.LoadBarcodeEntityCommand.Execute(null);
-            }
-        }
-
-        private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-                _ViewModel.LoadBarcodeEntityCommand.Execute(null);
-        }
         #endregion
 
         #region Booking
@@ -123,7 +94,7 @@ namespace gip.vbm.mobile.Views
 
             if (barcodeEntity.FacilityCharge != null)
             {
-                if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.Item.Material.MaterialID)
+                if (barcodeEntity.FacilityCharge.Material.MaterialID != _ViewModel.PickingPosItem.Material.MaterialID)
                 {
                     _ViewModel.Message = new core.datamodel.Msg() { Message = Strings.AppStrings.PickingWrongMaterial_Text };
                     return;
@@ -165,7 +136,7 @@ namespace gip.vbm.mobile.Views
 
         private async void BtnWarehouseInfo_Clicked(object sender, EventArgs e)
         {
-            Material material = _ViewModel?.Item?.Material;
+            Material material = _ViewModel?.PickingPosItem?.Material;
             if (material == null)
             {
                 _ViewModel.ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.Error, "Material to overview is null!"));

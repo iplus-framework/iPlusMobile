@@ -25,7 +25,7 @@ namespace gip.vbm.mobile.Views
 
         protected override void OnAppearing()
         {
-            barcodeScanner._ViewModel = _ViewModel.BarcodeScanModel;
+            barcodeScanner.ViewModel = _ViewModel.BarcodeScanModel;
             barcodeScanner.OnAppearing();
             base.OnAppearing();
             InitPageOnNavigation();
@@ -45,7 +45,7 @@ namespace gip.vbm.mobile.Views
                 if (navParams != null)
                 {
                     FacilityCharge fc = navParams.FirstOrDefault() as FacilityCharge;
-                    _ViewModel.Item = fc;
+                    _ViewModel.FacilityChargeItem = fc;
 
                     ACClass workplace = navParams.LastOrDefault() as ACClass;
                     _ViewModel.Workplace = workplace;

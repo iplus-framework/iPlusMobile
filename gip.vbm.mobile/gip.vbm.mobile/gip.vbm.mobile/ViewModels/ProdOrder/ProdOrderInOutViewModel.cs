@@ -13,7 +13,7 @@ using Microsoft.Maui.Controls;
 
 namespace gip.vbm.mobile.ViewModels
 {
-    public class ProdOrderInOutViewModel : BaseViewModel
+    public class ProdOrderInOutViewModel : BarcodeScanModelBase
     {
         #region c'tors
 
@@ -26,7 +26,6 @@ namespace gip.vbm.mobile.ViewModels
             RebuildTitle();
 
             ReadPostingsCommand = new Command(async () => await ExecuteReadPostingsCommand());
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
@@ -374,11 +373,10 @@ namespace gip.vbm.mobile.ViewModels
             await ReadPostingsOut();
         }
 
-        public Command LoadBarcodeEntityCommand { get; set; }
-        public async Task ExecuteLoadBarcodeEntityCommand()
+        public virtual async Task<bool> ExecuteDecodeEntityCommand()
         {
             if (IsBusy)
-                return;
+                return false;
 
             IsBusy = true;
 
@@ -463,6 +461,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 IsBusy = false;
             }
+            return true;
         }
 
         public Command BookFacilityCommand { get; set; }

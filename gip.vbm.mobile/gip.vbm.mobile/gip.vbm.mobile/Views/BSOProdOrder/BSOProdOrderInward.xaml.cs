@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Controls;
 
 namespace gip.vbm.mobile.Views
 {
@@ -19,6 +20,15 @@ namespace gip.vbm.mobile.Views
     public partial class BSOProdOrderInward : BSOProdOrderInOutBase
     {
         BarcodeScanManuModel _FromTaskModel;
+
+        protected override BarcodeScannerView BarcodeScanner
+        {
+            get
+            {
+                return barcodeScanner;
+            }
+        }
+
         public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, ACMethod wfMethod)
         {
             _FromTaskModel = taskModel;
@@ -58,6 +68,10 @@ namespace gip.vbm.mobile.Views
             }
         }
 
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            await BarcodeScanner.OpenBarcodeCamera();
+        }
 
         private async void TBItemRefresh_Clicked(object sender, EventArgs e)
         {

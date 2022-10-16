@@ -8,13 +8,15 @@ using static gip.mes.datamodel.BarcodeSequenceBase;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using ZXing.Net.Maui;
+using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.Controls
 {
     public enum BarcodeServiceMethodEnum
     {
-        InvokeBarcodeCommand = 0,
-        GetBarcodeEntityCommand = 1
+        CustomCommand = 0,
+        UseBarcodeSequences = 1,
+        DecodeEntity = 2,
     }
 
     public class BarcodeScannerEventArgs : EventArgs
@@ -30,79 +32,52 @@ namespace gip.vbm.mobile.Controls
     /// Component for barcode scan. Important: Call OnAppearing() and OnDisappearing() from host (parent) page
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BarcodeScanner : ContentView
+    public partial class BarcodeScannerView : ContentView
     {
         #region DI
-        public BarcodeScanModelBase _ViewModel;
         IBarcodeService _BarcodeService;
         bool _BarcodeServiceSubcribed;
         #endregion
 
         #region events
-
         public event EventHandler<BarcodeScannerEventArgs> OnBarcodeCommandInvoked;
-        public event EventHandler<BarcodeScannerEventArgs> OnSelectBarcodeEntity;
+        public event EventHandler<BarcodeScannerEventArgs> OnBarcodeEntityTapped;
+        public event EventHandler<BarcodeScannerEventArgs> OnNewBarcodeScanned;
         public event EventHandler OnCleanUpForm;
         public event EventHandler OnTextChanged;
-
         #endregion
 
         #region ctor's
-
-        public BarcodeScanner()
+        public BarcodeScannerView()
         {
             InitializeComponent();
-            _ViewModel = new BarcodeScanModelBase();
-            BindingContext = _ViewModel;
         }
 
         #endregion
 
         #region Lifecycle
-
-
-        /// <summary>
-        /// OnAppearing - Call in same method name in hosting page
-        /// </summary>
         public void OnAppearing()
         {
             SubcribeToBarcodeService();
-            BindingContext = _ViewModel;
         }
 
-        /// <summary>
-        /// OnDisappearing - Call in same method name in hosting page (parent page)
-        /// </summary>
         public void OnDisappearing()
         {
             UnSubcribeToBarcodeService();
-            //_IsZXingInitialized = false;
         }
-
-
         #endregion
 
         #region Properties
 
-        public static BindableProperty IsEnabledInvokeBarcodeOnServerProperty = BindableProperty.Create(
-             propertyName: nameof(IsEnabledInvokeBarcodeOnServer),
-             returnType: typeof(bool?),
-             declaringType: typeof(BarcodeScanner),
-             defaultValue: false,
-             defaultBindingMode: BindingMode.TwoWay);
-
-        /// <summary>
-        /// Option to disable barcode scanner
-        /// </summary>
-        public bool IsEnabledInvokeBarcodeOnServer
+        public BarcodeScanModelBase ViewModel
         {
             get
             {
-                return (bool)base.GetValue(IsEnabledInvokeBarcodeOnServerProperty);
+                return BindingContext as BarcodeScanModelBase;
             }
             set
             {
-                base.SetValue(IsEnabledInvokeBarcodeOnServerProperty, value);
+                BindingContext = value;
             }
         }
 
@@ -110,11 +85,12 @@ namespace gip.vbm.mobile.Controls
         public static BindableProperty BarcodeIssuerProperty = BindableProperty.Create(
              propertyName: "BarcodeIssuer",
              returnType: typeof(BarcodeIssuerEnum?),
-             declaringType: typeof(BarcodeScanner),
+             declaringType: typeof(BarcodeScannerView),
              defaultValue: null,
              defaultBindingMode: BindingMode.TwoWay);
         /// <summary>
-        /// Setup for usage in barcode sequence mode - setup issuer type to
+        /// The BarcodeIssuer-Property is sent to the server, to control the behaviour of the scanned sequences
+        /// This property is needed if BarcodeServiceMethodEnum is set to UseBarcodeSequences
         /// </summary>
         public BarcodeIssuerEnum? BarcodeIssuer
         {
@@ -134,12 +110,12 @@ namespace gip.vbm.mobile.Controls
         public static BindableProperty BarcodeServiceMethodProperty = BindableProperty.Create(
              propertyName: nameof(BarcodeServiceMethod),
              returnType: typeof(BarcodeServiceMethodEnum),
-             declaringType: typeof(BarcodeScanner),
-             defaultValue: BarcodeServiceMethodEnum.InvokeBarcodeCommand,
+             declaringType: typeof(BarcodeScannerView),
+             defaultValue: BarcodeServiceMethodEnum.CustomCommand,
              defaultBindingMode: BindingMode.TwoWay);
 
         /// <summary>
-        /// Option to disable barcode scanner
+        /// With BarcodeServiceMethod you control which "Barcode"-Method is called on Serverside
         /// </summary>
         public BarcodeServiceMethodEnum BarcodeServiceMethod
         {
@@ -152,88 +128,85 @@ namespace gip.vbm.mobile.Controls
                 base.SetValue(BarcodeServiceMethodProperty, value);
             }
         }
+
+        public static BindableProperty ShowDecodedEntitiesProperty = BindableProperty.Create(
+             propertyName: nameof(ShowDecodedEntities),
+             returnType: typeof(bool),
+             declaringType: typeof(BarcodeScannerView),
+             defaultValue: true,
+             defaultBindingMode: BindingMode.TwoWay);
+
+        /// <summary>
+        /// With BarcodeServiceMethod you control which "Barcode"-Method is called on Serverside
+        /// </summary>
+        public bool ShowDecodedEntities
+        {
+            get
+            {
+                return (bool)base.GetValue(ShowDecodedEntitiesProperty);
+            }
+            set
+            {
+                base.SetValue(ShowDecodedEntitiesProperty, value);
+            }
+        }
         #endregion
 
-        #region Event
-
-        /// <summary>
-        /// Additional handling property changes
-        /// </summary>
-        /// <param name="bindable"></param>
-        /// <param name="oldValue"></param>
-        /// <param name="newValue"></param>
+        #region UI-Event-Handling
         private static void HandleValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            // ----- Someone changed the full control's Value property. Store
-            //       that new value in the internal Switch's IsToggled property.
         }
 
-        /// <summary>
-        /// ZXing panel hide on finish
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnCloseZXingPanel_Clicked(object sender, EventArgs e)
-        {
-            _ViewModel.ZXingIsScanning = false;
-        }
-
-        /// <summary>
-        /// Hanlde select some from barcode obtained item
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BarcodeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Select some item and call SendSelectedCode()
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            SelectBarcodeEntity(e.Item);
-        }
-
-        /// <summary>
-        /// On search call server side to return result
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
-        {
-            Search((sender as SearchBar)?.Text);
-        }
-
-        /// <summary>
-        /// observe text changed event in search bar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void BarcodeSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OnTextChanged != null)
                 OnTextChanged(this, new EventArgs());
         }
 
+        private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            NewBarcodeScanned((sender as SearchBar)?.Text);
+        }
+
+        private void BarcodeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+        }
+
+        private void BarcodeListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            OnBarcodeEntityTapped?.Invoke(this, new BarcodeScannerEventArgs(e.Item));
+        }
+
+        private void btnClearList_Clicked(object sender, EventArgs e)
+        {
+            Clear();
+        }
         #endregion
 
-        #region ZXing
+        #region Camera-Scanner (ZXing)
+        public async Task OpenBarcodeCamera()
+        {
+            if (ViewModel != null)
+                ViewModel.ZXingIsScanning = true;
+            try
+            {
+                BarcodeResult[] result = await App.Root.OpenBarcodeCamera() as BarcodeResult[];
+                string scanResult = null;
+                if (result != null && result.Any())
+                {
+                    scanResult = result.FirstOrDefault().Value;
+                    NewBarcodeScanned(scanResult);
+                }
+            }
+            finally
+            {
+                if (ViewModel != null)
+                    ViewModel.ZXingIsScanning = false;
+            }
+        }
+        #endregion
 
-        ///// <summary>
-        ///// event select camera resolution - use higest available
-        ///// </summary>
-        ///// <param name="availableResolutions"></param>
-        ///// <returns></returns>
-        //CameraResolution SelectCameraResolution(List<ZXing.Mobile.CameraResolution> availableResolutions)
-        //{
-        //    var highestResolution = availableResolutions.OrderByDescending(c => c.Width).FirstOrDefault();
-        //    return highestResolution;
-        //}
-
+        #region Built-In-Scanner
         /// <summary>
         /// Subscribe to barcode service
         /// </summary>
@@ -264,115 +237,54 @@ namespace gip.vbm.mobile.Controls
         {
             if (e != null)
             {
-                _ViewModel.Item.CurrentBarcode = e.Text;
-                _ViewModel.CurrentBarcode = e.Text;
-                HandleScanProcess();
+                NewBarcodeScanned(e.Text);
             }
         }
-
-        //private void scanView_OnScanResult(ZXing.Result result)
-        //{
-        //    _ViewModel.CurrentBarcode = result.Text;
-        //    _ViewModel.ZXingIsScanning = false;
-        //    HandleScanProcess();
-        //}
-
-        //private void scanView_OnScanResult(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
-        //{
-        //    if (e.Results != null && e.Results.Any())
-        //    {
-        //        _ViewModel.CurrentBarcode = e.Results.FirstOrDefault().Value;
-        //        HandleScanProcess();
-        //    }
-        //    _ViewModel.ZXingIsScanning = false;
-        //}
-
-        /// <summary>
-        /// For selected code obitain result from server: BarcodeEntity or BarcodeSequence
-        /// </summary>
-        private async void HandleScanProcess()
-        {
-            bool success = false;
-            if (!String.IsNullOrEmpty(_ViewModel.Item.CurrentBarcode) && IsEnabledInvokeBarcodeOnServer)
-            {
-                if (this.BarcodeServiceMethod == BarcodeServiceMethodEnum.InvokeBarcodeCommand)
-                    success = await _ViewModel.ExecuteInvokeBarcode();
-                else //(this.BarcodeServiceMethod == BarcodeServiceMethodEnum.GetBarcodeEntityCommand)
-                    success = await _ViewModel.ExecuteGetBarcodeEntityCommand();
-            }
-
-            if (!success && !IsEnabledInvokeBarcodeOnServer)
-                success = true;
-
-            OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
-        }
-
-        /// <summary>
-        /// Send request is BarcodeEntity object selected to parent level
-        /// </summary>
-        public void SelectBarcodeEntity(object item)
-        {
-            OnSelectBarcodeEntity?.Invoke(this, new BarcodeScannerEventArgs(item));
-        }
-
         #endregion
 
         #region Methods
+        public void NewBarcodeScanned(string text)
+        {
+            if (ViewModel != null)
+            {
+                if (ViewModel.ExchangedBarcodeSeq != null)
+                    ViewModel.ExchangedBarcodeSeq.CurrentBarcode = text;
+                ViewModel.CurrentBarcode = text;
+            }
+            OnNewBarcodeScanned?.Invoke(this, new BarcodeScannerEventArgs(text));
+            InvokeBarcodeServiceMethod();
+        }
+
+        private async void InvokeBarcodeServiceMethod()
+        {
+            bool success = false;
+            if (this.BarcodeServiceMethod == BarcodeServiceMethodEnum.UseBarcodeSequences)
+            {
+                if (ViewModel != null && !String.IsNullOrEmpty(ViewModel.ExchangedBarcodeSeq.CurrentBarcode))
+                    success = await ViewModel.ExecuteInvokeBarcodeSequenceCommand();
+            }
+            else if (this.BarcodeServiceMethod == BarcodeServiceMethodEnum.DecodeEntity)
+            {
+                if (ViewModel != null && !String.IsNullOrEmpty(ViewModel.CurrentBarcode))
+                    success = await ViewModel.ExecuteDecodeEntityCommand();
+            }
+            else
+            {
+                if (ViewModel != null)
+                    success = await ViewModel.ExecuteCustomBarcodeCommand();
+            }
+            OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
+        }
 
         /// <summary>
         /// Clean up forms and prepare for next usage
         /// </summary>
         public void Clear()
         {
-            _ViewModel.Clear();
+            ViewModel?.Clear();
             if (OnCleanUpForm != null)
                 OnCleanUpForm(this, new EventArgs() { });
         }
-
-        public async Task OpenBarcodeCamera()
-        {
-            BarcodeResult[] result = await App.Root.OpenBarcodeCamera() as BarcodeResult[];
-            string scanResult = null;
-            if (result != null && result.Any())
-                scanResult = result.FirstOrDefault().Value;
-            if (_ViewModel != null)
-            {
-                if (_ViewModel.Item != null)
-                    _ViewModel.Item.CurrentBarcode = scanResult;
-                _ViewModel.CurrentBarcode = scanResult;
-                HandleScanProcess();
-            }
-        }
-
-        //public void OpenCameraPanel()
-        //{
-        //    if (_ViewModel != null)
-        //        _ViewModel.ZXingIsScanning = true;
-        //}
-
-        //public void CloseCameraPanel()
-        //{
-        //    if (_ViewModel != null)
-        //        _ViewModel.ZXingIsScanning = false;
-        //}
-
-        private void btnClearList_Clicked(object sender, EventArgs e)
-        {
-            if (OnCleanUpForm != null)
-                OnCleanUpForm(this, new EventArgs() { });
-            else
-             _ViewModel.Clear();
-        }
-
-        public void Search(string text)
-        {
-            if (_ViewModel.Item != null)
-                _ViewModel.Item.CurrentBarcode = text;
-            _ViewModel.CurrentBarcode = text;
-            HandleScanProcess();
-        }
-
-
         #endregion
 
     }

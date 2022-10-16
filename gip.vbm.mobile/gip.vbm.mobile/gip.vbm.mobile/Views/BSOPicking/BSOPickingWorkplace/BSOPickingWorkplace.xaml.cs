@@ -15,17 +15,17 @@ namespace gip.vbm.mobile.Views
     {
         public BSOPickingWorkplace()
         {
-            BarcodeScan = new BarcodeScanner();
-            BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
+            BarcodeScan = new BarcodeScannerView();
             BindingContext = _ViewModel = new PickingWorkplaceViewModel();
-            BarcodeScan._ViewModel = new BarcodeScanACClassModel(_ViewModel);
+            BarcodeScan.ViewModel = new BarcodeScanACClassModel(_ViewModel);
+            BarcodeScan.BarcodeServiceMethod = BarcodeServiceMethodEnum.CustomCommand;
             _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             InitializeComponent();
         }
 
         private PickingWorkplaceViewModel _ViewModel;
 
-        public BarcodeScanner BarcodeScan
+        public BarcodeScannerView BarcodeScan
         {
             get;
             set;
@@ -46,7 +46,7 @@ namespace gip.vbm.mobile.Views
 
         private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            BarcodeScan.Search(SBRegisteredWorkplace.Text);
+            BarcodeScan.NewBarcodeScanned(SBRegisteredWorkplace.Text);
         }
 
         private void cmdClearPickingType_Clicked(object sender, EventArgs e)

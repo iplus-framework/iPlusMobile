@@ -17,21 +17,21 @@ namespace gip.vbm.mobile.ViewModels
 
         public PickingByMaterialViewModel()
         {
-            LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+            //LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
         }
 
-        private PickingMaterial _Item;
-        public PickingMaterial Item
+        private PickingMaterial _PickingMaterialItem;
+        public PickingMaterial PickingMaterialItem
         {
-            get => _Item;
+            get => _PickingMaterialItem;
             set
             {
-                SetProperty<PickingMaterial>(ref _Item, value);
-                if (_Item != null)
+                SetProperty<PickingMaterial>(ref _PickingMaterialItem, value);
+                if (_PickingMaterialItem != null)
                 {
-                    Title = _Item.Material.MaterialName1;
-                    TotalBookingQantity = _Item.PickingItems.Sum(c => c.PostingQuantity);
+                    Title = _PickingMaterialItem.Material.MaterialName1;
+                    TotalBookingQantity = _PickingMaterialItem.PickingItems.Sum(c => c.PostingQuantity);
                 }
             }
         }
@@ -87,14 +87,14 @@ namespace gip.vbm.mobile.ViewModels
                 {
                     MissingBookingQuantity = _WSBarcodeEntityResult.FacilityCharge.StockQuantity - _TotalBookingQantity;
 
-                    if (Item == null)
+                    if (PickingMaterialItem == null)
                         return;
 
                     if (MissingBookingQuantity < -0.000001)
                     {
                         double availableQ = _WSBarcodeEntityResult.FacilityCharge.StockQuantity;
 
-                        foreach(PickingPos pPos in Item.PickingItems)
+                        foreach(PickingPos pPos in PickingMaterialItem.PickingItems)
                         {
                             if (availableQ < 0.0000001)
                             {
@@ -118,7 +118,7 @@ namespace gip.vbm.mobile.ViewModels
                     }
                     else
                     {
-                        foreach (PickingPos pPos in Item.PickingItems)
+                        foreach (PickingPos pPos in PickingMaterialItem.PickingItems)
                         {
                             pPos.CalculateDefaultPostingQuantity();
                         }
@@ -127,38 +127,10 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public Command LoadBarcodeEntityCommand { get; set; }
-        public async Task ExecuteLoadBarcodeEntityCommand()
-        {
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-                this.WSResponse = response;
-                this.WSBarcodeEntityResult = response.Data;
-                if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-                else
-                    CurrentBarcodeEntity = new List<object>();
-            }
-            catch (Exception ex)
-            {
-                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand(bool skipQuantityCheck = false)
         {
-            if (IsBusy || Item == null || Item.PickingItems == null)
+            if (IsBusy || PickingMaterialItem == null || PickingMaterialItem.PickingItems == null)
                 return;
             Message = null;
 
@@ -181,7 +153,7 @@ namespace gip.vbm.mobile.ViewModels
                 ACMethodBookingList bookings = new ACMethodBookingList();
                 ZeroBookFacilityChargeID = null;
 
-                foreach (PickingPos pp in Item.PickingItems)
+                foreach (PickingPos pp in PickingMaterialItem.PickingItems)
                 {
                     if (!FacilityConst.IsDoubleZeroForPosting(pp.PostingQuantity))
                     {
@@ -249,14 +221,14 @@ namespace gip.vbm.mobile.ViewModels
         public Command RefreshPickingMaterial { get; set; }
         public async Task ExecuteRefreshPickingMaterial()
         {
-            if (IsBusy || Item == null || Item.PickingItems == null)
+            if (IsBusy || PickingMaterialItem == null || PickingMaterialItem.PickingItems == null)
                 return;
 
             IsBusy = true;
 
             try
             {
-                PickingPosList param = new PickingPosList(Item.PickingItems.Select(x => new PickingPos() { PickingPosID = x.PickingPosID }));
+                PickingPosList param = new PickingPosList(PickingMaterialItem.PickingItems.Select(x => new PickingPos() { PickingPosID = x.PickingPosID }));
                 var response = await _WebService.GetPickingPosByMaterialAsync(param);
 
                 if (response.Suceeded)
@@ -266,7 +238,7 @@ namespace gip.vbm.mobile.ViewModels
                     {
                         foreach (PickingPos pos in result)
                         {
-                            PickingPos existingPickingPos = Item.PickingItems.FirstOrDefault(c => c.PickingPosID == pos.PickingPosID);
+                            PickingPos existingPickingPos = PickingMaterialItem.PickingItems.FirstOrDefault(c => c.PickingPosID == pos.PickingPosID);
                             if (existingPickingPos != null)
                             {
                                 existingPickingPos.ActualQuantity = pos.ActualQuantity;
@@ -276,8 +248,8 @@ namespace gip.vbm.mobile.ViewModels
                             }
                         }
 
-                        Item.RecalculateActualQuantity();
-                        TotalBookingQantity = Item.PickingItems.Sum(c => c.PostingQuantity);
+                        PickingMaterialItem.RecalculateActualQuantity();
+                        TotalBookingQantity = PickingMaterialItem.PickingItems.Sum(c => c.PostingQuantity);
 
                         Msg msg = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         Message = msg;
@@ -311,7 +283,7 @@ namespace gip.vbm.mobile.ViewModels
                     if (double.TryParse(entredValue, out postingQuantity) && SelectedPickingPos != null)
                     {
                         SelectedPickingPos.PostingQuantity = postingQuantity;
-                        TotalBookingQantity = _Item.PickingItems.Sum(c => c.PostingQuantity);
+                        TotalBookingQantity = _PickingMaterialItem.PickingItems.Sum(c => c.PostingQuantity);
                     }
                 }
             }

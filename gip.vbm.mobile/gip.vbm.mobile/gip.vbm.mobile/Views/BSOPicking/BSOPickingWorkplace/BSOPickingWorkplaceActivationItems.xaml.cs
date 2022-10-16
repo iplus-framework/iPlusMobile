@@ -18,16 +18,16 @@ namespace gip.vbm.mobile.Views
         public BSOPickingWorkplaceActivationItems()
         {
             BindingContext = _ViewModel = new PickingWorkplaceActItemsViewModel();
-            BarcodeScan = new BarcodeScanner();
-            BarcodeScan._ViewModel = _ViewModel.BarcodeScanModel;
-            BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
+            BarcodeScan = new BarcodeScannerView();
+            BarcodeScan.ViewModel = _ViewModel.BarcodeScanModel;
+            BarcodeScan.BarcodeServiceMethod = BarcodeServiceMethodEnum.CustomCommand;
             Title = Strings.AppStrings.QuantActivationDeactivation_Text;
             InitializeComponent();
         }
 
         PickingWorkplaceActItemsViewModel _ViewModel;
 
-        public BarcodeScanner BarcodeScan
+        public BarcodeScannerView BarcodeScan
         {
             get;
             private set;
@@ -80,7 +80,7 @@ namespace gip.vbm.mobile.Views
 
         private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
-            BarcodeScan.Search(sbActivateDeactivateQuant.Text);
+            BarcodeScan.NewBarcodeScanned(sbActivateDeactivateQuant.Text);
         }
 
         private async void BtnClose_Clicked(object sender, EventArgs e)

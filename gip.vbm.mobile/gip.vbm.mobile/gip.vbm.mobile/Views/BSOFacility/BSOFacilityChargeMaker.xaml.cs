@@ -20,20 +20,7 @@ namespace gip.vbm.mobile.Views
         public BSOFacilityChargeMaker()
         {
             BindingContext = _ViewModel = new FacilityChargeMakerViewModel(null);
-            BarcodeScan = new BarcodeScanner();
-            BarcodeScan.IsEnabledInvokeBarcodeOnServer = true;
-
             InitializeComponent();
-        }
-
-        #endregion
-
-        #region Properties
-
-        public BarcodeScanner BarcodeScan
-        {
-            get;
-            set;
         }
 
         #endregion
@@ -43,8 +30,7 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            BarcodeScan._ViewModel = _ViewModel.FacilityScanViewModel;
-            BarcodeScan.OnAppearing();
+            barcodeScanner.OnAppearing();
 
             Guid? invID = NavParam.Arguments as Guid?;
             if (invID.HasValue)
@@ -57,7 +43,7 @@ namespace gip.vbm.mobile.Views
 
         protected override void OnDisappearing()
         {
-            BarcodeScan?.OnDisappearing();
+            barcodeScanner?.OnDisappearing();
             base.OnDisappearing();
         }
 
@@ -65,17 +51,17 @@ namespace gip.vbm.mobile.Views
         {
             if (_ViewModel.SelectedMaterial != null)
             {
-                _ViewModel.Item.Material = _ViewModel.SelectedMaterial;
+                _ViewModel.FacilityChargeItem.Material = _ViewModel.SelectedMaterial;
                 _ViewModel.MaterialSearchText = _ViewModel.SelectedMaterial.MaterialNo + " " + _ViewModel.SelectedMaterial.MaterialName1;
             }
         }
 
         private void BtnClearFacility_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel.Item != null)
+            if (_ViewModel.FacilityChargeItem != null)
             {
-                _ViewModel.Item.Facility = null;
-                _ViewModel.Item.OnPropChanged(nameof(_ViewModel.Item.Facility));
+                _ViewModel.FacilityChargeItem.Facility = null;
+                _ViewModel.FacilityChargeItem.OnPropChanged(nameof(_ViewModel.FacilityChargeItem.Facility));
             }
         }
 
@@ -90,6 +76,11 @@ namespace gip.vbm.mobile.Views
         private void BtnSelectMaterialCancel_Clicked(object sender, EventArgs e)
         {
             _ViewModel.IsSelectMaterialVisible = false;
+        }
+
+        private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+        {
+            await barcodeScanner.OpenBarcodeCamera();
         }
 
         #endregion

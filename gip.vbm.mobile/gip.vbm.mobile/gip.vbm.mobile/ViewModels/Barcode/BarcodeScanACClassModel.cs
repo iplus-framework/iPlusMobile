@@ -19,12 +19,12 @@ namespace gip.vbm.mobile.ViewModels
             set;
         }
 
-        public override BarcodeSequence Item 
+        public override BarcodeSequence ExchangedBarcodeSeq 
         { 
-            get => base.Item; 
+            get => base.ExchangedBarcodeSeq; 
             set
             {
-                base.Item = value;
+                base.ExchangedBarcodeSeq = value;
                 ACClass acClass = value?.LastAddedSequence?.ValidEntity as ACClass;
                 if (BarcodeScanHost != null)
                     BarcodeScanHost.OnACClassScanned(acClass);

@@ -34,7 +34,7 @@ namespace gip.vbm.mobile.Views
         {
             if (e.PropertyName == nameof(BaseViewModel.Message))
             {
-                barcodeScanner._ViewModel.Message = _ViewModel.Message;
+                barcodeScanner.ViewModel.Message = _ViewModel.Message;
             }
         }
 
@@ -52,7 +52,7 @@ namespace gip.vbm.mobile.Views
 
         private async void barCodeScanner_OnBarcodeCommandInvoked(object sender, EventArgs e)
         {
-            await _ViewModel.OnBarcodeScanned(barcodeScanner._ViewModel.CurrentBarcode);
+            await _ViewModel.OnBarcodeScanned(barcodeScanner.ViewModel.CurrentBarcode);
         }
 
         private void TBItemClear_Clicked(object sender, EventArgs e)
@@ -70,7 +70,6 @@ namespace gip.vbm.mobile.Views
 
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
-            //_ViewModel.Clear();
             await barcodeScanner.OpenBarcodeCamera();
         }
 
