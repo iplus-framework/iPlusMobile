@@ -29,13 +29,24 @@ namespace gip.vbm.mobile.Views
 
         protected override void OnAppearing()
         {
+            _ViewModel.BarcodeScannerModel = new BarcodeScanInventoryModel(this);
+            //barcodeScanner._ViewModel = _ViewModel.BarcodeScannerModel;
+            barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
+            //_ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
             _ViewModel.CleanUpForm();
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
             _ViewModel.Start();
             base.OnAppearing();
-            barcodeScanner.OnAppearing();
             barcodeScanner.IsVisible = false;
+
+            //_ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
+            //_ViewModel.CleanUpForm();
+            //_ViewModel.CleanBarcodeAndSetCurrentFacility();
+            //_ViewModel.Start();
+            //base.OnAppearing();
+            //barcodeScanner.OnAppearing();
+            //barcodeScanner.IsVisible = false;
         }
 
         protected override void OnDisappearing()
