@@ -1,0 +1,14 @@
+﻿
+- BSOFacilityOverviewExplorer
+	- Scan-Tab: Scan() => Webservice gibt zurück um welchen Typ es sich handelt (Lot, FacilityCharge, Facility, Material)
+			 => Navigate to Overview-Pages
+	- Material-Selection-Tab
+		=> Materialnummer oder name
+	- Lot-Selection-Tab
+		1. Losnummer-eingabe
+	- Facility-Selection-Tab
+		1. Lagerort -> Button Navigate
+		2. Lagerplatz -> Button Navigate
+
+- Overview-Pages
+	

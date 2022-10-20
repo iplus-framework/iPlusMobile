@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vb.mobile.Views.BSOPrinterSettings">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <!--<ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="NavIconCamera.png">
+        </ToolbarItem>-->
+    </v:BSOPageBase.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="1" Text="{i18n:Translate Text=AssignedPrinter_Label}" Style="{StaticResource LabelForDesc}" />
+            <Label Grid.Row="2" Text="{Binding AssignedPrinter}" Style="{StaticResource LabelForData}" />
+
+            <ctl:MsgLabel Grid.Row="3" Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+            <SearchBar Grid.Row="4" x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" 
+                       SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
+            <Label Grid.Row="5" x:Name="ScannedPrinterLabel" Text="{Binding CurrentScannedPrinter}" HeightRequest="70" />
+
+            <Button x:Name="btnAssignPrinter" Grid.Row="6" Text="{i18n:Translate Text=BtnAssignPrinter_Text}" Command="{Binding AssignPrinter}" />
+
+        </Grid>
+    </ContentPage.Content>
+</v:BSOPageBase>

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOPickingPosDetail"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BarBackgroundColor="{DynamicResource NavigationBarColor}"
+             BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding Title}"
+             CurrentPageChanged="BSOTabbedPageBase_CurrentPageChanged">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+        <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="print.png">
+        </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="2" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase x:Name="PickingPosPivotItem" Title="{i18n:Translate Text=PickingPosPivot_Header}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=FromFacility}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.FromFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ToFacility}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.ToFacility.FacilityName}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=Comment}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.Comment}" Style="{StaticResource LabelForData}"/>
+                <Label Text="Info" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding PickingPosItem.Comment1}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding PickingPosItem.TargetQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                </StackLayout>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding PickingPosItem.ActualQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding PickingPosItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                </StackLayout>
+
+                <Button x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="DoPickingPivotItem" Title="{i18n:Translate Text=DoPickingPivot_Header}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <Label x:Name="ScanMessageLabel" Text="{Binding ScanMessage}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
+                <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                                x:Name="barcodeScanner" 
+                                BarcodeServiceMethod="DecodeEntity" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="scanbarcodeicon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry Grid.Column="0" Grid.Row="1" x:Name="BookingQuantity" Keyboard="Numeric" HorizontalOptions="FillAndExpand"
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" HorizontalTextAlignment="End">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior IsDecimal="False" SelectAllOnFocus="True" Precision="3"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked"  />
+                </StackLayout>
+                <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="BookingHistoryPivotItem" Title="{i18n:Translate Text=BookingHistory_Header}">
+        <StackLayout>
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+                         HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
+                         RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}"
+                         IsRefreshing="{Binding IsBusy}">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" />
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" />
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardQuantityUOM}" PropertyName="OutwardQuantityUOM" StringFormat="{}{0:0.0}"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" />
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </StackLayout>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

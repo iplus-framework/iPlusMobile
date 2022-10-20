@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Ebubekir Akgul</Authors>
+		<Version>4.8.0</Version>
+		<Description>DataGrid component for Xamarin.Forms</Description>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/akgulebubekir/Xamarin.Forms.DataGrid</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/akgulebubekir/Xamarin.Forms.DataGrid</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>datagrid, xamarin.forms, xamarin Xamarin.Forms.Datagrid</PackageTags>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Company />
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>Full</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
+	</PropertyGroup> 
+	
+	<ItemGroup>
+		<None Remove="down.png" />
+		<None Remove="up.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="down.png" />
+		<EmbeddedResource Include="up.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="DataGrid.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</None>
+	</ItemGroup>
+
+</Project>

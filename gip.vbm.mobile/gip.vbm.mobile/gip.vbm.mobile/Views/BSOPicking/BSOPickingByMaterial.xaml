@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOPickingByMaterial"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             Title="{i18n:Translate Text=PickingByMaterial_Header}">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" >
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="PickingsByMaterialListView"
+                ItemsSource="{Binding PickingsByMaterial}"
+                ItemTemplate="{StaticResource PickingMaterialItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadPickingsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemTapped="PickingsByMaterialListView_ItemTapped"
+                SelectedItem="{Binding SelectedPickingMaterial}"
+                >
+        </ListView>
+
+        <Button x:Name="btnFinishOrders" HeightRequest="45" Margin="0,0,0,5" Text="{i18n:Translate Text=BtnFinishOrder}" Command="{Binding FinishOrdersCommand}" />
+
+    </StackLayout>
+</v:BSOPageBase>

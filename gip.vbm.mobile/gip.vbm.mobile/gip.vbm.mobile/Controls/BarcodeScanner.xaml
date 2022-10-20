@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
+             x:Class="gip.vbm.mobile.Controls.BarcodeScannerView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Horizontal" HeightRequest="50" Grid.Row="0">
+                <SearchBar  x:Name="BarcodeSearchBar" 
+                            Placeholder="{i18n:Translate Text=BarcodeScan_Text}" 
+                            Text="{Binding CurrentBarcode}" 
+                            HorizontalOptions="FillAndExpand"
+                            SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+
+                <Button x:Name="btnClearList" Clicked="btnClearList_Clicked" MinimumWidthRequest="40" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" />
+            </StackLayout>
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" Grid.Row="1" />
+            <ListView  Grid.Row="2"
+                            x:Name="BarcodeListView" 
+                            ItemsSource="{Binding DecodedEntitiesList}"
+                            SelectedItem="{Binding SelectedEntity}"    
+                            IsGroupingEnabled="false" 
+                            RowHeight="70"
+                            ItemTemplate="{StaticResource BarcodeEntitySelector}"
+                            HasUnevenRows="true"
+                            IsPullToRefreshEnabled="false"
+                            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                            ItemSelected="BarcodeListView_ItemSelected"
+                            ItemTapped="BarcodeListView_ItemTapped"
+                            IsVisible="{Binding Source={RelativeSource Self}, Path=ShowDecodedEntities}"/>
+            <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >-->
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

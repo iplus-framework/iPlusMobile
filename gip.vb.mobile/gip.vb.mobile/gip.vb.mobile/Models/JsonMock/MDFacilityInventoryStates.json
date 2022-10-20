@@ -1,0 +1,26 @@
+{
+  "Message": null,
+  "Data": [
+    {
+      "ID": "832c894d-d9a5-4dec-a21a-167bbb82cf27",
+      "MDNT": "en{'New'}de{'Neu'}",
+      "SI": 1,
+      "IDF": true,
+      "MDFII": 1
+    },
+    {
+      "ID": "0287ba4a-94c8-4515-9631-574126376d4c",
+      "MDNT": "en{'In Progress'}de{'In Arbeit'}",
+      "SI": 2,
+      "IDF": false,
+      "MDFII": 2
+    },
+    {
+      "ID": "7650c1be-44ef-4627-b86d-63486e0d705b",
+      "MDNT": "en{'Finished'}de{'Fertig'}",
+      "SI": 3,
+      "IDF": false,
+      "MDFII": 3
+    }
+  ]
+}

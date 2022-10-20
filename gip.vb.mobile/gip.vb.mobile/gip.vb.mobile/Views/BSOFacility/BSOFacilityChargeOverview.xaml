@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               BarBackgroundColor="{DynamicResource NavigationBarColor}"
+               BarTextColor="{DynamicResource NavigationBarTextColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vb.mobile.Views.BSOFacilityChargeOverview">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>    
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemHistory" Order="Primary" Priority="0" Text="History" Clicked="TBItemHistory_Clicked" IconImageSource="NavIconHistory.png">
+        </ToolbarItem>
+        <ToolbarItem x:Name="TabPrint" Order="Primary" Priority="1" Text="Print" Clicked="Print_Clicked" IconImageSource="Print.png">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase x:Name="LotPivotItem" Title="INFO">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.Material.MaterialNo}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.Material.MaterialName1}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.Facility.FacilityName}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=LotNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.LotNo}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.StockQuantity}" Style="{StaticResource LabelForData}" />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=FillingDate}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FillingDate}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ProductionDate}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.ProductionDate}" Style="{StaticResource LabelForData}" />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExpirationDate}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.ExpirationDate}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=StorageLife}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.StorageLife}" Style="{StaticResource LabelForData}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityLot, Text=ExternLotNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding Item.FacilityLot.ExternLotNo}" Style="{StaticResource LabelForData}" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" VerticalOptions="Center" Style="{StaticResource LabelForDesc}" />
+                    <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="CorrectionFCPivotItem" Title="{i18n:Translate Text=Correct_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScan" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="BookingQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearBookingQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="2" />
+
+                <Label Text="{i18n:Translate Text=StockCorrection_Text}" FontAttributes="Bold" />
+                <Label Text="{i18n:Translate Text=StockCorrectionReason_Text}" />
+                <StackLayout Orientation="Horizontal">
+                    <Picker ItemsSource="{Binding MovementReasons}" ItemDisplayBinding="{Binding MDMovementReasonName}" HorizontalOptions="FillAndExpand" SelectedItem="{Binding SelectedMovementReason}"  />
+                    <Button x:Name="cmdClearMovementReason" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearMovementReason_Clicked" />
+                </StackLayout>
+                <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="25" />
+
+                <Label Text="{i18n:Translate Text=QuantSplit_Text}" FontAttributes="Bold" />
+                <Label Text="{i18n:Translate Text=QuantSplitNo_Text}" Style="{StaticResource LabelForDesc}" />
+                <ctl:NumericEntry x:Name="SplitNoEntry" Keyboard="Numeric" TextNumeric="{Binding QuantSplitNumber, Mode=TwoWay}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="True" Precision="0"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                <Button x:Name="ButtonSplit" Text="{i18n:Translate Text=BtnSplitQuant_Text}" Clicked="ButtonSplit_Clicked"/>
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocate_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScanRelocation" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+                    <ctl:NumericEntry x:Name="RelocationQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}, ConverterParameter=3}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="3"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearRelocationQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="4" />
+
+                <Label Text="{i18n:Translate Text=QuantRelocation_Text}" FontAttributes="Bold"  />
+                <Label Text="{i18n:Translate Text=SelectTargetFacilityLocationOrBin_Text}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                    <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
+                    <Button x:Name="cmdClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
+                </StackLayout>
+
+                <Button x:Name="ButtonRelocate" Text="{i18n:Translate Text=BtnRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="2" />
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="ReassignFCPivotItem" Title="{i18n:Translate Text=Reassign_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button x:Name="cmdSumByScanReassignment" WidthRequest="50" HeightRequest="50" ImageSource="ScanBarcodeIcon.png" Clicked="cmdSumByScan_Clicked" />
+
+                    <ctl:NumericEntry x:Name="ReassignmentQuantity" Keyboard="Numeric" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" 
+                                      HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                    <Button x:Name="cmdClearReassignQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
+                </StackLayout>
+
+                <Button x:Name="ButtonTakeQuantQuantity" Text="{i18n:Translate Text=TakeQQuantity_Text}" HeightRequest="35" Clicked="ButtonTakeQuantQuantity_Clicked" />
+
+                <BoxView HeightRequest="4" />
+
+                <Label Text="{i18n:Translate Text=MaterialReassign_Text}" FontAttributes="Bold" />
+                <Label Text="{i18n:Translate Text=ChooseNewMaterail_Text}" />
+                <SearchBar x:Name="sbMaterial" Text="{Binding MaterialSearchText}" SearchCommand="{Binding SearchMaterialCommand}" Focused="sbMaterial_Focused" />
+                <StackLayout IsVisible="{Binding IsSelectMaterialVisible}" VerticalOptions="Fill">
+                    <Button x:Name="BtnSelectMaterialCancel" Text="{i18n:Translate Text=ButtonCancel}" Clicked="BtnSelectMaterialCancel_Clicked" />
+                    <ListView x:Name="lvMaterials" ItemsSource="{Binding MaterialList}" SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}"
+                          ItemTapped="lvMaterials_ItemTapped" 
+                          ItemTemplate="{x:StaticResource Key=MaterialItemTemplate}"/>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding IsSelectMaterialVisible, Converter={x:StaticResource BooleanNegationConverter}}" Margin="0,10,0,0" >
+                    <Button x:Name="ButtonReassign" Text="{i18n:Translate Text=Reassign_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                    <BoxView HeightRequest="15" />
+
+                    <Label Text="{i18n:Translate Text=ReassignRelocation_Text}" FontAttributes="Bold"  />
+                    <Label Text="{i18n:Translate Text=SelectTargetFacilityLocationOrBin_Text}" Style="{StaticResource LabelForDesc}" />
+                    <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                        <Entry x:Name="FacilityEntryReassignment" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
+                        <Button x:Name="cmdClearFacilityReassignment" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked" />
+                    </StackLayout>
+
+                    
+
+                    <Button x:Name="ButtonReassignRelocate" Text="{i18n:Translate Text=ReassignRelocate_Text}" Clicked="ButtonDoBooking_Clicked"/>
+
+                    <BoxView HeightRequest="2" />
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="AvailabilityFCPivotItem" Title="{i18n:Translate Text=State_Text}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+
+                    </Grid.ColumnDefinitions>
+                    <BoxView >
+                        <BoxView.Triggers>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="True">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.NotAvailable}" Value="False">
+                                <Setter Property="BackgroundColor" Value="Lime" />
+                            </DataTrigger>
+                        </BoxView.Triggers>
+                    </BoxView>
+                    <Label FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="True">
+                                <Setter Property="Text" Value="{i18n:Translate Text=Spent_Text}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding Item.NotAvailable}" Value="False">
+                                <Setter Property="Text" Value="{i18n:Translate Text=Available_Text}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
+                <Button x:Name="ButtonDoZeroStock" Text="{i18n:Translate Text=BtnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable, Converter={StaticResource BooleanNegationConverter}}" Clicked="ButtonDoBooking_Clicked"/>
+                <Button x:Name="ButtonUnDoZeroStock" Text="{i18n:Translate Text=BtnUnDoZeroStock_Text}" IsEnabled="{Binding Item.NotAvailable}" Clicked="ButtonDoBooking_Clicked"/>
+
+                <BoxView HeightRequest="50" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <BoxView Grid.Row="1">
+                        <BoxView.Triggers>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="1">
+                                <Setter Property="BackgroundColor" Value="LimeGreen" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="2">
+                                <Setter Property="BackgroundColor" Value="Lime" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="3">
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="BoxView" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="4">
+                                <Setter Property="BackgroundColor" Value="DarkRed" />
+                            </DataTrigger>
+                        </BoxView.Triggers>
+                    </BoxView>
+                    <Label Text="Status:" Style="{StaticResource LabelForDesc}" />
+                    <Label Grid.Row="1" Text="{Binding Item.MDReleaseState.MDReleaseStateName}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="Black">
+                    </Label>
+                </Grid>
+                <Button x:Name="ButtonBlockQuant" Text="{i18n:Translate Text=BtnBlockQuant_Text}" Clicked="ButtonDoBooking_Clicked">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Free">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsFree">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Locked">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsLocked">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button x:Name="ButtonReleaseQuant" Text="{i18n:Translate Text=BtnReleaseQuant_Text}" Clicked="ButtonDoBooking_Clicked">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Free">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsFree">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="Locked">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding Item.MDReleaseState.ReleaseState}" Value="AbsLocked">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+            </StackLayout>
+        </ScrollView>
+        <!--</Grid>-->
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

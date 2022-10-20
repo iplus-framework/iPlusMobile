@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOSumQuantityByBarcode"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+             Title="{Binding Title}">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemClear" Order="Primary" Priority="0" Text="X" IconImageSource="deleteicon.png" Clicked="TBItemClear_Clicked">
+        </ToolbarItem>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked" IconImageSource="naviconcamera.png">
+        </ToolbarItem>
+    </v:BSOPageBase.ToolbarItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ctl:BarcodeScannerView Grid.ColumnSpan="3" 
+                            x:Name="barcodeScanner" 
+                            MinimumHeightRequest="70"
+                            BarcodeServiceMethod="CustomCommand"
+                            OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
+                            ShowDecodedEntities="False"/>
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
+            <ListView ItemsSource="{Binding SumItemQuantites}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ctl:ExtendedViewCell>
+                            <Grid VerticalOptions="Start" Margin="0,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                                <Label Text="{Binding ExpDate, StringFormat='{}{0:d}'}" Padding="5,2,0,0" />
+                                <Label Grid.Row="1" Text="{Binding ExtLotNo}" VerticalOptions="Start" Padding="5,0,0,5" />
+                                <Label Text="{Binding Quantity}" Grid.RowSpan="2" Grid.Column="1" FontSize="Medium" VerticalOptions="Center" HorizontalTextAlignment="End" Padding="0,0,5,0" />
+                            </Grid>
+                        </ctl:ExtendedViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Σ" FontSize="Title" VerticalOptions="CenterAndExpand"  TextColor="Red" />
+                <ctl:NumericEntry x:Name="SumEntry" Grid.Column="0" Grid.Row="1" Keyboard="Numeric" HorizontalOptions="FillAndExpand" Focused="SumEntry_Focused" FontSize="Title"
+                                          TextNumeric="{Binding SumQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior IsDecimal="False" Precision="3"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+            </StackLayout> 
+        </StackLayout>
+
+        <Button x:Name="BtnOkMinus" Grid.Row="2" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" Text="{hp:Translate Text=BtnTakeQuantityNegative}" Clicked="BtnOkMinus_Clicked" />
+
+        <Button x:Name="BtnOkPlus" Grid.Row="2" Margin="0,5,0,0" Grid.Column="2" HorizontalOptions="FillAndExpand" Text="{hp:Translate Text=BtnTakeQuantityPositive}"  Clicked="BtnOkPlus_Clicked" />
+
+    </Grid>
+</v:BSOPageBase>

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:helpers="clr-namespace:gip.vb.mobile.Helpers"
+                    xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+                    xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+                    x:Class="gip.vb.mobile.Themes.SharedDataTemplates">
+    
+    <i18n:PercentageColorConverter x:Key="PercentageConv" />
+    <i18n:GuidEmptyConverter x:Key="GuidEmptyConv" />
+    <helpers:DoubleEqualsOrGreaterThan x:Key="DoubleGTConv" />
+
+    <DataTemplate x:Key="ACClassItemTemplate">
+        <ctl:ExtendedViewCell>
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>-->
+                <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding ACCaption}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding ACUrlComponent}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="MaterialItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>-->
+                <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding MaterialName1}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>-->
+                <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding FacilityNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityLotItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>-->
+                <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding LotNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding ExpirationDate}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityChargeItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >
+                    <Label Text="{Binding StockQuantity, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding MDUnit.Symbol, StringFormat='  {0}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                </StackLayout>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityChargeActivationItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Facility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding FacilityLot.LotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding SplitNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="2" Grid.Column="0" Text="{Binding StockQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding FacilityLot.ExternLotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <BoxView Grid.Column="2" Grid.RowSpan="3">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="True" >
+                            <Setter Property="Color" Value="Lime" />
+                        </DataTrigger>
+
+                        <MultiTrigger TargetType="{x:Type BoxView}">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="False" />
+                                <BindingCondition Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Color" Value="Orange" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="True">
+                            <Setter Property="Color" Value="Red" />
+                        </DataTrigger>
+
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding NotAvailable}" Value="True">
+                            <Setter Property="Color" Value="Red" />
+                        </DataTrigger>
+
+                    </BoxView.Triggers>
+                </BoxView>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="PickingItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding PickingNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DeliveryCompanyAddress}" HorizontalOptions="End" />
+                <Label Grid.Row="1" Grid.Column="2" Text="{Binding DeliveryDateFrom, StringFormat='{}{d}'}" VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding PickingType.MDPickingTypeName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Comment}" HorizontalOptions="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="PickingMaterialItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="3" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="4" Grid.ColumnSpan="5" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="1" Text="{Binding Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="2" Text="{Binding Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="T: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Grid.Row="1" Text="{Binding TotalQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Column="1" Grid.Row="2" Text="A: " VerticalOptions="Start" HorizontalTextAlignment="End" />
+                <Label Grid.Column="2" Grid.Row="2" Text="{Binding ActualQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
+                <BoxView Grid.Column="4" Grid.RowSpan="4" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="PickingMaterialItemPosTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Text="{Binding Picking.PickingNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Text="{Binding Picking.DeliveryCompanyAddress}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+
+                <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                    <Label Text="{Binding TargetQuantity}" VerticalOptions="Start" HorizontalTextAlignment="End" />
+                    <Label Text="(" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                    <Label Text="{Binding ActualQuantity}" VerticalOptions="End" HorizontalTextAlignment="End" />
+                    <Label Text=")" VerticalOptions="Center" HorizontalTextAlignment="End" />
+                </StackLayout>
+                
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding PostingQuantity}" VerticalOptions="Start" HorizontalTextAlignment="Center" />
+                <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Text="{Binding MDUnit.MDUnitName}" VerticalOptions="Center" HorizontalTextAlignment="Start" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="PickingPosItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="3" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Material.MaterialName1}" VerticalOptions="Start" HorizontalTextAlignment="Start" Style="{StaticResource LabelForData}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Comment1}" VerticalOptions="Start" HorizontalTextAlignment="Start" Style="{StaticResource LabelForData}" />
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding FromFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding ToFacility.FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <Label Text="{Binding TargetQuantityUOM, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding MDUnit.MDUnitName}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <Label Text="{Binding ActualQuantityUOM, StringFormat='{0:0.0###}'}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                    <Label Text="{Binding MDUnit.MDUnitName}" />
+                </StackLayout>
+                <BoxView Grid.Column="2" Grid.RowSpan="3" Color="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderPartslistItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Partslist.PartslistNo, StringFormat=' {0}'}"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Partslist.PartslistName}" VerticalOptions="Start" />
+                <Label Grid.Row="0" Grid.Column="2" Text="{Binding Partslist.PartslistVersion, StringFormat='v. {0}'}"/>
+                <Label Grid.Row="1" Text="{Binding ProdOrder.ProgramNo, StringFormat=' O: {0}'}" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Partslist.Material.MaterialNo, StringFormat='M: {0}'}" />
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderPLIntermediateItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Sequence, StringFormat=' {0}'}"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Material.MaterialNo}" />
+                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Material.MaterialName1}" />
+                <StackLayout Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Spacing="0">
+                    <Label Text="(" />
+                    <Label Text="{Binding ActualQuantity, StringFormat='\{0:0.###}'}" />
+                    <Label Text=")" />
+                    <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.###}'}" />
+                    <Label Text="{Binding Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                </StackLayout>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderBatchItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProdOrderBatch.BatchSeqNo, StringFormat=' {0}'}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding ProdOrderBatch.ProdOrderBatchNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderInMaterialItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="4" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Sequence, StringFormat=' {0}'}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding SourcePos.Material.MaterialNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="2" Text="{Binding SourcePos.Material.MaterialName1}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="0">
+                    <Label Text="(" />
+                    <Label Text="{Binding ActualQuantity, StringFormat='\{0:0.#}'}" />
+                    <Label Text=")" />
+                    <Label Text="{Binding TargetQuantity, StringFormat=' {0:0.#}'}" />
+                    <Label Text="{Binding SourcePos.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                </StackLayout>
+
+                <BoxView Grid.Column="3" Grid.RowSpan="3">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="True">
+                            <Setter Property="Color" Value="LightSteelBlue" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="False">
+                            <Setter Property="Color" Value="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                    
+                </BoxView>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderTargetFacilities">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding FacilityNo, StringFormat=' {0}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding FacilityName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="ProdOrderPartslistWFInfoItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="18" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Grid.ColumnSpan="2" Color="LightSteelBlue" CornerRadius="4">
+                    <BoxView.Style>
+                        <Style TargetType="BoxView">
+                            <Setter Property="Color" Value="{DynamicResource ControlBackgroundColor}"/>
+                            <Style.Triggers>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding InfoState}" Value="10">
+                                    <Setter Property="Color" Value="Lime" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </BoxView.Style>
+                </BoxView>
+
+                <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" TextColor="Black" />
+
+                    <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" TextColor="Black" />
+                    <!--<StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
+                        <Label Text="Q: (" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" TextColor="Black" />
+                        <Label Text=")" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" TextColor="Black" />
+                        <Label Text="{Binding ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" TextColor="Black" />
+                    </StackLayout>-->
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1}" TextColor="Black" />
+                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" TextColor="Black" />
+                </StackLayout>
+
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ProdOrderPartslist.Comment}" TextColor="Black" />
+
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityInventoryTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding FacilityInventoryNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding FacilityInventoryName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="2" Text="{Binding InsertDate}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <DataTemplate x:Key="FacilityInventoryPosTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <BoxView Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" Grid.RowSpan="4" CornerRadius="4" />
+
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding LotNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MaterialNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="2" Text="{Binding MaterialName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Text="{Binding MDFacilityInventoryPosState.MDFacilityInventoryStateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding FacilityNo}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="{Binding FacilityName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" FontSize="Micro"/>
+
+                <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding NotAvailable}" IsEnabled="False"/>
+                    <Label Text="{i18n:Translate Text=InventoryPosNotAvailable_Text}"/>
+                </StackLayout>
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding StockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Red"/>
+                <Label Grid.Row="2" Grid.Column="2" Text="{Binding NewStockQuantity, StringFormat='{0:#0.00}'}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start" TextColor="Green"/>
+
+                <!--<Label Grid.Row="3" Grid.Column="0" Text="{Binding UpdateDate}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="3" Grid.Column="1" Text="{Binding UpdateName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>-->
+                <Label Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding Comment}" VerticalOptions="CenterAndExpand"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
+    <helpers:BarcodeEntityTemplateSelector x:Key="BarcodeEntitySelector"
+                                            ACClass="{StaticResource ACClassItemTemplate}"
+                                            Material="{StaticResource MaterialItemTemplate}"
+                                            Facility="{StaticResource FacilityItemTemplate}" 
+                                            FacilityLot="{StaticResource FacilityLotItemTemplate}"
+                                            FacilityCharge="{StaticResource FacilityChargeItemTemplate}"
+                                            Picking="{StaticResource PickingItemTemplate}"
+                                            PickingPos="{StaticResource PickingPosItemTemplate}"
+                                            ProdOrderPartslist="{StaticResource ProdOrderPartslistItemTemplate}"
+                                            ProdOrderPartslistPos="{StaticResource ProdOrderPLIntermediateItemTemplate}"
+                                            ProdOrderPartslistWFInfo ="{StaticResource ProdOrderPartslistWFInfoItemTemplate}"
+                                           />
+</ResourceDictionary>

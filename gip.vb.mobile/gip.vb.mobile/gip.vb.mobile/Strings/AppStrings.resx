@@ -1,0 +1,733 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton_Label" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="BarcodeScanProdOrder_Text" xml:space="preserve">
+    <value>Scan or Enter the process function Barcode </value>
+  </data>
+  <data name="BarcodeScan_Text" xml:space="preserve">
+    <value>Scan or Enter Barcode</value>
+  </data>
+  <data name="BFI_Bookings_Header" xml:space="preserve">
+    <value>Bookings</value>
+  </data>
+  <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
+    <value>Filter Inventory Positions</value>
+  </data>
+  <data name="BFI_PositionEdit_Header" xml:space="preserve">
+    <value>Position edit</value>
+  </data>
+  <data name="BFI_PositionOverview_Header" xml:space="preserve">
+    <value>Inventory Line Overview</value>
+  </data>
+  <data name="BFI_SearchInventory_Header" xml:space="preserve">
+    <value>Search Inventories</value>
+  </data>
+  <data name="BookingHistory_Header" xml:space="preserve">
+    <value>Posting journal</value>
+  </data>
+  <data name="BookingQuantity_Text" xml:space="preserve">
+    <value>Posting quantity</value>
+  </data>
+  <data name="BtnBlockQuant_Text" xml:space="preserve">
+    <value>Block Quant</value>
+  </data>
+  <data name="BtnClose_Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BtnDoBooking_Text" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="BtnDoZeroStock_Text" xml:space="preserve">
+    <value>Quant not available</value>
+  </data>
+  <data name="BtnLes_Text" xml:space="preserve">
+    <value>Less</value>
+  </data>
+  <data name="BtnLocationOverview_Text" xml:space="preserve">
+    <value>Go to warehouse overview</value>
+  </data>
+  <data name="BtnMore_Text" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="BtnOccupyMachine_Text" xml:space="preserve">
+    <value>Occupy machine with order</value>
+  </data>
+  <data name="BtnReleaseMachine_Text" xml:space="preserve">
+    <value>Release machine</value>
+  </data>
+  <data name="BtnReleaseQuant_Text" xml:space="preserve">
+    <value>Release Quant</value>
+  </data>
+  <data name="BtnRelocate_Text" xml:space="preserve">
+    <value>Relocate Quant</value>
+  </data>
+  <data name="BtnSearch_Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="BtnStart_Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
+    <value>Quant available</value>
+  </data>
+  <data name="BtnUpdate_Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ButtonNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ButtonYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Comment_Text" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="DateFrom_Text" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="DateTo_Text" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="DoPickingPivot_Header" xml:space="preserve">
+    <value>Order picking</value>
+  </data>
+  <data name="FacilityName_Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FacilityNo_Text" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="FacilityPivot_Header" xml:space="preserve">
+    <value>Storage Bin</value>
+  </data>
+  <data name="FacilitySearch_Text" xml:space="preserve">
+    <value>Enter Storage Bin No. or Name</value>
+  </data>
+  <data name="Filter_Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="InputMaterials_Header" xml:space="preserve">
+    <value>Input materials</value>
+  </data>
+  <data name="Input_Text" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="Intermediate_Text" xml:space="preserve">
+    <value>Intermediate Product</value>
+  </data>
+  <data name="InventoryPosNotAvailable_Text" xml:space="preserve">
+    <value>Not Available</value>
+  </data>
+  <data name="InventoryPosState_Text" xml:space="preserve">
+    <value>Inventory position state</value>
+  </data>
+  <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
+    <value>Zero Quantity</value>
+  </data>
+  <data name="InventoryState_Text" xml:space="preserve">
+    <value>Inventory state</value>
+  </data>
+  <data name="LightTheme_Text" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
+  <data name="LocationPivot_Header" xml:space="preserve">
+    <value>Storage Location</value>
+  </data>
+  <data name="LocationSearch_Text" xml:space="preserve">
+    <value>Enter Storage Location No. or Name </value>
+  </data>
+  <data name="LocationSelect_Text" xml:space="preserve">
+    <value>Select Storage Location</value>
+  </data>
+  <data name="LotPivot_Header" xml:space="preserve">
+    <value>Lot</value>
+  </data>
+  <data name="LotSearch_Text" xml:space="preserve">
+    <value>Enter Lot No.</value>
+  </data>
+  <data name="MaterialPivot_Header" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="MaterialSearch_Text" xml:space="preserve">
+    <value>Enter Material No. or Name</value>
+  </data>
+  <data name="NewStockQuantity_Text" xml:space="preserve">
+    <value>New Stock</value>
+  </data>
+  <data name="Output_Text" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="PartslistName_Label" xml:space="preserve">
+    <value>Bill of material name</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PickingPosPivot_Header" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="PosState_Text" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="PostingFCPivot_Header" xml:space="preserve">
+    <value>Posting</value>
+  </data>
+  <data name="ProdOrderInOutBookingHistory_Header" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="ProdOrderInOutBooking_Header" xml:space="preserve">
+    <value>Posting</value>
+  </data>
+  <data name="ProdOrderInOutInfo_Header" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="QuantPivot_Header" xml:space="preserve">
+    <value>Quants</value>
+  </data>
+  <data name="ScanBarcodePivot_Header" xml:space="preserve">
+    <value>Barcode/RFID</value>
+  </data>
+  <data name="SelectBatch_Text" xml:space="preserve">
+    <value>Select the target batch:</value>
+  </data>
+  <data name="SelectIntermediate_Text" xml:space="preserve">
+    <value>Select the intermediate product:</value>
+  </data>
+  <data name="SelectPartslist_Text" xml:space="preserve">
+    <value>or select the Bill of material:</value>
+  </data>
+  <data name="SelectTargetFacility_Text" xml:space="preserve">
+    <value>or select the target storage:</value>
+  </data>
+  <data name="StockQuantity_Text" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="SumBlockedAbsolute_Text" xml:space="preserve">
+    <value>Sum Blocked Abs.</value>
+  </data>
+  <data name="SumBlocked_Text" xml:space="preserve">
+    <value>Sum Blocked</value>
+  </data>
+  <data name="SumFree_Text" xml:space="preserve">
+    <value>Sum Free</value>
+  </data>
+  <data name="SumTotal_Text" xml:space="preserve">
+    <value>Sum Total</value>
+  </data>
+  <data name="TimeRangeFilter_Header" xml:space="preserve">
+    <value>Timerange</value>
+  </data>
+  <data name="UseMockDataStore_Text" xml:space="preserve">
+    <value>Use Offline-Demodata</value>
+  </data>
+  <data name="Username_Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="IPlusBackendUrl_Text" xml:space="preserve">
+    <value>iPlus Url</value>
+  </data>
+  <data name="WarehousePivot_Header" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="ZXingOverlay_Text" xml:space="preserve">
+    <value>Fully position barcode on line</value>
+  </data>
+  <data name="ValidateAndComplete_Text" xml:space="preserve">
+    <value>Validate and complete</value>
+  </data>
+  <data name="GoAndCount_Text" xml:space="preserve">
+    <value>1. Go and count</value>
+  </data>
+  <data name="ViewOpenLines_Text" xml:space="preserve">
+    <value>2. View open lines</value>
+  </data>
+  <data name="FC_NotExist_Text" xml:space="preserve">
+    <value>Quant not exist!</value>
+  </data>
+  <data name="FC_Match_Text" xml:space="preserve">
+    <value>Quant matches the inventory line.</value>
+  </data>
+  <data name="FC_NotMatch_Text" xml:space="preserve">
+    <value>Scaned quant (ID: {0}) not match selected (ID: {1})!</value>
+  </data>
+  <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
+    <value>The quant is not available! Get the quant back into stock if there is physical inventory.</value>
+  </data>
+  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
+    <value>Quant is available on different Faciltiy: {0}!</value>
+  </data>
+  <data name="FC_QuantAlreadyFinished" xml:space="preserve">
+    <value>Quant was already counted.</value>
+  </data>
+  <data name="Btn_AddQuantToStock" xml:space="preserve">
+    <value>Add quant to stock</value>
+  </data>
+  <data name="Btn_EditQuantAgain" xml:space="preserve">
+    <value>Edit again</value>
+  </data>
+  <data name="Inv_SelectStorage" xml:space="preserve">
+    <value>Inventory - select storage location / bin</value>
+  </data>
+  <data name="Inv_EditLine" xml:space="preserve">
+    <value>Inventory - Edit line</value>
+  </data>
+  <data name="Inv_EditLineS" xml:space="preserve">
+    <value>Inventory - Search Line</value>
+  </data>
+  <data name="Inv_OpenPositions" xml:space="preserve">
+    <value>Inventory - open positions</value>
+  </data>
+  <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
+    <value>Barcode sequence already have scanned code!</value>
+  </data>
+  <data name="SelPickingType_Text" xml:space="preserve">
+    <value>Select picking type</value>
+  </data>
+  <data name="Btn_ShowPickingOrders" xml:space="preserve">
+    <value>Show orders</value>
+  </data>
+  <data name="FromStorageLocation_Text" xml:space="preserve">
+    <value>From storage location</value>
+  </data>
+  <data name="ToStorageLocation_Text" xml:space="preserve">
+    <value>To storage location</value>
+  </data>
+  <data name="Btn_GroupByMaterial" xml:space="preserve">
+    <value>Show grouped by materail</value>
+  </data>
+  <data name="PickingByMaterial_Header" xml:space="preserve">
+    <value>Grouped by material</value>
+  </data>
+  <data name="EmptyBarcodeEntity_Text" xml:space="preserve">
+    <value>Barcode entity is empty! Please scan first.</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQF_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan a quant or storage place!</value>
+  </data>
+  <data name="PickingWrongBarcodeEntityQ_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan a quant!</value>
+  </data>
+  <data name="PickingWrongMaterial_Text" xml:space="preserve">
+    <value>Material of the quant does not match the material of the picking position!</value>
+  </data>
+  <data name="PrintCopies_Question" xml:space="preserve">
+    <value>How many label copies do you want to print?</value>
+  </data>
+  <data name="BtnFinishOrder" xml:space="preserve">
+    <value>Finish order</value>
+  </data>
+  <data name="ChangePostingQ_Text" xml:space="preserve">
+    <value>Change the posting quantity:</value>
+  </data>
+  <data name="OrderFinished_Text" xml:space="preserve">
+    <value>Order is finished!</value>
+  </data>
+  <data name="PickingBookSuccAndPrint_Question" xml:space="preserve">
+    <value>The posting was successful. Please print labels now and stick them on the material. How many labels do you want to print?</value>
+  </data>
+  <data name="PositionDetail_Header" xml:space="preserve">
+    <value>Position detail</value>
+  </data>
+  <data name="PostingQInsufficient_Question" xml:space="preserve">
+    <value>The posting quantity is insufficient. Are sure that you want to continue?</value>
+  </data>
+  <data name="PostingSuccesful_Text" xml:space="preserve">
+    <value>The posting was successful.</value>
+  </data>
+  <data name="PrintFBCMissing_Text" xml:space="preserve">
+    <value>The stock movement line (posting line) coudn't be found for printing.</value>
+  </data>
+  <data name="PrintQuantMissing_Text" xml:space="preserve">
+    <value>The quant coudn't be found for printing.</value>
+  </data>
+  <data name="AssignedPrinter_Label" xml:space="preserve">
+    <value>Assigned printer:</value>
+  </data>
+  <data name="BtnAssignPrinter_Text" xml:space="preserve">
+    <value>Assign printer</value>
+  </data>
+  <data name="ExploreStorage_Text" xml:space="preserve">
+    <value>Explore storage</value>
+  </data>
+  <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
+    <value>Search only in list (filter list)</value>
+  </data>
+  <data name="SelectFacility_Text" xml:space="preserve">
+    <value>Select a store</value>
+  </data>
+  <data name="WarehousePositions_Text" xml:space="preserve">
+    <value>Warehouse positions</value>
+  </data>
+  <data name="BtnApply_Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="StorageLocationSortPriority_Text" xml:space="preserve">
+    <value>Storage location priority:</value>
+  </data>
+  <data name="StorageLocationsSortInfo_Text" xml:space="preserve">
+    <value>Mark storage locations that are relevant for sort:</value>
+  </data>
+  <data name="ExitHint_Text" xml:space="preserve">
+    <value>Tap again to exit iPlus Mobile</value>
+  </data>
+  <data name="Btn_FindMaterialInWarehouse" xml:space="preserve">
+    <value>Find material in the warehouse</value>
+  </data>
+  <data name="StorageLocations_Text" xml:space="preserve">
+    <value>Storage locations</value>
+  </data>
+  <data name="PickingRelocationScanFacilityCharge_Text" xml:space="preserve">
+    <value>Ok. Scan now quant that you want relocate.</value>
+  </data>
+  <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
+    <value>Ok. Post now or scan the storage place where you want to relocate.</value>
+  </data>
+  <data name="PostingQuantity_Text" xml:space="preserve">
+    <value>Posting Q:</value>
+  </data>
+  <data name="QuantDiffQuantity_Text" xml:space="preserve">
+    <value>Quant diff. Q:</value>
+  </data>
+  <data name="About_Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="LoginError_Text" xml:space="preserve">
+    <value>Coudn't connect to iPlus-Service. Please check if iPlus-Service is running or you network and firewal settings.</value>
+  </data>
+  <data name="LoginFail_Text" xml:space="preserve">
+    <value>Login failed!</value>
+  </data>
+  <data name="LoginRequestActive_Text" xml:space="preserve">
+    <value>Previous Login-Request is still active. Please wait for response!</value>
+  </data>
+  <data name="PickingByMaterialWarning_Text" xml:space="preserve">
+    <value>Order picking grouped by material is only recommended with the picking type filter selected!</value>
+  </data>
+  <data name="RelocatedQuantDataMissing_Text" xml:space="preserve">
+    <value>Posting was successful but data for relocated quant couldn't be retrieved! Please go to warehouse overview then scan the storage place, select the relocated quant and print label manually!</value>
+  </data>
+  <data name="BtnSplitQuant_Text" xml:space="preserve">
+    <value>Split quant</value>
+  </data>
+  <data name="AlreadAddedItem_Text" xml:space="preserve">
+    <value>The item with scanned barcode is already in the list. Do you still want add item?</value>
+  </data>
+  <data name="DifferentExpDateInList_Text" xml:space="preserve">
+    <value>The scanned item has different expiration date that items in the list. It's only allowed sum items with same expiration date.</value>
+  </data>
+  <data name="DifferentLotInList_Text" xml:space="preserve">
+    <value>The scanned item has different LOT that items in the list. It's only allowed sum items with same LOT number.</value>
+  </data>
+  <data name="NetWeightParseError_Text" xml:space="preserve">
+    <value>The neto weight cannot be parsed.</value>
+  </data>
+  <data name="AvailabilityFCPivotItem" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="Available_Text" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="QuantRelocation_Text" xml:space="preserve">
+    <value>Quant relocation</value>
+  </data>
+  <data name="QuantSplitNo_Text" xml:space="preserve">
+    <value>Enter the split number:</value>
+  </data>
+  <data name="QuantSplit_Text" xml:space="preserve">
+    <value>Quant split</value>
+  </data>
+  <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
+    <value>Select target facility location/bin</value>
+  </data>
+  <data name="Spent_Text" xml:space="preserve">
+    <value>Not available (spent, relocated,...)</value>
+  </data>
+  <data name="StockCorrectionReason_Text" xml:space="preserve">
+    <value>Correction reason:</value>
+  </data>
+  <data name="StockCorrection_Text" xml:space="preserve">
+    <value>Stock correction</value>
+  </data>
+  <data name="BtnCreateQuant" xml:space="preserve">
+    <value>Create quant</value>
+    <comment>s</comment>
+  </data>
+  <data name="FacilityNotSelected_Text" xml:space="preserve">
+    <value>The facility is not selected. Please, select or scan facility.</value>
+  </data>
+  <data name="MaterialNotSelected_Text" xml:space="preserve">
+    <value>The material is not selected. Please, select material.</value>
+  </data>
+  <data name="NewQuant_Text" xml:space="preserve">
+    <value>New quant</value>
+  </data>
+  <data name="BtnBookAndFinish_Text" xml:space="preserve">
+    <value>Post and finish</value>
+  </data>
+  <data name="PickingOrders_Text" xml:space="preserve">
+    <value>Picking orders</value>
+  </data>
+  <data name="QuantActivationDeactivation_Text" xml:space="preserve">
+    <value>Quant activation/deactivation</value>
+  </data>
+  <data name="RegisterToWorkplace_Text" xml:space="preserve">
+    <value>Register to picking workplace:</value>
+  </data>
+  <data name="ScanQuantActDeact_Text" xml:space="preserve">
+    <value>Scan a quant for activation or deactivation.</value>
+  </data>
+  <data name="WrongScanWorkplace_Text" xml:space="preserve">
+    <value>Wrong scan. Please scan a workplace.</value>
+  </data>
+  <data name="ActIsNotSuccessful_Text" xml:space="preserve">
+    <value>Activation/deactivation is not successful.</value>
+  </data>
+  <data name="ActiveFC_Text" xml:space="preserve">
+    <value>Active quant:</value>
+  </data>
+  <data name="ActSuccessful_Text" xml:space="preserve">
+    <value>Activation is successful.</value>
+  </data>
+  <data name="BtnActivate_Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="BtnDeactivate_Text" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="ChooseGroup_Text" xml:space="preserve">
+    <value>Choose group:</value>
+  </data>
+  <data name="DeactSuccessful_Text" xml:space="preserve">
+    <value>Deactivation is successful.</value>
+  </data>
+  <data name="ScanFCActivate_Text" xml:space="preserve">
+    <value>Please scan a quant for activation or deactivation.</value>
+  </data>
+  <data name="ScanFCToActivate_Text" xml:space="preserve">
+    <value>A quant must be scanned!</value>
+  </data>
+  <data name="ScannedFCIsNotReq_Text" xml:space="preserve">
+    <value>Scanned quant is not currently required!</value>
+  </data>
+  <data name="WorkplaceEmpty_Text" xml:space="preserve">
+    <value>Workplace is empty.</value>
+  </data>
+  <data name="WrongMaterial_Text" xml:space="preserve">
+    <value>Wrong quant is scanned, please scan the quant with right material.</value>
+  </data>
+  <data name="BtnEnterACMParams_Text" xml:space="preserve">
+    <value>Enter production data</value>
+  </data>
+  <data name="ACMethodParamPivot_Header" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="ACMethodResultPivot_Header" xml:space="preserve">
+    <value>Actual values</value>
+  </data>
+  <data name="ScanFActivate_Text" xml:space="preserve">
+    <value>A storage place must be scanned!</value>
+  </data>
+  <data name="BtnTakeQuantityNegative" xml:space="preserve">
+    <value>Take quantity negative</value>
+  </data>
+  <data name="BtnTakeQuantityPositive" xml:space="preserve">
+    <value>Take quantity positive</value>
+  </data>
+  <data name="QuantIsNotAvailableCheck" xml:space="preserve">
+    <value>Quant is not available. Please check are you scan correct quant.</value>
+  </data>
+  <data name="BookAndFinishPickingError_Text" xml:space="preserve">
+    <value>The following quants are not registered or have problem:</value>
+  </data>
+  <data name="ReleaseMachine_Question" xml:space="preserve">
+    <value>Are you sure that you want RELEASE machine? If you are, then enter number 1 and confirm to release machine.</value>
+  </data>
+  <data name="Correction_Text" xml:space="preserve">
+    <value>Correction</value>
+  </data>
+  <data name="Relocation_Text" xml:space="preserve">
+    <value>Relocation</value>
+  </data>
+  <data name="Correct_Text" xml:space="preserve">
+    <value>Correct</value>
+  </data>
+  <data name="Reassign_Text" xml:space="preserve">
+    <value>Reassign</value>
+  </data>
+  <data name="Relocate_Text" xml:space="preserve">
+    <value>Relocate</value>
+  </data>
+  <data name="State_Text" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="ChooseNewMaterail_Text" xml:space="preserve">
+    <value>Choose new material:</value>
+  </data>
+  <data name="MaterialReassign_Text" xml:space="preserve">
+    <value>Material reassign</value>
+  </data>
+  <data name="ReassignRelocate_Text" xml:space="preserve">
+    <value>Reassign and relocate</value>
+  </data>
+  <data name="ReassignRelocation_Text" xml:space="preserve">
+    <value>Reassign and relocation</value>
+  </data>
+  <data name="PostingReason_Text" xml:space="preserve">
+    <value>Posting reason</value>
+  </data>
+  <data name="Btn_PauseOrderOnMachine" xml:space="preserve">
+    <value>Pause order on machine</value>
+  </data>
+  <data name="BtnProportionallyAnotherComp_Text" xml:space="preserve">
+    <value>Proportionally first comp.</value>
+  </data>
+  <data name="BtnQuantQuantity_Text" xml:space="preserve">
+    <value>Quant quantity</value>
+  </data>
+  <data name="QuantityFromQuant_Text" xml:space="preserve">
+    <value>Are you sure that you want take posting quantity from quant?</value>
+  </data>
+  <data name="QuantQIsLess_Text" xml:space="preserve">
+    <value>The quant quantity is less than posting quantity. Are you sure that you want continue with posting?</value>
+  </data>
+  <data name="TakeBookingQuantity_Text" xml:space="preserve">
+    <value>Take quantity for posting:</value>
+  </data>
+  <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
+    <value>Maximum qunatity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings.</value>
+  </data>
+  <data name="TakeQQuantity_Text" xml:space="preserve">
+    <value>Take quant quantity</value>
+  </data>
+  <data name="SplitNo_Text" xml:space="preserve">
+    <value>Split no.</value>
+  </data>
+  <data name="CheckQuant_Text" xml:space="preserve">
+    <value>Check quant</value>
+  </data>
+</root>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Class="gip.vb.mobile.Views.BSOInventoryMode"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="PageBSOInventoryMode">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <i18n:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+        <StackLayout Orientation="Vertical" Grid.Row="2" IsVisible="{Binding ScanInventoryModel.ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+            <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
+            <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
+                <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
+                <Button x:Name="cmdClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked_1" />
+            </StackLayout>
+        
+            <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
+            <CheckBox IsChecked="{Binding IsValidateAndComplete}" />
+            <Button x:Name="GoAndCount" Text="{i18n:Translate Text=GoAndCount_Text}" Clicked="GoAndCount_Clicked"  IsEnabled="{Binding IsEnabledModeMoveForward}"/>
+            <Button x:Name="ViewOpenLines" Text="{i18n:Translate Text=ViewOpenLines_Text}" Clicked="ViewOpenLines_Clicked" IsEnabled="{Binding IsEnabledModeMoveForward}"/>
+        </StackLayout>
+    </Grid>
+</v:BSOPageBase>

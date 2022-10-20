@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOPickingDetail"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="{Binding Title}">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </v:BSOPageBase.ToolbarItems>
+    <StackLayout>
+        <!--<Label Text="Text:" FontSize="Medium" />
+        <Label Text="{Binding Item.PickingNo}" FontSize="Small"/>
+        <Label Text="Description:" FontSize="Medium" />-->
+        <Label Text="{Binding Item.DeliveryDateFrom}" Style="{StaticResource LabelForData}"/>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="PickingPosListView"
+                ItemsSource="{Binding Item.PickingPosObservable}"
+                ItemTemplate="{StaticResource PickingPosItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                ItemSelected="PickingPosListView_ItemSelected"
+                ItemTapped="PickingPosListView_ItemTapped"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                RefreshCommand="{Binding UpdatePickingCommand}">
+        </ListView>
+
+        <Button x:Name="btnFinishOrder" HeightRequest="45" Margin="0,5,0,5" Clicked="btnFinishOrder_Clicked" />
+    </StackLayout>
+</v:BSOPageBase>

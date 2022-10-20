@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilitySortInfoOverLocation"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:vb="clr-namespace:gip.vb.mobile.Controls"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="FacilitySelector">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3" />
+            <RowDefinition />
+            <RowDefinition Height="3"  />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="3" />
+        </Grid.ColumnDefinitions>
+        <BoxView Grid.RowSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.Column="2" Grid.RowSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.ColumnSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <BoxView Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="{DynamicResource SecondaryTextColor}" />
+        <Grid Grid.Row="1" Grid.Column="1" BackgroundColor="{DynamicResource PageBackgroundColor}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="2" />
+            </Grid.RowDefinitions>
+            <BoxView BackgroundColor="{DynamicResource SecondaryPageBackgroundColor}" />
+            <Label Text="{i18n:Translate Text=StorageLocations_Text}" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Subtitle" />
+
+            <StackLayout Grid.Row="1">
+
+                <Label x:Name="StorageLocationSortInfo" Text="{i18n:Translate Text=StorageLocationsSortInfo_Text}" />
+
+                <CollectionView x:Name="StorageLocationList" ItemsSource="{Binding AvailableStorageLocations}"
+                        SelectedItems="{Binding SelectedStorageLocations, Mode=TwoWay}" SelectionMode="Multiple">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <vb:ExtendedGrid VerticalOptions="Start" Margin="2,2,2,2">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="VisualState" Value="Normal" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected" >
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                                                <Setter Property="VisualState" Value="Selected" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,2,0,0" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4">
+                                    <BoxView.Triggers>
+                                        <DataTrigger TargetType="{x:Type BoxView}" 
+                                                     Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vb:ExtendedGrid}}, Path=VisualState}"
+                                                     Value="Selected">
+                                            <Setter Property="Color" Value="LimeGreen" />
+                                        </DataTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding FacilityNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding FacilityName}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
+                            </vb:ExtendedGrid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+
+            <Button Grid.Row="2"  x:Name="btnApply" Text="{i18n:Translate Text=BtnApply_Text}" Clicked="btnApply_Clicked" />
+        </Grid>
+    </Grid>
+</v:BSOPageBase>

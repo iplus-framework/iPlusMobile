@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+               xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+               xmlns:zxing="clr-namespace:ZXing.Net.Maui;assembly=ZXing.Net.Maui"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vbm.mobile.Views.BSOBarcodeTasksManu">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
+        </ToolbarItem>
+        <!--<ToolbarItem x:Name="SearchTBItem" Order="Primary" Priority="0" Text="Search" Clicked="SearchTBItem_Clicked"  IconImageSource="position_search.png">
+        </ToolbarItem>-->
+    </v:BSOPageBase.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+
+            <ctl:BarcodeScannerView Grid.Row="1" VerticalOptions="CenterAndExpand"
+                    x:Name="barcodeScanner" 
+                    BarcodeIssuer="Production"
+                    BarcodeServiceMethod="UseBarcodeSequences"
+                    OnBarcodeEntityTapped="barcodeScanner_OnBarcodeEntityTapped" />
+
+            <Grid x:Name="BgPAnel" Grid.Row="2">
+                <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
+                    <Label x:Name="ScanMessageLabel" Text="{Binding ExchangedBarcodeSeq.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="ScanAgain">
+                                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Completed">
+                                <Setter Property="TextColor" Value="Lime" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Cancelled">
+                                <Setter Property="TextColor" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Question">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</v:BSOPageBase>

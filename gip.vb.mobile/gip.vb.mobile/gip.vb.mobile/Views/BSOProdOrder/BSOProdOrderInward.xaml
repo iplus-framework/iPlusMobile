@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOProdOrderInOutBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOProdOrderInward"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BarBackgroundColor="{DynamicResource NavigationBarColor}"
+             BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding Title}"
+             CurrentPageChanged="BSOTabbedPageBase_CurrentPageChanged">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconRefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+        <ToolbarItem x:Name="TBPrint" Order="Primary" Priority="1" Text="Print" Clicked="TabPrint_Clicked"  IconImageSource="Print.png">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <!--<v:BSOPageBase x:Name="ProdOrderInOutDetails" Title="{i18n:Translate Text=ProdOrderInOutInfo_Header}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding IntermOrIntermBatch.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding IntermOrIntermBatch.Material.MaterialName1}" Style="{StaticResource LabelForData}"/>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding IntermOrIntermBatch.TargetQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding IntermOrIntermBatch.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                </StackLayout>
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding IntermOrIntermBatch.ActualQuantity}" Style="{StaticResource LabelForData}"/>
+                    <Label Text="{Binding IntermOrIntermBatch.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>-->
+    <v:BSOPageBase x:Name="ProdOrderInOutBooking" Title="{i18n:Translate Text=ProdOrderInOutBooking_Header}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"/>
+                <Label Text="{i18n:Translate Text=SelectTargetFacility_Text}" Style="{StaticResource LabelForDesc}" />
+                <ListView  x:Name="TargetFacilities" ItemsSource="{Binding TargetFacilities}"  SelectedItem="{Binding CurrentFacility, Mode=TwoWay}"
+                        IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
+                        ItemTemplate="{StaticResource ProdOrderTargetFacilities}"
+                        HasUnevenRows="true"
+                        RefreshCommand="{Binding LoadBarcodeEntityCommand}"
+                        IsPullToRefreshEnabled="false"
+                        IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
+
+                <Label Text="{i18n:Translate Text=PostingReason_Text}" />
+                <StackLayout Orientation="Horizontal">
+                    <Picker ItemsSource="{Binding MovementReasons}" ItemDisplayBinding="{Binding MDMovementReasonName}" HorizontalOptions="FillAndExpand" SelectedItem="{Binding SelectedMovementReason}"  />
+                    <Button x:Name="cmdClearMovementReason" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearMovementReason_Clicked" />
+                </StackLayout>
+
+                <BoxView HeightRequest="30" />
+
+                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                <ctl:NumericEntry x:Name="BookingQuantity" 
+                                  TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
+                                  Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                    </Entry.Behaviors>
+                </ctl:NumericEntry>
+                
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=SplitNo_Text}" VerticalTextAlignment="Center" />
+                    <BoxView WidthRequest="5" />
+                    <ctl:NumericEntry x:Name="SplitNo" 
+                                      TextNumeric="{Binding InwardSplitNo, Mode=TwoWay}" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"
+                                      Keyboard="Numeric">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                </StackLayout>
+
+                <StackLayout HeightRequest="50" Orientation="Horizontal">
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding IntermOrIntermBatch.TargetQuantity}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center" />
+                        <Label Text="{Binding IntermOrIntermBatch.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center"
+                           Margin="15,0,0,0" />
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="{Binding IntermOrIntermBatch.ActualQuantity}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center" />
+                        <Label Text="{Binding IntermOrIntermBatch.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                </StackLayout>
+                
+                <Button x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked"/>
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="ProdOrderInOutHistory" Title="{i18n:Translate Text=ProdOrderInOutBookingHistory_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+                     HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+</v:BSOProdOrderInOutBase>

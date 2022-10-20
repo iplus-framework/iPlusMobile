@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOPickingDetail"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="{Binding Title}">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemRefresh" Order="Primary" Priority="0" Text="Refresh" IconImageSource="naviconrefresh.png" Clicked="TBItemRefresh_Clicked">
+        </ToolbarItem>
+    </v:BSOPageBase.ToolbarItems>
+    <StackLayout>
+        <Label Text="{Binding PickingItem.DeliveryDateFrom}" Style="{StaticResource LabelForData}"/>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="PickingPosListView"
+                ItemsSource="{Binding PickingItem.PickingPosObservable}"
+                ItemTemplate="{StaticResource PickingPosItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                ItemSelected="PickingPosListView_ItemSelected"
+                ItemTapped="PickingPosListView_ItemTapped"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsBusy}"
+                RefreshCommand="{Binding UpdatePickingCommand}">
+        </ListView>
+
+        <Button x:Name="btnFinishOrder" HeightRequest="45" Margin="0,5,0,5" Clicked="btnFinishOrder_Clicked" />
+    </StackLayout>
+</v:BSOPageBase>

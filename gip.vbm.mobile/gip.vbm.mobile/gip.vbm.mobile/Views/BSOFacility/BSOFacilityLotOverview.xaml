@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+               xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               BarBackgroundColor="{DynamicResource NavigationBarColor}"
+               BarTextColor="{DynamicResource NavigationBarTextColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vbm.mobile.Views.BSOFacilityLotOverview">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemHistory" Order="Primary" Priority="0" Text="History" Clicked="TBItemHistory_Clicked" IconImageSource="naviconhistory.png">
+        </ToolbarItem>
+        <ToolbarItem x:Name="TBItemQuant" Order="Primary" Priority="1" Text="Quant" IconImageSource="naviconquant.png" Clicked="TBItemQuant_Clicked">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase x:Name="FacilityPivotItem" Title="{i18n:Translate Text=FacilityPivot_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.FacilitySum}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=FacilityNo}" PropertyName="FacilityNo" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=FacilityName}" PropertyName="FacilityName" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumTotal}" PropertyName="SumTotal" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumBlocked}" PropertyName="SumBlocked" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumBlockedAbsolute}" PropertyName="SumBlockedAbsolute" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumFree}" PropertyName="SumFree" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="LocationPivotItem" Title="{i18n:Translate Text=LocationPivot_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.FacilityLocationSum}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=FacilityNo}" PropertyName="FacilityNo" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=FacilityName}" PropertyName="FacilityName" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=SumTotal}" PropertyName="SumTotal" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=SumBlocked}" PropertyName="SumBlocked" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=SumBlockedAbsolute}" PropertyName="SumBlockedAbsolute" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=SumFree}" PropertyName="SumFree" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="LotPivotItem" Title="{i18n:Translate Text=MaterialPivot_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.MaterialSum}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumMaterialHelper, Text=MaterialNo}" PropertyName="MaterialNo" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumMaterialHelper, Text=MaterialName}" PropertyName="MaterialName" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumTotal}" PropertyName="SumTotal" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumBlocked}" PropertyName="SumBlocked" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumBlockedAbsolute}" PropertyName="SumBlockedAbsolute" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=SumFree}" PropertyName="SumFree" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="QuantPivotItem" Title="{i18n:Translate Text=QuantPivot_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.FacilityCharges}" SelectedItem="{Binding SelectedFacilityCharge}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" PropertyName="Material.MaterialName1" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" PropertyName="Facility.FacilityName" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=SplitNo}" PropertyName="SplitNo"  />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=StockQuantity}" PropertyName="StockQuantity" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

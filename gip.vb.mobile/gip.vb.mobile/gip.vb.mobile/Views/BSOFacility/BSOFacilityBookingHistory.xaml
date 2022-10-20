@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOFacilityBookingHistory"
+             xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BarBackgroundColor="{DynamicResource NavigationBarColor}"
+             BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding Title}"
+             x:Name="TabRoot">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:StringFormatConverter x:Key="StringFormat"/>
+            <hp:DecimalConverter x:Key="DecimalConverter" />
+            <hp:DoubleConverter x:Key="DoubleConverter" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOPageBase x:Name="TimeRangePivotItem" Title="{i18n:Translate Text=TimeRangeFilter_Header}">
+        <ScrollView Orientation="Vertical">
+            <StackLayout>
+                <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+                <Label Style="{StaticResource LabelForDesc}" HorizontalTextAlignment="Start" Margin="0,10,0,0" Text="{i18n:Translate Text=DateFrom_Text}" />
+                <DatePicker x:Name="FilterDateFrom" Date="{Binding FilterDateFrom, Mode=TwoWay}" />
+                <TimePicker x:Name="FilterTimeFrom" Time="{Binding FilterTimeFrom, Mode=TwoWay}" Margin="0,3,0,0" />
+                <Label Style="{StaticResource LabelForDesc}" HorizontalTextAlignment="Start" Margin="0,10,0,0" Text="{i18n:Translate Text=DateTo_Text}" />
+                <DatePicker x:Name="FilterlDateTo" Date="{Binding FilterDateTo, Mode=TwoWay}" />
+                <TimePicker x:Name="FilterTimeTo" Time="{Binding FilterTimeTo, Mode=TwoWay}" Margin="0,3,0,0" />
+                <Button x:Name="ButtonFilter" Text="{i18n:Translate Text=BtnSearch_Text}" Clicked="ButtonFilter_Clicked" />
+            </StackLayout>
+        </ScrollView>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="BookingHistoryPivotItem" Title="{i18n:Translate Text=BookingHistory_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=MergedMaterialNo}" PropertyName="MergedMaterialNo" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=MergedFacilityNo}" PropertyName="MergedFacilityNo" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingOverview, Text=MergedFacilityChargeLotNo}" PropertyName="MergedFacilityChargeLotNo" Width="1*"/>
+                <dg:DataGridColumn Title="?" PropertyName="Sign" Width="10"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=MergedQuantityUOM}" PropertyName="MergedQuantityUOM" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="BookingHistoryPivotItem2" Title="{i18n:Translate Text=BookingHistory_Header}">
+        <dg:DataGrid ItemsSource="{Binding Overview.Postings}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=MergedMaterialNo}" PropertyName="MergedMaterialNo" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingOverview, Text=MergedFacilityNo}" PropertyName="MergedFacilityNo" Width="1*"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingOverview, Text=MergedFacilityChargeLotNo}" PropertyName="MergedFacilityChargeLotNo" Width="1*"/>
+                <dg:DataGridColumn Title="?" PropertyName="Sign" Width="10"/>
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingOverview, Text=MergedQuantityUOM}" PropertyName="MergedQuantityUOM" StringFormat="{}{0:0.0}" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

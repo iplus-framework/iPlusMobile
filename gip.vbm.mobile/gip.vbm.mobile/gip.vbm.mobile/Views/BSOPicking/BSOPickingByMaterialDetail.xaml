@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOTabbedPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vbm.mobile.Views.BSOPickingByMaterialDetail"
+             xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
+             xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BarBackgroundColor="{DynamicResource NavigationBarColor}"
+             BarTextColor="{DynamicResource NavigationBarTextColor}"
+             Title="{Binding Title}">
+    <v:BSOTabbedPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOTabbedPageBase.Resources>
+    <v:BSOTabbedPageBase.ToolbarItems>
+        <ToolbarItem x:Name="CameraScanTBItem" Order="Primary" Priority="0" Text="Camera" Clicked="CameraScanTBItem_Clicked"  IconImageSource="naviconcamera.png">
+        </ToolbarItem>
+    </v:BSOTabbedPageBase.ToolbarItems>
+    <v:BSOPageBase x:Name="DoPickingMaterial" Title="{i18n:Translate Text=DoPickingPivot_Header}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="1">
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                        <Label Grid.Row="1" Text="{Binding PickingMaterialItem.Material.MaterialNo}" Style="{StaticResource LabelForData}"/>
+                        
+                        <Label Grid.Row="2" Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Row="3" Orientation="Horizontal">
+                            <Label Text="{Binding PickingMaterialItem.TotalQuantity}" Style="{StaticResource LabelForData}"/>
+                            <Label Text="{Binding PickingMaterialItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                        </StackLayout>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{i18n:Translate FullQName=gip.mes.webservices.PickingPos, Text=ActualQuantity}" 
+                               Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                            <Label Text="{Binding PickingMaterialItem.ActualQuantity}" Style="{StaticResource LabelForData}"/>
+                            <Label Text="{Binding PickingMaterialItem.MDUnit.MDUnitName}" Style="{StaticResource LabelForData}"/>
+                        </StackLayout>
+                    </Grid>
+
+                    <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                                x:Name="barcodeScanner" 
+                                BarcodeServiceMethod="DecodeEntity" />
+                </StackLayout>
+            </ScrollView>
+            <Button Grid.Row="2" x:Name="ButtonDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
+            <Button Grid.Row="4" x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
+        </Grid>
+    </v:BSOPageBase>
+    <v:BSOPageBase x:Name="PickingMaterialDetail" Title="{i18n:Translate Text=PositionDetail_Header}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+
+            <StackLayout>
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.Material.MaterialName1}" />
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.FacilityLot.LotNo}" />
+                <Label Text="{Binding WSBarcodeEntityResult.FacilityCharge.StockQuantity}" />
+            </StackLayout>
+
+            <StackLayout Grid.Column="1" >
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=PostingQuantity_Text}" />
+                    <Label Text="{Binding TotalBookingQantity}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=QuantDiffQuantity_Text}" />
+                    <Label x:Name="lblMissingQuantity" Text="{Binding MissingBookingQuantity}" />
+                </StackLayout>
+            </StackLayout>
+
+            <ctl:MsgLabel Grid.Row="1" Grid.ColumnSpan="2" Msg="{Binding Message}"  LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+            
+            <ListView x:Name="PickingsListView" Grid.Row="2" Grid.ColumnSpan="2"
+                    ItemsSource="{Binding PickingMaterialItem.PickingItems}"
+                    ItemTemplate="{StaticResource PickingMaterialItemPosTemplate}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="true"
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    CachingStrategy="RecycleElement"
+                    SelectedItem="{Binding SelectedPickingPos}"
+                    ItemTapped="PickingsListView_ItemTapped">
+            </ListView>
+            <Button Grid.Row="3" x:Name="ButtonDoBooking1" Grid.ColumnSpan="2" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="ButtonDoBooking_Clicked" />
+        </Grid>
+    </v:BSOPageBase>
+</v:BSOTabbedPageBase>

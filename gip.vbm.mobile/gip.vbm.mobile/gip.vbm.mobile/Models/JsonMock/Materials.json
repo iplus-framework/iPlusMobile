@@ -1,0 +1,126 @@
+{
+  "Data": [
+    {
+      "ID": "783e03b8-1655-4823-bac0-27eb47bbab5a",
+      "MNa1": "Powder 01",
+      "MNo": "001",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "01c70fe1-e8e0-4406-8058-2e9fb74fb8d6",
+      "MNa1": "Liquid 01",
+      "MNo": "101",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "205bcb4a-8524-4b37-bcc2-3731a86eba97",
+      "MNa1": "Powder 02",
+      "MNo": "002",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "8b6cafae-0dbd-4097-8263-3896ab58d771",
+      "MNa1": "Powder 04",
+      "MNo": "004",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "2e09e3b8-2495-426e-a211-6753002105fa",
+      "MNa1": "Finished product 01",
+      "MNo": "FW01",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "a0bcf546-cbdc-4485-8628-6d27e220bf3b",
+      "MNa1": "Manual Weighing",
+      "MNo": "_ZW01H",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "56500744-dc48-418d-b8b9-6ef2b7a2fe54",
+      "MNa1": "Powder 03",
+      "MNo": "003",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "e061624f-48a3-41b8-a14f-7ea0e421926c",
+      "MNa1": "Liquid 02",
+      "MNo": "102",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "ec3dc3a7-6ff4-4360-9c9c-aa0e0b875e21",
+      "MNa1": "Mixery Solids + Liquids",
+      "MNo": "_ZW02",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "3f58fa16-8526-44a0-b153-bf6eadd447bd",
+      "MNa1": "Mixery Endproduct",
+      "MNo": "_ZW03",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    },
+    {
+      "ID": "4342a5f9-53e8-4e84-bd39-ebebdfad5d29",
+      "MNa1": "Mixery solids",
+      "MNo": "_ZW01",
+      "MSQ": null,
+      "OSQ": null,
+      "xBU": {
+        "ID": "61cb0c56-40b3-4c6a-a583-a5d2a881415e",
+        "MDNT": "en{'kilogram'}de{'Kilogramm'}"
+      }
+    }
+  ],
+  "Message": null
+}

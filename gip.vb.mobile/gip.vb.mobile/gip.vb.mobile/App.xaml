@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+             xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+             x:Class="gip.vb.mobile.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="Themes/DarkTheme.xaml" />
+            <!--Global Styles-->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarColor}" />
+                <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="TabbedPage">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarColor}" />
+                <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="v:BSOTabbedPageBase">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarColor}" />
+                <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+            </Style>
+            <Style TargetType="Label" x:Key="LabelForDesc">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
+            </Style>
+            <Style TargetType="Label" x:Key="LabelForData">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="ctl:NumericEntry">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource SelectedBackgroundColor}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="TimePicker">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <!--<Style TargetType="CheckBox">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+            </Style>
+            <Style TargetType="RadioButton">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+            </Style>-->
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="SearchBar">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="PlaceholderColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="CancelButtonColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>
+            <Style TargetType="ctl:ExtendedViewCell">
+                <Setter Property="SelectedBackgroundColor" Value="{DynamicResource SelectedBackgroundColor}" />
+            </Style>
+            <!--<Style TargetType="Pivot">
+                <Setter Property="SelectedColor" Value="{DynamicResource SelectedTextColor}" />
+                <Setter Property="UnselectedColor"  Value="{DynamicResource ControlBackgroundColor}" />
+            </Style>-->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

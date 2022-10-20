@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+            xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+            xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+            BackgroundColor="{DynamicResource PageBackgroundColor}"
+            Title="{Binding Title}"
+            x:Class="gip.vbm.mobile.Views.BSOBarcodeTaskManuDetails">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+    <ContentPage.Content>
+        <Grid x:Name="BgPAnel">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Row="0" Grid.ColumnSpan="2">
+                <Label Text="{Binding ScannedMachine.ACClass.ACCaption, StringFormat='{0}  '}"  TextColor="Black" Margin="0,0,0,5" HorizontalTextAlignment="End">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="LightSteelBlue"/>
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding SelectedEntity.InfoState}" Value="10">
+                                    <Setter Property="BackgroundColor" Value="Lime" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrder, Text=ProgramNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedEntity.ProdOrderPartslist.ProdOrder.ProgramNo}" Margin="0,0,0,1" />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialNo}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedEntity.ProdOrderPartslist.Partslist.Material.MaterialNo}" Margin="0,0,0,1"  />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Material, Text=MaterialName1}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{Binding SelectedEntity.ProdOrderPartslist.Partslist.Material.MaterialName1}" Margin="0,0,0,1" />
+
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=StartDate}" Style="{StaticResource LabelForDesc}" />
+                <Label  Text="{Binding SelectedEntity.ProdOrderPartslist.StartDate, StringFormat='{0:dd.MM. HH:mm}'}" Margin="0,0,0,1" />
+
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,1">
+                            <Label Text="{Binding SelectedEntity.ProdOrderPartslist.TargetQuantity, StringFormat=' {0:0.#}'}" />
+                            <Label Text="{Binding SelectedEntity.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" >
+                        <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslist, Text=ActualQuantity}" Style="{StaticResource LabelForDesc}" />
+                        <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,0,1">
+                            <Label Text="{Binding SelectedEntity.ProdOrderPartslist.ActualQuantity, StringFormat=' {0:0.#}'}" />
+                            <Label Text="{Binding SelectedEntity.ProdOrderPartslist.Partslist.Material.BaseMDUnit.Symbol, StringFormat=' {0}'}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+                <Label Text="{Binding SelectedEntity.ProdOrderPartslist.Comment}" Margin="0,0,0,5" />
+
+
+                <Label x:Name="ScanMessageLabel" Text="{Binding ExchangedBarcodeSeq.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="ScanAgain">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Selection">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Completed">
+                            <Setter Property="TextColor" Value="Lime" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Cancelled">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Question">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+            </StackLayout>
+
+            
+
+            <Button Grid.Row="2" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnDoBooking" Text="{i18n:Translate Text=BtnDoBooking_Text}" Clicked="BtnDoBooking_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="3" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnEnterACMParams" Text="{i18n:Translate Text=BtnEnterACMParams_Text}" Clicked="BtnEnterACMParams_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="4" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnOccupyMachine" Text="{i18n:Translate Text=BtnOccupyMachine_Text}" Clicked="BtnOccupyMachine_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="4" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnReleaseMachine" Text="{i18n:Translate Text=BtnReleaseMachine_Text}" Clicked="BtnReleaseMachine_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="40" x:Name="BtnPauseOrderOnMachine" Text="{i18n:Translate Text=Btn_PauseOrderOnMachine}" Clicked="BtnPauseOrderOnMachine_Clicked"  />
+        </Grid>
+    </ContentPage.Content>
+</v:BSOPageBase>
