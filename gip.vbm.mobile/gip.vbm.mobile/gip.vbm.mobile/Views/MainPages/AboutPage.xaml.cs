@@ -10,7 +10,7 @@ namespace gip.vbm.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : BSOPageBase
     {
-        static int _AppearingCounter = 1;
+        static int _AppearingCounter = 0;
 
         internal AboutViewModel _ViewModel;
         public AboutPage()

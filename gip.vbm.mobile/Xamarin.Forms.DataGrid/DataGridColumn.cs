@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Microsoft.Maui;
 
 namespace Xamarin.Forms.DataGrid
@@ -43,11 +44,12 @@ namespace Xamarin.Forms.DataGrid
 						((DataGridColumn) b).HeaderLabel.Style = n as Style;
 				});
 
-		#endregion
+        #endregion
 
-		#region properties
+        #region properties
 
-		public GridLength Width
+        [TypeConverter(typeof(GridLengthTypeConverter))]
+        public GridLength Width
 		{
 			get => (GridLength) GetValue(WidthProperty);
 			set => SetValue(WidthProperty, value);

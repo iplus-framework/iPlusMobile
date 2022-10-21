@@ -40,8 +40,12 @@
     <AndroidResource Remove="Resources\Images\scanbarcodeicon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Controls\BindableRadioGroup.cs" />
+    <Compile Remove="Controls\CheckBox.cs" />
     <Compile Remove="Controls\ErrorControl.xaml.cs" />
     <Compile Remove="Controls\GridView.cs" />
+    <Compile Remove="Controls\ImageButton.cs" />
+    <Compile Remove="Controls\RadioButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Controls\ErrorControl.xaml" />

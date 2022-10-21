@@ -102,7 +102,8 @@ namespace gip.vbm.mobile.ViewModels
             DecodedEntitiesList = null;
             if (ExchangedBarcodeSeq != null)
             {
-                ExchangedBarcodeSeq.Sequence.Clear();
+                if (ExchangedBarcodeSeq.Sequence != null)
+                    ExchangedBarcodeSeq.Sequence.Clear();
                 ExchangedBarcodeSeq.State = ActionState.ScanAgain;
             }
             Message = null;
@@ -112,8 +113,12 @@ namespace gip.vbm.mobile.ViewModels
         {
             List<object> entityList = new List<object>();
             if (DecodedEntitiesList != null && DecodedEntitiesList.Any())
+            {
                 foreach (var item in DecodedEntitiesList)
+                {
                     entityList.Add(item);
+                }
+            }
             entityList.Add(validEntity);
             DecodedEntitiesList = entityList;
         }

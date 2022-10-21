@@ -7,7 +7,7 @@ namespace gip.vbm.mobile.Controls
 	/// <summary>
 	/// The check box.
 	/// </summary>
-	public class CheckBox : View
+	/*public class CheckBox : View
 	{
         /// <summary>
         /// The checked state property.
@@ -204,5 +204,5 @@ namespace gip.vbm.mobile.Controls
 			var checkBox = (CheckBox) bindable;
 			checkBox.IsChecked = (bool) newvalue;
 		}
-	}
+	}*/
 }

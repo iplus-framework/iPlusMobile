@@ -60,12 +60,34 @@ namespace gip.vbm.mobile.ViewModels.Inventory
         /// <summary>
         /// Inventory navigation argument
         /// </summary>
-        public InventoryNavArgument InventoryNavArgument { get; set; }
+        private InventoryNavArgument _InventoryNavArgument = null;
+        public InventoryNavArgument InventoryNavArgument 
+        {
+            get
+            {
+                return _InventoryNavArgument;
+            }
+            set
+            {
+                SetProperty<InventoryNavArgument>(ref _InventoryNavArgument, value);
+            }
+        }
 
         /// <summary>
         /// Copy barcode scanner model of use in Inventory line edit model
         /// </summary>
-        public BarcodeScanInventoryModel BarcodeScannerModel { get; set; }
+        private BarcodeScanInventoryModel _BarcodeScannerModel = null;
+        public BarcodeScanInventoryModel BarcodeScannerModel 
+        {
+            get
+            {
+                return _BarcodeScannerModel;
+            }
+            set
+            {
+                SetProperty<BarcodeScanInventoryModel>(ref _BarcodeScannerModel, value);
+            }
+        }
 
 
         #region Properties -> SelectedInventoryLine (and property change handle)
