@@ -18,9 +18,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-android|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+    <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-ios|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <ItemGroup>
     <AndroidResource Remove="Resources\Images\deleteicon.png" />
