@@ -31,10 +31,12 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
 	  <DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
+	  <EnableLLVM>True</EnableLLVM>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
 	  <DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
+	  <EnableLLVM>True</EnableLLVM>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
@@ -64,6 +66,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\gip.vbm.mobile\gip.vbm.mobile\gip.vbm.mobile.csproj" />
+	  <ProjectReference Include="..\ZXing.Net.Maui\ZXing.Net.MAUI.Controls\ZXing.Net.MAUI.Controls.csproj" />
+	  <ProjectReference Include="..\ZXing.Net.Maui\ZXing.Net.MAUI\ZXing.Net.MAUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -53,12 +53,14 @@
             <Style TargetType="Entry">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+                <Setter Property="Margin" Value="2,2,2,2" />
             </Style>
             <Style TargetType="ctl:NumericEntry">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular"/>
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="PlaceholderColor" Value="{DynamicResource SecondaryTextColor}" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -103,6 +105,7 @@
                 <Setter Property="TitleColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular"/>
                 <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -122,6 +125,7 @@
                 <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular"/>
                 <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -140,6 +144,7 @@
                 <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular"/>
                 <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -156,6 +161,7 @@
 
             <Style TargetType="CheckBox">
                 <Setter Property="Color" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -264,6 +270,7 @@
                 <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}" />
                 <Setter Property="FontFamily" Value="OpenSansRegular"/>
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="PlaceholderColor" Value="{DynamicResource SecondaryTextColor}" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -283,6 +290,7 @@
                 <Setter Property="PlaceholderColor" Value="{DynamicResource SecondaryTextColor}" />
                 <Setter Property="CancelButtonColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor"  Value="{DynamicResource ControlBackgroundColor}" />
+                <Setter Property="Margin" Value="2,2,2,2" />
                 <Setter Property="FontFamily" Value="OpenSansRegular" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="VisualStateManager.VisualStateGroups">

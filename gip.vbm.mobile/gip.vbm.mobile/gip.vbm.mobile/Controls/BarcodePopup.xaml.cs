@@ -1,13 +1,26 @@
 using CommunityToolkit.Maui.Views;
 using ZXing.Net.Maui;
+using ZXing.Net.Maui.Controls;
 
 namespace gip.vbm.mobile.Controls;
+
+//public class MyCameraBarcodeReaderView : CameraBarcodeReaderView
+//{
+//    public CameraBarcodeReaderViewHandler CameraHandler => base.Handler as CameraBarcodeReaderViewHandler;
+
+//    public void DeactivateCamera()
+//    {
+//        //CameraHandler.dis
+//    }
+//}
 
 public partial class BarcodePopup : Popup
 {
 	public BarcodePopup()
 	{
-		InitializeComponent();
+        //CameraBarcodeReaderView
+
+        InitializeComponent();
         scanView.Options = new BarcodeReaderOptions
         {
             AutoRotate = false,
@@ -50,6 +63,7 @@ public partial class BarcodePopup : Popup
         {
             Task.Run(() =>
             {
+                scanView?.DisconnectCamera();
                 Close(_Results);
             });
         }
@@ -57,6 +71,7 @@ public partial class BarcodePopup : Popup
 
     void OnOKButtonClicked(object sender, EventArgs e)
     {
+        scanView?.DisconnectCamera();
         Close(_Results);
     }
 }

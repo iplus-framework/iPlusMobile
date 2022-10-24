@@ -179,7 +179,6 @@
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.346202">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="ZXing.Net.Maui" Version="0.1.0-preview.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Strings\AppStrings.Designer.cs">
@@ -255,6 +254,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj" />
+    <ProjectReference Include="..\..\ZXing.Net.Maui\ZXing.Net.MAUI.Controls\ZXing.Net.MAUI.Controls.csproj" />
+    <ProjectReference Include="..\..\ZXing.Net.Maui\ZXing.Net.MAUI\ZXing.Net.MAUI.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Strings\AppStrings.resx">

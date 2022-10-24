@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using gip.vbm.mobile;
 using gip.vbm.mobile.Helpers;
-using ZXing.Net.Maui;
+using ZXing.Net.Maui.Controls;
 
 namespace gip.vbm.mobileApp
 {

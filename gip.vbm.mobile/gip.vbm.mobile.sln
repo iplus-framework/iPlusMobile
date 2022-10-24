@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.DataGrid", "X
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gip.vbm.mobileApp", "gip.vbm.mobileApp\gip.vbm.mobileApp.csproj", "{9975E0CE-47AA-43DA-915D-22C5179B1DF6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZXing.Net.MAUI.Controls", "ZXing.Net.Maui\ZXing.Net.MAUI.Controls\ZXing.Net.MAUI.Controls.csproj", "{2F2F7481-2086-4D4F-8AD1-B9580739E084}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZXing.Net.MAUI", "ZXing.Net.Maui\ZXing.Net.MAUI\ZXing.Net.MAUI.csproj", "{363A0EEC-1145-4571-B623-9154C822AF7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,22 @@ Global
 		{9975E0CE-47AA-43DA-915D-22C5179B1DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9975E0CE-47AA-43DA-915D-22C5179B1DF6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9975E0CE-47AA-43DA-915D-22C5179B1DF6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.DebugDatalogic|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.DebugDatalogic|Any CPU.Build.0 = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.DebugEmulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.DebugEmulator|Any CPU.Build.0 = Debug|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2F7481-2086-4D4F-8AD1-B9580739E084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.DebugDatalogic|Any CPU.ActiveCfg = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.DebugDatalogic|Any CPU.Build.0 = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.DebugEmulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.DebugEmulator|Any CPU.Build.0 = Debug|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363A0EEC-1145-4571-B623-9154C822AF7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
