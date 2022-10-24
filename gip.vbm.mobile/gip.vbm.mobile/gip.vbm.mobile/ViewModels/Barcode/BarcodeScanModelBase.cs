@@ -275,6 +275,7 @@ namespace gip.vbm.mobile.ViewModels
             if (_ExchangedBarcodeSeq != null)
                 _ExchangedBarcodeSeq.CurrentBarcode = "";
             CurrentBarcode = "";
+            SelectedEntity = null;
             DecodedEntitiesList = new List<object>();
             ExchangedBarcodeSeq = new BarcodeSequence();
         }

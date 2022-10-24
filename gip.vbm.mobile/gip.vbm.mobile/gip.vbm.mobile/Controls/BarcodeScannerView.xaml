@@ -4,7 +4,6 @@
              xmlns:ctl="clr-namespace:gip.vbm.mobile.Controls"
              xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
              xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
-             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui"
              x:Class="gip.vbm.mobile.Controls.BarcodeScannerView">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -42,7 +41,7 @@
                             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                             ItemSelected="BarcodeListView_ItemSelected"
                             ItemTapped="BarcodeListView_ItemTapped"
-                            IsVisible="{Binding Source={RelativeSource Self}, Path=ShowDecodedEntities}"/>
+                            IsVisible="{Binding Source={RelativeSource Self}, Path=ShowDecodedEntities}" />
             <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}" >-->
 
         </Grid>

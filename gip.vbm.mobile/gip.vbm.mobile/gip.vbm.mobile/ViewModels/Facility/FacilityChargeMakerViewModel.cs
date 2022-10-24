@@ -160,7 +160,7 @@ namespace gip.vbm.mobile.ViewModels
                     _TempFacilityChargeForPrint = response.Data;
                     if (_TempFacilityChargeForPrint != null)
                     {
-                        ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question), "", Keyboard.Numeric, "1", 1);
+                        ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question), "", SettingsViewModel.C_NumericKeyBoard, "1", 1);
                     }
                 }
                 else if (response.Message != null)

@@ -732,7 +732,7 @@ namespace gip.vbm.mobile.ViewModels
             }
 
             Msg msg = new Msg(eMsgLevel.QuestionPrompt, message);
-            ShowDialog(msg, "", Keyboard.Numeric, "1", 1);
+            ShowDialog(msg, "", SettingsViewModel.C_NumericKeyBoard, "1", 1);
         }
 
         public FacilityBookingChargeOverview GetPrintFacilityBookingCharge()

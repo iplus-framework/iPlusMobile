@@ -24,9 +24,9 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
@@ -37,35 +37,22 @@
                     BarcodeServiceMethod="UseBarcodeSequences"
                     OnBarcodeEntityTapped="barcodeScanner_OnBarcodeEntityTapped" />
 
-            <Grid x:Name="BgPAnel" Grid.Row="2">
-                <!--IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">-->
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackLayout Grid.Row="0" IsVisible="{Binding ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
-                    <Label x:Name="ScanMessageLabel" Text="{Binding ExchangedBarcodeSeq.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="ScanAgain">
-                                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Completed">
-                                <Setter Property="TextColor" Value="Lime" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Cancelled">
-                                <Setter Property="TextColor" Value="Red" />
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Question">
-                                <Setter Property="IsVisible" Value="False" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </StackLayout>
-            </Grid>
+            <Label Grid.Row="2" x:Name="ScanMessageLabel" Text="{Binding ExchangedBarcodeSeq.Message.Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Small">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="ScanAgain">
+                        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Completed">
+                        <Setter Property="TextColor" Value="Lime" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Cancelled">
+                        <Setter Property="TextColor" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding ExchangedBarcodeSeq.State}" Value="Question">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </Grid>
     </ContentPage.Content>
 </v:BSOPageBase>

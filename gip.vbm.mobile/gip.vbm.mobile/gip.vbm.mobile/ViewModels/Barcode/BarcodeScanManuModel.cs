@@ -81,8 +81,8 @@ namespace gip.vbm.mobile.ViewModels
                         }
                     }
 
-                    SelectedEntity = newSelectedSequence;
                     DecodedEntitiesList = barcodeSequence;
+                    SelectedEntity = newSelectedSequence;
                     _TempSequenceList = null;
                 }
                 else
@@ -96,7 +96,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public void ReleaseMachine()
         {
-            ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "",  Keyboard.Numeric, "", 10);
+            ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "", SettingsViewModel.C_NumericKeyBoard, "", 10);
         }
 
         public async Task PauseOrderOnMachine()
@@ -130,8 +130,6 @@ namespace gip.vbm.mobile.ViewModels
         public override void Clear()
         {
             base.Clear();
-            DecodedEntitiesList = new List<object>();
-            CurrentBarcode = null;
             _TempSequenceList = null;
         }
 

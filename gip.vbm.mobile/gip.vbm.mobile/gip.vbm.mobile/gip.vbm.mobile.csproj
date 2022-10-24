@@ -7,17 +7,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-android|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-ios|AnyCPU'">
@@ -181,6 +181,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\BarcodeScannerView.xaml.cs">
+      <DependentUpon>BarcodeScannerView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Strings\AppStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

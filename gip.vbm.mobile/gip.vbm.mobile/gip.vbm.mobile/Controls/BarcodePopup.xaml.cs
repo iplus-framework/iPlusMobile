@@ -63,7 +63,7 @@ public partial class BarcodePopup : Popup
         {
             Task.Run(() =>
             {
-                scanView?.DisconnectCamera();
+                //scanView?.DisconnectCamera();
                 Close(_Results);
             });
         }
@@ -71,7 +71,7 @@ public partial class BarcodePopup : Popup
 
     void OnOKButtonClicked(object sender, EventArgs e)
     {
-        scanView?.DisconnectCamera();
+        //scanView?.DisconnectCamera();
         Close(_Results);
     }
 }

@@ -94,18 +94,14 @@ namespace gip.vbm.mobile.ViewModels
         public override void Clear()
         {
             base.Clear();
-
-            CurrentBarcode = null;
             //Item = null;
-            ZXingIsScanning = false;
-            IsListVisible = false;
-            DecodedEntitiesList = null;
-            if (ExchangedBarcodeSeq != null)
-            {
-                if (ExchangedBarcodeSeq.Sequence != null)
-                    ExchangedBarcodeSeq.Sequence.Clear();
-                ExchangedBarcodeSeq.State = ActionState.ScanAgain;
-            }
+            //IsListVisible = false;
+            //if (ExchangedBarcodeSeq != null)
+            //{
+            //    if (ExchangedBarcodeSeq.Sequence != null)
+            //        ExchangedBarcodeSeq.Sequence.Clear();
+            //    ExchangedBarcodeSeq.State = ActionState.ScanAgain;
+            //}
             Message = null;
         }
 

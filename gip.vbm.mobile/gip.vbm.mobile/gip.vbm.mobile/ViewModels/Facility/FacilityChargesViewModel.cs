@@ -567,8 +567,8 @@ namespace gip.vbm.mobile.ViewModels
                         }
                         else
                         {
-                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", 
-                                       Keyboard.Numeric, "1", 2);
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
+                                       SettingsViewModel.C_NumericKeyBoard, "1", 2);
                         }
                     }
                 }
@@ -585,7 +585,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public void ShowPrintDialog()
         {
-            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PrintCopies_Question) { MessageButton = eMsgButton.OKCancel }, "", Keyboard.Numeric, "1", 3);
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PrintCopies_Question) { MessageButton = eMsgButton.OKCancel }, "", SettingsViewModel.C_NumericKeyBoard, "1", 3);
         }
 
         public Command PrintCommand { get; set; }
@@ -677,8 +677,8 @@ namespace gip.vbm.mobile.ViewModels
                         }
                         else
                         {
-                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "", 
-                                       Keyboard.Numeric, "1", 2);
+                            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
+                                       SettingsViewModel.C_NumericKeyBoard, "1", 2);
                         }
                     }
                 }
@@ -919,7 +919,7 @@ namespace gip.vbm.mobile.ViewModels
                         else
                         {
                             ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
-                                       Keyboard.Numeric, "1", 2);
+                                       SettingsViewModel.C_NumericKeyBoard, "1", 2);
                         }
                     }
                 }
@@ -1016,7 +1016,7 @@ namespace gip.vbm.mobile.ViewModels
                                     else
                                     {
                                         ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.PickingBookSuccAndPrint_Question) { MessageButton = eMsgButton.YesNo }, "",
-                                                   Keyboard.Numeric, "1", 2);
+                                                   SettingsViewModel.C_NumericKeyBoard, "1", 2);
                                     }
                                 }
                             }
