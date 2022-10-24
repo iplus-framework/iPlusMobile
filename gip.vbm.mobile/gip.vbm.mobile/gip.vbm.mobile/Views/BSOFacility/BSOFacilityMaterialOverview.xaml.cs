@@ -88,7 +88,7 @@ namespace gip.vbm.mobile.Views
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new BSOFacilitySortInfoOverLocation());
+            Navigation.PushAsync(new BSOFacilitySortInfoOverLocation());
         }
     }
 }

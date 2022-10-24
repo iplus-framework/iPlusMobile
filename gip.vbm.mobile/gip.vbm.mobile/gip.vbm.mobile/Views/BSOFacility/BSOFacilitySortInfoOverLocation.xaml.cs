@@ -30,7 +30,7 @@ namespace gip.vbm.mobile.Views
         private async void btnApply_Clicked(object sender, EventArgs e)
         {
             _ViewModel.SaveSortStorageLocations();
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
     }
 }

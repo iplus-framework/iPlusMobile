@@ -42,12 +42,12 @@ namespace gip.vbm.mobile.Views
         {
             _ViewModel.SelectedStorageLocation = null;
             _ViewModel = null;
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
          
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
 
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
