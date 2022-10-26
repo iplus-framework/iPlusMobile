@@ -340,7 +340,7 @@
     <value>Inventur - Position bearbeiten</value>
   </data>
   <data name="Inv_EditLineS" xml:space="preserve">
-    <value>Inventory - Position suchen</value>
+    <value>Inventur - Position suchen</value>
   </data>
   <data name="Inv_OpenPositions" xml:space="preserve">
     <value>Inventur - Offene Positionen</value>
@@ -661,10 +661,10 @@
     <value>Nehmen Sie die Menge für die Buchung:</value>
   </data>
   <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
-    <value>Maximum qunatity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings.</value>
+    <value>Die maximale Buchungsmenge ist 100.000.000,00. Falls Sie eine größere Menge buchen möchten teilen Sie die Menge in mehrere getrennte Buchungen auf.</value>
   </data>
   <data name="TakeQQuantity_Text" xml:space="preserve">
-    <value>Quantität nehmen</value>
+    <value>Menge übernehmen</value>
   </data>
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split num.</value>

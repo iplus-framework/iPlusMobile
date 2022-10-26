@@ -8,7 +8,6 @@ using static gip.mes.datamodel.BarcodeSequenceBase;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using ZXing.Net.Maui;
-using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.Controls
 {

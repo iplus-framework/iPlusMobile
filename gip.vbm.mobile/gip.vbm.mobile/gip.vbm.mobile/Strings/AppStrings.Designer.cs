@@ -19,7 +19,7 @@ namespace gip.vbm.mobile.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppStrings {
@@ -1411,7 +1411,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum qunatity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings..
+        ///   Looks up a localized string similar to The maximum quantity per posting is 100.000.000,00. If you have to post more than this amount than split it into mulitple postings..
         /// </summary>
         internal static string QuantityPerPostingIsTooLarge_Text {
             get {
@@ -1780,7 +1780,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take quant quantity.
+        ///   Looks up a localized string similar to Takeover quant quantity.
         /// </summary>
         internal static string TakeQQuantity_Text {
             get {
