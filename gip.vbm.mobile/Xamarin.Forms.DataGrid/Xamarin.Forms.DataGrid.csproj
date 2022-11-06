@@ -15,6 +15,7 @@
     <Company />
     <UseMaui>true</UseMaui>
     <TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
+    <RuntimeFrameworkVersion>6.0.0</RuntimeFrameworkVersion>
     <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
