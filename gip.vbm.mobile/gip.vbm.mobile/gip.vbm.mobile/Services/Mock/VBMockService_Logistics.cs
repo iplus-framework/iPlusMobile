@@ -43,7 +43,7 @@ namespace gip.vbm.mobile.Services
 
         public async Task<WSResponse<bool>> InsertPickingAsync(Picking item)
         {
-            if (item == null || item.PickingID == null)
+            if (item == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "pickingID is null")));
             var pickings = await GetPickingsAsync();
             pickings.Data.Add(item);
@@ -52,7 +52,7 @@ namespace gip.vbm.mobile.Services
 
         public async Task<WSResponse<bool>> UpdatePickingAsync(Picking item)
         {
-            if (item == null || item.PickingID == null)
+            if (item == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "item is null")));
             return await Task.FromResult(new WSResponse<bool>(true));
         }

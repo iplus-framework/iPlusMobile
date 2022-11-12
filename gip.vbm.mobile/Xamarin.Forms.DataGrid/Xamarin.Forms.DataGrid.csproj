@@ -14,10 +14,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Company />
     <UseMaui>true</UseMaui>
-    <TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
+    <TargetFrameworks>net7.0-ios;net7.0-android</TargetFrameworks>
     <RuntimeFrameworkVersion>6.0.0</RuntimeFrameworkVersion>
     <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>5</WarningLevel>

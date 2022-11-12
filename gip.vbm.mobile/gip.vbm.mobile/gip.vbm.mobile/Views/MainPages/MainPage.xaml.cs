@@ -127,7 +127,7 @@ namespace gip.vbm.mobile.Views
                 page.OnNavigatedTo(e, this.NavigationMode);
         }
 
-        public async Task<object?> OpenBarcodeCamera()
+        public async Task<object> OpenBarcodeCamera()
         {
             var popup = new BarcodePopup();
             return await this.ShowPopupAsync(popup);

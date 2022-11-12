@@ -154,19 +154,6 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public string _CurrentBarcode;
-        public string CurrentBarcode
-        {
-            get
-            {
-                return _CurrentBarcode;
-            }
-            set
-            {
-                SetProperty(ref _CurrentBarcode, value);
-            }
-        }
-
         public List<object> _CurrentBarcodeEntity;
         public List<object> CurrentBarcodeEntity
         {
@@ -373,7 +360,7 @@ namespace gip.vbm.mobile.ViewModels
             await ReadPostingsOut();
         }
 
-        public virtual async Task<bool> ExecuteDecodeEntityCommand()
+        public override async Task<bool> ExecuteDecodeEntityCommand()
         {
             if (IsBusy)
                 return false;

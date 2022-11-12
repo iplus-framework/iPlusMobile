@@ -22,7 +22,7 @@ namespace gip.vbm.mobile.Helpers
                 Entry ent = sender as Entry;
                 if (ent != null)
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    Application.Current?.Dispatcher.Dispatch(() =>
                     {
                         ent.CursorPosition = 0;
                         ent.SelectionLength = ent.Text != null ? ent.Text.Length : 0;

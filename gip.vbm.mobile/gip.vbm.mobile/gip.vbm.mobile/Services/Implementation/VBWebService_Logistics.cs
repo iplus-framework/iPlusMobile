@@ -42,14 +42,14 @@ namespace gip.vbm.mobile.Services
 
         public async Task<WSResponse<bool>> InsertPickingAsync(Picking item)
         {
-            if (item == null || item.PickingID == null)
+            if (item == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "pickingID is null")));
             return await Post<bool, Picking>(item, VBWebServiceConst.UriPicking);
         }
 
         public async Task<WSResponse<bool>> UpdatePickingAsync(Picking item)
         {
-            if (item == null || item.PickingID == null)
+            if (item == null)
                 return await Task.FromResult(new WSResponse<bool>(false, new Msg(eMsgLevel.Error, "item is null")));
             return await Put<bool, Picking>(item, VBWebServiceConst.UriPicking);
         }

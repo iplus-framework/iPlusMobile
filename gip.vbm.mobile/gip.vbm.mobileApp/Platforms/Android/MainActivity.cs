@@ -32,8 +32,9 @@ namespace gip.vbm.mobileApp
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+#if DATALOGIC
             _DLBarcodeService = DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
-
+#endif
             base.OnCreate(savedInstanceState);
         }
 

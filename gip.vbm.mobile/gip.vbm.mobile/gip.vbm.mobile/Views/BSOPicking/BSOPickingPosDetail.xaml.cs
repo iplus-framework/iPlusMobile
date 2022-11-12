@@ -14,8 +14,6 @@ namespace gip.vbm.mobile.Views
     public partial class BSOPickingPosDetail : BSOTabbedPageBase
     {
         PickingPosDetailViewModel _ViewModel;
-        IBarcodeService _BarcodeService;
-        bool _BarcodeServiceSubcribed;
 
         public BSOPickingPosDetail(PickingPosDetailViewModel viewModel)
         {

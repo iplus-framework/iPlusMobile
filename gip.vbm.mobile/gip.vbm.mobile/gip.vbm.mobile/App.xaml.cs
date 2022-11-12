@@ -72,7 +72,7 @@ namespace gip.vbm.mobile
             // Handle when your app resumes
         }
 
-        public async Task<object?> OpenBarcodeCamera()
+        public async Task<object> OpenBarcodeCamera()
         {
             return await (MainPage as MainPage).OpenBarcodeCamera();
         }
