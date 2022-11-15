@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Debug;Release;DebugEmulator;DebugDatalogic</Configurations>
+    <Configurations>Debug;Release;DebugEmulator;DebugDatalogic;ReleaseDatalogic</Configurations>
     <UseMaui>true</UseMaui>
     <TargetFrameworks>;net7.0-android</TargetFrameworks>
     <OutputType>Library</OutputType>
@@ -17,6 +17,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-android|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD</DefineConstants>
     <RunAOTCompilation>True</RunAOTCompilation>
@@ -28,6 +31,9 @@
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net6.0-android|AnyCPU'">
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net6.0-android|AnyCPU'">
@@ -177,9 +183,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="ZXing.Net.Maui" Version="0.3.0-preview.1" />
     <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.3.0-preview.1" />
   </ItemGroup>

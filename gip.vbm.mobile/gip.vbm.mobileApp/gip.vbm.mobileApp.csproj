@@ -28,6 +28,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Configurations>Debug;Release;ReleaseDatalogic</Configurations>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net7.0-android|AnyCPU'">
@@ -39,6 +40,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net7.0-android|AnyCPU'">
 	  <DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
@@ -74,8 +79,8 @@
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+  
+	<ItemGroup Condition="('$(TargetFramework)' == 'net7.0-android') And (('$(Configuration)' == 'DebugDatalogic') Or ('$(Configuration)' == 'ReleaseDatalogic'))">
 	  <PackageReference Include="datalogic-xamarin-sdk">
 	    <Version>1.29.8975</Version>
 	  </PackageReference>
