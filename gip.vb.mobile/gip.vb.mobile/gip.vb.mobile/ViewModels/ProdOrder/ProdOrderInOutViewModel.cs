@@ -35,13 +35,30 @@ namespace gip.vb.mobile.ViewModels
 
             if (wfMethod != null)
             {
-                ACValue pqsmACValue = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode));
+                ACValue pqsmACValue = wfMethod.ParameterValueList.GetACValue("PostingQuantitySuggestionMode");
                 if (pqsmACValue != null)
-                    mode1 = pqsmACValue.Value as PostingQuantitySuggestionMode?;
+                {
+                    try
+                    {
+                        mode1 = Enum.Parse<PostingQuantitySuggestionMode>(pqsmACValue.Value.ToString());
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
 
-                ACValue pqsmACValue2 = wfMethod.ParameterValueList.GetACValue(nameof(ProdOrderPartslistWFInfo.PostingQSuggestionMode2));
+                ACValue pqsmACValue2 = wfMethod.ParameterValueList.GetACValue("PostingQuantitySuggestionMode2");
                 if (pqsmACValue2 != null)
-                    mode2 = pqsmACValue2.Value as PostingQuantitySuggestionMode?;
+                {
+                    try
+                    {
+                        mode1 = Enum.Parse<PostingQuantitySuggestionMode>(pqsmACValue2.Value.ToString());
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                }
 
                 ACValue seqNo1 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode");
                 if (seqNo1 != null)

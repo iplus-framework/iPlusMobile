@@ -12,9 +12,30 @@ using System.Net;
 using System.Linq;
 using gip.core.datamodel;
 using System.Threading;
+using Newtonsoft.Json.Serialization;
 
 namespace gip.vbm.mobile.Services
 {
+    //public class ConverterContractResolver : DefaultContractResolver
+    //{
+    //    public static readonly ConverterContractResolver Instance = new ConverterContractResolver();
+
+    //    override 
+
+    //    protected override JsonContract CreateContract(Type objectType)
+    //    {
+    //        JsonContract contract = base.CreateContract(objectType);
+
+    //        // this will only be called once and then cached
+    //        if (objectType == typeof(DateTime) || objectType == typeof(DateTimeOffset))
+    //        {
+    //            contract.Converter = new JavaScriptDateTimeConverter();
+    //        }
+
+    //        return contract;
+    //    }
+    //}
+
     public class CoreWebService : ICoreWebService, ILoginService
     {
         protected TimeoutHandler _TimeOutHandler;
