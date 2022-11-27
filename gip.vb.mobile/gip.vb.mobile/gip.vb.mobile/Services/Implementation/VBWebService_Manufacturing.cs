@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using gip.mes.webservices;
 using gip.core.autocomponent;
+using gip.core.datamodel;
 
 namespace gip.vb.mobile.Services
 {
@@ -74,6 +75,13 @@ namespace gip.vb.mobile.Services
         public async Task<WSResponse<List<Facility>>> GetPOBatchTargetFacilitiesAsync(string intermBatchID)
         {
             return await Get<List<Facility>>(string.Format(VBWebServiceConst.UriProdOrderBatchTargetFacilities_F, intermBatchID));
+        }
+
+        public async Task<WSResponse<Msg>> VerifyOrderPostingsOnReleaseAsync(BarcodeEntity entity)
+        {
+            if (entity == null)
+                return await Task.FromResult(new WSResponse<Msg>(null, new Msg(eMsgLevel.Error, "entity is null")));
+            return await Post<Msg, BarcodeEntity>(entity, VBWebServiceConst.UriProdOrderVerOrderPostings);
         }
     }
 }
