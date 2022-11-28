@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using static gip.mes.datamodel.BarcodeSequenceBase;
 
 namespace gip.vbm.mobile.ViewModels
 {
@@ -96,7 +97,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public void ReleaseMachine()
         {
-            ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "", SettingsViewModel.C_NumericKeyBoard, "", 10);
+            InvokeVerifyOrderCommand.Execute(null);
         }
 
         public async Task PauseOrderOnMachine()
@@ -145,6 +146,15 @@ namespace gip.vbm.mobile.ViewModels
 
                 return;
             }
+            else if (DialogOptions.RequestID == 20)
+            {
+                if (result == Global.MsgResult.Yes)
+                {
+                    ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "", Keyboard.Numeric, "", 10);
+                }
+                return;
+            }
+
 
             base.DialogResponse(result, entredValue);
         }
@@ -190,6 +200,55 @@ namespace gip.vbm.mobile.ViewModels
             result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)));
 
             DecodedEntitiesList = result;
+        }
+
+        public Command InvokeVerifyOrderCommand { get; set; }
+        public async Task<bool> ExecuteInvokeVerifyOrderCommand()
+        {
+            bool success = true;
+
+            if (IsBusy || Item == null)
+                return false;
+
+            IsBusy = true;
+            Item.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Production;
+
+            try
+            {
+                ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
+                BarcodeEntity entity = Item.Sequence.LastOrDefault();
+                if (entity == null)
+                {
+                    ResetScanSequence();
+                    return false;
+                }
+                entity.SelectedOrderWF = wfInfo;
+
+                var response = await _WebService.VerifyOrderPostingsOnReleaseAsync(entity);
+
+                if (response.Suceeded)
+                {
+                    Msg msg = response.Data;
+                    if (msg != null && msg.MessageLevel == eMsgLevel.Question)
+                    {
+                        ShowDialog(msg, "", null, "", 20);
+                    }
+                    else
+                    {
+                        ShowDialog(new core.datamodel.Msg(core.datamodel.eMsgLevel.QuestionPrompt, Strings.AppStrings.ReleaseMachine_Question), "", Keyboard.Numeric, "", 10);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            return success;
         }
     }
 }
