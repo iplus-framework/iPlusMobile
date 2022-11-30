@@ -81,8 +81,8 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo.IntermediateBatch != null)
             {
-                wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode});
-                wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
+                //wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode});
+                //wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
 
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {

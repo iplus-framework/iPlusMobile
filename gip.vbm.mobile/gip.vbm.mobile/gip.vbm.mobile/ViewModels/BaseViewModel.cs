@@ -68,6 +68,7 @@ namespace gip.vbm.mobile.ViewModels
             DialogOptions.DialogPromptInitialValue = initialValue;
             DialogOptions.DialogTitle = title;
             DialogOptions.RequestID = requestID;
+            DialogOptions.RequestMsg = msg;
 
             if (DialogEvent != null)
                 DialogEvent(this, new Controls.EventArgs<Msg>(msg));
@@ -94,6 +95,12 @@ namespace gip.vbm.mobile.ViewModels
     public struct DialogOptions
     {
         public short RequestID
+        {
+            get;
+            set;
+        }
+
+        public Msg RequestMsg
         {
             get;
             set;

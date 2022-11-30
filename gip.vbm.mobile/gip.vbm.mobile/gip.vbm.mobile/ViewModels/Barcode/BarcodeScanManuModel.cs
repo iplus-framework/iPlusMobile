@@ -207,16 +207,16 @@ namespace gip.vbm.mobile.ViewModels
         {
             bool success = true;
 
-            if (IsBusy || Item == null)
+            if (IsBusy || ExchangedBarcodeSeq == null)
                 return false;
 
             IsBusy = true;
-            Item.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Production;
+            ExchangedBarcodeSeq.BarcodeIssuer = BarcodeIssuer.HasValue ? BarcodeIssuer.Value : BarcodeIssuerEnum.Production;
 
             try
             {
-                ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
-                BarcodeEntity entity = Item.Sequence.LastOrDefault();
+                ProdOrderPartslistWFInfo wfInfo = SelectedEntity as ProdOrderPartslistWFInfo;
+                BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
                 if (entity == null)
                 {
                     ResetScanSequence();

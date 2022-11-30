@@ -212,5 +212,10 @@ namespace gip.vbm.mobile.Services
         {
             return await Task.FromResult(new WSResponse<bool>(true));
         }
+
+        public Task<WSResponse<Msg>> VerifyOrderPostingsOnReleaseAsync(BarcodeEntity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
