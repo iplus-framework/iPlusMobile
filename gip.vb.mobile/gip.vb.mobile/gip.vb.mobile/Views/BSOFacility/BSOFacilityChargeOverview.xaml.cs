@@ -156,7 +156,7 @@ namespace gip.vb.mobile.Views
 
         #endregion
 
-        private void sbMaterial_Focused(object sender, FocusEventArgs e)
+        private async void sbMaterial_Focused(object sender, FocusEventArgs e)
         {
             if (_ViewModel.SelectedMaterial != null)
             {
@@ -168,8 +168,11 @@ namespace gip.vb.mobile.Views
             }
             else 
             {
-                _ViewModel.GetSuggestedMaterials.Execute(null);
-                sbMaterial.Unfocus();
+                await _ViewModel.ExecuteGetSuggestedMaterials();
+
+                //_ViewModel.GetSuggestedMaterials.Execute(null);
+                if (_ViewModel.SelectedMaterial != null)
+                    sbMaterial.Unfocus();
             }
         }
 
