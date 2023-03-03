@@ -16,6 +16,7 @@ namespace gip.vbm.mobile.ViewModels
     {
         public BarcodeScanManuModel() : base()
         {
+            InvokeVerifyOrderCommand = new Command(async () => await ExecuteInvokeVerifyOrderCommand());
         }
 
         public override BarcodeSequence ExchangedBarcodeSeq
