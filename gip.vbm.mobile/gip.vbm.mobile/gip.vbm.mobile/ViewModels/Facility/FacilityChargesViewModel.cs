@@ -955,11 +955,14 @@ namespace gip.vbm.mobile.ViewModels
                 aCMethodBooking.OutwardFacilityChargeID = FacilityChargeItem.FacilityChargeID;
                 aCMethodBooking.InwardMaterialID = SelectedMaterial.MaterialID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
-                BookingQuantity = 0;
+                
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
                 if (!response.Suceeded)
+                {
+                    BookingQuantity = 0;
                     Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Booking Error");
+                }
                 else
                 {
                     if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
