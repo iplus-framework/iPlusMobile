@@ -10,6 +10,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.mes.facility;
 
 namespace gip.vbm.mobile.ViewModels
 {
@@ -52,6 +53,36 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        private MaterialSumOverview _TempOverview;
+
+        private FacilityChargeSumFacilityHelper _SelectedFacility;
+        public FacilityChargeSumFacilityHelper SelectedFacility
+        {
+            get
+            {
+                return _SelectedFacility;
+            }
+            set
+            {
+                SetProperty(ref _SelectedFacility, value);
+
+                if (_TempOverview == null)
+                    _TempOverview = Overview;
+
+                if (_TempOverview != null)
+                {
+                    if (_SelectedFacility == null)
+                    {
+                        Overview.FacilityCharges = _TempOverview.FacilityCharges;
+                    }
+                    else
+                    {
+                        Overview.FacilityCharges = _TempOverview.FacilityCharges.Where(c => c.Facility != null && c.Facility.FacilityNo == _SelectedFacility.FacilityNo);
+                        Overview.OnFacilityChargesChanged();
+                    }
+                }
+            }
+        }
 
         private FacilityCharge _SelectedFacilityCharge;
         public FacilityCharge SelectedFacilityCharge

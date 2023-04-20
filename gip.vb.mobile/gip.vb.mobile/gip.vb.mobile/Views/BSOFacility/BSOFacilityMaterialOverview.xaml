@@ -26,7 +26,10 @@
         </ToolbarItem>
     </v:BSOTabbedPageBase.ToolbarItems>
     <v:BSOPageBase x:Name="FacilityPivotItem" Title="{i18n:Translate Text=FacilityPivot_Header}">
-        <dg:DataGrid ItemsSource="{Binding Overview.FacilitySum}" RowHeight="50" HeaderHeight="50" VerticalOptions="StartAndExpand" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" RowsTextColorPalette="{StaticResource DgColorProvider}">
+        <dg:DataGrid ItemsSource="{Binding Overview.FacilitySum}" RowHeight="50" HeaderHeight="50" VerticalOptions="StartAndExpand" 
+                     BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}"
+                     SelectedItem="{Binding SelectedFacility}"
+                     RowsTextColorPalette="{StaticResource DgColorProvider}">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=FacilityNo}" PropertyName="FacilityNo" Width="1*"/>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumFacilityHelper, Text=FacilityName}" PropertyName="FacilityName" Width="1*"/>

@@ -9,6 +9,7 @@ using gip.vb.mobile.Views;
 using gip.core.datamodel;
 using System.Linq;
 using System.Collections.Generic;
+using gip.mes.facility;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -36,7 +37,7 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public MaterialSumOverview _Overview;
+        private MaterialSumOverview _Overview;
         public MaterialSumOverview Overview
         {
             get
@@ -46,11 +47,43 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SelectedFacilityCharge = null;
+                SelectedFacility = null;
+                _TempOverview = null;
                 SetProperty(ref _Overview, value);
                 RebuildTitle();
             }
         }
 
+        private MaterialSumOverview _TempOverview;
+
+        private FacilityChargeSumFacilityHelper _SelectedFacility;
+        public FacilityChargeSumFacilityHelper SelectedFacility
+        {
+            get
+            {
+                return _SelectedFacility;
+            }
+            set
+            {
+                SetProperty(ref _SelectedFacility, value);
+
+                if (_TempOverview == null)
+                    _TempOverview = Overview;
+
+                if (_TempOverview != null)
+                {
+                    if (_SelectedFacility == null)
+                    {
+                        Overview.FacilityCharges = _TempOverview.FacilityCharges;
+                    }
+                    else
+                    {
+                        Overview.FacilityCharges = _TempOverview.FacilityCharges.Where(c => c.Facility != null && c.Facility.FacilityNo == _SelectedFacility.FacilityNo);
+                        Overview.OnFacilityChargesChanged();
+                    }
+                }
+            }
+        }
 
         private FacilityCharge _SelectedFacilityCharge;
         public FacilityCharge SelectedFacilityCharge

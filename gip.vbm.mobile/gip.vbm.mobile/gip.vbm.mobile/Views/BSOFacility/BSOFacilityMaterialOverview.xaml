@@ -62,7 +62,9 @@
         </dg:DataGrid>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="LocationPivotItem" Title="{i18n:Translate Text=LocationPivot_Header}">
-        <dg:DataGrid ItemsSource="{Binding Overview.FacilityLocationSum}" RowHeight="50" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+        <dg:DataGrid ItemsSource="{Binding Overview.FacilityLocationSum}" RowHeight="50" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" 
+					 VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}"
+					 SelectedItem="{Binding SelectedFacility}">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=FacilityNo}" PropertyName="FacilityNo" Width="1*"/>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityChargeSumLocationHelper, Text=FacilityName}" PropertyName="FacilityName" Width="1*"/>
