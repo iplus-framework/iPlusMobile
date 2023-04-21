@@ -1,0 +1,4 @@
+﻿https://learn.microsoft.com/de-de/dotnet/core/tools/dotnet-workload-install
+dotnet workload install wasm-tools
+dotnet workload install maui
+dotnet workload install maui-android maui-ios
