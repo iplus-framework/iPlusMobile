@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.gipsoft.mobile" android:installLocation="preferExternal" android:versionCode="50" android:versionName="1.0">
-	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="30" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.gipsoft.mobile" android:installLocation="preferExternal" android:versionCode="53" android:versionName="1.0">
+	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="31" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="gip.vb.mobile.Android" android:icon="@drawable/iPlusLogo">
 		<uses-library android:name="com.datalogic.device" android:required="false" />
