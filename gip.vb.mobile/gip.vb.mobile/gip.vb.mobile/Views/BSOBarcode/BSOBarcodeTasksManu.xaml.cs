@@ -59,7 +59,14 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo selectedWfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (selectedWfInfo != null)
             {
-                await Navigation.PushAsync(new BSOBarcodeTaskManuDetails(_ViewModel));
+                if (_ViewModel.Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.FastSelection)
+                {
+                    await _ViewModel.InvokeActionOnMachine();
+                }
+                else
+                {
+                    await Navigation.PushAsync(new BSOBarcodeTaskManuDetails(_ViewModel));
+                }
             }
         }
 

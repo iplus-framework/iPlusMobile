@@ -39,6 +39,7 @@ namespace gip.vb.mobile.ViewModels
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
                     if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
+                        || Item.State == ActionState.FastSelection
                         || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
                         List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
