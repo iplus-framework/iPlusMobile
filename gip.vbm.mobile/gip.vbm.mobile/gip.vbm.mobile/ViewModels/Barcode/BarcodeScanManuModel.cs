@@ -39,8 +39,9 @@ namespace gip.vbm.mobile.ViewModels
                     List<object> barcodeSequence = ExchangedBarcodeSeq.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (   ExchangedBarcodeSeq.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
-                        || ExchangedBarcodeSeq.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
+                    if (   ExchangedBarcodeSeq.State == ActionState.Selection
+                        || ExchangedBarcodeSeq.State == ActionState.FastSelection
+                        || ExchangedBarcodeSeq.State == ActionState.Completed)
                     {
                         List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  ExchangedBarcodeSeq.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
                         foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
