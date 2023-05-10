@@ -730,4 +730,10 @@
   <data name="CheckQuant_Text" xml:space="preserve">
     <value>Check quant</value>
   </data>
+  <data name="BtnMachineMalfunction_Text" xml:space="preserve">
+    <value>Machine malfunction</value>
+  </data>
+  <data name="BtnMachineRunning_Text" xml:space="preserve">
+    <value>Machine running</value>
+  </data>
 </root>

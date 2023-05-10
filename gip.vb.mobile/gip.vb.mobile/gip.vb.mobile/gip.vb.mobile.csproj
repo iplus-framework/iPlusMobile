@@ -141,6 +141,9 @@
     <Compile Update="Views\BSOBarcode\BSOACMethodEditor.xaml.cs">
       <DependentUpon>BSOACMethodEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
+      <DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>
@@ -298,4 +301,6 @@
   <Import Project="..\..\..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems" Label="Shared" />
 
   <Import Project="..\..\..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.projitems" Label="Shared" />
 </Project>

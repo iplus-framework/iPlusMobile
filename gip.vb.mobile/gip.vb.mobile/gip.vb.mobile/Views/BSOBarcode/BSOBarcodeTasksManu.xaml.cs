@@ -1,4 +1,5 @@
-﻿using gip.mes.webservices;
+﻿using gip.core.webservices;
+using gip.mes.webservices;
 using gip.vb.mobile.barcode;
 using gip.vb.mobile.ViewModels;
 using System;
@@ -66,6 +67,14 @@ namespace gip.vb.mobile.Views
                 else
                 {
                     await Navigation.PushAsync(new BSOBarcodeTaskManuDetails(_ViewModel));
+                }
+            }
+            else
+            {
+                ACClass machine = _ViewModel.SelectedSequence as ACClass;
+                if (machine != null)
+                {
+                    await Navigation.PushAsync(new BSOBarcodeMachineDetails(_ViewModel));
                 }
             }
         }

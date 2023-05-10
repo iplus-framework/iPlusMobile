@@ -672,4 +672,10 @@
   <data name="CheckQuant_Text" xml:space="preserve">
     <value>Prüfquant</value>
   </data>
+  <data name="BtnMachineMalfunction_Text" xml:space="preserve">
+    <value>Maschinenstörung</value>
+  </data>
+  <data name="BtnMachineRunning_Text" xml:space="preserve">
+    <value>Maschine läuft</value>
+  </data>
 </root>
