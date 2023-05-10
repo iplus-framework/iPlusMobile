@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.DataGrid", "X
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gip.vbm.mobileApp", "gip.vbm.mobileApp\gip.vbm.mobileApp.csproj", "{9975E0CE-47AA-43DA-915D-22C5179B1DF6}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "gip.core.processapplication.shared", "..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.shproj", "{38889580-0345-42CC-AB4D-931CA15AFA85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,12 +80,14 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems*{0c232936-48b8-4ccd-951e-8ad3d439d264}*SharedItemsImports = 13
 		..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems*{1131f03b-f0f7-4ab7-ad22-8207d49c2e24}*SharedItemsImports = 13
+		..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.projitems*{38889580-0345-42cc-ab4d-931ca15afa85}*SharedItemsImports = 13
 		..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems*{47f013c1-e869-419e-8b17-c56313acc34b}*SharedItemsImports = 13
 		..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
+		..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems*{696b90f8-ee0a-431d-8fb0-2e3449de1749}*SharedItemsImports = 5
 		..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems*{6d353dd2-970b-45bb-9ab6-d23a28e0233f}*SharedItemsImports = 13
 		..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems*{ae832fbc-6e4e-4ad5-a2d6-04b45c1b1b5e}*SharedItemsImports = 13

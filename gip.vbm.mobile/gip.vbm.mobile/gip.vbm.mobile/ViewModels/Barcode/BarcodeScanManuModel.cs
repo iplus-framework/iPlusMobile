@@ -130,6 +130,39 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        public async Task InvokeMachineMalfuction(bool reset)
+        {
+            BarcodeEntity bEntity = ExchangedBarcodeSeq.Sequence.FirstOrDefault(c => c.ACClass != null);
+
+            if (bEntity != null)
+            {
+                if (reset)
+                    bEntity.MachineMalfunction = false;
+                else
+                    bEntity.MachineMalfunction = true;
+            }
+
+            BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
+            if (entity == null)
+            {
+                ResetScanSequence();
+                return;
+            }
+            entity.SelectedOrderWF = new ProdOrderPartslistWFInfo();
+            ExchangedBarcodeSeq.State = ActionState.Selection;
+
+            bool success = await ExecuteInvokeBarcodeSequenceCommand();
+            if (success && ExchangedBarcodeSeq != null && (ExchangedBarcodeSeq.Message == null || ExchangedBarcodeSeq.Message.MessageLevel < eMsgLevel.Warning))
+            {
+                if (ScannedMachine != null && ExchangedBarcodeSeq.CurrentBarcode != ScannedMachine.Barcode)
+                    ExchangedBarcodeSeq.CurrentBarcode = ScannedMachine.Barcode;
+
+                OnPropertyChanged(nameof(ScannedMachine));
+
+                success = await ExecuteInvokeBarcodeSequenceCommand();
+            }
+        }
+
         public override void Clear()
         {
             base.Clear();

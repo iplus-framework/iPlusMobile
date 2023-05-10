@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using gip.vbm.mobile.Controls;
+using gip.core.webservices;
 
 namespace gip.vbm.mobile.Views
 {
@@ -58,6 +59,14 @@ namespace gip.vbm.mobile.Views
                 else
                 {
                     await Navigation.PushAsync(new BSOBarcodeTaskManuDetails(_ViewModel));
+                }
+            }
+            else
+            {
+                ACClass machine = _ViewModel.SelectedEntity as ACClass;
+                if (machine != null)
+                {
+                    await Navigation.PushAsync(new BSOBarcodeMachineDetails(_ViewModel));
                 }
             }
         }

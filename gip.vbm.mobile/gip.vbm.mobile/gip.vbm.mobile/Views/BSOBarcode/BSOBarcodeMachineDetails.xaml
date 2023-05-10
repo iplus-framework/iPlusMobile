@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:v="clr-namespace:gip.vbm.mobile.Views"
+            xmlns:i18n="clr-namespace:gip.vbm.mobile.Helpers"
+            xmlns:hp="clr-namespace:gip.vbm.mobile.Helpers"
+            BackgroundColor="{DynamicResource PageBackgroundColor}"
+            Title="{Binding Title}"
+            x:Class="gip.vbm.mobile.Views.BSOBarcodeMachineDetails">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+
+    <ContentPage.Content>
+        <Grid x:Name="BgPAnel">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition />
+                    <RowDefinition Height="1"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+
+                <BoxView Grid.RowSpan="5" HeightRequest="80" Grid.Column="1" Grid.Row="1" CornerRadius="4">
+                    <BoxView.Style>
+                        <Style TargetType="BoxView">
+                            <Setter Property="Color" Value="LightSteelBlue"/>
+                            <Style.Triggers>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="1">
+                                    <Setter Property="Color" Value="DarkSeaGreen" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="2">
+                                    <Setter Property="Color" Value="Lime" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="3">
+                                    <Setter Property="Color" Value="DodgerBlue" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="4">
+                                    <Setter Property="Color" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="5">
+                                    <Setter Property="Color" Value="DodgerBlue" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="BoxView" Binding="{Binding ScannedMachine.MachineAvailability}" Value="6">
+                                    <Setter Property="Color" Value="Yellow" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </BoxView.Style>
+                </BoxView>
+                <Label Grid.Row="1" Text="{Binding ScannedMachine.ACClass.ACCaption, StringFormat='{0}  '}" Grid.Column="1" HorizontalTextAlignment="Center" 
+                       TextColor="Black" Margin="0,2,0,0" >
+                </Label>
+                <BoxView Grid.Row="2" Grid.Column="1" BackgroundColor="Black" Margin="5,0,5,0" />
+                <Label Grid.Row="4" Text="{Binding ScannedMachine.ACClass.ACUrlComponent, StringFormat='{0}  '}" Grid.Column="1" TextColor="Black" Margin="5,0,0,0">
+                </Label>
+            </Grid>
+
+
+            <Button Grid.Row="2" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToRunning" Text="{i18n:Translate Text=BtnMachineRunning_Text}" Clicked="BtnSwitchToRunning_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="3" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToMalfunction" Text="{i18n:Translate Text=BtnMachineMalfunction_Text}" Clicked="BtnSwitchToMalfunction_Clicked" Margin="0,0,0,5" />
+
+        </Grid>
+    </ContentPage.Content>
+</v:BSOPageBase>

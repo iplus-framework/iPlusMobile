@@ -225,6 +225,12 @@
   <data name="BtnLocationOverview_Text" xml:space="preserve">
     <value>Idi na pregled skladišta</value>
   </data>
+  <data name="BtnMachineMalfunction_Text" xml:space="preserve">
+    <value>Stroj u kvaru</value>
+  </data>
+  <data name="BtnMachineRunning_Text" xml:space="preserve">
+    <value>Stroj u radu</value>
+  </data>
   <data name="BtnMore_Text" xml:space="preserve">
     <value>Više</value>
   </data>

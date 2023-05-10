@@ -439,6 +439,24 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Machine malfunction.
+        /// </summary>
+        internal static string BtnMachineMalfunction_Text {
+            get {
+                return ResourceManager.GetString("BtnMachineMalfunction_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Machine running.
+        /// </summary>
+        internal static string BtnMachineRunning_Text {
+            get {
+                return ResourceManager.GetString("BtnMachineRunning_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More.
         /// </summary>
         internal static string BtnMore_Text {
