@@ -1,15 +1,8 @@
 ﻿using gip.core.datamodel;
 using gip.mes.webservices;
-using gip.vb.mobile.barcode;
+using gip.vb.mobile.Helpers;
 using gip.vb.mobile.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Xaml;
 
 namespace gip.vb.mobile.Views
@@ -24,7 +17,7 @@ namespace gip.vb.mobile.Views
         public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, ACMethod wfMethod)
         {
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch, wfMethod);
+            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, taskModel, null, intermOrIntermBatch, wfMethod);
             InitializeComponent();
         }
 

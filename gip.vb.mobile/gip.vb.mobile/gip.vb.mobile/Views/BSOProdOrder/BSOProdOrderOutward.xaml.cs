@@ -26,7 +26,7 @@ namespace gip.vb.mobile.Views
 		{
             _FromTaskModel = taskModel;
             _InMaterialsViewModel = inMaterialsViewModel;
-            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, relation, null, wfMethod, inMaterialsViewModel?.ProdOrderInMaterials);
+            BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, taskModel, relation, null, wfMethod, inMaterialsViewModel?.ProdOrderInMaterials);
 			InitializeComponent();
 		}
 

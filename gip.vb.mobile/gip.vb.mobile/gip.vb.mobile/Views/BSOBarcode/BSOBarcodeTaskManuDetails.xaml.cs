@@ -1,4 +1,7 @@
-﻿using gip.mes.webservices;
+﻿using gip.core.datamodel;
+using gip.mes.datamodel;
+using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -81,13 +84,23 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo.IntermediateBatch != null)
             {
-                //wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode});
-                //wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
+                wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode });
+                wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
 
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
+                    ACValue inwardPostSQ = wfInfo.WFMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
+
                     //await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, new Helpers.PostingSuggestionMode(wfInfo.PostingQSuggestionMode, wfInfo.ValidSeqNoForPostingQSMode)));
-                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+
+                    if (inwardPostSQ != null && inwardPostSQ.Value != null)
+                    {
+                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+                    }
                 }
                 else if (!wfInfo.IntermediateBatch.HasInputMaterials)
                 {

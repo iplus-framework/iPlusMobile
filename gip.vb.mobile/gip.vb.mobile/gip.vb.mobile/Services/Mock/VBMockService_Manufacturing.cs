@@ -101,5 +101,10 @@ namespace gip.vb.mobile.Services
         {
             return await Task.FromResult<WSResponse<List<Facility>>>(null);
         }
+
+        public async Task<WSResponse<Facility>> GetNFBatchTargetFacilityAsync(string machineFunctionID)
+        {
+            return await Task.FromResult<WSResponse<Facility>>(null);
+        }
     }
 }

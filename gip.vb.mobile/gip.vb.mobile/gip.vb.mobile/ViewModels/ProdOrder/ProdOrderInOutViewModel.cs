@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using gip.core.autocomponent;
 using gip.core.datamodel;
+using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
 using gip.vb.mobile.Helpers;
@@ -15,10 +17,11 @@ namespace gip.vb.mobile.ViewModels
     public class ProdOrderInOutViewModel : BaseViewModel
     {
         #region c'tors
-
-        public ProdOrderInOutViewModel(bool isInward, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, ACMethod wfMethod,
+        BarcodeScanManuModel _FromTaskModel;
+        public ProdOrderInOutViewModel(bool isInward, BarcodeScanManuModel taskModel, ProdOrderPartslistPosRelation relation, ProdOrderPartslistPos intermOrIntermBatch, ACMethod wfMethod,
                                        IEnumerable<ProdOrderPartslistPosRelation> components = null)
         {
+            _FromTaskModel = taskModel;
             IsInward = isInward;
             PosRelation = relation;
             IntermOrIntermBatch = intermOrIntermBatch;
@@ -66,12 +69,28 @@ namespace gip.vb.mobile.ViewModels
             _OutwardSuggestionMode = new PostingSuggestionMode(mode1, validSeqNo1, mode2, validSeqNo2);
 
             _InwardSuggestionMode = 0;
+            _InwardPostingSuggestionQ = 0;
             _InwardAutoSplitQuant = 0;
             if (wfMethod != null)
             {
-                ACValue inwardSMode = wfMethod.ParameterValueList.GetACValue("QuantityPerRack");
-                if (inwardSMode != null)
-                    _InwardSuggestionMode = inwardSMode.ParamAsDouble;
+                ACValue inwardPostSQ = wfMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
+                if (inwardPostSQ != null)
+                {
+                    BookingQuantity = inwardPostSQ.ParamAsDouble;
+                    _InwardPostingSuggestionQ = inwardPostSQ.ParamAsDouble;
+                    if(_InwardPostingSuggestionQ > 0)
+                    {
+                        LoadIntermediateNotFinalProductFacility();
+                    }
+                }
+                else
+                {
+                    ACValue inwardSMode = wfMethod.ParameterValueList.GetACValue("QuantityPerRack");
+                    if (inwardSMode != null)
+                    {
+                        _InwardSuggestionMode = inwardSMode.ParamAsDouble;
+                    }
+                }
 
                 ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
                 if (inwardAutoSplitQuant != null)
@@ -118,6 +137,13 @@ namespace gip.vb.mobile.ViewModels
         {
             get => _CurrentFacility;
             set => SetProperty(ref _CurrentFacility, value, "CurrentFacility");
+        }
+
+        private Facility _IntermediateNotFinalProductFacility;
+        public Facility IntermediateNotFinalProductFacility
+        {
+            get => _IntermediateNotFinalProductFacility;
+            set => SetProperty(ref _IntermediateNotFinalProductFacility, value, "IntermediateNotFinalProductFacility");
         }
 
         private PostingOverview _Overview;
@@ -240,6 +266,7 @@ namespace gip.vb.mobile.ViewModels
 
         private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
         private double _InwardSuggestionMode;
+        private double _InwardPostingSuggestionQ;
         private int _InwardAutoSplitQuant;
         private IEnumerable<ProdOrderPartslistPosRelation> _Components;
 
@@ -415,7 +442,7 @@ namespace gip.vb.mobile.ViewModels
                         }
                     }
                     else
-                    { 
+                    {
                         if (response.Data.FacilityCharge != null)
                         {
                             List<object> entries = new List<object>();
@@ -479,7 +506,7 @@ namespace gip.vb.mobile.ViewModels
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand()
         {
-            if (IsBusy 
+            if (IsBusy
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
@@ -522,7 +549,15 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ProdOrderPosInward.ToString();
                 aCMethodBooking.PartslistPosID = IntermOrIntermBatch.ProdOrderPartslistPosID;
                 aCMethodBooking.InwardQuantity = BookingQuantity;
+                
                 aCMethodBooking.InwardFacilityID = CurrentFacility.FacilityID;
+                if(_InwardPostingSuggestionQ > 0 && IntermediateNotFinalProductFacility != null)
+                {
+                    var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
+                    aCMethodBooking.InwardFacilityID = IntermediateNotFinalProductFacility.FacilityID;
+                    aCMethodBooking.InwardPartslistID = IntermOrIntermBatch.ProdOrderPartslist.Partslist.PartlistID;
+                }
+
                 aCMethodBooking.InwardMaterialID = IntermOrIntermBatch.BookingMaterialID;
                 aCMethodBooking.InwardFacilityLotID = IntermOrIntermBatch.FacilityLotID;
                 aCMethodBooking.MDUnitID = IntermOrIntermBatch.MDUnit?.MDUnitID;
@@ -531,7 +566,7 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 aCMethodBooking.InwardAutoSplitQuant = _InwardAutoSplitQuant;
                 aCMethodBooking.InwardSplitNo = InwardSplitNo;
-                BookingQuantity = 0;
+                BookingQuantity = _InwardPostingSuggestionQ;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -814,6 +849,14 @@ namespace gip.vb.mobile.ViewModels
             {
                 _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.ProportionallyAnotherComp };
             }
+        }
+
+        private async void LoadIntermediateNotFinalProductFacility()
+        {
+            WSResponse<Facility> response = await _WebService.GetNFBatchTargetFacilityAsync(_FromTaskModel.CurrentBarcode);
+            if (!response.Suceeded)
+                Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Intermediate connected machine not found!");
+            IntermediateNotFinalProductFacility = response.Data;
         }
 
         #endregion

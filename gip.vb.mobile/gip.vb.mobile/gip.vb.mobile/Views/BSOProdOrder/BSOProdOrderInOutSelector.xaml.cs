@@ -23,7 +23,6 @@ namespace gip.vb.mobile.Views
             //_OutwardPostingQSuggestion = outwardPostingQSuggestion;
 
             _WFMethod = wfMethod;
-
             _FromTaskModel = taskModel;
             IntermOrIntermBatch = batch;
             //Intermediate = intermediate;
