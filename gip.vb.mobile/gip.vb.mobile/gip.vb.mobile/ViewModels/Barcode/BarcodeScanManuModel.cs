@@ -40,6 +40,7 @@ namespace gip.vb.mobile.ViewModels
                                                                 .ToList();
                     if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
                         || Item.State == ActionState.FastSelection
+                        || Item.State == ActionState.SelectionScanAgain
                         || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
                         List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
@@ -110,6 +111,9 @@ namespace gip.vb.mobile.ViewModels
 
         public async Task InvokeActionOnMachine()
         {
+            if (Item.State == ActionState.SelectionScanAgain)
+                Item.State = ActionState.Selection;
+
             ProdOrderPartslistWFInfo wfInfo = SelectedSequence as ProdOrderPartslistWFInfo;
             BarcodeEntity entity = Item.Sequence.LastOrDefault();
             if (entity == null)

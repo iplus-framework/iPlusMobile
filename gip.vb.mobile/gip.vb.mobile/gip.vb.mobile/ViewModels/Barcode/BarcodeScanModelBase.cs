@@ -162,6 +162,13 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
+                if (Item.State == ActionState.SelectionScanAgain && Item.Sequence.Count == 2)
+                {
+                    var itemToRemove = Item.Sequence.FirstOrDefault(c => c.ValidEntity == null);
+                    if (itemToRemove != null)
+                        Item.Sequence.Remove(itemToRemove);
+                }
+
                 var response = await _WebService.InvokeBarcodeSequenceAsync(Item);
                 this.WSResponse = response;
                 if (response.Suceeded)
