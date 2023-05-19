@@ -36,7 +36,7 @@ namespace gip.vb.mobile.ViewModels
             PostingQuantitySuggestionMode? mode1 = null, mode2 = null;
             string validSeqNo1 = null, validSeqNo2 = null;
 
-            if (wfMethod != null)
+            if (wfMethod != null && !isInward)
             {
                 ACValue pqsmACValue = wfMethod.ParameterValueList.GetACValue("PostingQuantitySuggestionMode");
                 if (pqsmACValue != null)
@@ -71,10 +71,10 @@ namespace gip.vb.mobile.ViewModels
             _InwardSuggestionMode = 0;
             _InwardPostingSuggestionQ = 0;
             _InwardAutoSplitQuant = 0;
-            if (wfMethod != null)
+            if (wfMethod != null && isInward)
             {
                 ACValue inwardPostSQ = wfMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
-                if (inwardPostSQ != null)
+                if (inwardPostSQ != null && inwardPostSQ.Value != null)
                 {
                     BookingQuantity = inwardPostSQ.ParamAsDouble;
                     _InwardPostingSuggestionQ = inwardPostSQ.ParamAsDouble;
@@ -86,14 +86,14 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     ACValue inwardSMode = wfMethod.ParameterValueList.GetACValue("QuantityPerRack");
-                    if (inwardSMode != null)
+                    if (inwardSMode != null && inwardSMode.Value != null)
                     {
                         _InwardSuggestionMode = inwardSMode.ParamAsDouble;
                     }
                 }
 
                 ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
-                if (inwardAutoSplitQuant != null)
+                if (inwardAutoSplitQuant != null && inwardAutoSplitQuant.Value != null)
                     _InwardAutoSplitQuant = inwardAutoSplitQuant.ParamAsInt32;
             }
 
