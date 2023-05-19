@@ -76,11 +76,11 @@ namespace gip.vb.mobile.ViewModels
                 ACValue inwardPostSQ = wfMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
                 if (inwardPostSQ != null && inwardPostSQ.Value != null)
                 {
-                    BookingQuantity = inwardPostSQ.ParamAsDouble;
                     _InwardPostingSuggestionQ = inwardPostSQ.ParamAsDouble;
-                    if(_InwardPostingSuggestionQ > 0)
+                    if (Math.Abs(_InwardPostingSuggestionQ) > 0)
                     {
                         LoadIntermediateNotFinalProductFacility();
+                        BookingQuantity = Math.Abs(_InwardPostingSuggestionQ);
                     }
                 }
                 else
@@ -549,9 +549,9 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ProdOrderPosInward.ToString();
                 aCMethodBooking.PartslistPosID = IntermOrIntermBatch.ProdOrderPartslistPosID;
                 aCMethodBooking.InwardQuantity = BookingQuantity;
-                
+
                 aCMethodBooking.InwardFacilityID = CurrentFacility.FacilityID;
-                if(_InwardPostingSuggestionQ > 0 && IntermediateNotFinalProductFacility != null)
+                if (Math.Abs(_InwardPostingSuggestionQ) > 0 && IntermediateNotFinalProductFacility != null)
                 {
                     var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
                     aCMethodBooking.InwardFacilityID = IntermediateNotFinalProductFacility.FacilityID;
@@ -566,7 +566,6 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 aCMethodBooking.InwardAutoSplitQuant = _InwardAutoSplitQuant;
                 aCMethodBooking.InwardSplitNo = InwardSplitNo;
-                BookingQuantity = _InwardPostingSuggestionQ;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
                 this.WSResponse = response;
@@ -581,11 +580,58 @@ namespace gip.vb.mobile.ViewModels
                         IsBusy = false;
                         await ExecuteReadPostingsCommand();
                         await RefreshIntermOrIntermBatch();
+                        if (_InwardPostingSuggestionQ < 0)
+                        {
+                            FacilityBookingChargeOverview fbcOverview = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                            if (fbcOverview != null && fbcOverview.InwardFacilityChargeID != null)
+                            {
+                                await MakeChargeUnavailable(fbcOverview.InwardFacilityChargeID ?? Guid.Empty);
+                            }
+                        }
                         IsBusy = false;
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         if (!CurrentFacility.SkipPrintQuestion)
                             Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task MakeChargeUnavailable(Guid inwardFacilityChargeID)
+        {
+            try
+            {
+                ACMethodBooking aCMethodBooking = new ACMethodBooking();
+                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_ZeroStock_FacilityCharge.ToString();
+                aCMethodBooking.InwardFacilityChargeID = inwardFacilityChargeID;
+                aCMethodBooking.ZeroStockStateIndex = 2; // MDZeroStockState.ZeroStockStates.SetNotAvailable;
+                BookingQuantity = 0;
+                var response = await _WebService.BookFacilityAsync(aCMethodBooking);
+                this.WSResponse = response;
+                if (!response.Suceeded)
+                    BookingMessage = response.Message != null ? response.Message.Message : "Booking Error";
+                else
+                {
+                    if (response.Data != null && !String.IsNullOrEmpty(response.Data.DetailsAsText))
+                        BookingMessage = response.Data.DetailsAsText;
+                    else
+                    {
+                        IsBusy = false;
+                        BookingMessage = "";
+                    }
+                }
+
+                if (Math.Abs(_InwardPostingSuggestionQ) > 0)
+                {
+                    BookingQuantity = Math.Abs(_InwardPostingSuggestionQ);
                 }
             }
             catch (Exception ex)
