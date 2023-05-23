@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.core.datamodel;
+using gip.mes.datamodel;
 
 namespace gip.vbm.mobile.Views
 {
@@ -85,8 +87,18 @@ namespace gip.vbm.mobile.Views
 
                 if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
+                    ACValue inwardPostSQ = wfInfo.WFMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
+
                     //await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, new Helpers.PostingSuggestionMode(wfInfo.PostingQSuggestionMode, wfInfo.ValidSeqNoForPostingQSMode)));
-                    await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+
+                    if (inwardPostSQ != null && inwardPostSQ.Value != null)
+                    {
+                        await Navigation.PushAsync(new BSOProdOrderInOutSelector(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new BSOProdOrderOutwardMatSel(wfInfo.IntermediateBatch, _ViewModel, wfInfo.WFMethod));
+                    }
                 }
                 else if (!wfInfo.IntermediateBatch.HasInputMaterials)
                 {

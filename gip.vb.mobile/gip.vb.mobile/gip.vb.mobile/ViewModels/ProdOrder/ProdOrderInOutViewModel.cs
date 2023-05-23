@@ -143,7 +143,7 @@ namespace gip.vb.mobile.ViewModels
         public Facility IntermediateNotFinalProductFacility
         {
             get => _IntermediateNotFinalProductFacility;
-            set => SetProperty(ref _IntermediateNotFinalProductFacility, value, "IntermediateNotFinalProductFacility");
+            set => SetProperty(ref _IntermediateNotFinalProductFacility, value, nameof(IntermediateNotFinalProductFacility));
         }
 
         private PostingOverview _Overview;

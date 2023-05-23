@@ -32,7 +32,7 @@ namespace gip.vbm.mobile.Views
         public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, ACMethod wfMethod)
         {
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, null, intermOrIntermBatch, wfMethod);
+            BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, taskModel, null, intermOrIntermBatch, wfMethod);
             InitializeComponent();
         }
 

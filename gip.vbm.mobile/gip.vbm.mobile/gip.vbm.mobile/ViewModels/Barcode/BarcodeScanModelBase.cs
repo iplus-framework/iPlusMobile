@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static gip.mes.datamodel.BarcodeSequenceBase;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.ViewModels
 {
@@ -169,6 +170,12 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
+                if (ExchangedBarcodeSeq.State == ActionState.SelectionScanAgain && ExchangedBarcodeSeq.Sequence.Count == 2)
+                {
+                    var itemToRemove = ExchangedBarcodeSeq.Sequence.FirstOrDefault(c => c.ValidEntity == null);
+                    if (itemToRemove != null)
+                        ExchangedBarcodeSeq.Sequence.Remove(itemToRemove);
+                }
                 var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
                 this.WSResponse = response;
                 if (response.Suceeded)

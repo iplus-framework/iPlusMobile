@@ -217,5 +217,10 @@ namespace gip.vbm.mobile.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<WSResponse<Facility>> GetNFBatchTargetFacilityAsync(string machineFunctionID)
+        {
+            return await Task.FromResult<WSResponse<Facility>>(null);
+        }
     }
 }

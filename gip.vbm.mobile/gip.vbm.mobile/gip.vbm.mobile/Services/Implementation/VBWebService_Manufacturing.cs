@@ -77,6 +77,11 @@ namespace gip.vbm.mobile.Services
             return await Get<List<Facility>>(string.Format(VBWebServiceConst.UriProdOrderBatchTargetFacilities_F, intermBatchID));
         }
 
+        public async Task<WSResponse<Facility>> GetNFBatchTargetFacilityAsync(string machineFunctionID)
+        {
+            return await Get<Facility>(string.Format(VBWebServiceConst.UriNFBatchTargetFacility_F, machineFunctionID));
+        }
+
         public async Task<WSResponse<Msg>> VerifyOrderPostingsOnReleaseAsync(BarcodeEntity entity)
         {
             if (entity == null)

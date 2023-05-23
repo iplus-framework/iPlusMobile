@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using static gip.mes.datamodel.BarcodeSequenceBase;
+using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.ViewModels
 {
@@ -41,6 +42,7 @@ namespace gip.vbm.mobile.ViewModels
                                                                 .ToList();
                     if (   ExchangedBarcodeSeq.State == ActionState.Selection
                         || ExchangedBarcodeSeq.State == ActionState.FastSelection
+                        || ExchangedBarcodeSeq.State == ActionState.SelectionScanAgain
                         || ExchangedBarcodeSeq.State == ActionState.Completed)
                     {
                         List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  ExchangedBarcodeSeq.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
@@ -111,6 +113,8 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task InvokeActionOnMachine()
         {
+            if (ExchangedBarcodeSeq.State == ActionState.SelectionScanAgain)
+                ExchangedBarcodeSeq.State = ActionState.Selection;
             ProdOrderPartslistWFInfo wfInfo = SelectedEntity as ProdOrderPartslistWFInfo;
             BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
             if (entity == null)
