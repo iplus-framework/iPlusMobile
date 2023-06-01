@@ -310,9 +310,21 @@ namespace gip.vb.mobile.ViewModels
 
                     BookingQuantity = diff;
                 }
-                else if (_InwardSuggestionMode > double.Epsilon)
+                else if (_InwardPostingSuggestionQ < -double.Epsilon)
+                {
+                    BookingQuantity = Math.Abs(_InwardPostingSuggestionQ);
+                }
+                else if (_InwardPostingSuggestionQ > double.Epsilon)
+                {
+                    BookingQuantity = _InwardPostingSuggestionQ;
+                }
+                else if (_InwardPostingSuggestionQ > double.Epsilon)
                 {
                     BookingQuantity = _InwardSuggestionMode;
+                }
+                else
+                {
+                    BookingQuantity = 0;
                 }
             }
             catch (Exception ex)
