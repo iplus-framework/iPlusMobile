@@ -130,11 +130,12 @@ namespace gip.vb.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo == null || wfInfo.WFMethod == null)
                 return;
+
             wfInfo.WFMethod.AutoRemove = false;
             await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
         }
 
-        private void SendChangedACMethod()
+        private async void SendChangedACMethod()
         {
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedSequence as ProdOrderPartslistWFInfo;
             if (wfInfo != null && wfInfo.WFMethod != null && wfInfo.WFMethod.AutoRemove == true)
@@ -148,7 +149,8 @@ namespace gip.vb.mobile.Views
                 }
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
-                _ViewModel.InvokeBarcodeCommand.Execute(null);
+                //_ViewModel.InvokeBarcodeCommand.Execute(null);
+                await _ViewModel.InvokeActionOnMachine();
             }
         }
 
