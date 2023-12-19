@@ -113,13 +113,19 @@
         </ScrollView>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="ProdOrderInOutHistory" Title="{i18n:Translate Text=ProdOrderInOutBookingHistory_Header}">
-        <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
-                     HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" Width="1*"/>
-                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}" />
-            </dg:DataGrid.Columns>
-        </dg:DataGrid>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding ShowZeroStockPostings}" />
+                <Label Text="{i18n:Translate Text=ZeroStockPostings_Text}" />
+            </StackLayout>
+            <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+                         HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" RowsTextColorPalette="{StaticResource DgColorProvider}">
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardFacilityNo}" PropertyName="InwardFacilityNo" Width="1*"/>
+                    <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InwardQuantityUOM}" PropertyName="InwardQuantityUOM" StringFormat="{}{0:0.0}" />
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </StackLayout>
     </v:BSOPageBase>
 </v:BSOProdOrderInOutBase>

@@ -270,6 +270,14 @@ namespace gip.vb.mobile.ViewModels
         private int _InwardAutoSplitQuant;
         private IEnumerable<ProdOrderPartslistPosRelation> _Components;
 
+
+        private bool _ShowZeroStockPostings = false;
+        public bool ShowZeroStockPostings
+        {
+            get => _ShowZeroStockPostings;
+            set => SetProperty(ref _ShowZeroStockPostings, value);
+        }
+
         #endregion
 
         #region Mehods & Commands
@@ -298,7 +306,13 @@ namespace gip.vb.mobile.ViewModels
                 var response = await _WebService.GetProdOrderPosFacilityBookingAsync(IntermOrIntermBatch.ProdOrderPartslistPosID.ToString());
                 this.WSResponse = response;
                 if (response != null && response.Suceeded)
-                    Overview = response.Data;
+                {
+                    PostingOverview overview = response.Data;
+                    if (!ShowZeroStockPostings)
+                        overview.PostingsFBC = overview.PostingsFBC.Where(c => c.FacilityBookingTypeIndex != (int)GlobalApp.FacilityBookingType.ZeroStock_FacilityCharge);
+
+                    Overview = overview;
+                }
                 else
                     Overview = new PostingOverview();
 

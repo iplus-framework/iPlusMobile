@@ -732,6 +732,9 @@
   <data name="WrongScanWorkplace_Text" xml:space="preserve">
     <value>Pogrešan sken. Molimo skenirajte radno mjesto.</value>
   </data>
+  <data name="ZeroStockPostings_Text" xml:space="preserve">
+    <value>Prikaži knjiženja na nulto stanje</value>
+  </data>
   <data name="ZXingOverlay_Text" xml:space="preserve">
     <value>Potpuno pozicionirajte barkod na liniju</value>
   </data>

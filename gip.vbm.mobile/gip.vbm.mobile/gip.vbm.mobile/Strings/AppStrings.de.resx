@@ -678,4 +678,7 @@
   <data name="BtnMachineRunning_Text" xml:space="preserve">
     <value>Maschine läuft</value>
   </data>
+  <data name="ZeroStockPostings_Text" xml:space="preserve">
+    <value>Null-Lagerbuchungen anzeigen</value>
+  </data>
 </root>

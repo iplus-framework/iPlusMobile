@@ -736,4 +736,7 @@
   <data name="BtnMachineRunning_Text" xml:space="preserve">
     <value>Machine running</value>
   </data>
+  <data name="ZeroStockPostings_Text" xml:space="preserve">
+    <value>Show zero stock postings</value>
+  </data>
 </root>

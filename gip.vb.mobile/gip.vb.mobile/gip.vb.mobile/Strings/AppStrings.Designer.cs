@@ -19,7 +19,7 @@ namespace gip.vb.mobile.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppStrings {
@@ -1902,6 +1902,15 @@ namespace gip.vb.mobile.Strings {
         internal static string WrongScanWorkplace_Text {
             get {
                 return ResourceManager.GetString("WrongScanWorkplace_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show zero stock postings.
+        /// </summary>
+        internal static string ZeroStockPostings_Text {
+            get {
+                return ResourceManager.GetString("ZeroStockPostings_Text", resourceCulture);
             }
         }
         

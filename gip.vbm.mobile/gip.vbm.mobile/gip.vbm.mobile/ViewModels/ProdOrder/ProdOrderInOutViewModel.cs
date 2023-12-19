@@ -258,6 +258,13 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        private bool _ShowZeroStockPostings = false;
+        public bool ShowZeroStockPostings
+        {
+            get => _ShowZeroStockPostings;
+            set => SetProperty(ref _ShowZeroStockPostings, value);
+        }
+
         private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
         private double _InwardSuggestionMode;
         private double _InwardPostingSuggestionQ;
@@ -292,7 +299,13 @@ namespace gip.vbm.mobile.ViewModels
                 var response = await _WebService.GetProdOrderPosFacilityBookingAsync(IntermOrIntermBatch.ProdOrderPartslistPosID.ToString());
                 this.WSResponse = response;
                 if (response != null && response.Suceeded)
-                    Overview = response.Data;
+                {
+                    PostingOverview overview = response.Data;
+                    if (!ShowZeroStockPostings)
+                        overview.PostingsFBC = overview.PostingsFBC.Where(c => c.FacilityBookingTypeIndex != (int)GlobalApp.FacilityBookingType.ZeroStock_FacilityCharge);
+
+                    Overview = overview;
+                }
                 else
                     Overview = new PostingOverview();
 

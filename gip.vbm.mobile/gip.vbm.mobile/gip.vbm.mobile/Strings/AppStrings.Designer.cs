@@ -1906,6 +1906,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show zero stock postings.
+        /// </summary>
+        internal static string ZeroStockPostings_Text {
+            get {
+                return ResourceManager.GetString("ZeroStockPostings_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fully position barcode on line.
         /// </summary>
         internal static string ZXingOverlay_Text {
