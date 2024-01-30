@@ -43,8 +43,37 @@
                                 <RowDefinition Height="44" />
                             </Grid.RowDefinitions>
                             <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4" />
-                                <Label Text="{Binding Label}" Grid.ColumnSpan="2" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource LabelForDesc}" />
-                                <ctl:NumericEntry Grid.Row="1" Grid.ColumnSpan="2" TextNumeric="{Binding Value, Mode=TwoWay}" TransferValueAtEnd="True"></ctl:NumericEntry>
+                                <Label Text="{Binding Label}" Grid.ColumnSpan="2" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource LabelForDesc}">
+                                </Label>
+
+                                <ctl:CheckBox Grid.Row="1" Grid.ColumnSpan="2" IsVisible="False">
+                                    <ctl:CheckBox.Style>
+                                        <Style TargetType="ctl:CheckBox">
+                                            <Setter Property="IsVisible" Value="False" />
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="ctl:CheckBox" Binding="{Binding DataTypeName}" Value="Boolean">
+                                                    <Setter Property="IsVisible" Value="True" />
+                                                    <Setter Property="IsChecked" Value="{Binding Value}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ctl:CheckBox.Style>
+                                </ctl:CheckBox>
+
+                                <ctl:NumericEntry Grid.Row="1" Grid.ColumnSpan="2" TextNumeric="{Binding Value, Mode=TwoWay}" TransferValueAtEnd="True">
+                                    <ctl:NumericEntry.Style>
+                                        <Style TargetType="ctl:NumericEntry">
+                                            <Setter Property="IsVisible" Value="True" />
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="ctl:NumericEntry" Binding="{Binding DataTypeName}" Value="Boolean">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ctl:NumericEntry.Style>
+                                </ctl:NumericEntry>
+                                
+
                                 <!--<Label Grid.Row="1" Grid.Column="1" Text="{Binding Value}"></Label>-->
                                 <!--<Entry x:Name="TheEntry" Grid.Row="1" Text="{Binding Value}" VerticalOptions="Start" VerticalTextAlignment="Start">
                                     <Entry.Behaviors>
