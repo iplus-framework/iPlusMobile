@@ -98,7 +98,7 @@ namespace gip.vb.mobile.Services
 
         #region HTTP-Methods
 
-        protected async Task<WSResponse<TResult>> Get<TResult>(string uriString)
+        public async Task<WSResponse<TResult>> Get<TResult>(string uriString)
         {
             var response = await Get<TResult>(new Uri(uriString, UriKind.Relative));
             if (response != null && IsLoginAgainResponse(response.Message))
@@ -113,7 +113,7 @@ namespace gip.vb.mobile.Services
             return response;
         }
 
-        protected async Task<WSResponse<TResult>> Get<TResult>(Uri uri)
+        public async Task<WSResponse<TResult>> Get<TResult>(Uri uri)
         {
             using (var cts = new CancellationTokenSource())
             {
@@ -158,7 +158,7 @@ namespace gip.vb.mobile.Services
         }
 
 
-        protected async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, string uriString)
+        public async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, string uriString)
         {
             var response = await Post<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
 
@@ -174,7 +174,7 @@ namespace gip.vb.mobile.Services
             return response;
         }
 
-        protected async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, Uri uri)
+        public async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, Uri uri)
         {
             using (var cts = new CancellationTokenSource())
             {
@@ -235,7 +235,7 @@ namespace gip.vb.mobile.Services
         }
 
 
-        protected async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, string uriString)
+        public async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, string uriString)
         {
             var response = await Put<TResult, TParam>(item, new Uri(uriString, UriKind.Relative));
 
@@ -251,7 +251,7 @@ namespace gip.vb.mobile.Services
             return response;
         }
 
-        protected async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, Uri uri)
+        public async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, Uri uri)
         {
             using (var cts = new CancellationTokenSource())
             {
@@ -310,7 +310,7 @@ namespace gip.vb.mobile.Services
         }
 
 
-        protected async Task<WSResponse<TResult>> Delete<TResult>(string uriString)
+        public async Task<WSResponse<TResult>> Delete<TResult>(string uriString)
         {
             var response = await Delete<TResult>(new Uri(uriString, UriKind.Relative));
 
@@ -326,7 +326,7 @@ namespace gip.vb.mobile.Services
             return response;
         }
 
-        protected async Task<WSResponse<TResult>> Delete<TResult>(Uri uri)
+        public async Task<WSResponse<TResult>> Delete<TResult>(Uri uri)
         {
             using (var cts = new CancellationTokenSource())
             {
