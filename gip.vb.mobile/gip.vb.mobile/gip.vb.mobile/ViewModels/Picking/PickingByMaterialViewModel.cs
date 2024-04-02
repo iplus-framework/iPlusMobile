@@ -197,6 +197,15 @@ namespace gip.vb.mobile.ViewModels
                             {
                                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingInward;
                             }
+                            else if (pp.Picking.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.InternalRelocation)
+                            {
+                                aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_PickingRelocation;
+                                if (pp.ToFacility == null)
+                                    continue;
+
+                                aCMethodBooking.InwardFacilityID = pp.ToFacility.FacilityID;
+                                aCMethodBooking.OutwardQuantity = pp.PostingQuantity;
+                            }
                         }
 
                         aCMethodBooking.PickingPosID = pp.PickingPosID;
