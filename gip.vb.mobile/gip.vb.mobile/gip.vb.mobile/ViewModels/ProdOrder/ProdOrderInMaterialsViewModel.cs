@@ -12,9 +12,10 @@ namespace gip.vb.mobile.ViewModels
 {
     public class ProdOrderInMaterialsViewModel : BaseViewModel
     {
-        public ProdOrderInMaterialsViewModel(ProdOrderPartslistPos targetPos)
+        public ProdOrderInMaterialsViewModel(ProdOrderPartslistPos targetPos, BarcodeScanManuModel taskModel)
         {
             TargetPos = targetPos;
+            TaskModel = taskModel;
             ProdOrderInMaterials = new ObservableCollection<ProdOrderPartslistPosRelation>();
             LoadProdOrderInMaterialsCommand = new Command(async () => await ExecuteLoadProdOrderInMaterialsCommand());
             Title = Strings.AppStrings.InputMaterials_Header; 
@@ -22,6 +23,11 @@ namespace gip.vb.mobile.ViewModels
 
 
         public ProdOrderPartslistPos TargetPos
+        {
+            get; set;
+        }
+
+        public BarcodeScanManuModel TaskModel
         {
             get; set;
         }
@@ -43,13 +49,47 @@ namespace gip.vb.mobile.ViewModels
             try
             {
                 ProdOrderInMaterials.Clear();
-                var response = await _WebService.GetProdOrderInputMaterialsAsync(TargetPos?.ProdOrderPartslistPosID.ToString());
-                this.WSResponse = response;
-                if (response.Suceeded)
+
+                bool isMultipleMaterialWFConnection = false;
+                ProdOrderPartslistPos intermediateBatch = null;
+                IEnumerable<Guid> intermediateBatchIDs = null;
+
+                if (TaskModel != null)
                 {
-                    foreach (var item in response.Data)
+                    ProdOrderPartslistWFInfo wfInfo = TaskModel.SelectedSequence as ProdOrderPartslistWFInfo;
+                    if (wfInfo != null && wfInfo.IntermediateBatch != null && wfInfo.MaterialWFConnectionMode > 0)
                     {
-                        ProdOrderInMaterials.Add(item);
+                        intermediateBatch = wfInfo.IntermediateBatch;
+                        isMultipleMaterialWFConnection = true;
+                        intermediateBatchIDs = wfInfo.IntermediateBatchIDs;
+                    }
+                }
+
+                if (isMultipleMaterialWFConnection)
+                {
+                    foreach (Guid intermediateBatchID in intermediateBatchIDs)
+                    {
+                        var response = await _WebService.GetProdOrderInputMaterialsAsync(intermediateBatchID.ToString());
+                        this.WSResponse = response;
+                        if (response.Suceeded)
+                        {
+                            foreach (var item in response.Data)
+                            {
+                                ProdOrderInMaterials.Add(item);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var response = await _WebService.GetProdOrderInputMaterialsAsync(TargetPos?.ProdOrderPartslistPosID.ToString());
+                    this.WSResponse = response;
+                    if (response.Suceeded)
+                    {
+                        foreach (var item in response.Data)
+                        {
+                            ProdOrderInMaterials.Add(item);
+                        }
                     }
                 }
             }

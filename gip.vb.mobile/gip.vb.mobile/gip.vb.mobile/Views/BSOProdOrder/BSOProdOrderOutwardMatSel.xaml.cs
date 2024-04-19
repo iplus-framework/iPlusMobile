@@ -29,7 +29,7 @@ namespace gip.vb.mobile.Views
             //_OutwardPostingQSuggestion = outwardPostingQSuggestion;
             //InViewModel = inViewModel;
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInMaterialsViewModel(targetPos);
+            BindingContext = _ViewModel = new ProdOrderInMaterialsViewModel(targetPos, taskModel);
             InitializeComponent();
         }
 
@@ -41,9 +41,8 @@ namespace gip.vb.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            //if (!_ViewModel.ProdOrderInMaterials.Any())
-                _ViewModel.LoadProdOrderInMaterialsCommand.Execute(null);
+            
+           _ViewModel.LoadProdOrderInMaterialsCommand.Execute(null);
         }
 
 

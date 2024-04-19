@@ -43,7 +43,14 @@ namespace gip.vb.mobile.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new BSOProdOrderBatch(item, _FromTaskModel));
+            ProdOrderPartslistWFInfo wfInfo = _FromTaskModel.SelectedSequence as ProdOrderPartslistWFInfo;
+            if (wfInfo.IntermediateBatch != null && wfInfo.MaterialWFConnectionMode == 10)
+            {
+                item.ProdOrderPartslist = wfInfo.Intermediate.ProdOrderPartslist;
+                await Navigation.PushAsync(new BSOProdOrderInOutSelector(item, _FromTaskModel, null));
+            }
+            else
+                await Navigation.PushAsync(new BSOProdOrderBatch(item, _FromTaskModel));
         }
     }
 }
