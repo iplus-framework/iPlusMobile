@@ -28,7 +28,7 @@ namespace gip.vbm.mobile.Views
             //_OutwardPostingQSuggestion = outwardPostingQSuggestion;
             //InViewModel = inViewModel;
             _FromTaskModel = taskModel;
-            BindingContext = _ViewModel = new ProdOrderInMaterialsViewModel(targetPos);
+            BindingContext = _ViewModel = new ProdOrderInMaterialsViewModel(targetPos, taskModel);
             InitializeComponent();
         }
 

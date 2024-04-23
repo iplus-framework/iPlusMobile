@@ -82,13 +82,21 @@ namespace gip.vbm.mobile.Views
             ProdOrderPartslistWFInfo wfInfo = _ViewModel.SelectedEntity as ProdOrderPartslistWFInfo;
             if (wfInfo.IntermediateBatch != null)
             {
+                short materialWFConnMode = wfInfo.MaterialWFConnectionMode;
+
                 if (wfInfo.WFMethod != null)
                 {
                     wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode });
                     wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
                 }
 
-                if (!wfInfo.IntermediateBatch.IsFinalMixure)
+                //Intermediate selector with batch
+                if (materialWFConnMode == 10)
+                {
+                    //TODO: filter intermediate products which are related to the workflow node
+                    await Navigation.PushAsync(new BSOProdOrderIntermediate(wfInfo.ProdOrderPartslist, _ViewModel));
+                }
+                else if (!wfInfo.IntermediateBatch.IsFinalMixure)
                 {
                     ACValue inwardPostSQ = wfInfo.WFMethod.ParameterValueList.GetACValue(GlobalApp.WFParam_InwardPostingSuggestionQ);
 

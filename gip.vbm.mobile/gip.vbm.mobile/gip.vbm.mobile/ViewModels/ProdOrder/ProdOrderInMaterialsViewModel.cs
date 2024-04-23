@@ -13,16 +13,21 @@ namespace gip.vbm.mobile.ViewModels
 {
     public class ProdOrderInMaterialsViewModel : BaseViewModel
     {
-        public ProdOrderInMaterialsViewModel(ProdOrderPartslistPos targetPos)
+        public ProdOrderInMaterialsViewModel(ProdOrderPartslistPos targetPos, BarcodeScanManuModel taskModel)
         {
             TargetPos = targetPos;
+            TaskModel = taskModel;
             ProdOrderInMaterials = new ObservableCollection<ProdOrderPartslistPosRelation>();
             LoadProdOrderInMaterialsCommand = new Command(async () => await ExecuteLoadProdOrderInMaterialsCommand());
-            Title = Strings.AppStrings.InputMaterials_Header; 
+            Title = Strings.AppStrings.InputMaterials_Header;
         }
 
-
         public ProdOrderPartslistPos TargetPos
+        {
+            get; set;
+        }
+
+        public BarcodeScanManuModel TaskModel
         {
             get; set;
         }
@@ -32,7 +37,6 @@ namespace gip.vbm.mobile.ViewModels
         {
             get; set;
         }
-
 
         public async Task ExecuteLoadProdOrderInMaterialsCommand()
         {
@@ -44,13 +48,47 @@ namespace gip.vbm.mobile.ViewModels
             try
             {
                 ProdOrderInMaterials.Clear();
-                var response = await _WebService.GetProdOrderInputMaterialsAsync(TargetPos?.ProdOrderPartslistPosID.ToString());
-                this.WSResponse = response;
-                if (response.Suceeded)
+
+                bool isMultipleMaterialWFConnection = false;
+                ProdOrderPartslistPos intermediateBatch = null;
+                IEnumerable<Guid> intermediateBatchIDs = null;
+
+                if (TaskModel != null)
                 {
-                    foreach (var item in response.Data)
+                    ProdOrderPartslistWFInfo wfInfo = TaskModel.SelectedEntity as ProdOrderPartslistWFInfo;
+                    if (wfInfo != null && wfInfo.IntermediateBatch != null && wfInfo.MaterialWFConnectionMode > 0)
                     {
-                        ProdOrderInMaterials.Add(item);
+                        intermediateBatch = wfInfo.IntermediateBatch;
+                        isMultipleMaterialWFConnection = true;
+                        intermediateBatchIDs = wfInfo.IntermediateBatchIDs;
+                    }
+                }
+
+                if (isMultipleMaterialWFConnection)
+                {
+                    foreach (Guid intermediateBatchID in intermediateBatchIDs)
+                    {
+                        var response = await _WebService.GetProdOrderInputMaterialsAsync(intermediateBatchID.ToString());
+                        this.WSResponse = response;
+                        if (response.Suceeded)
+                        {
+                            foreach (var item in response.Data)
+                            {
+                                ProdOrderInMaterials.Add(item);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var response = await _WebService.GetProdOrderInputMaterialsAsync(TargetPos?.ProdOrderPartslistPosID.ToString());
+                    this.WSResponse = response;
+                    if (response.Suceeded)
+                    {
+                        foreach (var item in response.Data)
+                        {
+                            ProdOrderInMaterials.Add(item);
+                        }
                     }
                 }
             }
@@ -64,11 +102,8 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
-            
         }
-
     }
 }
