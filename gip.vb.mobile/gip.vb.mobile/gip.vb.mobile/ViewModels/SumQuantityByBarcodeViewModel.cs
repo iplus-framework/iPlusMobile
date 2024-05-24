@@ -78,6 +78,12 @@ namespace gip.vb.mobile.ViewModels
             set;
         }
 
+        public SumItem? CurrentBarcodeInfo
+        {
+            get;
+            set;
+        }
+
         private string _TempCurrentBarcode;
 
         public async Task OnBarcodeScanned(string currentBarcode)

@@ -113,6 +113,20 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private DateTime? _ExpirationDate;
+        public DateTime? ExpirationDate
+        {
+            get => _ExpirationDate;
+            set => SetProperty<DateTime?>(ref _ExpirationDate, value);
+        }
+
+        private string _ExternLotNo;
+        public string ExternLotNo
+        {
+            get => _ExternLotNo;
+            set => SetProperty<string>(ref _ExternLotNo, value);
+        }
+
         private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         #endregion
@@ -326,6 +340,11 @@ namespace gip.vb.mobile.ViewModels
                 {
                     PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
                     aCMethodBooking.InwardQuantity = BookingQuantity;
+                    if (ExpirationDate.HasValue)
+                        aCMethodBooking.ExpirationDate = ExpirationDate.Value;
+
+                    if (!string.IsNullOrEmpty(ExternLotNo))
+                        aCMethodBooking.ExternLotNo = ExternLotNo;
                 }
                 else if (Item.PostingType == PostingTypeEnum.Outward)
                 {
@@ -355,6 +374,7 @@ namespace gip.vb.mobile.ViewModels
                     if (response.Data != null && (!String.IsNullOrEmpty(response.Data.DetailsAsText) || response.Data.MessageLevel == eMsgLevel.Question))
                     {
                         BookingQuantity = 0;
+                        
 
                         if (response.Data.MessageLevel == eMsgLevel.Question)
                         {
@@ -390,6 +410,8 @@ namespace gip.vb.mobile.ViewModels
             }
             finally
             {
+                ExternLotNo = null;
+                ExpirationDate = null;
                 IsBusy = false;
             }
         }
@@ -400,9 +422,8 @@ namespace gip.vb.mobile.ViewModels
             if (barcodeEntity != null)
             {
                 if (barcodeEntity.FacilityCharge != null)
-                {   
+                {
                     acMethodBooking.InwardFacilityChargeID = barcodeEntity.FacilityCharge.FacilityChargeID;
-
                 }
                 else if (barcodeEntity.Facility != null)
                 {
@@ -524,6 +545,14 @@ namespace gip.vb.mobile.ViewModels
 
             _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
             return _SumByBarcodeModel;
+        }
+
+        public SumQuantityByBarcodeViewModel.SumItem? GetBarcodeInfoFromSumModel()
+        {
+            if (_SumByBarcodeModel != null && _SumByBarcodeModel.CurrentBarcodeInfo != null)
+                return _SumByBarcodeModel.CurrentBarcodeInfo;
+
+            return null;
         }
 
         public double? GetQuantityFromSumModel()
