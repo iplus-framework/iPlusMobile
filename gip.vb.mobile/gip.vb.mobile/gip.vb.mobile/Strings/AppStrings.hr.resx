@@ -348,8 +348,14 @@
   <data name="ExitHint_Text" xml:space="preserve">
     <value>Ponovo dodirnite za izlaz iz iPlus-a</value>
   </data>
+  <data name="ExpDate" xml:space="preserve">
+    <value>Rok trajanja</value>
+  </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
     <value>Pregledajte spremište</value>
+  </data>
+  <data name="ExternLot" xml:space="preserve">
+    <value>Vanjski lot</value>
   </data>
   <data name="FacilityName_Text" xml:space="preserve">
     <value>Naziv</value>

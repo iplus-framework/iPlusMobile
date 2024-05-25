@@ -78,13 +78,13 @@
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
 
                 <StackLayout Orientation="Horizontal" Margin="0,0,5,0" x:Name="stckExpDate" IsVisible="False" >
-                    <Label Text="MHD" VerticalTextAlignment="Center" />
-                    <Entry HorizontalOptions="FillAndExpand" Text="{Binding ExpirationDate, Mode=TwoWay}" Focused="Entry_Focused" x:Name="dtEntry" />
+                    <Label Text="{i18n:Translate Text=ExpDate}" VerticalTextAlignment="Center" />
+                    <Entry HorizontalOptions="FillAndExpand" Text="{Binding ExpirationDate, Mode=TwoWay, StringFormat='{0:dd.MM.yyyy.}'}" Focused="Entry_Focused" x:Name="dtEntry" />
                     <DatePicker Date="{Binding ExpirationDate, Mode=TwoWay}" x:Name="dtPicker" IsVisible="False" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="0,0,5,0" x:Name="stckExtLot" IsVisible="False" >
-                    <Label Text="Externe Los" VerticalTextAlignment="Center" />
+                    <Label Text="{i18n:Translate Text=ExternLot}" VerticalTextAlignment="Center" />
                     <Entry HorizontalOptions="FillAndExpand" Text="{Binding ExternLotNo, Mode=TwoWay}" />
                 </StackLayout>
 

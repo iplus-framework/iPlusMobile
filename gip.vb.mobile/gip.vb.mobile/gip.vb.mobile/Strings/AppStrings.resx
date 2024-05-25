@@ -739,4 +739,10 @@
   <data name="ZeroStockPostings_Text" xml:space="preserve">
     <value>Show zero stock postings</value>
   </data>
+  <data name="ExpDate" xml:space="preserve">
+    <value>Exp. date</value>
+  </data>
+  <data name="ExternLot" xml:space="preserve">
+    <value>Extern lot</value>
+  </data>
 </root>

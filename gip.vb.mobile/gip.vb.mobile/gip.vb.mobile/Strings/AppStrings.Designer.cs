@@ -754,11 +754,29 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exp. date.
+        /// </summary>
+        internal static string ExpDate {
+            get {
+                return ResourceManager.GetString("ExpDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Explore storage.
         /// </summary>
         internal static string ExploreStorage_Text {
             get {
                 return ResourceManager.GetString("ExploreStorage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extern lot.
+        /// </summary>
+        internal static string ExternLot {
+            get {
+                return ResourceManager.GetString("ExternLot", resourceCulture);
             }
         }
         
