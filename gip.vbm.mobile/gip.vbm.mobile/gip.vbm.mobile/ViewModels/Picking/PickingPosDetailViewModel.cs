@@ -113,6 +113,20 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        private DateTime? _ExpirationDate;
+        public DateTime? ExpirationDate
+        {
+            get => _ExpirationDate;
+            set => SetProperty<DateTime?>(ref _ExpirationDate, value);
+        }
+
+        private string _ExternLotNo;
+        public string ExternLotNo
+        {
+            get => _ExternLotNo;
+            set => SetProperty<string>(ref _ExternLotNo, value);
+        }
+
         private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         #endregion
@@ -326,6 +340,11 @@ namespace gip.vbm.mobile.ViewModels
                 {
                     PrepareParamForPickingInward(aCMethodBooking, barcodeEntity);
                     aCMethodBooking.InwardQuantity = BookingQuantity;
+                    if (ExpirationDate.HasValue)
+                        aCMethodBooking.ExpirationDate = ExpirationDate.Value;
+
+                    if (!string.IsNullOrEmpty(ExternLotNo))
+                        aCMethodBooking.ExternLotNo = ExternLotNo;
                 }
                 else if (PickingPosItem.PostingType == PostingTypeEnum.Outward)
                 {
@@ -390,6 +409,8 @@ namespace gip.vbm.mobile.ViewModels
             }
             finally
             {
+                ExternLotNo = null;
+                ExpirationDate = null;
                 IsBusy = false;
             }
         }
@@ -524,6 +545,14 @@ namespace gip.vbm.mobile.ViewModels
 
             _SumByBarcodeModel = new SumQuantityByBarcodeViewModel(material);
             return _SumByBarcodeModel;
+        }
+
+        public SumQuantityByBarcodeViewModel.SumItem? GetBarcodeInfoFromSumModel()
+        {
+            if (_SumByBarcodeModel != null && _SumByBarcodeModel.CurrentBarcodeInfo != null)
+                return _SumByBarcodeModel.CurrentBarcodeInfo;
+
+            return null;
         }
 
         public double? GetQuantityFromSumModel()

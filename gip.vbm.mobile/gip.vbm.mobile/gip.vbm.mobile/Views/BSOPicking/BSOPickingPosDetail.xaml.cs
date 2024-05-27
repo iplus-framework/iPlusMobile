@@ -54,10 +54,29 @@ namespace gip.vbm.mobile.Views
                 }
             }
 
-            double? sumQuantity = _ViewModel.GetQuantityFromSumModel();
-            if (sumQuantity != null)
+            if (_ViewModel.PickingItem != null)
             {
-                _ViewModel.BookingQuantity = sumQuantity.Value;
+                if (_ViewModel.PickingItem.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.Receipt)
+                {
+                    stckExpDate.IsVisible = true;
+                    stckExtLot.IsVisible = true;
+                }
+            }
+
+            SumQuantityByBarcodeViewModel.SumItem? sumItem = _ViewModel.GetBarcodeInfoFromSumModel();
+
+            if (sumItem != null)
+            {
+                _ViewModel.ExpirationDate = sumItem.Value.ExpDate;
+                _ViewModel.ExternLotNo = sumItem.Value.ExtLotNo;
+            }
+            else
+            {
+                double? sumQuantity = _ViewModel.GetQuantityFromSumModel();
+                if (sumQuantity != null)
+                {
+                    _ViewModel.BookingQuantity = sumQuantity.Value;
+                }
             }
 
             _ViewModel.ReadPostingsCommand.Execute(null);
@@ -152,6 +171,11 @@ namespace gip.vbm.mobile.Views
         private async void cmdSumByScan_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BSOSumQuantityByBarcode(_ViewModel.GetSumByBarcodeModel()));
+        }
+
+        private void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            dtPicker.Focus();
         }
     }
 }

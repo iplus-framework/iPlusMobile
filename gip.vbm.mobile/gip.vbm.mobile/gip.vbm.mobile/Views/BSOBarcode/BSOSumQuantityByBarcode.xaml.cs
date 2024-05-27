@@ -86,5 +86,16 @@ namespace gip.vbm.mobile.Views
             _ClosedFromOKButton = true;
             _ = await Navigation.PopAsync();
         }
+
+        private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            SumQuantityByBarcodeViewModel.SumItem? sumItem = e.Item as SumQuantityByBarcodeViewModel.SumItem?;
+            if (sumItem != null)
+            {
+                _ViewModel.CurrentBarcodeInfo = sumItem;
+                _ClosedFromOKButton = true;
+                _ = await Navigation.PopAsync();
+            }
+        }
     }
 }

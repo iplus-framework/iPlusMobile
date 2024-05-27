@@ -40,7 +40,7 @@
                             OnBarcodeCommandInvoked="barCodeScanner_OnBarcodeCommandInvoked"
                             ShowDecodedEntities="False"/>
         <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
-            <ListView ItemsSource="{Binding SumItemQuantites}">
+            <ListView ItemsSource="{Binding SumItemQuantites}" ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ctl:ExtendedViewCell>
