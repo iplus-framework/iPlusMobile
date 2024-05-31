@@ -14,13 +14,26 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Company />
+		<Configurations>Debug;Release;ReleaseZebra;DebugZebra;ReleaseDatalogic</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<DebugType>Full</DebugType>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
+	  <DebugType>Full</DebugType>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
 	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup> 
 	
