@@ -124,11 +124,11 @@
                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding FacilityLot.ExternLotNo}" VerticalOptions="Start" HorizontalTextAlignment="Start" />
                 <BoxView Grid.Column="2" Grid.RowSpan="3">
                     <BoxView.Triggers>
-                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="True" >
+                        <DataTrigger TargetType="BoxView" Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="True" >
                             <Setter Property="Color" Value="Lime" />
                         </DataTrigger>
 
-                        <MultiTrigger TargetType="{x:Type BoxView}">
+                        <MultiTrigger TargetType="BoxView">
                             <MultiTrigger.Conditions>
                                 <BindingCondition Binding="{Binding StockQuantity, Converter={x:StaticResource DoubleGTConv}, ConverterParameter=0.0001}" Value="False" />
                                 <BindingCondition Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="False" />
@@ -138,11 +138,11 @@
                             </MultiTrigger.Setters>
                         </MultiTrigger>
 
-                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="True">
+                        <DataTrigger TargetType="BoxView" Binding="{Binding FacilityChargeID, Converter={x:StaticResource GuidEmptyConv}}" Value="True">
                             <Setter Property="Color" Value="Red" />
                         </DataTrigger>
 
-                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding NotAvailable}" Value="True">
+                        <DataTrigger TargetType="BoxView" Binding="{Binding NotAvailable}" Value="True">
                             <Setter Property="Color" Value="Red" />
                         </DataTrigger>
 
@@ -352,10 +352,10 @@
 
                 <BoxView Grid.Column="3" Grid.RowSpan="3">
                     <BoxView.Triggers>
-                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="True">
+                        <DataTrigger TargetType="BoxView" Binding="{Binding IsRetrograde}" Value="True">
                             <Setter Property="Color" Value="LightSteelBlue" />
                         </DataTrigger>
-                        <DataTrigger TargetType="{x:Type BoxView}" Binding="{Binding IsRetrograde}" Value="False">
+                        <DataTrigger TargetType="BoxView" Binding="{Binding IsRetrograde}" Value="False">
                             <Setter Property="Color" Value="{Binding CompleteFactor, Converter={x:StaticResource PercentageConv}}" />
                         </DataTrigger>
                     </BoxView.Triggers>

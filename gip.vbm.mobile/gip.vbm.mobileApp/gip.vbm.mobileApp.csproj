@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -55,6 +55,18 @@
 	  <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
 	</PropertyGroup>-->
 
+  <PropertyGroup>
+    <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="8.0.6" />
+    <PackageReference Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#00FFFFFF" />
@@ -84,6 +96,18 @@
 	  <PackageReference Include="datalogic-xamarin-sdk">
 	    <Version>1.29.8975</Version>
 	  </PackageReference>
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <PackageReference Include="Symbol.XamarinEMDK" Version="8.0.0.9" />
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.40" />
 	</ItemGroup>
 
 </Project>

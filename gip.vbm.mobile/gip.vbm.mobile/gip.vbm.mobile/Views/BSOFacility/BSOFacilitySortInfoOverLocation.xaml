@@ -73,7 +73,7 @@
                                 </Grid.ColumnDefinitions>
                                 <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,2,0,0" Color="{DynamicResource ControlBackgroundColor}" CornerRadius="4">
                                     <BoxView.Triggers>
-                                        <DataTrigger TargetType="{x:Type BoxView}" 
+                                        <DataTrigger TargetType="BoxView" 
                                                      Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vb:ExtendedGrid}}, Path=VisualState}"
                                                      Value="Selected">
                                             <Setter Property="Color" Value="LimeGreen" />
