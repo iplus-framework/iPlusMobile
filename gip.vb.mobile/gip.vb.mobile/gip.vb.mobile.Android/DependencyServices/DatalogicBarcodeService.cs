@@ -6,8 +6,6 @@ using System.Globalization;
 using gip.vb.mobile.barcode;
 using Xamarin.Essentials;
 using System.Collections.Generic;
-using Com.Datalogic.Decode;
-
 
 #if DATALOGIC
 using Com.Datalogic.Decode;

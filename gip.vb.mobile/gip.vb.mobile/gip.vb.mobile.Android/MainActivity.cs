@@ -66,7 +66,6 @@ namespace gip.vb.mobile.Droid
 
             _DLBarcodeService = Xamarin.Forms.DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-
 #if ZEBRA
             try
             {

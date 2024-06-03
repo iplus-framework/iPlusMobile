@@ -19,12 +19,15 @@
     <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <Configurations>Debug;Release;ReleaseDatalogic</Configurations>
+    <Configurations>Debug;Release;ReleaseDatalogic;DebugZebra;ReleaseZebra</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>

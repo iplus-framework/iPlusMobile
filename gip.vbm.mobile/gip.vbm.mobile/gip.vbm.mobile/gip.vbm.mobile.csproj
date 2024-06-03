@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>Debug;Release;DebugEmulator;DebugDatalogic;ReleaseDatalogic</Configurations>
+    <Configurations>Debug;Release;DebugEmulator;DebugDatalogic;ReleaseDatalogic;DebugZebra;ReleaseZebra</Configurations>
     <UseMaui>true</UseMaui>
     <TargetFrameworks>;net8.0-android</TargetFrameworks>
     <OutputType>Library</OutputType>
@@ -14,10 +14,17 @@
     <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-android|AnyCPU'">
@@ -36,7 +43,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net6.0-android|AnyCPU'">
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net6.0-android|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net6.0-android|AnyCPU'">
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
   <ItemGroup>
