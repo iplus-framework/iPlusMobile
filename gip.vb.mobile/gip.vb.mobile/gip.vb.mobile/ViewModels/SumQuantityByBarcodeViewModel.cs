@@ -188,6 +188,27 @@ namespace gip.vb.mobile.ViewModels
                     SumItemQuantites.Add(sItem);
                     SumQuantity = SumItemQuantites.Sum(x => x.Quantity);
                 }
+                else
+                {
+                    DateTime? expirationDate = null;
+                    if (expDate.StringResult != null)
+                    {
+                        DateTime dt;
+                        if (DateTime.TryParseExact(expDate.StringResult, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
+                        {
+                            expirationDate = dt;
+                        }
+    
+                    }
+
+                    if (expirationDate.HasValue || !string.IsNullOrEmpty(externLotNo.StringResult))
+                    {
+                        SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = 0, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };
+                        SumItemQuantites.Add(sItem);
+                        SumQuantity = SumItemQuantites.Sum(x => x.Quantity);
+                    }
+
+                }
             }
         }
 
