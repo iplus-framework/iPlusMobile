@@ -413,7 +413,7 @@ namespace gip.vbm.mobile.Services
             _Client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(
                 "Basic", Convert.ToBase64String(
-                    System.Text.ASCIIEncoding.ASCII.GetBytes(
+                    System.Text.UTF8Encoding.UTF8.GetBytes(
                        $"{user.Username}:{user.Password}")));
 
             if (_CurrentSessionId.HasValue)
