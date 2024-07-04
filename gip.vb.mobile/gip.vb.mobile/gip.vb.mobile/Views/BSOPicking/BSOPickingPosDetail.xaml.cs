@@ -71,6 +71,8 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.ExpirationDate = sumItem.Value.ExpDate;
                 _ViewModel.ExternLotNo = sumItem.Value.ExtLotNo;
+                if (sumItem.Value.Quantity > double.Epsilon)
+                    _ViewModel.BookingQuantity = sumItem.Value.Quantity;
             }
             else
             {

@@ -65,7 +65,6 @@ namespace gip.vb.mobile.Droid
             XLocalSettings.SetLocalSettings(new MyXLocalSettings());
 
             _DLBarcodeService = Xamarin.Forms.DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 #if ZEBRA
             try
             {
@@ -79,6 +78,8 @@ namespace gip.vb.mobile.Droid
             {
                 Log.Error(LOGTAG, ex.Message);
             }
+#elif ZXING
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 #endif
 
             LoadApplication(new App());
@@ -89,8 +90,9 @@ namespace gip.vb.mobile.Droid
         string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+#if ZXING
             global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
+#endif
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 

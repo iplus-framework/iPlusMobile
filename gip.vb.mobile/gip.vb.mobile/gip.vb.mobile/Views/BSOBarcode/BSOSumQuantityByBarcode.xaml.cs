@@ -71,7 +71,9 @@ namespace gip.vb.mobile.Views
 
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
+            #if ZXING
             barcodeScanner.OpenCameraPanel();
+            #endif
         }
 
         private async void BtnOkMinus_Clicked(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using gip.vb.mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,7 +51,9 @@ namespace gip.vb.mobile.Views
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             _ViewModel.Clear();
+            #if ZXING
             barcodeScanner.OpenCameraPanel();
+            #endif
         }
 
 

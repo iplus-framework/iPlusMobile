@@ -119,7 +119,9 @@ namespace gip.vb.mobile.Views
         private void CameraScanTBItem_Clicked(object sender, EventArgs e)
         {
             _ViewModel.Clear();
+            #if ZXING
             _ViewModel.ZXingIsScanning = true;
+            #endif
         }
 
         private void BtnOpenZXingPanel_Clicked(object sender, EventArgs e)
@@ -174,7 +176,7 @@ namespace gip.vb.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = fc } });
         }
-        #endregion
+#endregion
 
 
         #region Material

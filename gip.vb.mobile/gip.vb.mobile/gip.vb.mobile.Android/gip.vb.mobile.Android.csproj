@@ -26,7 +26,7 @@
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;ZXING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
@@ -49,8 +49,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>ZXING</DefineConstants>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidPackageFormat>aab</AndroidPackageFormat>
@@ -253,6 +252,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ScanBarcodeIcon.png" />
+    <None Include="Properties\DebugAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ReleaseAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DebugZebraAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ReleaseZebraAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DebugDatalogicAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ReleaseDatalogicAndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="ScanBarcodeIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
