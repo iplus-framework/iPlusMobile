@@ -17,11 +17,11 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-//#if MAUIBUG
-//        public static Keyboard C_NumericKeyBoard = Keyboard.Default;
-//#else
+#if MAUIBUG
+        public static Keyboard C_NumericKeyBoard = Keyboard.Default;
+#else
         public static Keyboard C_NumericKeyBoard = Keyboard.Numeric;
-//#endif
+#endif
 
         #region Settings
 

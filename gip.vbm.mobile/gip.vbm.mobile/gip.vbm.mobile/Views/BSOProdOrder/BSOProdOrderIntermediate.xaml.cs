@@ -42,8 +42,10 @@ namespace gip.vbm.mobile.Views
             if (item == null)
                 return;
 
-            ProdOrderPartslistWFInfo wfInfo = _FromTaskModel.SelectedEntity as ProdOrderPartslistWFInfo;
-            if (wfInfo.IntermediateBatch != null && wfInfo.MaterialWFConnectionMode == 10)
+            ProdOrderPartslistWFInfo wfInfo = null;
+            if (_FromTaskModel != null)
+                wfInfo = _FromTaskModel.SelectedEntity as ProdOrderPartslistWFInfo;
+            if (wfInfo != null && wfInfo.IntermediateBatch != null && wfInfo.MaterialWFConnectionMode == 10)
             {
                 item.ProdOrderPartslist = wfInfo.Intermediate.ProdOrderPartslist;
                 await Navigation.PushAsync(new BSOProdOrderInOutSelector(item, _FromTaskModel, null));
