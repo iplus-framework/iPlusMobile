@@ -80,7 +80,7 @@
                 <StackLayout Orientation="Horizontal" Margin="0,0,5,0" x:Name="stckExpDate" IsVisible="False" >
                     <Label Text="{i18n:Translate Text=ExpDate}" VerticalTextAlignment="Center" />
                     <Entry HorizontalOptions="FillAndExpand" Text="{Binding ExpirationDate, Mode=TwoWay, StringFormat='{0:dd.MM.yyyy.}'}" Focused="Entry_Focused" x:Name="dtEntry" />
-                    <DatePicker Date="{Binding ExpirationDate, Mode=TwoWay}" x:Name="dtPicker" IsVisible="False" />
+                    <ctl:ExtendedDatePicker Date="{Binding ExpirationDate, Mode=TwoWay}" x:Name="dtPicker" IsVisible="False" DateOk="dtPicker_DateOk" DateCancel="dtPicker_DateCancel" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" Margin="0,0,5,0" x:Name="stckExtLot" IsVisible="False" >

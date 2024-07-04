@@ -156,6 +156,7 @@
     <Compile Include="Extensions\FontExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderer\CheckBoxRenderer.cs" />
+    <Compile Include="Renderer\ExtendedDatePickerRenderer.cs" />
     <Compile Include="Renderer\ImageButtonRenderer.cs" />
     <Compile Include="Renderer\NestedListViewRenderer.cs" />
     <Compile Include="Renderer\RadioButtonRenderer.cs" />

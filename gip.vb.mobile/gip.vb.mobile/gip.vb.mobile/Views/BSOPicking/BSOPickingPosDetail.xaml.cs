@@ -210,5 +210,19 @@ namespace gip.vb.mobile.Views
         {
             dtPicker.Focus();
         }
+
+        private void dtPicker_DateOk(object sender, EventArgs e)
+        {
+            if (_ViewModel.ExpirationDate != dtPicker.Date)
+                _ViewModel.ExpirationDate = dtPicker.Date;
+
+            dtEntry.Unfocus();
+        }
+
+        private void dtPicker_DateCancel(object sender, EventArgs e)
+        {
+            _ViewModel.ExpirationDate = null;
+            dtEntry.Unfocus();
+        }
     }
 }
