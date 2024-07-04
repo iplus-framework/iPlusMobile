@@ -166,7 +166,7 @@ namespace gip.vb.mobile.ViewModels
                 this.WSResponse = response;
                 if (response.Suceeded)
                 {
-                    PickingTypes = response.Data.OrderBy(c => c.PickingType).ThenBy(x => x.MDPickingTypeTrans).ToList();
+                    PickingTypes = response.Data;
                 }
             }
             catch (Exception ex)
