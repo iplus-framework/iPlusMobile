@@ -15,6 +15,7 @@ using gip.vbm.mobile.barcode;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Android.Runtime;
 
 namespace gip.vbm.mobileApp
 {
@@ -46,7 +47,6 @@ namespace gip.vbm.mobileApp
         {
 
             _DLBarcodeService = DependencyService.Get<IBarcodeService>() as DatalogicBarcodeService;
-            //ZXing.Net.Mobile.Forms.Android.Platform.Init();
 #if ZEBRA
             try
             {
@@ -60,9 +60,20 @@ namespace gip.vbm.mobileApp
             {
                 Log.Error(LOGTAG, ex.Message);
             }
+#elif ZXING
+            //ZXing.Net.Mobile.Forms.Android.Platform.Init();
 #endif
 
             base.OnCreate(savedInstanceState);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode,
+        string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+#if ZXING
+            //global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+#endif
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         protected override void OnResume()

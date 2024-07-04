@@ -677,7 +677,7 @@
     <value>Correct</value>
   </data>
   <data name="Reassign_Text" xml:space="preserve">
-    <value>Reassign</value>
+    <value>Material</value>
   </data>
   <data name="Relocate_Text" xml:space="preserve">
     <value>Relocate</value>
@@ -722,7 +722,7 @@
     <value>Maximum quantity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings.</value>
   </data>
   <data name="TakeQQuantity_Text" xml:space="preserve">
-    <value>Take quant quantity</value>
+    <value>Use stock quantity</value>
   </data>
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split no.</value>

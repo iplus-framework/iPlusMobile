@@ -53,10 +53,17 @@ namespace gip.vbm.mobile.Views
         }
 
         #region Barcode
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
+
         {
             _ViewModel.Clear();
+            #if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+            #endif
         }
 
         private async void barcodeScanner_OnBarcodeEntityTapped(object sender, BarcodeScannerEventArgs e)
@@ -84,7 +91,7 @@ namespace gip.vbm.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityChargeOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = fc } });
         }
-        #endregion
+#endregion
 
 
         #region Material

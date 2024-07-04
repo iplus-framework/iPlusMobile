@@ -1501,7 +1501,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reassign.
+        ///   Looks up a localized string similar to Material.
         /// </summary>
         internal static string Reassign_Text {
             get {
@@ -1816,7 +1816,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take quant quantity.
+        ///   Looks up a localized string similar to Use stock quantity.
         /// </summary>
         internal static string TakeQQuantity_Text {
             get {

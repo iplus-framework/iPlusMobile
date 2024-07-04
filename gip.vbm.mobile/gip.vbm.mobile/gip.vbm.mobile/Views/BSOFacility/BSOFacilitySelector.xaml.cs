@@ -50,10 +50,17 @@ namespace gip.vbm.mobile.Views
             await Navigation.PopAsync(true);
         }
 
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
+
         {
             _ViewModel.FacilityScanViewModel.Clear();
+            #if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+            #endif
         }
 
         public static readonly BindableProperty FlexLayoutItemsSourceProperty = BindableProperty.Create("FlexLayoutItemsSource", typeof(IEnumerable<object>), typeof(BSOFacilitySelector), propertyChanged: OnEventNameChanged);

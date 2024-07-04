@@ -127,16 +127,16 @@
     <value>Scan or Enter Barcode</value>
   </data>
   <data name="BFI_Bookings_Header" xml:space="preserve">
-    <value>Bookings</value>
+    <value>Postings</value>
   </data>
   <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
-    <value>Filter Inventory Positions</value>
+    <value>Filter Inventory Lines</value>
   </data>
   <data name="BFI_PositionEdit_Header" xml:space="preserve">
-    <value>Position edit</value>
+    <value>Edit Inventory Line</value>
   </data>
   <data name="BFI_PositionOverview_Header" xml:space="preserve">
-    <value>Inventory Line Overview</value>
+    <value>Inventory Lines Overview</value>
   </data>
   <data name="BFI_SearchInventory_Header" xml:space="preserve">
     <value>Search Inventories</value>
@@ -244,10 +244,10 @@
     <value>Not Available</value>
   </data>
   <data name="InventoryPosState_Text" xml:space="preserve">
-    <value>Inventory position state</value>
+    <value>Inventory line state</value>
   </data>
   <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
-    <value>Zero Quantity</value>
+    <value>Not found</value>
   </data>
   <data name="InventoryState_Text" xml:space="preserve">
     <value>Inventory state</value>
@@ -400,7 +400,7 @@
     <value>Inventory - Search Line</value>
   </data>
   <data name="Inv_OpenPositions" xml:space="preserve">
-    <value>Inventory - open positions</value>
+    <value>Inventory - open lines</value>
   </data>
   <data name="BarcodeSequenceAlreadyHaveCode_Text" xml:space="preserve">
     <value>Barcode sequence already have scanned code!</value>
@@ -553,13 +553,13 @@
     <value>Available</value>
   </data>
   <data name="QuantRelocation_Text" xml:space="preserve">
-    <value>Quant relocation</value>
+    <value>Relocation</value>
   </data>
   <data name="QuantSplitNo_Text" xml:space="preserve">
     <value>Enter the split number:</value>
   </data>
   <data name="QuantSplit_Text" xml:space="preserve">
-    <value>Quant split</value>
+    <value>Split</value>
   </data>
   <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
     <value>Select target facility location/bin</value>
@@ -662,7 +662,7 @@
     <value>Quant is not available. Please check are you scan correct quant.</value>
   </data>
   <data name="BookAndFinishPickingError_Text" xml:space="preserve">
-    <value>The following quants are not registered or have problem:</value>
+    <value>Errors have occurred in the following lines. Either there is no stock or the quants have not been assigned to the workstation.</value>
   </data>
   <data name="ReleaseMachine_Question" xml:space="preserve">
     <value>Are you sure that you want RELEASE machine? If you are, then enter number 1 and confirm to release machine.</value>
@@ -677,7 +677,7 @@
     <value>Correct</value>
   </data>
   <data name="Reassign_Text" xml:space="preserve">
-    <value>Reassign</value>
+    <value>Material</value>
   </data>
   <data name="Relocate_Text" xml:space="preserve">
     <value>Relocate</value>
@@ -695,7 +695,7 @@
     <value>Reassign and relocate</value>
   </data>
   <data name="ReassignRelocation_Text" xml:space="preserve">
-    <value>Reassign and relocation</value>
+    <value>Reassignment and relocation</value>
   </data>
   <data name="PostingReason_Text" xml:space="preserve">
     <value>Posting reason</value>
@@ -719,10 +719,10 @@
     <value>Take quantity for posting:</value>
   </data>
   <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
-    <value>The maximum quantity per posting is 100.000.000,00. If you have to post more than this amount than split it into mulitple postings.</value>
+    <value>Maximum quantity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings.</value>
   </data>
   <data name="TakeQQuantity_Text" xml:space="preserve">
-    <value>Takeover quant quantity</value>
+    <value>Use stock quantity</value>
   </data>
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split no.</value>
@@ -738,5 +738,11 @@
   </data>
   <data name="ZeroStockPostings_Text" xml:space="preserve">
     <value>Show zero stock postings</value>
+  </data>
+  <data name="ExpDate" xml:space="preserve">
+    <value>Exp. date</value>
+  </data>
+  <data name="ExternLot" xml:space="preserve">
+    <value>Extern lot</value>
   </data>
 </root>

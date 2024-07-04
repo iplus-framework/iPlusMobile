@@ -493,7 +493,7 @@
     <value>Verfügbarkeit</value>
   </data>
   <data name="Available_Text" xml:space="preserve">
-    <value>Erhältlich</value>
+    <value>Verfügbar</value>
   </data>
   <data name="QuantRelocation_Text" xml:space="preserve">
     <value>Umlagern</value>
@@ -619,7 +619,7 @@
     <value>Korrekt</value>
   </data>
   <data name="Reassign_Text" xml:space="preserve">
-    <value>Artikelumbuchung</value>
+    <value>Material</value>
   </data>
   <data name="Relocate_Text" xml:space="preserve">
     <value>Umlagern</value>
@@ -664,7 +664,7 @@
     <value>Die maximale Buchungsgröße ist 100.000.000,00. Falls Sie meh als 100.000.000,00 buchen böchten, dann müssen Sie die Buchungen mehrfach durchführen.</value>
   </data>
   <data name="TakeQQuantity_Text" xml:space="preserve">
-    <value>Quantität nehmen</value>
+    <value>Bestand übernehmen</value>
   </data>
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split num.</value>

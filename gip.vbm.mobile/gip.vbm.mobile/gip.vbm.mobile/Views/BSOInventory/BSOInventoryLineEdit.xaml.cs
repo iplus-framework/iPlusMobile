@@ -123,9 +123,16 @@ namespace gip.vbm.mobile.Views
             }
         }
 
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
+
         {
+#if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+#endif
         }
 
 
@@ -147,7 +154,7 @@ namespace gip.vbm.mobile.Views
             }
         }
 
-        #endregion
+#endregion
 
         private async void btnNewQuant_Clicked(object sender, EventArgs e)
         {

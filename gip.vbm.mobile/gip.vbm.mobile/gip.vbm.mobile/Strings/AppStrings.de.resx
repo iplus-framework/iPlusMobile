@@ -307,7 +307,7 @@
     <value>Validieren und vervollständigen</value>
   </data>
   <data name="GoAndCount_Text" xml:space="preserve">
-    <value>1. Geh und zähle</value>
+    <value>1. Geh und Zähle</value>
   </data>
   <data name="ViewOpenLines_Text" xml:space="preserve">
     <value>2. Offene Zeilen anzeigen</value>
@@ -325,7 +325,7 @@
     <value>Das Quant ist nicht verfügbar! Holen sie das Quant wieder zurück in den Lagerbestand falls physikalischer Bestand vorliegt.</value>
   </data>
   <data name="FC_QuantAlreadyFinished" xml:space="preserve">
-    <value>The quant has already been counted.</value>
+    <value>Das Quant wurde bereits gezählt.</value>
   </data>
   <data name="Btn_AddQuantToStock" xml:space="preserve">
     <value>Quant im Lager hinzufügen</value>
@@ -334,7 +334,7 @@
     <value>Erneut bearbeiten</value>
   </data>
   <data name="Inv_SelectStorage" xml:space="preserve">
-    <value>Inventur - Lagerort/Lagerlatz auswählen</value>
+    <value>Inventur - Lagerort/Lagerplatz auswählen</value>
   </data>
   <data name="Inv_EditLine" xml:space="preserve">
     <value>Inventur - Position bearbeiten</value>
@@ -445,7 +445,7 @@
     <value>Lagerorte</value>
   </data>
   <data name="PickingRelocationScanFacilityCharge_Text" xml:space="preserve">
-    <value>Ok. Scan now quant that you want relocate.</value>
+    <value>Ok. Scannen Sie das Quant das Sie umlagern möchten.</value>
   </data>
   <data name="PickingRelocationScanFacility_Text" xml:space="preserve">
     <value>Ok. Buchen Sie jetzt oder scannen Sie den Lagerplatz in die sie umbuchen möchten.</value>
@@ -493,16 +493,16 @@
     <value>Verfügbarkeit</value>
   </data>
   <data name="Available_Text" xml:space="preserve">
-    <value>Erhältlich</value>
+    <value>Verfügbar</value>
   </data>
   <data name="QuantRelocation_Text" xml:space="preserve">
-    <value>Quant-Umzug</value>
+    <value>Umlagern</value>
   </data>
   <data name="QuantSplitNo_Text" xml:space="preserve">
     <value>Geben Sie die Split-Nummer ein:</value>
   </data>
   <data name="QuantSplit_Text" xml:space="preserve">
-    <value>Quant Splitten</value>
+    <value>Splitten</value>
   </data>
   <data name="SelectTargetFacilityLocationOrBin_Text" xml:space="preserve">
     <value>Ziellagerplatz auswählen</value>
@@ -595,16 +595,16 @@
     <value>Es muss ein Lagerplatz gescannt werden!</value>
   </data>
   <data name="BtnTakeQuantityNegative" xml:space="preserve">
-    <value>Nehmen Menge negativ</value>
+    <value>Negative Menge übernehmen</value>
   </data>
   <data name="BtnTakeQuantityPositive" xml:space="preserve">
-    <value>Nehmen Menge positiv</value>
+    <value>Positive Menge übernehmen</value>
   </data>
   <data name="QuantIsNotAvailableCheck" xml:space="preserve">
     <value>Quant ist nicht verfügbar. Bitte prüfen Sie, ob Sie das richtige Quant scannen.</value>
   </data>
   <data name="BookAndFinishPickingError_Text" xml:space="preserve">
-    <value>Die folgenden Quants sind nicht registriert oder haben Probleme:</value>
+    <value>Es sind Fehler bei den nachfolgenden Positionen aufgetaucht. Entweder gibt es keinen Betand oder die Quenten wurden nicht dem Arbeitsplatz zugewiesen.</value>
   </data>
   <data name="ReleaseMachine_Question" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie die Maschine freigeben wollen? Wenn ja, geben Sie die Nummer 1 ein und bestätigen Sie die Freigabe der Maschine.</value>
@@ -613,16 +613,16 @@
     <value>Berichtigung</value>
   </data>
   <data name="Relocation_Text" xml:space="preserve">
-    <value>Umzug</value>
+    <value>Umlagerung</value>
   </data>
   <data name="Correct_Text" xml:space="preserve">
     <value>Korrekt</value>
   </data>
   <data name="Reassign_Text" xml:space="preserve">
-    <value>Neu zuordnen</value>
+    <value>Material</value>
   </data>
   <data name="Relocate_Text" xml:space="preserve">
-    <value>Umziehen</value>
+    <value>Umlagern</value>
   </data>
   <data name="State_Text" xml:space="preserve">
     <value>Status</value>
@@ -634,10 +634,10 @@
     <value>Material neu zuordnen</value>
   </data>
   <data name="ReassignRelocate_Text" xml:space="preserve">
-    <value>Neu zuweisen und verlegen</value>
+    <value>Neu Zuweisen und Umlagern</value>
   </data>
   <data name="ReassignRelocation_Text" xml:space="preserve">
-    <value>Neuzuweisung und Umzug</value>
+    <value>Artikelumbuchung und Umlagerung</value>
   </data>
   <data name="PostingReason_Text" xml:space="preserve">
     <value>Buchungsgrund</value>
@@ -661,16 +661,16 @@
     <value>Nehmen Sie die Menge für die Buchung:</value>
   </data>
   <data name="QuantityPerPostingIsTooLarge_Text" xml:space="preserve">
-    <value>Die maximale Buchungsmenge ist 100.000.000,00. Falls Sie eine größere Menge buchen möchten teilen Sie die Menge in mehrere getrennte Buchungen auf.</value>
+    <value>Die maximale Buchungsgröße ist 100.000.000,00. Falls Sie meh als 100.000.000,00 buchen böchten, dann müssen Sie die Buchungen mehrfach durchführen.</value>
   </data>
   <data name="TakeQQuantity_Text" xml:space="preserve">
-    <value>Menge übernehmen</value>
+    <value>Bestand übernehmen</value>
   </data>
   <data name="SplitNo_Text" xml:space="preserve">
     <value>Split num.</value>
   </data>
   <data name="CheckQuant_Text" xml:space="preserve">
-    <value>Prüfquant</value>
+    <value>Quant</value>
   </data>
   <data name="BtnMachineMalfunction_Text" xml:space="preserve">
     <value>Maschinenstörung</value>
@@ -680,5 +680,68 @@
   </data>
   <data name="ZeroStockPostings_Text" xml:space="preserve">
     <value>Null-Lagerbuchungen anzeigen</value>
+  </data>
+  <data name="ExpDate" xml:space="preserve">
+    <value>MHD</value>
+  </data>
+  <data name="ExternLot" xml:space="preserve">
+    <value>Externe Los</value>
+  </data>
+  <data name="BFI_Bookings_Header" xml:space="preserve">
+    <value>Buchungen</value>
+  </data>
+  <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
+    <value>Filter Inventurzeilen</value>
+  </data>
+  <data name="BFI_PositionEdit_Header" xml:space="preserve">
+    <value>Inventurzeile bearbeiten</value>
+  </data>
+  <data name="BFI_PositionOverview_Header" xml:space="preserve">
+    <value>Übersicht Inventurzeilen</value>
+  </data>
+  <data name="BFI_SearchInventory_Header" xml:space="preserve">
+    <value>Inventuren Suchen</value>
+  </data>
+  <data name="BtnClose_Text" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="BtnLes_Text" xml:space="preserve">
+    <value>Weniger</value>
+  </data>
+  <data name="BtnMore_Text" xml:space="preserve">
+    <value>Mehr</value>
+  </data>
+  <data name="BtnStart_Text" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="BtnUpdate_Text" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="Comment_Text" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
+    <value>Das Quant ist auf einem anderen Lagerplatz verfügbar: {0}!</value>
+  </data>
+  <data name="Filter_Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="InventoryPosNotAvailable_Text" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="InventoryPosState_Text" xml:space="preserve">
+    <value>Positionsstatus</value>
+  </data>
+  <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
+    <value>Nicht gefunden</value>
+  </data>
+  <data name="InventoryState_Text" xml:space="preserve">
+    <value>Inventurstatus</value>
+  </data>
+  <data name="NewStockQuantity_Text" xml:space="preserve">
+    <value>Neuer Bestand</value>
+  </data>
+  <data name="PosState_Text" xml:space="preserve">
+    <value>Positionsstatus</value>
   </data>
 </root>

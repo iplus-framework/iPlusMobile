@@ -78,11 +78,18 @@ namespace gip.vbm.mobile.Views
             _ViewModel.IsSelectMaterialVisible = false;
         }
 
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
+
         {
+#if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+#endif
         }
 
-        #endregion
+#endregion
     }
 }

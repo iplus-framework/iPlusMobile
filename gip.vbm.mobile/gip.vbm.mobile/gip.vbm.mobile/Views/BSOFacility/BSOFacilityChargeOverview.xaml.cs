@@ -91,10 +91,17 @@ namespace gip.vbm.mobile.Views
             }
         }
 
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
+
         {
             _ViewModel.FacilityScanViewModel.Clear();
+            #if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+            #endif
         }
 
         private void Print_Clicked(object sender, EventArgs e)
@@ -152,7 +159,7 @@ namespace gip.vbm.mobile.Views
         }
 
 
-        #endregion
+#endregion
 
         private void sbMaterial_Focused(object sender, FocusEventArgs e)
         {

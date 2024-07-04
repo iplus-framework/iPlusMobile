@@ -69,6 +69,8 @@ namespace gip.vbm.mobile.Views
             {
                 _ViewModel.ExpirationDate = sumItem.Value.ExpDate;
                 _ViewModel.ExternLotNo = sumItem.Value.ExtLotNo;
+                if (sumItem.Value.Quantity > double.Epsilon)
+                    _ViewModel.BookingQuantity = sumItem.Value.Quantity;
             }
             else
             {
@@ -92,12 +94,18 @@ namespace gip.vbm.mobile.Views
 
         #region Barcode
 
+#if ZXING
         private async void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#else
+        private void CameraScanTBItem_Clicked(object sender, EventArgs e)
+#endif
         {
-            await barcodeScanner.OpenBarcodeCamera();
+#if ZXING
+           await barcodeScanner.OpenBarcodeCamera();
+#endif
         }
 
-        #endregion
+#endregion
 
         #region Booking
         private void ButtonDoBooking_Clicked(object sender, EventArgs e)

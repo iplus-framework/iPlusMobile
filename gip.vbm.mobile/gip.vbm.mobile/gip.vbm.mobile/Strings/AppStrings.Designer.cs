@@ -187,7 +187,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bookings.
+        ///   Looks up a localized string similar to Postings.
         /// </summary>
         internal static string BFI_Bookings_Header {
             get {
@@ -196,7 +196,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter Inventory Positions.
+        ///   Looks up a localized string similar to Filter Inventory Lines.
         /// </summary>
         internal static string BFI_InventoryPositionsFilter_Header {
             get {
@@ -205,7 +205,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Position edit.
+        ///   Looks up a localized string similar to Edit Inventory Line.
         /// </summary>
         internal static string BFI_PositionEdit_Header {
             get {
@@ -214,7 +214,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inventory Line Overview.
+        ///   Looks up a localized string similar to Inventory Lines Overview.
         /// </summary>
         internal static string BFI_PositionOverview_Header {
             get {
@@ -232,7 +232,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following quants are not registered or have problem:.
+        ///   Looks up a localized string similar to Errors have occurred in the following lines. Either there is no stock or the quants have not been assigned to the workstation..
         /// </summary>
         internal static string BookAndFinishPickingError_Text {
             get {
@@ -754,11 +754,29 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exp. date.
+        /// </summary>
+        internal static string ExpDate {
+            get {
+                return ResourceManager.GetString("ExpDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Explore storage.
         /// </summary>
         internal static string ExploreStorage_Text {
             get {
                 return ResourceManager.GetString("ExploreStorage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extern lot.
+        /// </summary>
+        internal static string ExternLot {
+            get {
+                return ResourceManager.GetString("ExternLot", resourceCulture);
             }
         }
         
@@ -943,7 +961,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inventory - open positions.
+        ///   Looks up a localized string similar to Inventory - open lines.
         /// </summary>
         internal static string Inv_OpenPositions {
             get {
@@ -970,7 +988,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inventory position state.
+        ///   Looks up a localized string similar to Inventory line state.
         /// </summary>
         internal static string InventoryPosState_Text {
             get {
@@ -979,7 +997,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zero Quantity.
+        ///   Looks up a localized string similar to Not found.
         /// </summary>
         internal static string InventoryPosZeroQuantity_Text {
             get {
@@ -1429,7 +1447,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum quantity per posting is 100.000.000,00. If you have to post more than this amount than split it into mulitple postings..
+        ///   Looks up a localized string similar to Maximum quantity per posting is 100.000.000,00. Your quantity is lager, if you really need a post larger quantity than 100.000.000,00 than split it in a mulitple postings..
         /// </summary>
         internal static string QuantityPerPostingIsTooLarge_Text {
             get {
@@ -1456,7 +1474,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quant relocation.
+        ///   Looks up a localized string similar to Relocation.
         /// </summary>
         internal static string QuantRelocation_Text {
             get {
@@ -1465,7 +1483,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quant split.
+        ///   Looks up a localized string similar to Split.
         /// </summary>
         internal static string QuantSplit_Text {
             get {
@@ -1483,7 +1501,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reassign.
+        ///   Looks up a localized string similar to Material.
         /// </summary>
         internal static string Reassign_Text {
             get {
@@ -1501,7 +1519,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reassign and relocation.
+        ///   Looks up a localized string similar to Reassignment and relocation.
         /// </summary>
         internal static string ReassignRelocation_Text {
             get {
@@ -1798,7 +1816,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Takeover quant quantity.
+        ///   Looks up a localized string similar to Use stock quantity.
         /// </summary>
         internal static string TakeQQuantity_Text {
             get {
