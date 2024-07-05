@@ -655,6 +655,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collect details data over scan.
+        /// </summary>
+        internal static string CollectDetOverScan {
+            get {
+                return ResourceManager.GetString("CollectDetOverScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         internal static string Comment_Text {

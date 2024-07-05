@@ -315,6 +315,9 @@
   <data name="ChooseNewMaterail_Text" xml:space="preserve">
     <value>Izaberi novi materijal:</value>
   </data>
+  <data name="CollectDetOverScan" xml:space="preserve">
+    <value>Prikupljanje detaljnjih podataka preko skeniranja</value>
+  </data>
   <data name="Comment_Text" xml:space="preserve">
     <value>Komentar</value>
   </data>

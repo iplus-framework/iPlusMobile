@@ -77,9 +77,9 @@
                         IsPullToRefreshEnabled="false"
                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"/>
 
-                <Grid Margin="0,0,5,5" x:Name="stckCollectDetails" IsVisible="False" >
+                <Grid Margin="0,0,5,7" x:Name="stckCollectDetails" IsVisible="False" >
                     <BoxView BackgroundColor="{x:StaticResource PrimaryColor}" CornerRadius="2" />
-                    <ctl:CheckBox IsChecked="{Binding CollectDetailsOverScan}" CheckedText="Collect details over scan" UncheckedText="Collect details over scan"  HorizontalOptions="CenterAndExpand"  />
+                    <ctl:CheckBox IsChecked="{Binding CollectDetailsOverScan}" CheckedText="{i18n:Translate Text=CollectDetOverScan}" UncheckedText="{i18n:Translate Text=CollectDetOverScan}"  HorizontalOptions="CenterAndExpand"/> 
                 </Grid>
 
                 <StackLayout Orientation="Horizontal" Margin="0,0,5,0" x:Name="stckExpDate" IsVisible="False" >

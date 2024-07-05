@@ -745,4 +745,7 @@
   <data name="ExternLot" xml:space="preserve">
     <value>Extern lot</value>
   </data>
+  <data name="CollectDetOverScan" xml:space="preserve">
+    <value>Collect details data over scan</value>
+  </data>
 </root>
