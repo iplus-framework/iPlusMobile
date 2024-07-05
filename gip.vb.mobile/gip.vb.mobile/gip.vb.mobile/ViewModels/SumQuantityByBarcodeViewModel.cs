@@ -19,6 +19,8 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public static GS1.AII NetWeightInKgAI = GS1.GetAII("310d");
+        public static GS1.AII GrossWeightInKgAI = GS1.GetAII("330d");
+        public static GS1.AII AmountInPartsAI = GS1.GetAII("30");
         public static GS1.AII ExternLotNoAI = GS1.GetAII("10");
         public static GS1.AII ExpDateAI = GS1.GetAII("15");
 
@@ -31,6 +33,12 @@ namespace gip.vb.mobile.ViewModels
             }
 
             public double Quantity
+            {
+                get;
+                set;
+            }
+
+            public double QuantityGross
             {
                 get;
                 set;
@@ -106,7 +114,7 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        private void ProcessBarcode(string currentBarcode, bool skipSameItemCheck = false)
+        internal void ProcessBarcode(string currentBarcode, bool skipSameItemCheck = false)
         {
             currentBarcode = currentBarcode.TrimStart();
             currentBarcode = currentBarcode.TrimEnd();
@@ -115,12 +123,13 @@ namespace gip.vb.mobile.ViewModels
 
             if (parseResult != null && parseResult.Any())
             {
-                GS1.ParseResult externLotNo, expDate, netWeight;
+                GS1.ParseResult externLotNo, expDate, netWeight, grossWeight, amountInParts;
 
                 parseResult.TryGetValue(NetWeightInKgAI, out netWeight);
                 parseResult.TryGetValue(ExpDateAI, out expDate);
                 parseResult.TryGetValue(ExternLotNoAI, out externLotNo);
-
+                parseResult.TryGetValue(GrossWeightInKgAI, out grossWeight);
+                parseResult.TryGetValue(AmountInPartsAI, out amountInParts);
 
                 if (netWeight.StringResult != null)
                 {
@@ -181,7 +190,7 @@ namespace gip.vb.mobile.ViewModels
                         }
                     }
 
-                    if (expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0)
+                    if ( (expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0))
                         return;
 
                     SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = netWeight.DoubleResult.Value, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };
@@ -191,23 +200,31 @@ namespace gip.vb.mobile.ViewModels
                 else
                 {
                     DateTime? expirationDate = null;
+                    double quantityGross = 0;
+                    double quantity = 0;
+                    string extLotNo = null;
+
                     if (expDate.StringResult != null)
                     {
                         DateTime dt;
                         if (DateTime.TryParseExact(expDate.StringResult, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
-                        {
                             expirationDate = dt;
-                        }
-    
                     }
 
-                    if (expirationDate.HasValue || !string.IsNullOrEmpty(externLotNo.StringResult))
+                    if (grossWeight.DoubleResult.HasValue)
+                        quantityGross = grossWeight.DoubleResult.Value;
+                    else if (amountInParts.DoubleResult.HasValue)
+                        quantity = amountInParts.DoubleResult.Value;
+
+                    if (externLotNo.StringResult != null)
+                        extLotNo = externLotNo.StringResult.Trim();
+
+                    if (expirationDate.HasValue || !string.IsNullOrEmpty(extLotNo) || quantityGross > double.Epsilon || quantity > double.Epsilon)
                     {
-                        SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = 0, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };
+                        SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = quantity, QuantityGross = quantityGross, ExpDate = expirationDate, ExtLotNo = extLotNo };
                         SumItemQuantites.Add(sItem);
                         SumQuantity = SumItemQuantites.Sum(x => x.Quantity);
                     }
-
                 }
             }
         }

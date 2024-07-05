@@ -129,6 +129,15 @@ namespace gip.vb.mobile.ViewModels
 
         private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
+        private bool _CollectDetailsOverScan;
+        public bool CollectDetailsOverScan
+        {
+            get => _CollectDetailsOverScan;
+            set => SetProperty(ref _CollectDetailsOverScan, value);
+        }
+
+        private bool _QuantitySetFromNetWeight = false;
+
         #endregion
 
         #region Methods
@@ -412,6 +421,7 @@ namespace gip.vb.mobile.ViewModels
             {
                 ExternLotNo = null;
                 ExpirationDate = null;
+                _QuantitySetFromNetWeight = false;
                 IsBusy = false;
             }
         }
@@ -562,6 +572,43 @@ namespace gip.vb.mobile.ViewModels
                 return _SumByBarcodeModel.SumQuantity;
             return null;
         }
+
+        public async void ProcessDetailsBarcode(string currentBarcode)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    SumQuantityByBarcodeViewModel viewModel = new SumQuantityByBarcodeViewModel(Item.Material.MaterialName1);
+                    viewModel.ProcessBarcode(currentBarcode);
+
+                    if (!viewModel.SumItemQuantites.Any())
+                        return;
+
+                    SumQuantityByBarcodeViewModel.SumItem sumItem = viewModel.SumItemQuantites.FirstOrDefault();
+
+                    if (sumItem.Quantity > double.Epsilon)
+                    {
+                        BookingQuantity = sumItem.Quantity;
+                        _QuantitySetFromNetWeight = true;
+                    }
+
+                    if (sumItem.QuantityGross > double.Epsilon && !_QuantitySetFromNetWeight)
+                        BookingQuantity = sumItem.QuantityGross;
+
+                    if (sumItem.ExpDate.HasValue)
+                        ExpirationDate = sumItem.ExpDate;
+
+                    if (!string.IsNullOrEmpty(sumItem.ExtLotNo))
+                        ExternLotNo = sumItem.ExtLotNo;
+                }
+                catch (Exception e)
+                {
+                    Message = new Msg(eMsgLevel.Exception, e.Message);
+                }
+            });
+        }
+
 
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {

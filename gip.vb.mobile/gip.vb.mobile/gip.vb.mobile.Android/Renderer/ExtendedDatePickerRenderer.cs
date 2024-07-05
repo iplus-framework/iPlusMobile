@@ -14,7 +14,7 @@ using Android.Content;
 namespace gip.vb.mobile.Droid
 {
     /// <summary>
-    /// Class CheckBoxRenderer.
+    /// Class ExtendedDatePickerRenderer.
     /// </summary>
     public class ExtendedDatePickerRenderer : DatePickerRenderer
     {

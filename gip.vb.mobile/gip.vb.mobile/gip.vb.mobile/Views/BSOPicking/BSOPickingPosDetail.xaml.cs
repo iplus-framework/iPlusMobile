@@ -60,6 +60,7 @@ namespace gip.vb.mobile.Views
             {
                 if (_ViewModel.PickingItem.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.Receipt)
                 {
+                    stckCollectDetails.IsVisible = true;
                     stckExpDate.IsVisible = true;
                     stckExtLot.IsVisible = true;
                 }
@@ -121,14 +122,32 @@ namespace gip.vb.mobile.Views
             {
                 _ViewModel.CurrentBarcode = e.Text;
                 if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-                    _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+                {
+                    if (_ViewModel.CollectDetailsOverScan)
+                    {
+                        _ViewModel.ProcessDetailsBarcode(_ViewModel.CurrentBarcode);
+                    }
+                    else
+                    {
+                        _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+                    }
+                }
             }
         }
 
         private void BarcodeSearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(_ViewModel.CurrentBarcode))
-                _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+            {
+                if (_ViewModel.CollectDetailsOverScan)
+                {
+                    _ViewModel.ProcessDetailsBarcode(_ViewModel.CurrentBarcode);
+                }
+                else
+                {
+                    _ViewModel.LoadBarcodeEntityCommand.Execute(null);
+                }
+            }
         }
         #endregion
 
