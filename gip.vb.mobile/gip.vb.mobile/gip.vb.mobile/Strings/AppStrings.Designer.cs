@@ -655,7 +655,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect details data over scan.
+        ///   Looks up a localized string similar to Collect data via scanning.
         /// </summary>
         internal static string CollectDetOverScan {
             get {

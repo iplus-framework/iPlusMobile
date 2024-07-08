@@ -137,7 +137,11 @@ namespace gip.vb.mobile.ViewModels
         }
 
         private bool _QuantitySetFromNetWeight = false;
-
+        public bool QuantitySetFromNetWeight
+        {
+            get => _QuantitySetFromNetWeight;
+            set => SetProperty(ref _QuantitySetFromNetWeight, value);
+        }
         #endregion
 
         #region Methods

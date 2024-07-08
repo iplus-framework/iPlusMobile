@@ -129,6 +129,19 @@ namespace gip.vbm.mobile.ViewModels
 
         private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
+        private bool _CollectDetailsOverScan;
+        public bool CollectDetailsOverScan
+        {
+            get => _CollectDetailsOverScan;
+            set => SetProperty(ref _CollectDetailsOverScan, value);
+        }
+
+        private bool _QuantitySetFromNetWeight = false;
+        public bool QuantitySetFromNetWeight
+        {
+            get => _QuantitySetFromNetWeight;
+            set => SetProperty(ref _QuantitySetFromNetWeight, value);
+        }
         #endregion
 
         #region Methods

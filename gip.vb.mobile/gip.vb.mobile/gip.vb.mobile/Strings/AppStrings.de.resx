@@ -745,6 +745,6 @@
     <value>Positionsstatus</value>
   </data>
   <data name="CollectDetOverScan" xml:space="preserve">
-    <value>Sammeln Sie detaillierte Daten über den Scan</value>
+    <value>Daten per Scan sammeln</value>
   </data>
 </root>

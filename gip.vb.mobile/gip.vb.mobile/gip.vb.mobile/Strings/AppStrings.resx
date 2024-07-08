@@ -746,6 +746,6 @@
     <value>Extern lot</value>
   </data>
   <data name="CollectDetOverScan" xml:space="preserve">
-    <value>Collect details data over scan</value>
+    <value>Collect data via scanning</value>
   </data>
 </root>

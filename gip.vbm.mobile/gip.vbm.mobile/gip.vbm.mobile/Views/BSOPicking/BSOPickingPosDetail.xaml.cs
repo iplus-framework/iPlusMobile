@@ -58,6 +58,7 @@ namespace gip.vbm.mobile.Views
             {
                 if (_ViewModel.PickingItem.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.Receipt)
                 {
+                    stckCollectDetails.IsVisible = true;
                     stckExpDate.IsVisible = true;
                     stckExtLot.IsVisible = true;
                 }
@@ -174,6 +175,7 @@ namespace gip.vbm.mobile.Views
         private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
         {
             BookingQuantity.Text = null;
+            _ViewModel.QuantitySetFromNetWeight = false;
         }
 
         private async void cmdSumByScan_Clicked(object sender, EventArgs e)

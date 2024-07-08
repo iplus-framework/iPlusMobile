@@ -218,6 +218,7 @@ namespace gip.vb.mobile.Views
         private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
         {
             BookingQuantity.Text = null;
+            _ViewModel.QuantitySetFromNetWeight = false;
         }
 
         private async void cmdSumByScan_Clicked(object sender, EventArgs e)
