@@ -190,7 +190,7 @@ namespace gip.vb.mobile.ViewModels
                         }
                     }
 
-                    if ( (expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0))
+                    if ((expirationDate == null && externLotNo.StringResult == null && SumItemQuantites.Count > 0))
                         return;
 
                     SumItem sItem = new SumItem() { Barcode = currentBarcode, Quantity = netWeight.DoubleResult.Value, ExpDate = expirationDate, ExtLotNo = externLotNo.StringResult };

@@ -195,8 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-    <PackageReference Include="Sebarslan.Maui.NullableDateTimePicker" Version="2.3.1" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
     <PackageReference Include="ZXing.Net.Maui" Version="0.3.0-preview.1" />
     <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.3.0-preview.1" />
   </ItemGroup>

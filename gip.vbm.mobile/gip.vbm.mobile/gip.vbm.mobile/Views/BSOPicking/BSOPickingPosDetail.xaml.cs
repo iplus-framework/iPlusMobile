@@ -7,6 +7,7 @@ using gip.vbm.mobile.barcode;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Maui.NullableDateTimePicker;
 
 namespace gip.vbm.mobile.Views
 {
@@ -43,6 +44,7 @@ namespace gip.vbm.mobile.Views
         private void InitPageOnNavigation()
         {
             barcodeScanner.OnAppearing();
+            barcodeScanner.BarcodeServiceMethod = Controls.BarcodeServiceMethodEnum.DecodeEntity;
             if (NavParam != null)
             {
                 object[] arguments = NavParam.Arguments as object[];
@@ -183,9 +185,43 @@ namespace gip.vbm.mobile.Views
             await Navigation.PushAsync(new BSOSumQuantityByBarcode(_ViewModel.GetSumByBarcodeModel()));
         }
 
-        private void Entry_Focused(object sender, FocusEventArgs e)
+        private async void Entry_Focused(object sender, FocusEventArgs e)
         {
-            dtPicker.Focus();
+            INullableDateTimePickerOptions nullableDateTimePickerOptions = new NullableDateTimePickerOptions
+            {
+                NullableDateTime = _ViewModel.ExpirationDate,
+                Mode = PickerModes.Date,
+                ShowWeekNumbers = false
+                // .. other calendar options
+            };
+
+            var result = await NullableDateTimePicker.OpenCalendarAsync(nullableDateTimePickerOptions);
+            if (result is PopupResult popupResult && popupResult.ButtonResult != PopupButtons.Cancel)
+            {
+                _ViewModel.ExpirationDate = popupResult.NullableDateTime;
+            }
+            dtEntry.Unfocus();
+        }
+
+        private void cbCollectDetailsOverScan_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (cbCollectDetailsOverScan.IsChecked)
+            {
+                barcodeScanner.BarcodeServiceMethod = Controls.BarcodeServiceMethodEnum.CustomCommand;
+            }
+            else
+            {
+                barcodeScanner.BarcodeServiceMethod = Controls.BarcodeServiceMethodEnum.DecodeEntity;
+            }
+        }
+
+        private void barcodeScanner_OnNewBarcodeScanned(object sender, Controls.BarcodeScannerEventArgs e)
+        {
+            if (cbCollectDetailsOverScan.IsChecked)
+            {
+                string text = e.Value as string;
+                _ViewModel.ProcessDetailsBarcode(text);
+            }
         }
     }
 }

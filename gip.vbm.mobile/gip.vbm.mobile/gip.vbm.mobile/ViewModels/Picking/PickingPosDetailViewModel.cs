@@ -424,6 +424,7 @@ namespace gip.vbm.mobile.ViewModels
             {
                 ExternLotNo = null;
                 ExpirationDate = null;
+                QuantitySetFromNetWeight = false;
                 IsBusy = false;
             }
         }
@@ -574,6 +575,42 @@ namespace gip.vbm.mobile.ViewModels
                 && !FacilityConst.IsDoubleZeroForPosting(_SumByBarcodeModel.SumQuantity))
                 return _SumByBarcodeModel.SumQuantity;
             return null;
+        }
+
+        public async void ProcessDetailsBarcode(string currentBarcode)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    SumQuantityByBarcodeViewModel viewModel = new SumQuantityByBarcodeViewModel(PickingPosItem.Material.MaterialName1);
+                    viewModel.ProcessBarcode(currentBarcode);
+
+                    if (!viewModel.SumItemQuantites.Any())
+                        return;
+
+                    SumQuantityByBarcodeViewModel.SumItem sumItem = viewModel.SumItemQuantites.FirstOrDefault();
+
+                    if (sumItem.Quantity > double.Epsilon)
+                    {
+                        BookingQuantity = sumItem.Quantity;
+                        QuantitySetFromNetWeight = true;
+                    }
+
+                    if (sumItem.QuantityGross > double.Epsilon && !_QuantitySetFromNetWeight)
+                        BookingQuantity = sumItem.QuantityGross;
+
+                    if (sumItem.ExpDate.HasValue)
+                        ExpirationDate = sumItem.ExpDate;
+
+                    if (!string.IsNullOrEmpty(sumItem.ExtLotNo))
+                        ExternLotNo = sumItem.ExtLotNo;
+                }
+                catch (Exception e)
+                {
+                    Message = new Msg(eMsgLevel.Exception, e.Message);
+                }
+            });
         }
 
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
