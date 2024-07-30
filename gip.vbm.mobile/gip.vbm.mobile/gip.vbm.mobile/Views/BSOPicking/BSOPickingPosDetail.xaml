@@ -77,7 +77,7 @@
                     
                     <BoxView Grid.ColumnSpan="2" BackgroundColor="{x:StaticResource PrimaryColor}" CornerRadius="3" />
                     <CheckBox IsChecked="{Binding CollectDetailsOverScan}" x:Name="cbCollectDetailsOverScan" HorizontalOptions="CenterAndExpand" CheckedChanged="cbCollectDetailsOverScan_CheckedChanged" />
-                    <Label Grid.Column="1" Text="Collect details over scan" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
+                    <Label Grid.Column="1" Text="{i18n:Translate Text=CollectDetOverScan}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
                     
                 </Grid>
                 
