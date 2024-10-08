@@ -67,6 +67,8 @@ namespace gip.vb.mobile.ViewModels
 
                 if (isMultipleMaterialWFConnection)
                 {
+                    List<ProdOrderPartslistPosRelation> inMaterials = new List<ProdOrderPartslistPosRelation>();
+
                     foreach (Guid intermediateBatchID in intermediateBatchIDs)
                     {
                         var response = await _WebService.GetProdOrderInputMaterialsAsync(intermediateBatchID.ToString());
@@ -75,10 +77,14 @@ namespace gip.vb.mobile.ViewModels
                         {
                             foreach (var item in response.Data)
                             {
-                                ProdOrderInMaterials.Add(item);
+                                inMaterials.Add(item);
                             }
                         }
                     }
+
+                    ProdOrderInMaterials = new ObservableCollection<ProdOrderPartslistPosRelation>(inMaterials.OrderBy(c => c.Sequence));
+                    OnPropertyChanged(nameof(ProdOrderInMaterials));
+
                 }
                 else
                 {
