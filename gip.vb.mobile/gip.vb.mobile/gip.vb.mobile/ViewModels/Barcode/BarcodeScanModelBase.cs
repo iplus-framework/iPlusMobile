@@ -20,6 +20,7 @@ namespace gip.vb.mobile.ViewModels
             ResetScanSequence();
             InvokeBarcodeCommand = new Command(async () => await ExecuteInvokeBarcodeCommand());
             GetBarcodeEntityCommand = new Command(async () => await ExecuteGetBarcodeEntityCommand());
+            InvokeBarcodeEntityCommand = new Command<string>(async (string command) => await ExecuteInvokeBarcodeEntityCommand(command));
             _AddToListOnScan = addToListOnScan;
         }
 
@@ -201,7 +202,6 @@ namespace gip.vb.mobile.ViewModels
         }
 
         public Command GetBarcodeEntityCommand { get; set; }
-
         public async Task<bool> ExecuteGetBarcodeEntityCommand()
         {
             if (IsBusy)
@@ -245,6 +245,46 @@ namespace gip.vb.mobile.ViewModels
                 IsBusy = false;
             }
             return success;
+        }
+
+
+        public Command InvokeBarcodeEntityCommand
+        {
+            get;
+            set;
+        }
+
+        public async Task<bool> ExecuteInvokeBarcodeEntityCommand(string command)
+        {
+            BarcodeEntity entity = Item.Sequence.FirstOrDefault(c => c.Command != null && c.Command.ACMethodName == command);
+            if (entity != null)
+            {
+                entity.Command.ACMethodInvoked = true;
+                Item.Sequence.RemoveAll(c => c.Command == null);
+
+                Item.State = ActionState.ScanAgain;
+
+                var response = await _WebService.InvokeBarcodeSequenceAsync(Item);
+                this.WSResponse = response;
+                if (response.Suceeded)
+                {
+                    core.datamodel.Msg questionMessage = null;
+                    if (response.Data.State == mes.webservices.BarcodeSequence.ActionState.Question &&
+                        response.Data.Message != null && (response.Data.Message.MessageLevel == eMsgLevel.Question || response.Data.Message.MessageLevel == eMsgLevel.QuestionPrompt))
+                        questionMessage = response.Data.Message;
+
+                    if (questionMessage != null)
+                        ShowDialog(questionMessage);
+
+                    Item = response.Data;
+                    IsListVisible = true;
+                }
+                else
+                    Item = new BarcodeSequence();
+            }
+
+
+            return true;
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)
