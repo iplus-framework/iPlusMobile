@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.core.datamodel;
 
 namespace gip.vbm.mobile.Helpers
 {
@@ -19,6 +20,8 @@ namespace gip.vbm.mobile.Helpers
         public DataTemplate ProdOrderPartslist { get; set; }
         public DataTemplate ProdOrderPartslistPos{ get; set; }
         public DataTemplate ProdOrderPartslistWFInfo { get; set; }
+        public DataTemplate WFMethod { get; set; }
+        public DataTemplate Command { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -41,6 +44,10 @@ namespace gip.vbm.mobile.Helpers
                     return PickingPos;
                 else if (entity.SelectedOrderWF != null)
                     return ProdOrderPartslistWFInfo;
+                else if (entity.WFMethod != null)
+                    return WFMethod;
+                else if (entity.Command != null)
+                    return Command;
             }
             else if (item is core.webservices.ACClass)
                 return ACClass;
@@ -62,6 +69,10 @@ namespace gip.vbm.mobile.Helpers
                 return ProdOrderPartslistPos;
             else if (item is ProdOrderPartslistWFInfo)
                 return ProdOrderPartslistWFInfo;
+            else if (item is ACMethod)
+                return WFMethod;
+            else if (item is BarcodeEntityCommand)
+                return Command;
 
             return Unknown;
         }

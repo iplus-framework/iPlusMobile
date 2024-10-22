@@ -276,7 +276,6 @@
   <ItemGroup>
     <Folder Include="Controls\Pivot\" />
     <Folder Include="Helpers\Localize\" />
-    <Folder Include="Helpers\LocalSettings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj" />
