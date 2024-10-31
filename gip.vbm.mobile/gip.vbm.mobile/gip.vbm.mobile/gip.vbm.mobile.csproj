@@ -52,6 +52,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net6.0-android|AnyCPU'">
     <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
+  <PropertyGroup>
+    <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
+    <Description>MAUI iplus-framework mobile</Description>
+    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
+    <PackageTags>iplus-framework;iplus-MES-mobile</PackageTags>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>  
   <ItemGroup>
     <AndroidResource Remove="Resources\Images\deleteicon.png" />
     <AndroidResource Remove="Resources\Images\iconcamera.png" />

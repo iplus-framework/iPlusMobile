@@ -66,6 +66,13 @@
 
   <PropertyGroup>
     <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
+    <Description>MAUI App iplus-framework mobile</Description>
+    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
+    <PackageTags>iplus-framework;iplus-MES-mobile</PackageTags>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
@@ -139,6 +146,17 @@
   
 	<ItemGroup Condition="(('$(TargetFramework)' == 'net7.0-android') Or ('$(TargetFramework)' == 'net8.0-android')) And (('$(Configuration)' == 'DebugZebra') Or ('$(Configuration)' == 'ReleaseZebra'))">
 	  <PackageReference Include="Symbol.XamarinEMDK" Version="8.0.0.9" />
+  </ItemGroup>
+  
+	<ItemGroup>
+	  <None Include="icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   
 	<ItemGroup>
