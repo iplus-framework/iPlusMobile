@@ -21,6 +21,7 @@ namespace gip.vbm.mobile.ViewModels
         {
             ResetScanSequence();
             InvokeBarcodeSequenceCommand = new Command(async () => await ExecuteInvokeBarcodeSequenceCommand());
+            InvokeBarcodeEntityCommand = new Command<string>(async (string command) => await ExecuteInvokeBarcodeEntityCommand(command));
             DecodeEntityCommand = new Command(async () => await ExecuteDecodeEntityCommand());
             _AddToListOnScan = addToListOnScan;
         }
@@ -257,6 +258,45 @@ namespace gip.vbm.mobile.ViewModels
         public virtual async Task<bool> ExecuteCustomBarcodeCommand()
         {
             await Task.Run(() => _ = true);
+            return true;
+        }
+
+        public Command InvokeBarcodeEntityCommand
+        {
+            get;
+            set;
+        }
+
+        public async Task<bool> ExecuteInvokeBarcodeEntityCommand(string command)
+        {
+            BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.FirstOrDefault(c => c.Command != null && c.Command.ACMethodName == command);
+            if (entity != null)
+            {
+                entity.Command.ACMethodInvoked = true;
+                ExchangedBarcodeSeq.Sequence.RemoveAll(c => c.Command == null);
+
+                ExchangedBarcodeSeq.State = ActionState.ScanAgain;
+
+                var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
+                this.WSResponse = response;
+                if (response.Suceeded)
+                {
+                    core.datamodel.Msg questionMessage = null;
+                    if (response.Data.State == mes.webservices.BarcodeSequence.ActionState.Question &&
+                        response.Data.Message != null && (response.Data.Message.MessageLevel == eMsgLevel.Question || response.Data.Message.MessageLevel == eMsgLevel.QuestionPrompt))
+                        questionMessage = response.Data.Message;
+
+                    if (questionMessage != null)
+                        ShowDialog(questionMessage);
+
+                    ExchangedBarcodeSeq = response.Data;
+                    IsListVisible = true;
+                }
+                else
+                    ExchangedBarcodeSeq = new BarcodeSequence();
+            }
+
+
             return true;
         }
 
