@@ -12,7 +12,7 @@ using Android.App;
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("gip.vb.mobile.Android")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("iplus-framework")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
