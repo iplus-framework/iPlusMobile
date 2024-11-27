@@ -126,9 +126,9 @@ namespace gip.vb.mobile.ViewModels
                     result = response.Data;
                     if (result != null)
                     {
-                        if (!skipCheck)
+                        if (!skipCheck && result.MessageLevel == eMsgLevel.Question)
                         {
-                            result.MessageLevel = eMsgLevel.Question;
+                            //result.MessageLevel = eMsgLevel.Question;
                             result.MessageButton = eMsgButton.YesNo;
                             ShowDialog(result, requestID : 1);
                         }
