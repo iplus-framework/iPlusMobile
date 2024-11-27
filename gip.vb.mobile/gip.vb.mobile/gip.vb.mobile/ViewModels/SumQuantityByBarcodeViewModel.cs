@@ -229,8 +229,9 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
+            base.Clear();
             if (SumItemQuantites != null)
             {
                 SumItemQuantites.Clear();
