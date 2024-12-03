@@ -448,14 +448,18 @@ namespace gip.vbm.mobile.ViewModels
                 {
                     if (IsInward)
                     {
-                        if (response.Data.Facility != null)
+                        Facility facility = response.Data?.Facility;
+
+                        if (facility != null)
                         {
-                            var currentFacility = TargetFacilities.FirstOrDefault(c => c.FacilityID == response.Data.Facility.FacilityID);
+                            var currentFacility = TargetFacilities.FirstOrDefault(c => c.FacilityID == facility.FacilityID);
                             if (currentFacility != null)
                                 CurrentFacility = currentFacility;
                             else
                             {
-                                //TODO: add facility to list or return error
+                                TargetFacilities.Add(facility);
+                                TargetFacilities = TargetFacilities.ToList();
+                                CurrentFacility = facility;
                             }
                         }
                     }
