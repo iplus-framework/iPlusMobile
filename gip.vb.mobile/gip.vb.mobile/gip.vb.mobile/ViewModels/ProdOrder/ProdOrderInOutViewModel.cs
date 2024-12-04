@@ -467,8 +467,6 @@ namespace gip.vb.mobile.ViewModels
                 BarcodeSequence = response.Data;
                 this.WSResponse = response;
 
-                
-
                 if (response.Suceeded)
                 {
                     if (IsInward)
