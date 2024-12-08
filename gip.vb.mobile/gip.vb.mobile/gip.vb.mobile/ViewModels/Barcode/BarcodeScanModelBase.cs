@@ -310,6 +310,7 @@ namespace gip.vb.mobile.ViewModels
         {
             if (_Item != null)
                 _Item.CurrentBarcode = "";
+            ResetScanSequence();
         }
         #endregion
     }

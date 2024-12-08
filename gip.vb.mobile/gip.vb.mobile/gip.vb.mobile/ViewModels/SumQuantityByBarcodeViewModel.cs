@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class SumQuantityByBarcodeViewModel : BaseViewModel
+    public class SumQuantityByBarcodeViewModel : BarcodeScanModelBase
     {
         public SumQuantityByBarcodeViewModel(string material)
         {
@@ -231,8 +231,9 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
+            base.Clear();
             if (SumItemQuantites != null)
             {
                 SumItemQuantites.Clear();
