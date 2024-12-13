@@ -1,3 +1,5 @@
+// Copyright (c) 2024, gipSoft d.o.o.
+// Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using System;
 using gip.vbm.mobile.ViewModels;
 using gip.mes.webservices;
@@ -56,7 +58,7 @@ namespace gip.vbm.mobile.Views
                 }
             }
 
-            if (_ViewModel.PickingItem != null)
+            if (_ViewModel != null && _ViewModel.PickingItem != null)
             {
                 if (_ViewModel.PickingItem.PickingType.PickingType == mes.datamodel.GlobalApp.PickingType.Receipt)
                 {
@@ -146,19 +148,22 @@ namespace gip.vbm.mobile.Views
         {
             if (CurrentPage == BookingHistoryPivotItem)
             {
-                _ViewModel.Print(Strings.AppStrings.PrintCopies_Question);
+                _ViewModel?.Print(Strings.AppStrings.PrintCopies_Question);
             }
         }
 
         private void BSOTabbedPageBase_CurrentPageChanged(object sender, EventArgs e)
         {
-            if (CurrentPage == BookingHistoryPivotItem)
+            if (TBPrint != null)
             {
-                TBPrint.IsEnabled = true;
-            }
-            else
-            {
-                TBPrint.IsEnabled = false;
+                if (CurrentPage == BookingHistoryPivotItem)
+                {
+                    TBPrint.IsEnabled = true;
+                }
+                else
+                {
+                    TBPrint.IsEnabled = false;
+                }
             }
         }
 
@@ -176,7 +181,8 @@ namespace gip.vbm.mobile.Views
 
         private void cmdClearBookingQuantity_Clicked(object sender, EventArgs e)
         {
-            BookingQuantity.Text = null;
+            if (BookingQuantity != null)
+                BookingQuantity.Text = null;
             _ViewModel.QuantitySetFromNetWeight = false;
         }
 
@@ -200,7 +206,8 @@ namespace gip.vbm.mobile.Views
             {
                 _ViewModel.ExpirationDate = popupResult.NullableDateTime;
             }
-            dtEntry.Unfocus();
+            if (dtEntry != null)
+                dtEntry.Unfocus();
         }
 
         private void cbCollectDetailsOverScan_CheckedChanged(object sender, CheckedChangedEventArgs e)

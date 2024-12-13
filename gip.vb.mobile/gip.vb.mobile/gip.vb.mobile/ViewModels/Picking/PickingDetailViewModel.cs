@@ -1,3 +1,5 @@
+// Copyright (c) 2024, gipSoft d.o.o.
+// Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -126,9 +128,9 @@ namespace gip.vb.mobile.ViewModels
                     result = response.Data;
                     if (result != null)
                     {
-                        if (!skipCheck)
+                        if (!skipCheck && result.MessageLevel == eMsgLevel.Question)
                         {
-                            result.MessageLevel = eMsgLevel.Question;
+                            //result.MessageLevel = eMsgLevel.Question;
                             result.MessageButton = eMsgButton.YesNo;
                             ShowDialog(result, requestID : 1);
                         }

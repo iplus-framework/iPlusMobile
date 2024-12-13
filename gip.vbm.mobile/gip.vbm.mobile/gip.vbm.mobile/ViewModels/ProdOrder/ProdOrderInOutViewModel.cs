@@ -1,3 +1,5 @@
+// Copyright (c) 2024, gipSoft d.o.o.
+// Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -440,31 +442,50 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.GetBarcodeEntityAsync(CurrentBarcode);
+                ExchangedBarcodeSeq.CurrentBarcode = CurrentBarcode;
+
+                var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
+                ExchangedBarcodeSeq = response.Data;
                 this.WSResponse = response;
-                this.WSBarcodeEntityResult = response.Data;
 
                 if (response.Suceeded)
                 {
                     if (IsInward)
                     {
-                        if (response.Data.Facility != null)
+                        BarcodeEntity facilityEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.Facility != null).FirstOrDefault();
+                        if (facilityEntity != null)
                         {
-                            var currentFacility = TargetFacilities.FirstOrDefault(c => c.FacilityID == response.Data.Facility.FacilityID);
-                            if (currentFacility != null)
-                                CurrentFacility = currentFacility;
-                            else
+                            this.WSBarcodeEntityResult = facilityEntity;
+                            Facility facility = facilityEntity.Facility;
+
+                            if (facility != null)
                             {
-                                //TODO: add facility to list or return error
+                                var currentFacility = TargetFacilities.FirstOrDefault(c => c.FacilityID == facility.FacilityID);
+                                if (currentFacility != null)
+                                    CurrentFacility = currentFacility;
+                                else
+                                {
+                                    TargetFacilities.Add(facility);
+                                    TargetFacilities = TargetFacilities.ToList();
+                                    CurrentFacility = facility;
+                                }
                             }
+                            ResetScanSequence();
                         }
                     }
                     else
-                    { 
-                        if (response.Data.FacilityCharge != null)
+                    {
+                        BarcodeEntity facilityChargeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
+                        if (facilityChargeEntity == null)
                         {
+                            this.Message = response.Data.Message;
+                            CurrentBarcodeEntity = ExchangedBarcodeSeq.Sequence.Select(c => c.ValidEntity).ToList();
+                        }
+                        else
+                        {
+                            this.WSBarcodeEntityResult = facilityChargeEntity;
                             List<object> entries = new List<object>();
-                            entries.Add(response.Data.ValidEntity);
+                            entries.Add(facilityChargeEntity.FacilityCharge);
                             CurrentBarcodeEntity = entries;
 
                             if (_OutwardSuggestionMode.QuantityMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
@@ -474,10 +495,10 @@ namespace gip.vbm.mobile.ViewModels
 
                             if (suggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity)
                             {
-                                double stockQuantity = response.Data.FacilityCharge.StockQuantity;
+                                double stockQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
 
                                 if (stockQuantity > 0.0001)
-                                    BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+                                    BookingQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
                             }
                             else if (suggestionMode == PostingQuantitySuggestionMode.ProportionallyAnotherComp)
                             {
@@ -498,15 +519,18 @@ namespace gip.vbm.mobile.ViewModels
                             else if (suggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
                             {
                                 double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
-                                if (requiredQuantity > response.Data.FacilityCharge.StockQuantity && response.Data.FacilityCharge.StockQuantity > 0.000001)
+                                if (requiredQuantity > facilityChargeEntity.FacilityCharge.StockQuantity && facilityChargeEntity.FacilityCharge.StockQuantity > 0.000001)
                                 {
-                                    BookingQuantity = response.Data.FacilityCharge.StockQuantity;
+                                    BookingQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
                                 }
                                 else if (requiredQuantity > 0.0000001)
                                 {
                                     BookingQuantity = requiredQuantity;
                                 }
                             }
+
+                            this.Message = null;
+                            ResetScanSequence();
                         }
                     }
                 }

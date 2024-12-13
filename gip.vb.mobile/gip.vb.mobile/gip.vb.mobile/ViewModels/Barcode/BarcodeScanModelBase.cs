@@ -1,3 +1,5 @@
+// Copyright (c) 2024, gipSoft d.o.o.
+// Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using gip.core.datamodel;
 using gip.mes.webservices;
 using gip.vb.mobile.Strings;
@@ -308,6 +310,7 @@ namespace gip.vb.mobile.ViewModels
         {
             if (_Item != null)
                 _Item.CurrentBarcode = "";
+            ResetScanSequence();
         }
         #endregion
     }
