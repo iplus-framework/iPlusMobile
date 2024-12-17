@@ -265,32 +265,32 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        //public Command LoadBarcodeEntityCommand { get; set; }
-        //public async Task ExecuteLoadBarcodeEntityCommand()
-        //{
-        //    if (IsBusy)
-        //        return;
+        public override async Task<bool> ExecuteDecodeEntityCommand()
+        {
+            ExchangedBarcodeSeq.CurrentBarcode = CurrentBarcode;
 
-        //    IsBusy = true;
+            var response = await _WebService.InvokeBarcodeSequenceAsync(ExchangedBarcodeSeq);
+            ExchangedBarcodeSeq = response.Data;
+            this.WSResponse = response;
 
-        //    try
-        //    {
-        //        var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
-        //        this.WSResponse = response;
-        //        if (response.Suceeded)
-        //            CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
-        //        else
-        //            CurrentBarcodeEntity = new List<object>();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
+            BarcodeEntity facilityChargeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
+            if (facilityChargeEntity == null)
+            {
+                this.Message = response.Data.Message;
+                DecodedEntitiesList = ExchangedBarcodeSeq.Sequence.Select(c => c.ValidEntity).ToList();
+            }
+            else
+            {
+                List<object> entries = new List<object>();
+                entries.Add(facilityChargeEntity.FacilityCharge);
+                DecodedEntitiesList = entries;
+
+                this.Message = null;
+                ResetScanSequence();
+            }
+
+            return true;
+        }
 
         public void OnAppear()
         {
