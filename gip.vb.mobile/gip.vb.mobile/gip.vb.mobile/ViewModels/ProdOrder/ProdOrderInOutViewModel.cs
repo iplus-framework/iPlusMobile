@@ -653,6 +653,8 @@ namespace gip.vb.mobile.ViewModels
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         if (!CurrentFacility.SkipPrintQuestion)
                             Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
+
+                        SelectedMovementReason = null;
                     }
                 }
             }
