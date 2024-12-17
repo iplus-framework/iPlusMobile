@@ -297,10 +297,10 @@ namespace gip.vb.mobile.Droid
                         {
 
                             //Attahch the Data Event handler to get the data callbacks.
-                            _Scanner.Data += _Scanner_Data; ;
+                            _Scanner.Data += _Scanner_Data;
 
                             //Attach Scanner Status Event to get the status callbacks.
-                            _Scanner.Status += _Scanner_Status; ;
+                            _Scanner.Status += _Scanner_Status;
 
                             _Scanner.Enable();
 
@@ -310,7 +310,7 @@ namespace gip.vb.mobile.Droid
                             config.ScanParams.DecodeLEDFeedback = true;
                             config.ReaderParams.ReaderSpecific.ImagerSpecific.PickList = ScannerConfig.PickList.Enabled;
                             config.DecoderParams.Code39.Enabled = true;
-                            config.DecoderParams.Code128.Enabled = false;
+                            config.DecoderParams.Code128.Enabled = true;
                             _Scanner.SetConfig(config);
 
                         }
