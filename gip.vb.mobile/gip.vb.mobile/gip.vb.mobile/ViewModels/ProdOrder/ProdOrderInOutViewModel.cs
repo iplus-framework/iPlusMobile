@@ -1021,7 +1021,7 @@ namespace gip.vb.mobile.ViewModels
 
                 relationID = PosRelation.ProdOrderPartslistPosRelationID;
 
-                WSResponse<List<FacilityCharge>> response = await _WebService.GetPOAvaialbleFCAsync(machineID.ToString(), relationID.ToString());
+                WSResponse<List<FacilityCharge>> response = await _WebService.GetPOAvailableFCAsync(machineID.ToString(), relationID.ToString());
                 if (!response.Suceeded)
                 {
                     Message = response.Message;
