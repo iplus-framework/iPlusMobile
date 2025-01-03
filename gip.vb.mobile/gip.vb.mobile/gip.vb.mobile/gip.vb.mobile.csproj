@@ -192,6 +192,9 @@
     <Compile Update="Views\BSOProdOrder\BSOProdOrderInward.xaml.cs">
       <DependentUpon>BSOProdOrderInward.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardQSel.xaml.cs">
+      <DependentUpon>BSOProdOrderOutwardQSel.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardMatSel.xaml.cs">
       <DependentUpon>BSOProdOrderOutwardMatSel.xaml</DependentUpon>
     </Compile>

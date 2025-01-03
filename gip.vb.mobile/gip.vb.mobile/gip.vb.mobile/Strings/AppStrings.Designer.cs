@@ -304,6 +304,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Btn_Select {
+            get {
+                return ResourceManager.GetString("Btn_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show orders.
         /// </summary>
         internal static string Btn_ShowPickingOrders {

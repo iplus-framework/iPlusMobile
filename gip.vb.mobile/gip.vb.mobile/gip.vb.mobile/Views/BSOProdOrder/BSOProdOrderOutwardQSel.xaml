@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOProdOrderOutwardQSel"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+              Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOProdOrderAvaialbleQuants">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconQuant.png" Clicked="QuantTBItem_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="AvailableQuants"
+                ItemsSource="{Binding AvailableFacilityCharges}"
+                ItemTemplate="{StaticResource FacilityChargeItemTemplate}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadAvailableFacilityChargesCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                SelectedItem="{Binding SelectedAvailableFC}">
+        </ListView>
+
+        <Button MinimumHeightRequest="40" Text="{i18n:Translate Text=Btn_Select}" x:Name="btnSelectLot" Clicked="btnSelectLot_Clicked" />
+    </StackLayout>
+</v:BSOPageBase>

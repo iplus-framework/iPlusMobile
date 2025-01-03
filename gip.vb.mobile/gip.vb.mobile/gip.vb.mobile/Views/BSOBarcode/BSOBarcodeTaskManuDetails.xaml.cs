@@ -143,7 +143,8 @@ namespace gip.vb.mobile.Views
                 return;
 
             wfInfo.WFMethod.AutoRemove = false;
-            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
+            _ViewModel.InitUserTime(wfInfo);
+            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo));
         }
 
         private async void SendChangedACMethod()

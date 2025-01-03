@@ -748,4 +748,7 @@
   <data name="CollectDetOverScan" xml:space="preserve">
     <value>Collect data via scanning</value>
   </data>
+  <data name="Btn_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>
