@@ -29,11 +29,12 @@
             <StackLayout>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <StackLayout Orientation="Horizontal">
-                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"
-                               HorizontalOptions="FillAndExpand"/>
-                    <Button MinimumWidthRequest="60" TextColor="Red" x:Name="btnShowQuants" Text="Q" Clicked="btnShowQuants_Clicked">
-                       
+                    <Button TextColor="Red" x:Name="btnShowQuants" Text="Q" Clicked="btnShowQuants_Clicked" FontAttributes="Bold" FontSize="Large" WidthRequest="45" >
+
                     </Button>
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"
+                               />
+
                 </StackLayout>
                 <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
                         ItemTemplate="{StaticResource BarcodeEntitySelector}"
