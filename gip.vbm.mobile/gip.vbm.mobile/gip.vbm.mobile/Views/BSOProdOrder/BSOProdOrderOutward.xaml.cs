@@ -110,5 +110,10 @@ namespace gip.vbm.mobile.Views
                 }
             }
         }
+
+        private async void btnShowQuants_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BSOProdOrderOutwardQSel(_ViewModel));
+        }
     }
 }

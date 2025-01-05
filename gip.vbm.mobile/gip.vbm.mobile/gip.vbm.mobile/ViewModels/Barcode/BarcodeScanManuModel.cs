@@ -289,5 +289,16 @@ namespace gip.vbm.mobile.ViewModels
 
             return success;
         }
+
+        public void InitUserTime(ProdOrderPartslistWFInfo wfInfo)
+        {
+            if (wfInfo.UserTime != null)
+            {
+                wfInfo.UserTime.UserStartDate = wfInfo.UserTime.StartDate;
+
+                //if (!wfInfo.UserTime.UserEndDate.HasValue)
+                //    wfInfo.UserTime.UserEndDate = DateTime.Now;
+            }
+        }
     }
 }

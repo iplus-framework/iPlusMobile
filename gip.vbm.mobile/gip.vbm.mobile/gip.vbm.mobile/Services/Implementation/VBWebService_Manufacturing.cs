@@ -88,5 +88,10 @@ namespace gip.vbm.mobile.Services
                 return await Task.FromResult(new WSResponse<Msg>(null, new Msg(eMsgLevel.Error, "entity is null")));
             return await Post<Msg, BarcodeEntity>(entity, VBWebServiceConst.UriProdOrderVerOrderPostings);
         }
+
+        public async Task<WSResponse<List<FacilityCharge>>> GetPOAvailableFCAsync(string machineFunctionID, string POPLPosRelID)
+        {
+            return await Get<List<FacilityCharge>>(string.Format(VBWebServiceConst.UriProdOrderAvailableFC_F, machineFunctionID, POPLPosRelID));
+        }
     }
 }

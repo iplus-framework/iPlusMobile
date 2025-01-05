@@ -140,7 +140,8 @@ namespace gip.vbm.mobile.Views
             if (wfInfo == null || wfInfo.WFMethod == null)
                 return;
             wfInfo.WFMethod.AutoRemove = false;
-            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
+            _ViewModel.InitUserTime(wfInfo);
+            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo));
         }
 
         private void SendChangedACMethod()
