@@ -22,6 +22,15 @@ namespace gip.vb.mobile.ViewModels
         {
         }
 
+        public string LastCrashDump
+        {
+            get
+            {
+                return App.SettingsViewModel.LastCrashDump;
+            }
+        }
+
+
         public bool PerfLoggingOn
         {
             get
@@ -49,6 +58,10 @@ namespace gip.vb.mobile.ViewModels
                 if (!App.PerfLogger.Active)
                     return;
                 string dump = App.PerfLogger.DumpAndReset();
+                if (!String.IsNullOrEmpty(App.SettingsViewModel.LastCrashDump))
+                    dump += "\r\n" + App.SettingsViewModel.LastCrashDump;
+                App.SettingsViewModel.LastCrashDump = "";
+
                 var response = await _WebService.DumpPerfLog(dump);
 
                 if (response.Suceeded)

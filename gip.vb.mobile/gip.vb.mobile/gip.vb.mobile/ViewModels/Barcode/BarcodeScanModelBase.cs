@@ -180,7 +180,10 @@ namespace gip.vb.mobile.ViewModels
                         questionMessage = response.Data.Message;
 
                     if (questionMessage != null)
-                        ShowDialog(questionMessage);
+                    {
+                        Device.BeginInvokeOnMainThread(() => { ShowDialog(questionMessage); });
+                        //ShowDialog(questionMessage);
+                    }
 
                     Item = response.Data;
                     success = response.Suceeded;

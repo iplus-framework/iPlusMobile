@@ -28,7 +28,7 @@ namespace gip.vb.mobile.Views
             InitializeComponent();
         }
 
-        private ACMethod _WFMethod;
+        //private ACMethod _WFMethod;
 
         //private PostingSuggestionMode _OutwardPostingQSuggestion;
         //private ProdOrderInOutViewModel InViewModel;

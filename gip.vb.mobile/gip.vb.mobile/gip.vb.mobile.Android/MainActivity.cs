@@ -35,7 +35,7 @@ namespace gip.vb.mobile.Droid
     {
         EMDKManager _EMDKManager = null;
         ProfileManager _ProfileManager = null;
-        private String _ProfileName = "ClockProfile";
+        //private String _ProfileName = "ClockProfile";
         BarcodeManager _BarcodeManager = null;
         Scanner _Scanner = null;
 #else
