@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using gip.core.webservices;
 
 namespace gip.vb.mobile.Views
 {
@@ -166,6 +167,11 @@ namespace gip.vb.mobile.Views
                     await NavigateToFacilityOverview(facility);
             }
 
+            core.webservices.ACClass operationACClass = e.Item as core.webservices.ACClass;
+            if (operationACClass != null)
+            {
+                await NavigateToOperationLogOverview(operationACClass);
+            }
         }
 
         private void BarcodeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -292,6 +298,15 @@ namespace gip.vb.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityLotOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = facilityLot } });
         }
+        #endregion
+
+        #region OperationLog
+
+        private async Task NavigateToOperationLogOverview(ACClass acClass)
+        {
+            await Navigation.PushAsync(new BSOOperationLogOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = acClass } });
+        }
+
         #endregion
 
         protected override bool OnBackButtonPressed()

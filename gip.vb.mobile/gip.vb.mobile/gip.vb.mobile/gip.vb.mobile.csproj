@@ -159,6 +159,10 @@
     <Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
       <DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOFacility\BSOOperationLogOverview.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>BSOOperationLogOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>
@@ -240,6 +244,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeOverview.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOFacility\BSOOperationLogOverview.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySelector.xaml">

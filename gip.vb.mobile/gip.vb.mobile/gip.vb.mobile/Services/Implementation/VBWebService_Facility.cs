@@ -80,6 +80,14 @@ namespace gip.vb.mobile.Services
             return await Post<bool, FacilityChargeParamItem>(deactivationItem, VBWebServiceConst.UriDeactivateFacilityCharge);
         }
 
+        public async Task<WSResponse<List<FacilityCharge>>> GetOperationLogFacilityChargesAsync(string machineID)
+        {
+            if (string.IsNullOrEmpty(machineID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>>(null, new Msg(eMsgLevel.Error, "machineID is empty")));
+
+            return await Get<List<FacilityCharge>>(string.Format(VBWebServiceConst.UriOperationFacilityChargeID_F, machineID));
+        }
+
         #endregion
 
 
