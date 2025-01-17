@@ -49,6 +49,14 @@ namespace gip.vbm.mobile.Services
             return await Task.FromResult(_GetFacilityChargeBookings);
         }
 
+        public async Task<WSResponse<List<FacilityCharge>>> GetOperationLogFacilityChargesAsync(string machineID)
+        {
+            if (string.IsNullOrEmpty(machineID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>>(null, new Msg(eMsgLevel.Error, "machineID is empty")));
+
+            return await Task.FromResult<WSResponse<List<FacilityCharge>>>(null);
+        }
+
         #endregion
 
 

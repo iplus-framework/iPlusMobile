@@ -276,8 +276,11 @@ namespace gip.vbm.mobile.ViewModels
             BarcodeEntity facilityChargeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
             if (facilityChargeEntity == null)
             {
-                this.Message = response.Data.Message;
-                DecodedEntitiesList = ExchangedBarcodeSeq.Sequence.Select(c => c.ValidEntity).ToList();
+                DecodedEntitiesList = ExchangedBarcodeSeq.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
+                if (ExchangedBarcodeSeq.Sequence.Any(c => c.ACClass != null))
+                    ResetScanSequence();
+                else
+                    this.Message = response.Data.Message;
             }
             else
             {

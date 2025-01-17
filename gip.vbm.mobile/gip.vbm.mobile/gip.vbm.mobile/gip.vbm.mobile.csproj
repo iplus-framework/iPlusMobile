@@ -221,6 +221,9 @@
     <Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
       <DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOFacility\BSOOperationLogOverview.xaml.cs">
+      <DependentUpon>BSOOperationLogOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>
@@ -369,6 +372,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\BSOFacility\BSOOperationLogOverview.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\MainPages\AppShell.xaml">
