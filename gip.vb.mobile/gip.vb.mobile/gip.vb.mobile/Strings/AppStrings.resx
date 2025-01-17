@@ -472,7 +472,7 @@
     <value>Assign printer</value>
   </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Explore storage</value>
+    <value>Explore warehouse places</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Search only in list (filter list)</value>

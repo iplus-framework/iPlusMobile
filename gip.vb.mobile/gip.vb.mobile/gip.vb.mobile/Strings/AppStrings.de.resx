@@ -472,7 +472,7 @@
     <value>Drucker zuweisen</value>
   </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Lagerung erforschen</value>
+    <value>Lagerplätze suchen</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Nur in Liste suchen (Filterliste)</value>

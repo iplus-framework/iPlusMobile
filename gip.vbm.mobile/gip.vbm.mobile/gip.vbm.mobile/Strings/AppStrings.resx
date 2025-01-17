@@ -472,7 +472,7 @@
     <value>Assign printer</value>
   </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Explore storage</value>
+    <value>Explore warehouse places</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Search only in list (filter list)</value>
@@ -746,6 +746,9 @@
     <value>Extern lot</value>
   </data>
   <data name="CollectDetOverScan" xml:space="preserve">
-    <value>Collect details data over scan</value>
+    <value>Collect data via scanning</value>
+  </data>
+  <data name="Btn_Select" xml:space="preserve">
+    <value>Select</value>
   </data>
 </root>

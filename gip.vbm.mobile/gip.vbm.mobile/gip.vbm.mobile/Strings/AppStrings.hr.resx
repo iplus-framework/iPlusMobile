@@ -355,7 +355,7 @@
     <value>Rok trajanja</value>
   </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Pregledajte spremište</value>
+    <value>Istražite mjesta skladišta</value>
   </data>
   <data name="ExternLot" xml:space="preserve">
     <value>Vanjski lot</value>
@@ -746,5 +746,8 @@
   </data>
   <data name="ZXingOverlay_Text" xml:space="preserve">
     <value>Potpuno pozicionirajte barkod na liniju</value>
+  </data>
+  <data name="Btn_Select" xml:space="preserve">
+    <value>Izaberi</value>
   </data>
 </root>

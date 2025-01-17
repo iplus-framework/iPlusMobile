@@ -781,7 +781,7 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explore storage.
+        ///   Looks up a localized string similar to Explore warehouse places.
         /// </summary>
         internal static string ExploreStorage_Text {
             get {
