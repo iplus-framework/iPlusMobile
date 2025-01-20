@@ -126,6 +126,21 @@
   <data name="BarcodeScan_Text" xml:space="preserve">
     <value>Barcode scannen oder eingeben</value>
   </data>
+  <data name="BFI_Bookings_Header" xml:space="preserve">
+    <value>Buchungen</value>
+  </data>
+  <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
+    <value>Filter Inventurzeilen</value>
+  </data>
+  <data name="BFI_PositionEdit_Header" xml:space="preserve">
+    <value>Inventurzeile bearbeiten</value>
+  </data>
+  <data name="BFI_PositionOverview_Header" xml:space="preserve">
+    <value>Übersicht Inventurzeilen</value>
+  </data>
+  <data name="BFI_SearchInventory_Header" xml:space="preserve">
+    <value>Inventuren Suchen</value>
+  </data>
   <data name="BookingHistory_Header" xml:space="preserve">
     <value>Buchungshistorie</value>
   </data>
@@ -135,14 +150,23 @@
   <data name="BtnBlockQuant_Text" xml:space="preserve">
     <value>Sperren</value>
   </data>
+  <data name="BtnClose_Text" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
   <data name="BtnDoBooking_Text" xml:space="preserve">
     <value>Buchen</value>
   </data>
   <data name="BtnDoZeroStock_Text" xml:space="preserve">
     <value>Quant nicht verfügbar</value>
   </data>
+  <data name="BtnLes_Text" xml:space="preserve">
+    <value>Weniger</value>
+  </data>
   <data name="BtnLocationOverview_Text" xml:space="preserve">
     <value>Zur Lagerübersicht</value>
+  </data>
+  <data name="BtnMore_Text" xml:space="preserve">
+    <value>Mehr</value>
   </data>
   <data name="BtnOccupyMachine_Text" xml:space="preserve">
     <value>Auftrag Anmelden an Maschine</value>
@@ -159,8 +183,14 @@
   <data name="BtnSearch_Text" xml:space="preserve">
     <value>Suchen</value>
   </data>
+  <data name="BtnStart_Text" xml:space="preserve">
+    <value>Starten</value>
+  </data>
   <data name="BtnUnDoZeroStock_Text" xml:space="preserve">
     <value>Quant verfügbar</value>
+  </data>
+  <data name="BtnUpdate_Text" xml:space="preserve">
+    <value>Aktualisieren</value>
   </data>
   <data name="ButtonCancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -173,6 +203,9 @@
   </data>
   <data name="ButtonYes" xml:space="preserve">
     <value>Ja</value>
+  </data>
+  <data name="Comment_Text" xml:space="preserve">
+    <value>Kommentar</value>
   </data>
   <data name="DateFrom_Text" xml:space="preserve">
     <value>Von</value>
@@ -195,6 +228,9 @@
   <data name="FacilitySearch_Text" xml:space="preserve">
     <value>Lagerplatz-Nr. oder Name eingeben</value>
   </data>
+  <data name="Filter_Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
   <data name="InputMaterials_Header" xml:space="preserve">
     <value>Eingesetzte Materialien</value>
   </data>
@@ -203,6 +239,18 @@
   </data>
   <data name="Intermediate_Text" xml:space="preserve">
     <value>Zwischenprodukt</value>
+  </data>
+  <data name="InventoryPosNotAvailable_Text" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="InventoryPosState_Text" xml:space="preserve">
+    <value>Positionsstatus</value>
+  </data>
+  <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
+    <value>Nicht gefunden</value>
+  </data>
+  <data name="InventoryState_Text" xml:space="preserve">
+    <value>Inventurstatus</value>
   </data>
   <data name="LightTheme_Text" xml:space="preserve">
     <value>Helles Design</value>
@@ -228,6 +276,9 @@
   <data name="MaterialSearch_Text" xml:space="preserve">
     <value>Material-Nr. oder Name eingeben</value>
   </data>
+  <data name="NewStockQuantity_Text" xml:space="preserve">
+    <value>Neuer Bestand</value>
+  </data>
   <data name="Output_Text" xml:space="preserve">
     <value>Ergebnis</value>
   </data>
@@ -239,6 +290,9 @@
   </data>
   <data name="PickingPosPivot_Header" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="PosState_Text" xml:space="preserve">
+    <value>Positionsstatus</value>
   </data>
   <data name="PostingFCPivot_Header" xml:space="preserve">
     <value>Buchen</value>
@@ -323,6 +377,9 @@
   </data>
   <data name="FC_QuantRestoreNotAvailable" xml:space="preserve">
     <value>Das Quant ist nicht verfügbar! Holen sie das Quant wieder zurück in den Lagerbestand falls physikalischer Bestand vorliegt.</value>
+  </data>
+  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
+    <value>Das Quant ist auf einem anderen Lagerplatz verfügbar: {0}!</value>
   </data>
   <data name="FC_QuantAlreadyFinished" xml:space="preserve">
     <value>Das Quant wurde bereits gezählt.</value>
@@ -519,14 +576,14 @@
   <data name="BtnCreateQuant" xml:space="preserve">
     <value>Quant erstellen</value>
   </data>
-  <data name="NewQuant_Text" xml:space="preserve">
-    <value>Neuer Quant</value>
-  </data>
   <data name="FacilityNotSelected_Text" xml:space="preserve">
     <value>Die Einrichtung ist nicht ausgewählt. Bitte Einrichtung auswählen oder scannen.</value>
   </data>
   <data name="MaterialNotSelected_Text" xml:space="preserve">
     <value>Das Material ist nicht ausgewählt. Bitte, wählen Sie das Material.</value>
+  </data>
+  <data name="NewQuant_Text" xml:space="preserve">
+    <value>Neuer Quant</value>
   </data>
   <data name="BtnBookAndFinish_Text" xml:space="preserve">
     <value>Buchen und beenden</value>
@@ -687,67 +744,13 @@
   <data name="ExternLot" xml:space="preserve">
     <value>Externe Los</value>
   </data>
-  <data name="BFI_Bookings_Header" xml:space="preserve">
-    <value>Buchungen</value>
-  </data>
-  <data name="BFI_InventoryPositionsFilter_Header" xml:space="preserve">
-    <value>Filter Inventurzeilen</value>
-  </data>
-  <data name="BFI_PositionEdit_Header" xml:space="preserve">
-    <value>Inventurzeile bearbeiten</value>
-  </data>
-  <data name="BFI_PositionOverview_Header" xml:space="preserve">
-    <value>Übersicht Inventurzeilen</value>
-  </data>
-  <data name="BFI_SearchInventory_Header" xml:space="preserve">
-    <value>Inventuren Suchen</value>
-  </data>
-  <data name="BtnClose_Text" xml:space="preserve">
-    <value>Schließen</value>
-  </data>
-  <data name="BtnLes_Text" xml:space="preserve">
-    <value>Weniger</value>
-  </data>
-  <data name="BtnMore_Text" xml:space="preserve">
-    <value>Mehr</value>
-  </data>
-  <data name="BtnStart_Text" xml:space="preserve">
-    <value>Starten</value>
-  </data>
-  <data name="BtnUpdate_Text" xml:space="preserve">
-    <value>Aktualisieren</value>
-  </data>
-  <data name="Comment_Text" xml:space="preserve">
-    <value>Kommentar</value>
-  </data>
-  <data name="FC_QuantOnDifferentFaciltiy" xml:space="preserve">
-    <value>Das Quant ist auf einem anderen Lagerplatz verfügbar: {0}!</value>
-  </data>
-  <data name="Filter_Text" xml:space="preserve">
-    <value>Filter</value>
-  </data>
-  <data name="InventoryPosNotAvailable_Text" xml:space="preserve">
-    <value>Nicht verfügbar</value>
-  </data>
-  <data name="InventoryPosState_Text" xml:space="preserve">
-    <value>Positionsstatus</value>
-  </data>
-  <data name="InventoryPosZeroQuantity_Text" xml:space="preserve">
-    <value>Nicht gefunden</value>
-  </data>
-  <data name="InventoryState_Text" xml:space="preserve">
-    <value>Inventurstatus</value>
-  </data>
-  <data name="NewStockQuantity_Text" xml:space="preserve">
-    <value>Neuer Bestand</value>
-  </data>
-  <data name="PosState_Text" xml:space="preserve">
-    <value>Positionsstatus</value>
-  </data>
   <data name="CollectDetOverScan" xml:space="preserve">
     <value>Daten per Scan sammeln</value>
   </data>
   <data name="Btn_Select" xml:space="preserve">
     <value>Auswählen</value>
+  </data>
+  <data name="FilterProdOrder_Text" xml:space="preserve">
+    <value>Suchen Sie nach Fertigungsaufträgen nach Produktname oder Auftragsnummer:</value>
   </data>
 </root>

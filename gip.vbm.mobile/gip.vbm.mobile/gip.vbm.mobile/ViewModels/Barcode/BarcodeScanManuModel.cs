@@ -193,7 +193,11 @@ namespace gip.vbm.mobile.ViewModels
                 }
                 return;
             }
-
+            else if (DialogOptions.RequestID == 1000)
+            {
+                FilterSequenceList(entredValue);
+                return;
+            }
 
             base.DialogResponse(result, entredValue);
         }
@@ -209,6 +213,14 @@ namespace gip.vbm.mobile.ViewModels
         }
 
         private List<object> _TempSequenceList;
+
+        public void SearchSequenceList()
+        {
+            if (DecodedEntitiesList == null || !DecodedEntitiesList.Any())
+                return;
+
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.FilterProdOrder_Text), Strings.AppStrings.Filter_Text, null, "", 1000);
+        }
 
         public void FilterSequenceList(string searchWord)
         {

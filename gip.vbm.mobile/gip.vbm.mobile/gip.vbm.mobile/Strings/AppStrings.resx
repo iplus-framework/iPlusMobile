@@ -751,4 +751,7 @@
   <data name="Btn_Select" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="FilterProdOrder_Text" xml:space="preserve">
+    <value>Search production orders by product name or order number:</value>
+  </data>
 </root>

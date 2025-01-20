@@ -222,8 +222,6 @@ namespace gip.vb.mobile.ViewModels
             if (BarcodeSequence == null || !BarcodeSequence.Any())
                 return;
 
-            
-
             ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.FilterProdOrder_Text), Strings.AppStrings.Filter_Text, null, "", 1000);
         }
 

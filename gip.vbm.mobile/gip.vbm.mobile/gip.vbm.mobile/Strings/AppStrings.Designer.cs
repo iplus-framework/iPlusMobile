@@ -304,6 +304,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Btn_Select {
+            get {
+                return ResourceManager.GetString("Btn_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show orders.
         /// </summary>
         internal static string Btn_ShowPickingOrders {
@@ -655,7 +664,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect details data over scan.
+        ///   Looks up a localized string similar to Collect data via scanning.
         /// </summary>
         internal static string CollectDetOverScan {
             get {
@@ -772,7 +781,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explore storage.
+        ///   Looks up a localized string similar to Explore warehouse places.
         /// </summary>
         internal static string ExploreStorage_Text {
             get {
@@ -903,6 +912,15 @@ namespace gip.vbm.mobile.Strings {
         internal static string Filter_Text {
             get {
                 return ResourceManager.GetString("Filter_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search production orders by product name or order number:.
+        /// </summary>
+        internal static string FilterProdOrder_Text {
+            get {
+                return ResourceManager.GetString("FilterProdOrder_Text", resourceCulture);
             }
         }
         
