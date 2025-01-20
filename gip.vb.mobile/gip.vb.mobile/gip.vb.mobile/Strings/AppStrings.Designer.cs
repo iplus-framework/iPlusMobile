@@ -916,6 +916,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search production orders by product name or order number:.
+        /// </summary>
+        internal static string FilterProdOrder_Text {
+            get {
+                return ResourceManager.GetString("FilterProdOrder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From storage location.
         /// </summary>
         internal static string FromStorageLocation_Text {

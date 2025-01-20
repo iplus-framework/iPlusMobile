@@ -750,4 +750,7 @@
   <data name="Btn_Select" xml:space="preserve">
     <value>Izaberi</value>
   </data>
+  <data name="FilterProdOrder_Text" xml:space="preserve">
+    <value>Pretražite radne naloge po nazivu proizvoda ili broja naloga:</value>
+  </data>
 </root>

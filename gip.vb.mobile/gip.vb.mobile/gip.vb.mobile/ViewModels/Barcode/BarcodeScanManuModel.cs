@@ -1,6 +1,7 @@
 ﻿using gip.core.datamodel;
 using gip.core.webservices;
 using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -195,6 +196,11 @@ namespace gip.vb.mobile.ViewModels
                 }
                 return;
             }
+            else if (DialogOptions.RequestID == 1000)
+            {
+                FilterSequenceList(entredValue);
+                return;
+            }
 
             base.DialogResponse(result, entredValue);
         }
@@ -210,6 +216,16 @@ namespace gip.vb.mobile.ViewModels
         }
 
         private List<object> _TempSequenceList;
+
+        public void SearchSequenceList()
+        {
+            if (BarcodeSequence == null || !BarcodeSequence.Any())
+                return;
+
+            
+
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.FilterProdOrder_Text), Strings.AppStrings.Filter_Text, null, "", 1000);
+        }
 
         public void FilterSequenceList(string searchWord)
         {
@@ -237,7 +253,8 @@ namespace gip.vb.mobile.ViewModels
 
             result.Add(machine);
 
-            result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)));
+            result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)
+                                                                                         || c.ProdOrderPartslist.ProdOrder.ProgramNo.ToLower().Contains(searchWord)));
 
             BarcodeSequence = result;
         }
