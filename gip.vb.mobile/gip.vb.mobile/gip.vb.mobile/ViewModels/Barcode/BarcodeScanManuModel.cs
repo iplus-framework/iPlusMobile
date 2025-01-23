@@ -14,10 +14,17 @@ namespace gip.vb.mobile.ViewModels
 {
     public class BarcodeScanManuModel : BarcodeScanModelBase
     {
+        #region c'tors
+
         public BarcodeScanManuModel() : base()
         {
             InvokeVerifyOrderCommand = new Command(async () => await ExecuteInvokeVerifyOrderCommand());
+            LoadOEEReasonsCommand = new Command(async () => await ExecuteLoadOEEReasons());
         }
+
+        #endregion
+
+        #region Properties
 
         public override BarcodeSequence Item
         {
@@ -39,12 +46,12 @@ namespace gip.vb.mobile.ViewModels
                     List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
+                    if (Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
                         || Item.State == ActionState.FastSelection
                         || Item.State == ActionState.SelectionScanAgain
                         || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
-                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
+                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos = Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
                         foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
                         {
                             bool refreshedWithSameReference = false;
@@ -97,6 +104,36 @@ namespace gip.vb.mobile.ViewModels
                 }
             }
         }
+
+        public BarcodeEntity ScannedMachine
+        {
+            get
+            {
+                if (this.Item == null || !this.Item.Sequence.Any())
+                    return null;
+                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
+            }
+        }
+
+        private List<object> _TempSequenceList;
+
+        private ACClassMessage _SelectedOEEReason;
+        public ACClassMessage SelectedOEEReason
+        {
+            get => _SelectedOEEReason;
+            set => SetProperty(ref _SelectedOEEReason, value);
+        }
+
+        private List<ACClassMessage> _OEEReasonsList;
+        public List<ACClassMessage> OEEReasonsList
+        {
+            get => _OEEReasonsList;
+            set => SetProperty(ref _OEEReasonsList, value);
+        }
+
+        #endregion
+
+        #region Methods
 
         public void ReleaseMachine()
         {
@@ -167,7 +204,6 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
-
         public override void Clear()
         {
             base.Clear();
@@ -204,18 +240,6 @@ namespace gip.vb.mobile.ViewModels
 
             base.DialogResponse(result, entredValue);
         }
-
-        public BarcodeEntity ScannedMachine
-        {
-            get
-            {
-                if (this.Item == null || !this.Item.Sequence.Any())
-                    return null;
-                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
-            }
-        }
-
-        private List<object> _TempSequenceList;
 
         public void SearchSequenceList()
         {
@@ -316,5 +340,27 @@ namespace gip.vb.mobile.ViewModels
                 //    wfInfo.UserTime.UserEndDate = DateTime.Now;
             }
         }
+
+        public Command LoadOEEReasonsCommand { get; set; }
+        public async Task<bool> ExecuteLoadOEEReasons()
+        {
+            if (ScannedMachine != null)
+            {
+                var response = await _WebService.GetOEEReasonsAsync(ScannedMachine.ACClass.ACClassID.ToString());
+                if (response.Suceeded)
+                {
+                    if (response.Message != null)
+                        Message = response.Message;
+                    else
+                    {
+                        OEEReasonsList = response.Data;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

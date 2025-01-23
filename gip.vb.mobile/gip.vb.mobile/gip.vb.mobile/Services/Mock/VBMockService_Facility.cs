@@ -387,5 +387,16 @@ namespace gip.vb.mobile.Services
 
         #endregion
         #endregion
+
+        #region OEEReason
+
+        public async Task<WSResponse<List<core.webservices.ACClassMessage>>> GetOEEReasonsAsync(string acClassID)
+        {
+            if (string.IsNullOrEmpty(acClassID))
+                return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, new Msg(eMsgLevel.Error, "acClassID is empty")));
+            return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, null));
+        }
+
+        #endregion
     }
 }

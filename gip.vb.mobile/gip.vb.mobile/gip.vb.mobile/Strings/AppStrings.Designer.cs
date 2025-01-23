@@ -1681,6 +1681,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select malfunction reason.
+        /// </summary>
+        internal static string SelectOEEReason_Text {
+            get {
+                return ResourceManager.GetString("SelectOEEReason_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or select the Bill of material:.
         /// </summary>
         internal static string SelectPartslist_Text {

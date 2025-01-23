@@ -754,4 +754,7 @@
   <data name="FilterProdOrder_Text" xml:space="preserve">
     <value>Search production orders by product name or order number:</value>
   </data>
+  <data name="SelectOEEReason_Text" xml:space="preserve">
+    <value>Select malfunction reason</value>
+  </data>
 </root>
