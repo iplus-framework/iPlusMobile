@@ -753,4 +753,7 @@
   <data name="FilterProdOrder_Text" xml:space="preserve">
     <value>Pretražite radne naloge po nazivu proizvoda ili broja naloga:</value>
   </data>
+  <data name="SelectOEEReason_Text" xml:space="preserve">
+    <value>Izaberite razlog kvara</value>
+  </data>
 </root>

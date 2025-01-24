@@ -59,7 +59,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region FacilityLot
 
         private WSResponse<List<FacilityLot>> _GetFacilityLots;
@@ -114,7 +113,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Material
 
         private WSResponse<MaterialSumOverview> _GetMaterialSum;
@@ -135,7 +133,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Facility
 
         private WSResponse<FacilitySumOverview> _GetFacilitySum;
@@ -155,7 +152,6 @@ namespace gip.vbm.mobile.Services
         }
 
         #endregion
-
 
         #region FacilityLocation
 
@@ -386,6 +382,17 @@ namespace gip.vbm.mobile.Services
         #endregion
 
         #endregion
+        #endregion
+
+        #region OEEReason
+
+        public async Task<WSResponse<List<core.webservices.ACClassMessage>>> GetOEEReasonsAsync(string acClassID)
+        {
+            if (string.IsNullOrEmpty(acClassID))
+                return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, new Msg(eMsgLevel.Error, "acClassID is empty")));
+            return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, null));
+        }
+
         #endregion
     }
 }

@@ -13,7 +13,7 @@ namespace gip.vbm.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOBarcodeMachineDetails : BSOPageBase
     {
-        BarcodeScanManuModel _ViewModel;
+        #region c'tors
 
         public BSOBarcodeMachineDetails(BarcodeScanManuModel viewModel)
         {
@@ -22,21 +22,21 @@ namespace gip.vbm.mobile.Views
             BindingContext = _ViewModel;
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+            await _ViewModel.ExecuteLoadOEEReasons();
         }
 
-
+        #endregion
 
         #region Properties
 
+        BarcodeScanManuModel _ViewModel;
 
         #endregion
 
         #region Methods
-
-        #endregion
 
         private async void BtnSwitchToRunning_Clicked(object sender, EventArgs e)
         {
@@ -47,5 +47,7 @@ namespace gip.vbm.mobile.Views
         {
             await _ViewModel.InvokeMachineMalfuction(false);
         }
+
+        #endregion
     }
 }
