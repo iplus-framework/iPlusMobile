@@ -178,9 +178,15 @@ namespace gip.vbm.mobile.ViewModels
             if (bEntity != null)
             {
                 if (reset)
+                {
                     bEntity.MachineMalfunction = false;
+                    bEntity.OEEReason = null;
+                }
                 else
+                {
                     bEntity.MachineMalfunction = true;
+                    bEntity.OEEReason = SelectedOEEReason?.ACClassMessageID;
+                }
             }
 
             BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
