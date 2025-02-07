@@ -47,6 +47,14 @@ namespace gip.vb.mobile.Views
             if (_ViewModel != null && _ViewModel.UserTime != null)
                 _ViewModel.UserTime.UpdateTime();
 
+            if (UserTimeMode == 0)
+            {
+                startDatePicker.IsEnabled = false;
+                startTimePicker.IsEnabled = false;
+                endDatePicker.IsEnabled = false;
+                endTimePicker.IsEnabled = false;
+            }
+
             _UserChangedEndTime = false;
         }
 
