@@ -8,7 +8,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;XZING</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>TRACE;DEBUG;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ZEBRA</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
 
@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;XZING</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
@@ -39,7 +39,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
-    <DefineConstants>TRACE;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;ZEBRA</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
