@@ -144,7 +144,7 @@ namespace gip.vb.mobile.Views
 
             wfInfo.WFMethod.AutoRemove = false;
             _ViewModel.InitUserTime(wfInfo);
-            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo));
+            await Navigation.PushAsync(new BSOACMethodEditor(new BarcodeScanACMethodModel(wfInfo)));
         }
 
         private async void SendChangedACMethod()

@@ -29,7 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-            <ListView ItemsSource="{Binding WFMethod.ResultValueList}" RowHeight="68">
+            <ListView ItemsSource="{Binding WFInfo.WFMethod.ResultValueList}" RowHeight="68">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ctl:ExtendedViewCell>
@@ -118,14 +118,14 @@
         
             <Label Grid.Row="0" Text="Start" VerticalTextAlignment="End" Margin="3,0,2,0"/>
             <StackLayout Grid.Row="1" Margin="2,0,2,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <DatePicker  Date="{Binding UserTime.UserStartDate}" HorizontalOptions="FillAndExpand" x:Name="startDatePicker" />
-                <TimePicker  Time="{Binding UserTime.UserStartTime}" HorizontalOptions="FillAndExpand" x:Name="startTimePicker" />
+                <DatePicker  Date="{Binding WFInfo.UserTime.UserStartDate}" HorizontalOptions="FillAndExpand" x:Name="startDatePicker" />
+                <TimePicker  Time="{Binding WFInfo.UserTime.UserStartTime}" HorizontalOptions="FillAndExpand" x:Name="startTimePicker" />
             </StackLayout>
             
             <Label Grid.Row="3" Text="End" VerticalTextAlignment="End" Margin="3,0,2,0"/>
             <StackLayout Grid.Row="4" Margin="2,0,2,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <DatePicker Date="{Binding UserTime.UserEndDateTemp}" HorizontalOptions="FillAndExpand" x:Name="endDatePicker" DateSelected="endDatePicker_DateSelected" />
-                <TimePicker Time="{Binding UserTime.UserEndTime}" HorizontalOptions="FillAndExpand" x:Name="endTimePicker" PropertyChanged="endTimePicker_PropertyChanged" />
+                <DatePicker Date="{Binding WFInfo.UserTime.UserEndDateTemp}" HorizontalOptions="FillAndExpand" x:Name="endDatePicker" DateSelected="endDatePicker_DateSelected" />
+                <TimePicker Time="{Binding WFInfo.UserTime.UserEndTime}" HorizontalOptions="FillAndExpand" x:Name="endTimePicker" PropertyChanged="endTimePicker_PropertyChanged" />
             </StackLayout>
 
             <Label Grid.Row="6" Text="Duration" VerticalTextAlignment="End" Margin="3,0,2,0"/>
@@ -135,7 +135,7 @@
         </Grid>
     </v:BSOPageBase>
     <v:BSOPageBase x:Name="ACMethodParamPivotItem" Title="{i18n:Translate Text=ACMethodParamPivot_Header}">
-        <ListView ItemsSource="{Binding WFMethod.ParameterValueList}" RowHeight="42">
+        <ListView ItemsSource="{Binding WFInfo.WFMethod.ParameterValueList}" RowHeight="42">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ctl:ExtendedViewCell>

@@ -16,9 +16,9 @@ namespace gip.vb.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOACMethodEditor : BSOTabbedPageBase
     {
-        ProdOrderPartslistWFInfo _ViewModel;
+        BarcodeScanACMethodModel _ViewModel;
 
-        public BSOACMethodEditor(ProdOrderPartslistWFInfo viewModel)
+        public BSOACMethodEditor(BarcodeScanACMethodModel viewModel)
         {
             BindingContext = _ViewModel = viewModel;
             InitializeComponent();
@@ -30,9 +30,9 @@ namespace gip.vb.mobile.Views
         {
             get
             {
-                if (_ViewModel.WFMethod != null)
+                if (_ViewModel.WFInfo.WFMethod != null)
                 {
-                    ACValue userTimeModeParam = _ViewModel.WFMethod.ParameterValueList.GetACValue("AllowEditProgramLogTime");
+                    ACValue userTimeModeParam = _ViewModel.WFInfo.WFMethod.ParameterValueList.GetACValue("AllowEditProgramLogTime");
                     if (userTimeModeParam != null)
                         return userTimeModeParam.ParamAsInt16;
                 }
@@ -44,8 +44,8 @@ namespace gip.vb.mobile.Views
         {
             base.OnAppearing();
 
-            if (_ViewModel != null && _ViewModel.UserTime != null)
-                _ViewModel.UserTime.UpdateTime();
+            if (_ViewModel != null && _ViewModel.WFInfo.UserTime != null)
+                _ViewModel.WFInfo.UserTime.UpdateTime();
 
             if (UserTimeMode == 0)
             {
@@ -65,11 +65,12 @@ namespace gip.vb.mobile.Views
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel != null && _ViewModel.UserTime != null)
+            if (_ViewModel != null)
             {
-                _ViewModel.UserTime.UpdateDate(_UserChangedEndTime);
+                bool result = _ViewModel.Apply(_UserChangedEndTime);
+                if (!result)
+                    return;
             }
-            _ViewModel.WFMethod.AutoRemove = true;
             _ = await Navigation.PopAsync();
         }
 

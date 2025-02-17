@@ -753,7 +753,10 @@
   <data name="FilterProdOrder_Text" xml:space="preserve">
     <value>Suchen Sie nach Fertigungsaufträgen nach Produktname oder Auftragsnummer:</value>
   </data>
-  <data name="SelectOEEReason" xml:space="preserve">
+  <data name="SelectOEEReason_Text" xml:space="preserve">
     <value>Störungsgrund auswählen</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Die Startzeit kann nicht nach der Endzeit liegen.</value>
   </data>
 </root>
