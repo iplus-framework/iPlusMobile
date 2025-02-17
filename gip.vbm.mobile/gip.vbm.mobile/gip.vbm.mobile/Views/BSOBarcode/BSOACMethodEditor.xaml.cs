@@ -14,9 +14,9 @@ namespace gip.vbm.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BSOACMethodEditor : BSOTabbedPageBase
     {
-        ProdOrderPartslistWFInfo _ViewModel;
+        BarcodeScanACMethodModel _ViewModel;
 
-        public BSOACMethodEditor(ProdOrderPartslistWFInfo viewModel)
+        public BSOACMethodEditor(BarcodeScanACMethodModel viewModel)
         {
             BindingContext = _ViewModel = viewModel;
             InitializeComponent();
@@ -25,8 +25,16 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (_ViewModel != null && _ViewModel.UserTime != null)
-                _ViewModel.UserTime.UpdateTime();
+            if (_ViewModel != null && _ViewModel.WFInfo.UserTime != null)
+                _ViewModel.WFInfo.UserTime.UpdateTime();
+
+            if (UserTimeMode == 0)
+            {
+                startDatePicker.IsEnabled = false;
+                startTimePicker.IsEnabled = false;
+                endDatePicker.IsEnabled = false;
+                endTimePicker.IsEnabled = false;
+            }
 
             _UserChangedEndTime = false;
         }
@@ -42,9 +50,9 @@ namespace gip.vbm.mobile.Views
         {
             get
             {
-                if (_ViewModel.WFMethod != null)
+                if (_ViewModel.WFInfo.WFMethod != null)
                 {
-                    ACValue userTimeModeParam = _ViewModel.WFMethod.ParameterValueList.GetACValue("AllowEditProgramLogTime");
+                    ACValue userTimeModeParam = _ViewModel.WFInfo.WFMethod.ParameterValueList.GetACValue("AllowEditProgramLogTime");
                     if (userTimeModeParam != null)
                         return userTimeModeParam.ParamAsInt16;
                 }
@@ -54,11 +62,12 @@ namespace gip.vbm.mobile.Views
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel != null && _ViewModel.UserTime != null)
+            if (_ViewModel != null)
             {
-                _ViewModel.UserTime.UpdateDate(_UserChangedEndTime);
+                bool result = _ViewModel.Apply(_UserChangedEndTime);
+                if (!result)
+                    return;
             }
-            _ViewModel.WFMethod.AutoRemove = true;
             _ = await Navigation.PopAsync();
         }
 

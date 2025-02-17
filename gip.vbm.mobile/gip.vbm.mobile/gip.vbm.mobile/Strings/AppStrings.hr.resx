@@ -756,4 +756,7 @@
   <data name="SelectOEEReason_Text" xml:space="preserve">
     <value>Izaberite razlog kvara</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Početno vrijeme ne može biti kasnije od vremena završetka!</value>
+  </data>
 </root>

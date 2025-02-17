@@ -756,4 +756,7 @@
   <data name="SelectOEEReason_Text" xml:space="preserve">
     <value>Störungsgrund auswählen</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Die Startzeit kann nicht nach der Endzeit liegen.</value>
+  </data>
 </root>

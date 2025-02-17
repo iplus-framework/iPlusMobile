@@ -757,4 +757,7 @@
   <data name="SelectOEEReason_Text" xml:space="preserve">
     <value>Select malfunction reason</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>The start date time can not be later than end date time! </value>
+  </data>
 </root>
