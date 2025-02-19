@@ -159,6 +159,7 @@ namespace gip.vb.mobile.Views
                     _ViewModel.ResetScanSequence();
                     return;
                 }
+                _ViewModel.Item.State = BarcodeSequenceBase.ActionState.Selection;
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
                 //_ViewModel.InvokeBarcodeCommand.Execute(null);
