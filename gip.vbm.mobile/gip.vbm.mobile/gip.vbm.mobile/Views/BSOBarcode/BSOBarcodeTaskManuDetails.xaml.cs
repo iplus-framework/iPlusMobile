@@ -9,6 +9,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using gip.core.datamodel;
 using gip.mes.datamodel;
+using AndroidX.Lifecycle;
 
 namespace gip.vbm.mobile.Views
 {
@@ -156,6 +157,7 @@ namespace gip.vbm.mobile.Views
                     _ViewModel.ResetScanSequence();
                     return;
                 }
+                _ViewModel.ExchangedBarcodeSeq.State = BarcodeSequenceBase.ActionState.Selection;
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
                 _ViewModel.InvokeBarcodeSequenceCommand.Execute(null);
