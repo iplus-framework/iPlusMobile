@@ -759,4 +759,7 @@
   <data name="InvalidDate" xml:space="preserve">
     <value>Die Startzeit kann nicht nach der Endzeit liegen.</value>
   </data>
+  <data name="ProdTime_Text" xml:space="preserve">
+    <value>Prod. Datum</value>
+  </data>
 </root>
