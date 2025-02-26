@@ -18,6 +18,7 @@ namespace gip.vb.mobile.Views
         {
             _FromTaskModel = taskModel;
             BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, taskModel, null, intermOrIntermBatch, wfMethod);
+
             InitializeComponent();
         }
 

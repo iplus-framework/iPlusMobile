@@ -90,6 +90,12 @@
                     </ctl:NumericEntry>
                 </StackLayout>
 
+                <StackLayout Orientation="Horizontal" x:Name="slProdDate" IsVisible="{Binding AllowEditProductionTime}">
+                    <Label Text="Prod date" VerticalTextAlignment="Center" />
+                    <BoxView WidthRequest="5" />
+                    <DatePicker Date="{Binding SelectedProductionDate}" />
+                </StackLayout>
+
                 <StackLayout HeightRequest="50" Orientation="Horizontal">
                     <Label Text="{i18n:Translate FullQName=gip.mes.webservices.ProdOrderPartslistPos, Text=TargetQuantity}" Style="{StaticResource LabelForDesc}" VerticalTextAlignment="Center" />
                     <StackLayout Orientation="Horizontal">
