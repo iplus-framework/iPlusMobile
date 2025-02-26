@@ -1420,6 +1420,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Prod. date.
+        /// </summary>
+        internal static string ProdDate_Text {
+            get {
+                return ResourceManager.GetString("ProdDate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting.
         /// </summary>
         internal static string ProdOrderInOutBooking_Header {

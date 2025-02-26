@@ -104,10 +104,17 @@ namespace gip.vbm.mobile.ViewModels
                 ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
                 if (inwardAutoSplitQuant != null && inwardAutoSplitQuant.Value != null)
                     _InwardAutoSplitQuant = inwardAutoSplitQuant.ParamAsInt32;
+
+                ACValue allowEditProductionDate = wfMethod.ParameterValueList.GetACValue("AllowEditProductionTime");
+                if (allowEditProductionDate != null && allowEditProductionDate.Value != null)
+                    AllowEditProductionTime = allowEditProductionDate.ParamAsBoolean;
             }
 
             _Components = components;
             AvailableFacilityCharges = new ObservableCollection<FacilityCharge>();
+
+            if (_AllowEditProductionTime)
+                SelectedProductionDate = DateTime.Now;
         }
 
         #endregion
@@ -266,6 +273,28 @@ namespace gip.vbm.mobile.ViewModels
         {
             get => _ShowZeroStockPostings;
             set => SetProperty(ref _ShowZeroStockPostings, value);
+        }
+
+        private bool _AllowEditProductionTime = false;
+        public bool AllowEditProductionTime
+        {
+            get => _AllowEditProductionTime;
+            set
+            {
+                _AllowEditProductionTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime? _SelectedProductionDate;
+        public DateTime? SelectedProductionDate
+        {
+            get => _SelectedProductionDate;
+            set
+            {
+                _SelectedProductionDate = value;
+                OnPropertyChanged();
+            }
         }
 
         private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
@@ -618,6 +647,10 @@ namespace gip.vbm.mobile.ViewModels
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 aCMethodBooking.InwardAutoSplitQuant = _InwardAutoSplitQuant;
                 aCMethodBooking.InwardSplitNo = InwardSplitNo;
+
+                if (_AllowEditProductionTime)
+                    aCMethodBooking.ProductionDateNewSublot = SelectedProductionDate;
+
                 BookingQuantity = 0;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);

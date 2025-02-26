@@ -71,16 +71,20 @@
                     <Button x:Name="cmdClearMovementReason" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearMovementReason_Clicked" />
                 </StackLayout>
 
-                <BoxView HeightRequest="15" />
+                <BoxView HeightRequest="7" />
 
-                <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
-                <ctl:NumericEntry x:Name="BookingQuantity" 
-                                  TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
-                                  Keyboard="Numeric">
-                    <Entry.Behaviors>
-                        <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
-                    </Entry.Behaviors>
-                </ctl:NumericEntry>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
+                    <ctl:NumericEntry x:Name="BookingQuantity" 
+                                      TextNumeric="{Binding BookingQuantity, Mode=TwoWay, Converter={x:StaticResource DoubleConverter}}" HorizontalTextAlignment="End"
+                                      Keyboard="Numeric">
+                        <Entry.Behaviors>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
+                        </Entry.Behaviors>
+                    </ctl:NumericEntry>
+                </StackLayout>
+
+                <BoxView HeightRequest="7" />
                 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{i18n:Translate Text=SplitNo_Text}" VerticalTextAlignment="Center" />
@@ -92,6 +96,11 @@
                             <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
+                    <StackLayout Orientation="Horizontal" IsVisible="{Binding AllowEditProductionTime}">
+                        <Label Text="{i18n:Translate Text=ProdDate_Text}" VerticalTextAlignment="Center" />
+                        <BoxView WidthRequest="5" />
+                        <DatePicker Date="{Binding SelectedProductionDate}" />
+                    </StackLayout>
                 </StackLayout>
 
                 <StackLayout HeightRequest="50" Orientation="Horizontal">

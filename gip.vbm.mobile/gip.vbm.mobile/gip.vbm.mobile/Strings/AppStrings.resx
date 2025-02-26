@@ -760,4 +760,7 @@
   <data name="InvalidDate" xml:space="preserve">
     <value>The start date time can not be later than end date time! </value>
   </data>
+  <data name="ProdDate_Text" xml:space="preserve">
+    <value>Prod. date</value>
+  </data>
 </root>
