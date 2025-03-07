@@ -653,7 +653,10 @@ namespace gip.vb.mobile.ViewModels
                 aCMethodBooking.VirtualMethodName = gip.mes.datamodel.GlobalApp.FBT_Split_FacilityCharge.ToString();
                 aCMethodBooking.OutwardFacilityChargeID = Item.FacilityChargeID;
                 aCMethodBooking.OutwardQuantity = BookingQuantity;
-                aCMethodBooking.InwardSplitNo = splitNo;
+                if (splitNo == 0)
+                    aCMethodBooking.InwardAutoSplitQuant = 1;
+                else
+                    aCMethodBooking.InwardSplitNo = splitNo;
 
                 WSResponse<MsgWithDetails> response = await _WebService.BookFacilityAsync(aCMethodBooking);
 
