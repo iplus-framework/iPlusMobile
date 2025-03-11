@@ -204,6 +204,20 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public MDUnit BookingUnitOut
+        {
+            get
+            {
+                if (PosRelation == null || PosRelation.SourcePos == null)
+                    return null;
+                if (PosRelation.SourcePos.MDUnit != null)
+                    return PosRelation.SourcePos.MDUnit;
+                if (PosRelation.SourcePos.Material != null)
+                    return PosRelation.SourcePos.Material.BaseMDUnit;
+                return null;
+            }
+        }
+
         public int? _InwardSplitNo;
         public int? InwardSplitNo
         {

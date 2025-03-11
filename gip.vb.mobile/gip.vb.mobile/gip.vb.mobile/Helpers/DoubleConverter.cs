@@ -58,7 +58,7 @@ namespace gip.vb.mobile.Helpers
 
                 if (!string.IsNullOrEmpty(val))
                 {
-                    double.TryParse(value as string, NumberStyles.Any, CultureInfo.CurrentUICulture, out result);
+                    double.TryParse(value as string, NumberStyles.Float, CultureInfo.CurrentUICulture, out result);
                 }
 
                 if (precision >= 0)

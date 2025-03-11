@@ -39,7 +39,7 @@
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="4*"/>
                                 <ColumnDefinition Width="10*"/>
                             </Grid.ColumnDefinitions>
                             <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="2" CornerRadius="4" />
