@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
 {
-    public class ProdOrderInOutViewModel : BaseViewModel
+    public class ProdOrderInOutViewModel : BaseViewModel, IMaterialUnitRecalcReceiver
     {
         #region c'tors
         BarcodeScanManuModel _FromTaskModel;
@@ -182,6 +182,25 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _BookingQuantity, value);
+            }
+        }
+
+        public void SetQuantityFromUnitRecalc(double newValue)
+        {
+            BookingQuantity = newValue;
+        }
+
+        public MDUnit BookingUnit
+        {
+            get
+            {
+                if (IntermOrIntermBatch == null)
+                    return null;
+                if (IntermOrIntermBatch.MDUnit != null)
+                    return IntermOrIntermBatch.MDUnit;
+                if (IntermOrIntermBatch.BookingMaterial != null)
+                    return IntermOrIntermBatch.BookingMaterial.BaseMDUnit;
+                return IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material.BaseMDUnit;
             }
         }
 

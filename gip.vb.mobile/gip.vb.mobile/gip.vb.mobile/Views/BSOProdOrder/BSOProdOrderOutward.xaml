@@ -32,8 +32,7 @@
                     <Button TextColor="Red" x:Name="btnShowQuants" Text="Q" Clicked="btnShowQuants_Clicked" FontAttributes="Bold" FontSize="Large" WidthRequest="45" >
 
                     </Button>
-                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed"
-                               />
+                    <SearchBar x:Name="BarcodeSearchBar" Placeholder="{i18n:Translate Text=BarcodeScan_Text}" Text="{Binding CurrentBarcode}" SearchButtonPressed="BarcodeSearchBar_SearchButtonPressed" />
 
                 </StackLayout>
                 <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
@@ -87,6 +86,8 @@
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=InsertDate}" PropertyName="InsertDate" Width="1*"/>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityNo}" PropertyName="OutwardFacilityNo" Width="1*"/>
                 <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardQuantityUOM}" PropertyName="OutwardQuantityUOM" StringFormat="{}{0:0.0}" />
+                <dg:DataGridColumn Title="{i18n:Translate FullQName=gip.mes.facility.FacilityBookingChargeOverview, Text=OutwardFacilityChargeLotNo}" PropertyName="OutwardFacilityChargeLotNo" Width="1*"  />
+                <dg:DataGridColumn Title="S" PropertyName="OutwardFacilityChargeSplitNo" Width="20"  />
             </dg:DataGrid.Columns>
         </dg:DataGrid>
     </v:BSOPageBase>

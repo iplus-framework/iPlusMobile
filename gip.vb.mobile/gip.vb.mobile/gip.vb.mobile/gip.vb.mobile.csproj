@@ -185,6 +185,10 @@
     <Compile Update="Views\BSOFacility\BSOFacilityBookingHistory.xaml.cs">
       <DependentUpon>BSOFacilityBookingHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOFacility\BSOMaterialUnitCalc.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>BSOMaterialUnitCalc.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOInventory\BSOFacilityInventory.xaml.cs">
       <DependentUpon>BSOFacilityInventory.xaml</DependentUpon>
     </Compile>
@@ -255,6 +259,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySortInfoOverLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOFacility\BSOMaterialUnitCalc.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOInventory\BSOFacilityInventory.xaml">
