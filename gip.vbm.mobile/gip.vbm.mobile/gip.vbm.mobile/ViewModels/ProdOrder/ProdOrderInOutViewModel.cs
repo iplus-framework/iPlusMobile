@@ -859,6 +859,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task LoadTargetFacilities()
         {
+            CurrentFacility = null;
             if (IntermOrIntermBatch != null)
             {
                 var result = await _WebService.GetPOBatchTargetFacilitiesAsync(IntermOrIntermBatch.ProdOrderPartslistPosID.ToString());
