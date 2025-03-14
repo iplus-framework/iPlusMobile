@@ -29,6 +29,7 @@ namespace gip.vbm.mobile.Views
         }
 
         BarcodeScanManuModel _FromTaskModel;
+        private MaterialUnitCalcModel _UnitCalcModel;
         ProdOrderInMaterialsViewModel _InMaterialsViewModel;
         public BSOProdOrderOutward(ProdOrderPartslistPosRelation relation, BarcodeScanManuModel taskModel, ACMethod wfMethod,
                                    ProdOrderInMaterialsViewModel inMaterialsViewModel)
@@ -114,6 +115,18 @@ namespace gip.vbm.mobile.Views
         private async void btnShowQuants_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BSOProdOrderOutwardQSel(_ViewModel));
+        }
+
+        private async void btnUnit_Clicked(object sender, EventArgs e)
+        {
+            if (Math.Abs(_ViewModel.BookingQuantity) <= double.Epsilon)
+                return;
+            _UnitCalcModel = new MaterialUnitCalcModel(_ViewModel);
+            _UnitCalcModel.MaterialToCalc = _ViewModel.PosRelation?.SourcePos?.Material;
+            if (_UnitCalcModel.MaterialToCalc == null)
+                return;
+            _UnitCalcModel.InputValue = _ViewModel.BookingQuantity;
+            await Navigation.PushAsync(new BSOMaterialUnitCalc(_UnitCalcModel));
         }
     }
 }

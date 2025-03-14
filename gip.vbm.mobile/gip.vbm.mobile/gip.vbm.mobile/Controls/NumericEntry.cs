@@ -4,10 +4,18 @@ using Microsoft.Maui.Controls;
 
 namespace gip.vbm.mobile.Controls
 {
-	/// <summary>
-	/// The check box.
-	/// </summary>
-	public class NumericEntry : Entry
+    public enum NumericEntryBehaviour
+    {
+        LeaveEmptyIfEmpty,
+        NullIfStringIsEmpty,
+        ZeroIfEmpty
+    }
+
+
+    /// <summary>
+    /// The check box.
+    /// </summary>
+    public class NumericEntry : Entry
     {
         public NumericEntry()
         {
@@ -30,6 +38,18 @@ namespace gip.vbm.mobile.Controls
             }
         }
 
+        public static readonly BindableProperty EntryBehaviourProperty = BindableProperty.Create("EntryBehaviour", typeof(NumericEntryBehaviour), typeof(NumericEntry), NumericEntryBehaviour.LeaveEmptyIfEmpty, BindingMode.OneWay);
+        public NumericEntryBehaviour EntryBehaviour
+        {
+            get
+            {
+                return (NumericEntryBehaviour)base.GetValue(NumericEntry.EntryBehaviourProperty);
+            }
+            set
+            {
+                base.SetValue(NumericEntry.EntryBehaviourProperty, value);
+            }
+        }
 
         public static readonly BindableProperty TextNumericProperty = BindableProperty.Create("TextNumeric", typeof(string), typeof(Entry), null, BindingMode.TwoWay, propertyChanged: OnTextNumericChanged);
 
@@ -47,7 +67,12 @@ namespace gip.vbm.mobile.Controls
 
         private void NumericEntry_Completed(object sender, EventArgs e)
         {
-            TextNumeric = Text;
+            if (EntryBehaviour == NumericEntryBehaviour.LeaveEmptyIfEmpty)
+                TextNumeric = Text;
+            else if (EntryBehaviour == NumericEntryBehaviour.NullIfStringIsEmpty)
+                TextNumeric = String.IsNullOrEmpty(Text) ? null : Text;
+            else // if (EntryBehaviour == NumericEntryBehaviour.ZeroIfEmpty)
+                TextNumeric = String.IsNullOrEmpty(Text) ? "0" : Text;
         }
 
         private void NumericEntry_TextChanged(object sender, TextChangedEventArgs e)

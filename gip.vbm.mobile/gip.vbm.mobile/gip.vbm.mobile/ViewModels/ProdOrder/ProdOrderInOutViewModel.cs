@@ -9,13 +9,14 @@ using gip.core.datamodel;
 using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
+using gip.vbm.mobile.ViewModels;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 namespace gip.vbm.mobile.ViewModels
 {
-    public class ProdOrderInOutViewModel : BarcodeScanModelBase
+    public class ProdOrderInOutViewModel : BarcodeScanModelBase, IMaterialUnitRecalcReceiver
     {
         #region c'tors
 
@@ -187,6 +188,39 @@ namespace gip.vbm.mobile.ViewModels
             set
             {
                 SetProperty(ref _BookingQuantity, value);
+            }
+        }
+
+        public void SetQuantityFromUnitRecalc(double newValue)
+        {
+            BookingQuantity = newValue;
+        }
+
+        public MDUnit BookingUnit
+        {
+            get
+            {
+                if (IntermOrIntermBatch == null)
+                    return null;
+                if (IntermOrIntermBatch.MDUnit != null)
+                    return IntermOrIntermBatch.MDUnit;
+                if (IntermOrIntermBatch.BookingMaterial != null)
+                    return IntermOrIntermBatch.BookingMaterial.BaseMDUnit;
+                return IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material.BaseMDUnit;
+            }
+        }
+
+        public MDUnit BookingUnitOut
+        {
+            get
+            {
+                if (PosRelation == null || PosRelation.SourcePos == null)
+                    return null;
+                if (PosRelation.SourcePos.MDUnit != null)
+                    return PosRelation.SourcePos.MDUnit;
+                if (PosRelation.SourcePos.Material != null)
+                    return PosRelation.SourcePos.Material.BaseMDUnit;
+                return null;
             }
         }
 

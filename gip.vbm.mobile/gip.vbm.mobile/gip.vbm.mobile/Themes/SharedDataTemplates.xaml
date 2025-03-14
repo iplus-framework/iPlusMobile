@@ -45,6 +45,22 @@
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>
+    <DataTemplate x:Key="MaterialUnitCalcItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="2" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding ResultValueInBase}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Unit.MDUnitName}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
     <DataTemplate x:Key="FacilityItemTemplate">
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Grid VerticalOptions="Start" Margin="0,2,0,0">
