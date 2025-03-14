@@ -65,7 +65,7 @@
                                         Keyboard="Numeric"
                                         Grid.Column="0">
                         <Entry.Behaviors>
-                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="True" Precision="1"/>
+                            <hp:NumericTextBoxBehavior SelectAllOnFocus="True" IsDecimal="False" Precision="0"/>
                         </Entry.Behaviors>
                     </ctl:NumericEntry>
                     <Label  Grid.Column="1" Text="{Binding BookingUnitOut.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center" />
