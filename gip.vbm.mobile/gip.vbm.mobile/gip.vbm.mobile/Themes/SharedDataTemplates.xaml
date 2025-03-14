@@ -408,8 +408,8 @@
 
                 <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                     <Label Text="{Binding ProdOrderPartslist.ProdOrder.ProgramNo, StringFormat='O: {0}'}" Margin="0,0,10,0" TextColor="Black" />
-
                     <Label  Text="{Binding ProdOrderPartslist.StartDate, StringFormat=' D: {0:dd.MM. HH:mm}'}" Margin="0,0,10,0" TextColor="Black" />
+                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" TextColor="Black" />
                     <!--<StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="0" Margin="0,0,10,0">
                         <Label Text="Q: (" TextColor="Black" />
                         <Label Text="{Binding ProdOrderPartslist.ActualQuantity, StringFormat='\{0:0.#}'}" TextColor="Black" />
@@ -420,8 +420,9 @@
                 </StackLayout>
 
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialNo}" TextColor="Black" />
                     <Label Text="{Binding ProdOrderPartslist.Partslist.Material.MaterialName1}" TextColor="Black" />
-                    <Label Text="{Binding IntermediateBatch.Sequence, StringFormat='B: {0}'}" TextColor="Black" />
+                    
                 </StackLayout>
 
                 <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ProdOrderPartslist.Comment}" TextColor="Black" />

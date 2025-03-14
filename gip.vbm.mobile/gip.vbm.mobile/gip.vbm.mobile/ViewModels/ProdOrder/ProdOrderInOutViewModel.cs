@@ -86,7 +86,8 @@ namespace gip.vbm.mobile.ViewModels
                 if (inwardPostSQ != null && inwardPostSQ.Value != null)
                 {
                     _InwardPostingSuggestionQ = inwardPostSQ.ParamAsDouble;
-                    if (Math.Abs(_InwardPostingSuggestionQ) > 0)
+                    IntermediateNotFinalProductFacility = null;
+                    if (Math.Abs(_InwardPostingSuggestionQ) > 0 && !IntermOrIntermBatch.IsFinalMixure)
                     {
                         LoadIntermediateNotFinalProductFacility();
                         BookingQuantity = Math.Abs(_InwardPostingSuggestionQ);
@@ -634,7 +635,7 @@ namespace gip.vbm.mobile.ViewModels
                 aCMethodBooking.InwardFacilityID = CurrentFacility.FacilityID;
                 if (Math.Abs(_InwardPostingSuggestionQ) > 0 && IntermediateNotFinalProductFacility != null)
                 {
-                    var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
+                    //var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
                     aCMethodBooking.InwardFacilityID = IntermediateNotFinalProductFacility.FacilityID;
                     aCMethodBooking.InwardPartslistID = IntermOrIntermBatch.ProdOrderPartslist.Partslist.PartlistID;
                 }
