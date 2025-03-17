@@ -13,6 +13,7 @@ using gip.vbm.mobile.ViewModels;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Strings;
 
 namespace gip.vbm.mobile.ViewModels
 {
@@ -163,6 +164,19 @@ namespace gip.vbm.mobile.ViewModels
         {
             get => _IntermediateNotFinalProductFacility;
             set => SetProperty(ref _IntermediateNotFinalProductFacility, value, nameof(IntermediateNotFinalProductFacility));
+        }
+
+        private FacilityBookingChargeOverview _SelectedPosting;
+        public FacilityBookingChargeOverview SelectedPosting
+        {
+            get
+            {
+                return _SelectedPosting;
+            }
+            set
+            {
+                SetProperty(ref _SelectedPosting, value);
+            }
         }
 
         private PostingOverview _Overview;
@@ -833,6 +847,8 @@ namespace gip.vbm.mobile.ViewModels
                 Title = "ProdOrderInOutViewModel";
         }
 
+        private PrintEntity _LastPrintEntity;
+
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 1)
@@ -869,6 +885,15 @@ namespace gip.vbm.mobile.ViewModels
                                                     {
                                                         new BarcodeEntity(){ FacilityCharge = fc }
                                                     };
+
+                            if (copies > 25)
+                            {
+                                _LastPrintEntity = printEntity;
+                                Msg question = new Msg(eMsgLevel.Question, string.Format(AppStrings.PrintVerificationQuestion, copies));
+                                question.MessageButton = eMsgButton.YesNo;
+                                ShowDialog(question, "", null, "", 5);
+                                return;
+                            }
 
                             await ExecutePrintCommand(printEntity);
                         }
@@ -956,10 +981,18 @@ namespace gip.vbm.mobile.ViewModels
         {
             if (Overview == null || Overview.PostingsFBC == null)
                 return null;
-            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            if (result == null)
-                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            return result;
+
+            if (SelectedPosting != null)
+            {
+                return SelectedPosting;
+            }
+            else
+            {
+                var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                if (result == null)
+                    result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                return result;
+            }
         }
 
         public Command GetMovementReasonsCommand { get; set; }

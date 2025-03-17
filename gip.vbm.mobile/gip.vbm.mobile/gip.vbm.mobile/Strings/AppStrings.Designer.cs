@@ -1420,6 +1420,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want print {0} copies?.
+        /// </summary>
+        internal static string PrintVerificationQuestion {
+            get {
+                return ResourceManager.GetString("PrintVerificationQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prod. date.
         /// </summary>
         internal static string ProdDate_Text {

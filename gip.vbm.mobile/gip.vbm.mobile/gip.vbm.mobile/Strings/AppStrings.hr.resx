@@ -762,4 +762,7 @@
   <data name="ProdDate_Text" xml:space="preserve">
     <value>Proizv. datum</value>
   </data>
+  <data name="PrintVerificationQuestion" xml:space="preserve">
+    <value>Jeste li sigurni da želite printati {0} kopija?</value>
+  </data>
 </root>
