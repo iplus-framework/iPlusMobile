@@ -11,6 +11,7 @@ using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
 using gip.vb.mobile.Helpers;
+using gip.vb.mobile.Strings;
 using Xamarin.Forms;
 
 namespace gip.vb.mobile.ViewModels
@@ -862,6 +863,8 @@ namespace gip.vb.mobile.ViewModels
                 Title = "ProdOrderInOutViewModel";
         }
 
+        private PrintEntity _LastPrintEntity;
+
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 1)
@@ -899,6 +902,15 @@ namespace gip.vb.mobile.ViewModels
                                                         new BarcodeEntity(){ FacilityCharge = fc }
                                                     };
 
+                            if (copies > 25)
+                            {
+                                _LastPrintEntity = printEntity;
+                                Msg question = new Msg(eMsgLevel.Question, string.Format(AppStrings.PrintVerificationQuestion, copies));
+                                question.MessageButton = eMsgButton.YesNo;
+                                ShowDialog(question, "", null, "", 5);
+                                return;
+                            }
+
                             await ExecutePrintCommand(printEntity);
                         }
                     }
@@ -919,6 +931,15 @@ namespace gip.vb.mobile.ViewModels
             {
                 await BookFacilityOutward();
             }
+            else if (DialogOptions.RequestID == 5)
+            {
+                if (result == Global.MsgResult.Yes && _LastPrintEntity != null)
+                {
+                    await ExecutePrintCommand(_LastPrintEntity);
+                }
+                _LastPrintEntity = null;
+            }
+
         }
 
         public async Task LoadTargetFacilities()

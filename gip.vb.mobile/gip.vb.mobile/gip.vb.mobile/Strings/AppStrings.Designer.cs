@@ -1420,6 +1420,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want print {0} copies?.
+        /// </summary>
+        internal static string PrintVerificationQuestion {
+            get {
+                return ResourceManager.GetString("PrintVerificationQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prod. date.
         /// </summary>
         internal static string ProdDate_Text {
@@ -1452,6 +1461,15 @@ namespace gip.vb.mobile.Strings {
         internal static string ProdOrderInOutInfo_Header {
             get {
                 return ResourceManager.GetString("ProdOrderInOutInfo_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prod. date.
+        /// </summary>
+        internal static string ProdTime_Text {
+            get {
+                return ResourceManager.GetString("ProdTime_Text", resourceCulture);
             }
         }
         

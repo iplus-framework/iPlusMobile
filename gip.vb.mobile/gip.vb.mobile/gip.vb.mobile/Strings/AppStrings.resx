@@ -763,4 +763,10 @@
   <data name="ProdDate_Text" xml:space="preserve">
     <value>Prod. date</value>
   </data>
+  <data name="ProdTime_Text" xml:space="preserve">
+    <value>Prod. date</value>
+  </data>
+  <data name="PrintVerificationQuestion" xml:space="preserve">
+    <value>Are you sure that you want print {0} copies?</value>
+  </data>
 </root>

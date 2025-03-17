@@ -759,7 +759,13 @@
   <data name="InvalidDate" xml:space="preserve">
     <value>Die Startzeit kann nicht nach der Endzeit liegen.</value>
   </data>
+  <data name="ProdDate_Text" xml:space="preserve">
+    <value>Prod. Datum</value>
+  </data>
   <data name="ProdTime_Text" xml:space="preserve">
     <value>Prod. Datum</value>
+  </data>
+  <data name="PrintVerificationQuestion" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie {0} Exemplare drucken möchten?</value>
   </data>
 </root>
