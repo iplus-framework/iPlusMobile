@@ -160,6 +160,19 @@ namespace gip.vb.mobile.ViewModels
             set => SetProperty(ref _IntermediateNotFinalProductFacility, value, nameof(IntermediateNotFinalProductFacility));
         }
 
+        private FacilityBookingChargeOverview _SelectedPosting;
+        public FacilityBookingChargeOverview SelectedPosting
+        {
+            get
+            {
+                return _SelectedPosting;
+            }
+            set
+            {
+                SetProperty(ref _SelectedPosting, value);
+            }
+        }
+
         private PostingOverview _Overview;
         public PostingOverview Overview
         {
@@ -972,10 +985,18 @@ namespace gip.vb.mobile.ViewModels
         {
             if (Overview == null || Overview.PostingsFBC == null)
                 return null;
-            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            if (result == null)
-                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            return result;
+
+            if (SelectedPosting != null)
+            {
+                return SelectedPosting;
+            }
+            else
+            {
+                var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                if (result == null)
+                    result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                return result;
+            }
         }
 
         public Command GetMovementReasonsCommand { get; set; }
