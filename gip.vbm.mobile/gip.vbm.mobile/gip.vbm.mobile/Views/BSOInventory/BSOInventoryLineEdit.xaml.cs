@@ -103,8 +103,8 @@ namespace gip.vbm.mobile.Views
                 {
                     BarcodeEntity barcodeEntity = _ViewModel.BarcodeScannerModel.ExchangedBarcodeSeq.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
                     _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
-                    bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
                     barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
+                    bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
                 }
             }
         }
