@@ -19,6 +19,7 @@ namespace gip.vb.mobile.Helpers
         public DataTemplate ProdOrderPartslist { get; set; }
         public DataTemplate ProdOrderPartslistPos{ get; set; }
         public DataTemplate ProdOrderPartslistWFInfo { get; set; }
+        public DataTemplate ProdOrderBatch { get; set; }
         public DataTemplate WFMethod { get; set; }
         public DataTemplate Command { get; set; }
 
@@ -47,6 +48,8 @@ namespace gip.vb.mobile.Helpers
                     return WFMethod;
                 else if (entity.Command != null)
                     return Command;
+                else if (entity.POBatch != null)
+                    return ProdOrderBatch;
             }
             else if (item is core.webservices.ACClass)
                 return ACClass;
@@ -72,6 +75,8 @@ namespace gip.vb.mobile.Helpers
                 return WFMethod;
             else if (item is BarcodeEntityCommand)
                 return Command;
+            else if (item is ProdOrderBatch)
+                return ProdOrderBatch;
 
             return Unknown;
         }
