@@ -522,6 +522,24 @@
             </Grid>
         </ctl:ExtendedViewCell>
     </DataTemplate>
+    <DataTemplate x:Key="POBatchItemTemplate">
+        <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+            <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.RowSpan="3" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="3" CornerRadius="4" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding BatchSeqNo, StringFormat=' {0}'}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding ProdOrderBatchNo}" VerticalOptions="Start"  HorizontalTextAlignment="Start"/>
+            </Grid>
+        </ctl:ExtendedViewCell>
+    </DataTemplate>
     <DataTemplate x:Key="CommandItemTemplate">
         <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
             <Button Text="{Binding ACCaption}" Command="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctl:BarcodeScannerView}}, Path=BindingContext.InvokeBarcodeEntityCommand}" CommandParameter="{Binding ACMethodName}" HeightRequest="40" />
@@ -538,6 +556,7 @@
                                             ProdOrderPartslist="{StaticResource ProdOrderPartslistItemTemplate}"
                                             ProdOrderPartslistPos="{StaticResource ProdOrderPLIntermediateItemTemplate}"
                                             ProdOrderPartslistWFInfo ="{StaticResource ProdOrderPartslistWFInfoItemTemplate}"
+                                            ProdOrderBatch="{StaticResource POBatchItemTemplate}"
                                             WFMethod ="{StaticResource WFMethodItemTemplate}"
                                             Command="{StaticResource CommandItemTemplate}"
                                            />
