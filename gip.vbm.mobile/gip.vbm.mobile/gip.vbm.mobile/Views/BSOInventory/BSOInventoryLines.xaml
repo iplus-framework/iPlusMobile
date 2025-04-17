@@ -31,7 +31,7 @@
                     ItemTapped="lstOpenLines_ItemTapped" 
                   VerticalScrollBarVisibility="Default" />
 
-        <Button x:Name="btnNewQuant" Text="Novi kvant" Clicked="btnNewQuant_Clicked" />
+        <Button x:Name="btnNewQuant" Text="{i18n:Translate Text=NewQuant_Text}" Clicked="btnNewQuant_Clicked" />
 
     </StackLayout>
 

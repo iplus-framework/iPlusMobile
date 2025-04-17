@@ -87,10 +87,9 @@ namespace gip.vbm.mobile.Views
 
         private void SearchTBItem_Clicked(object sender, EventArgs e)
         {
-            if (_ViewModel.ExchangedBarcodeSeq != null)
+            if (_ViewModel != null)
             {
-                string searchText = _ViewModel.ExchangedBarcodeSeq.CurrentBarcode;
-                _ViewModel.FilterSequenceList(searchText);
+                _ViewModel.SearchSequenceList();
             }
         }
     }

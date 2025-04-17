@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+             xmlns:hp="clr-namespace:gip.vb.mobile.Helpers"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+               BackgroundColor="{DynamicResource PageBackgroundColor}"
+               Title="{Binding Title}"
+             x:Class="gip.vb.mobile.Views.BSOOperationLogOverview">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+            <hp:DataGridRowTextColorProvider x:Key="DgColorProvider" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <v:BSOPageBase.ToolbarItems>
+        <ToolbarItem x:Name="TBItemQuant" Order="Primary" Priority="1" Text="Quant" IconImageSource="NavIconQuant.png" Clicked="TBItemQuant_Clicked">
+        </ToolbarItem>
+    </v:BSOPageBase.ToolbarItems>
+    <StackLayout>
+        <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
+        <ListView x:Name="AvailableQuants"
+            ItemsSource="{Binding Overview}"
+            SelectedItem="{Binding SelectedFacilityCharge}"
+            ItemTemplate="{StaticResource FacilityChargeItemTemplate}"
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            RefreshCommand="{Binding LoadAvailableFacilityChargesCommand}"
+            IsPullToRefreshEnabled="true"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            CachingStrategy="RecycleElement">
+        </ListView>
+    </StackLayout>
+</v:BSOPageBase>

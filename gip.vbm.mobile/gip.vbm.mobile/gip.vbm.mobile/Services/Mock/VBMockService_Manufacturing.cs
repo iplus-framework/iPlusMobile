@@ -103,5 +103,10 @@ namespace gip.vbm.mobile.Services
         {
             return await Task.FromResult<WSResponse<List<Facility>>>(null);
         }
+
+        public async Task<WSResponse<List<FacilityCharge>>> GetPOAvailableFCAsync(string machineFunctionID, string POPLPosRelID)
+        {
+            return await Task.FromResult(new WSResponse<List<FacilityCharge>>());
+        }
     }
 }

@@ -8,7 +8,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;XZING</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>TRACE;DEBUG;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ZEBRA</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
 
@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;XZING</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
@@ -39,7 +39,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
-    <DefineConstants>TRACE;DATALOGIC</DefineConstants>
+    <DefineConstants>TRACE;ZEBRA</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -136,6 +136,7 @@
   <ItemGroup>  
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />  
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.0" />  
+    <PackageReference Include="Xamarin.Controls.SignaturePad.Forms" Version="3.0.0" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />  
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />  
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.3.2" />
@@ -159,6 +160,10 @@
     <Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
       <DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOFacility\BSOOperationLogOverview.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>BSOOperationLogOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
       <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
     </Compile>
@@ -180,6 +185,10 @@
     <Compile Update="Views\BSOFacility\BSOFacilityBookingHistory.xaml.cs">
       <DependentUpon>BSOFacilityBookingHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BSOFacility\BSOMaterialUnitCalc.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>BSOMaterialUnitCalc.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\BSOInventory\BSOFacilityInventory.xaml.cs">
       <DependentUpon>BSOFacilityInventory.xaml</DependentUpon>
     </Compile>
@@ -191,6 +200,9 @@
     </Compile>
     <Compile Update="Views\BSOProdOrder\BSOProdOrderInward.xaml.cs">
       <DependentUpon>BSOProdOrderInward.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardQSel.xaml.cs">
+      <DependentUpon>BSOProdOrderOutwardQSel.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardMatSel.xaml.cs">
       <DependentUpon>BSOProdOrderOutwardMatSel.xaml</DependentUpon>
@@ -239,10 +251,18 @@
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeOverview.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOFacility\BSOOperationLogOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySelector.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySortInfoOverLocation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BSOFacility\BSOMaterialUnitCalc.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BSOInventory\BSOFacilityInventory.xaml">

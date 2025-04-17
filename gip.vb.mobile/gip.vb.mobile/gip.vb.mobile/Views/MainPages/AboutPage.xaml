@@ -35,11 +35,14 @@
             <Label x:Name="lblCurrentUser" />
         </StackLayout>
 
-        <StackLayout Grid.Row="1" Grid.ColumnSpan="7" x:Name="Settings">
-            <Label Text="Performance logging" />
-            <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
-            <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
-        </StackLayout>
+        <ScrollView Grid.Row="1" Grid.ColumnSpan="7" Orientation="Vertical">
+            <StackLayout x:Name="Settings">
+                <Label Text="Performance logging" />
+                <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
+                <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
+                <Label Text="{Binding LastCrashDump, Mode=OneWay}" />
+            </StackLayout>
+        </ScrollView>
 
         <Image x:Name="Image" Source="iPlusLogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />
         <StackLayout Spacing="5" Grid.Row="2" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Start">

@@ -51,6 +51,14 @@ namespace gip.vb.mobile.Services
             return await Task.FromResult(_GetFacilityChargeBookings);
         }
 
+        public async Task<WSResponse<List<FacilityCharge>>> GetOperationLogFacilityChargesAsync(string machineID)
+        {
+            if (string.IsNullOrEmpty(machineID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>>(null, new Msg(eMsgLevel.Error, "machineID is empty")));
+
+            return await Task.FromResult<WSResponse<List<FacilityCharge>>>(null);
+        }
+
         #endregion
 
 
@@ -380,6 +388,17 @@ namespace gip.vb.mobile.Services
         #endregion
 
         #endregion
+        #endregion
+
+        #region OEEReason
+
+        public async Task<WSResponse<List<core.webservices.ACClassMessage>>> GetOEEReasonsAsync(string acClassID)
+        {
+            if (string.IsNullOrEmpty(acClassID))
+                return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, new Msg(eMsgLevel.Error, "acClassID is empty")));
+            return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, null));
+        }
+
         #endregion
     }
 }

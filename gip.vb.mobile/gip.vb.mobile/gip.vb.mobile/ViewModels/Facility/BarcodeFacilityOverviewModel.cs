@@ -9,6 +9,7 @@ using gip.mes.webservices;
 using System.Collections.Generic;
 using gip.core.webservices;
 using gip.core.datamodel;
+using System.Linq;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -21,6 +22,8 @@ namespace gip.vb.mobile.ViewModels
             LoadFilteredFacilitiesCommand = new Command(async () => await ExecuteLoadFilteredFacilitiesCommand());
             LoadFilteredLotsCommand = new Command(async () => await ExecuteLoadFilteredLotsCommand());
             LoadBarcodeEntityCommand = new Command(async () => await ExecuteLoadBarcodeEntityCommand());
+
+            ResetScanSequence();
 
             //MessagingCenter.Subscribe<NewItemPage, FacilityCharge>(this, "AddItem", async (obj, item) =>
             //{
@@ -165,6 +168,30 @@ namespace gip.vb.mobile.ViewModels
             set
             {
                 SetProperty(ref _CurrentBarcode, value);
+            }
+        }
+
+        public BarcodeEntity _WSBarcodeEntityResult;
+        public BarcodeEntity WSBarcodeEntityResult
+        {
+            get
+            {
+                return _WSBarcodeEntityResult;
+            }
+            set
+            {
+                SetProperty(ref _WSBarcodeEntityResult, value);
+            }
+        }
+
+        private BarcodeSequence _BarcodeSequence;
+        public BarcodeSequence BarcodeSequence
+        {
+            get => _BarcodeSequence;
+            set
+            {
+                _BarcodeSequence = value;
+                OnPropertyChanged();
             }
         }
 
@@ -319,12 +346,31 @@ namespace gip.vb.mobile.ViewModels
 
             try
             {
-                var response = await _WebService.GetBarcodeEntityAsync(this.CurrentBarcode);
+                BarcodeSequence.CurrentBarcode = CurrentBarcode;
+
+                var response = await _WebService.InvokeBarcodeSequenceAsync(BarcodeSequence);
+                BarcodeSequence = response.Data;
                 this.WSResponse = response;
-                if (response.Suceeded)
-                    CurrentBarcodeEntity = new List<object> { response.Data.ValidEntity };
+
+                BarcodeEntity facilityChargeEntity = BarcodeSequence.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
+                if (facilityChargeEntity == null)
+                {
+                    CurrentBarcodeEntity = BarcodeSequence.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
+                    if (BarcodeSequence.Sequence.Any(c => c.ACClass != null))
+                        ResetScanSequence();
+                    else
+                        this.Message = response.Data.Message;
+                }
                 else
-                    CurrentBarcodeEntity = new List<object>();
+                {
+                    this.WSBarcodeEntityResult = facilityChargeEntity;
+                    List<object> entries = new List<object>();
+                    entries.Add(facilityChargeEntity.FacilityCharge);
+                    CurrentBarcodeEntity = entries;
+
+                    this.Message = null;
+                    ResetScanSequence();
+                }
             }
             catch (Exception ex)
             {
@@ -363,6 +409,12 @@ namespace gip.vb.mobile.ViewModels
                     
                 }
             }
+        }
+
+        public void ResetScanSequence()
+        {
+            BarcodeSequence = new BarcodeSequence();
+            CurrentBarcode = null;
         }
 
         public override void DialogResponse(Global.MsgResult result, string entredValue = null)

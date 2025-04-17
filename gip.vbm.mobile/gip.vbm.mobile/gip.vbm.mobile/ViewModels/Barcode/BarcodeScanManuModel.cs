@@ -17,10 +17,17 @@ namespace gip.vbm.mobile.ViewModels
 {
     public class BarcodeScanManuModel : BarcodeScanModelBase
     {
+        #region c'tors
+
         public BarcodeScanManuModel() : base()
         {
             InvokeVerifyOrderCommand = new Command(async () => await ExecuteInvokeVerifyOrderCommand());
+            LoadOEEReasonsCommand = new Command(async () => await ExecuteLoadOEEReasons());
         }
+
+        #endregion
+
+        #region Properties
 
         public override BarcodeSequence ExchangedBarcodeSeq
         {
@@ -42,12 +49,12 @@ namespace gip.vbm.mobile.ViewModels
                     List<object> barcodeSequence = ExchangedBarcodeSeq.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (   ExchangedBarcodeSeq.State == ActionState.Selection
+                    if (ExchangedBarcodeSeq.State == ActionState.Selection
                         || ExchangedBarcodeSeq.State == ActionState.FastSelection
                         || ExchangedBarcodeSeq.State == ActionState.SelectionScanAgain
                         || ExchangedBarcodeSeq.State == ActionState.Completed)
                     {
-                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  ExchangedBarcodeSeq.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
+                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos = ExchangedBarcodeSeq.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
                         foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
                         {
                             bool refreshedWithSameReference = false;
@@ -101,6 +108,36 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        public BarcodeEntity ScannedMachine
+        {
+            get
+            {
+                if (this.ExchangedBarcodeSeq == null || !this.ExchangedBarcodeSeq.Sequence.Any())
+                    return null;
+                return this.ExchangedBarcodeSeq.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
+            }
+        }
+
+        private List<object> _TempSequenceList;
+
+        private ACClassMessage _SelectedOEEReason;
+        public ACClassMessage SelectedOEEReason
+        {
+            get => _SelectedOEEReason;
+            set => SetProperty(ref _SelectedOEEReason, value);
+        }
+
+        private List<ACClassMessage> _OEEReasonsList;
+        public List<ACClassMessage> OEEReasonsList
+        {
+            get => _OEEReasonsList;
+            set => SetProperty(ref _OEEReasonsList, value);
+        }
+
+        #endregion
+
+        #region Methods
+
         public void ReleaseMachine()
         {
             InvokeVerifyOrderCommand.Execute(null);
@@ -143,9 +180,15 @@ namespace gip.vbm.mobile.ViewModels
             if (bEntity != null)
             {
                 if (reset)
+                {
                     bEntity.MachineMalfunction = false;
+                    bEntity.OEEReason = null;
+                }
                 else
+                {
                     bEntity.MachineMalfunction = true;
+                    bEntity.OEEReason = SelectedOEEReason?.ACClassMessageID;
+                }
             }
 
             BarcodeEntity entity = ExchangedBarcodeSeq.Sequence.LastOrDefault();
@@ -195,22 +238,22 @@ namespace gip.vbm.mobile.ViewModels
                 }
                 return;
             }
-
+            else if (DialogOptions.RequestID == 1000)
+            {
+                FilterSequenceList(entredValue);
+                return;
+            }
 
             base.DialogResponse(result, entredValue);
         }
 
-        public BarcodeEntity ScannedMachine
+        public void SearchSequenceList()
         {
-            get
-            {
-                if (this.ExchangedBarcodeSeq == null || !this.ExchangedBarcodeSeq.Sequence.Any())
-                    return null;
-                return this.ExchangedBarcodeSeq.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
-            }
-        }
+            if (DecodedEntitiesList == null || !DecodedEntitiesList.Any())
+                return;
 
-        private List<object> _TempSequenceList;
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.FilterProdOrder_Text), Strings.AppStrings.Filter_Text, null, "", 1000);
+        }
 
         public void FilterSequenceList(string searchWord)
         {
@@ -291,5 +334,38 @@ namespace gip.vbm.mobile.ViewModels
 
             return success;
         }
+
+        public void InitUserTime(ProdOrderPartslistWFInfo wfInfo)
+        {
+            if (wfInfo.UserTime != null)
+            {
+                wfInfo.UserTime.UserStartDate = wfInfo.UserTime.StartDate;
+
+                //if (!wfInfo.UserTime.UserEndDate.HasValue)
+                //    wfInfo.UserTime.UserEndDate = DateTime.Now;
+            }
+        }
+
+        public Command LoadOEEReasonsCommand { get; set; }
+        public async Task<bool> ExecuteLoadOEEReasons()
+        {
+            if (ScannedMachine != null)
+            {
+                var response = await _WebService.GetOEEReasonsAsync(ScannedMachine.ACClass.ACClassID.ToString());
+                if (response.Suceeded)
+                {
+                    if (response.Message != null)
+                        Message = response.Message;
+                    else
+                    {
+                        OEEReasonsList = response.Data;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

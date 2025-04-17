@@ -18,6 +18,9 @@
         <Grid x:Name="BgPAnel">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -78,9 +81,11 @@
                 </Label>
             </Grid>
 
+            <Label Grid.Row="2" Text="{i18n:Translate Text=SelectOEEReason_Text}" />
+            <Picker Grid.Row="3" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedOEEReason}" ItemsSource="{Binding OEEReasonsList}" ItemDisplayBinding="{Binding ACCaption}" />
 
-            <Button Grid.Row="2" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToRunning" Text="{i18n:Translate Text=BtnMachineRunning_Text}" Clicked="BtnSwitchToRunning_Clicked" Margin="0,0,0,5" />
-            <Button Grid.Row="3" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToMalfunction" Text="{i18n:Translate Text=BtnMachineMalfunction_Text}" Clicked="BtnSwitchToMalfunction_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToRunning" Text="{i18n:Translate Text=BtnMachineRunning_Text}" Clicked="BtnSwitchToRunning_Clicked" Margin="0,0,0,5" />
+            <Button Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="45" x:Name="BtnSwitchToMalfunction" Text="{i18n:Translate Text=BtnMachineMalfunction_Text}" Clicked="BtnSwitchToMalfunction_Clicked" Margin="0,0,0,5" />
 
         </Grid>
     </ContentPage.Content>

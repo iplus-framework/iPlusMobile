@@ -31,87 +31,94 @@ namespace gip.vb.mobile.Views
         {
             core.datamodel.Msg msg = e.Value;
 
-            if (msg != null)
+            try
             {
-                string message = msg.Message;
-                core.datamodel.MsgWithDetails msgDetail = msg as core.datamodel.MsgWithDetails;
-
-                if (msgDetail != null)
+                if (msg != null)
                 {
-                    foreach (var m in msgDetail.MsgDetails)
+                    string message = msg.Message;
+                    core.datamodel.MsgWithDetails msgDetail = msg as core.datamodel.MsgWithDetails;
+
+                    if (msgDetail != null)
                     {
-                        message += System.Environment.NewLine;
-                        message += m.Message;
-                    }
-                }
-
-                if (msg.MessageLevel == core.datamodel.eMsgLevel.Question)
-                {
-                    core.datamodel.Global.MsgResult result = core.datamodel.Global.MsgResult.Cancel;
-
-                    switch (msg.MessageButton)
-                    {
-                        case core.datamodel.eMsgButton.Cancel:
-                            {
-                                await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonCancel);
-                                break;
-                            }
-                        case core.datamodel.eMsgButton.OK:
-                            {
-                                await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK");
-                                break;
-                            }
-                        case core.datamodel.eMsgButton.OKCancel:
-                            {
-                                bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel);
-                                result = res ? core.datamodel.Global.MsgResult.OK : core.datamodel.Global.MsgResult.Cancel;
-                                break;
-                            }
-                        case core.datamodel.eMsgButton.YesNo:
-                            {
-                                bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonYes, AppStrings.ButtonNo);
-                                result = res ? core.datamodel.Global.MsgResult.Yes : core.datamodel.Global.MsgResult.No;
-                                break;
-                            }
-                        case core.datamodel.eMsgButton.YesNoCancel:
-                            {
-                                string res = await DisplayActionSheet(message, AppStrings.ButtonCancel, null, AppStrings.ButtonYes, AppStrings.ButtonNo);
-                                if (res == AppStrings.ButtonCancel)
-                                    result = core.datamodel.Global.MsgResult.Cancel;
-                                else if (res == AppStrings.ButtonYes)
-                                    result = core.datamodel.Global.MsgResult.Yes;
-                                else
-                                    result = core.datamodel.Global.MsgResult.No;
-
-                                break;
-                            }
+                        foreach (var m in msgDetail.MsgDetails)
+                        {
+                            message += System.Environment.NewLine;
+                            message += m.Message;
+                        }
                     }
 
-                    if (_BaseViewModel != null)
-                        _BaseViewModel.DialogResponse(result);
-                    else
+                    if (msg.MessageLevel == core.datamodel.eMsgLevel.Question)
                     {
-                        //TODO:Error
-                    }
-                }
-                else if (msg.MessageLevel == core.datamodel.eMsgLevel.QuestionPrompt)
-                {
-                    if (_BaseViewModel != null)
-                    {
-                        string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel, null, -1, 
-                                                                 _BaseViewModel.DialogOptions.DialogPrompKeyboard, _BaseViewModel.DialogOptions.DialogPromptInitialValue);
+                        core.datamodel.Global.MsgResult result = core.datamodel.Global.MsgResult.Cancel;
+
+                        switch (msg.MessageButton)
+                        {
+                            case core.datamodel.eMsgButton.Cancel:
+                                {
+                                    await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonCancel);
+                                    break;
+                                }
+                            case core.datamodel.eMsgButton.OK:
+                                {
+                                    await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK");
+                                    break;
+                                }
+                            case core.datamodel.eMsgButton.OKCancel:
+                                {
+                                    bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel);
+                                    result = res ? core.datamodel.Global.MsgResult.OK : core.datamodel.Global.MsgResult.Cancel;
+                                    break;
+                                }
+                            case core.datamodel.eMsgButton.YesNo:
+                                {
+                                    bool res = await DisplayAlert(_BaseViewModel.DialogOptions.DialogTitle, message, AppStrings.ButtonYes, AppStrings.ButtonNo);
+                                    result = res ? core.datamodel.Global.MsgResult.Yes : core.datamodel.Global.MsgResult.No;
+                                    break;
+                                }
+                            case core.datamodel.eMsgButton.YesNoCancel:
+                                {
+                                    string res = await DisplayActionSheet(message, AppStrings.ButtonCancel, null, AppStrings.ButtonYes, AppStrings.ButtonNo);
+                                    if (res == AppStrings.ButtonCancel)
+                                        result = core.datamodel.Global.MsgResult.Cancel;
+                                    else if (res == AppStrings.ButtonYes)
+                                        result = core.datamodel.Global.MsgResult.Yes;
+                                    else
+                                        result = core.datamodel.Global.MsgResult.No;
+
+                                    break;
+                                }
+                        }
+
                         if (_BaseViewModel != null)
-                            _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
+                            _BaseViewModel.DialogResponse(result);
+                        else
+                        {
+                            //TODO:Error
+                        }
+                    }
+                    else if (msg.MessageLevel == core.datamodel.eMsgLevel.QuestionPrompt)
+                    {
+                        if (_BaseViewModel != null)
+                        {
+                            string result = await DisplayPromptAsync(_BaseViewModel.DialogOptions.DialogTitle, message, "OK", AppStrings.ButtonCancel, null, -1,
+                                                                     _BaseViewModel.DialogOptions.DialogPrompKeyboard, _BaseViewModel.DialogOptions.DialogPromptInitialValue);
+                            if (_BaseViewModel != null)
+                                _BaseViewModel.DialogResponse(result == null ? core.datamodel.Global.MsgResult.Cancel : core.datamodel.Global.MsgResult.OK, result);
+                        }
+                        else
+                        {
+                            //TODO:Error
+                        }
                     }
                     else
                     {
-                        //TODO:Error
+                        await DisplayAlert("", message, "OK");
                     }
                 }
-                else
-                {
-                    await DisplayAlert("", message, "OK");
-                }
+            }
+            catch (Exception ex)
+            {
+                App.SettingsViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
             }
         }
 

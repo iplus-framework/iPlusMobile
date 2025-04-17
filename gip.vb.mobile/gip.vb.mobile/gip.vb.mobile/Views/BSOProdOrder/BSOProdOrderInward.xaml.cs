@@ -16,10 +16,13 @@ namespace gip.vb.mobile.Views
     public partial class BSOProdOrderInward : BSOProdOrderInOutBase
     {
         BarcodeScanManuModel _FromTaskModel;
+        private MaterialUnitCalcModel _UnitCalcModel;
+
         public BSOProdOrderInward(ProdOrderPartslistPos intermOrIntermBatch, BarcodeScanManuModel taskModel, ACMethod wfMethod)
         {
             _FromTaskModel = taskModel;
             BindingContext = _ViewModel = new ProdOrderInOutViewModel(true, taskModel, null, intermOrIntermBatch, wfMethod);
+
             InitializeComponent();
         }
 
@@ -63,6 +66,11 @@ namespace gip.vb.mobile.Views
 
         protected async override void OnAppearing()
         {
+            if (_UnitCalcModel != null)
+            {
+                _UnitCalcModel = null;
+                return;
+            }
             await _ViewModel.LoadTargetFacilities();
             await _ViewModel.RefreshInItems();
             _ViewModel.LoadMovementReasons();
@@ -71,6 +79,20 @@ namespace gip.vb.mobile.Views
         private void cmdClearMovementReason_Clicked(object sender, EventArgs e)
         {
             _ViewModel.SelectedMovementReason = null;
+        }
+
+        private async void btnUnit_Clicked(object sender, EventArgs e)
+        {
+            if (Math.Abs(_ViewModel.BookingQuantity) <= double.Epsilon)
+                return;
+            _UnitCalcModel = new MaterialUnitCalcModel(_ViewModel);
+            _UnitCalcModel.MaterialToCalc = _ViewModel.IntermOrIntermBatch.BookingMaterial;
+            if (_UnitCalcModel.MaterialToCalc == null)
+                _UnitCalcModel.MaterialToCalc = _ViewModel.IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material;
+            if (_UnitCalcModel.MaterialToCalc == null)
+                return;
+            _UnitCalcModel.InputValue = _ViewModel.BookingQuantity;
+            await Navigation.PushAsync(new BSOMaterialUnitCalc(_UnitCalcModel));
         }
     }
 }

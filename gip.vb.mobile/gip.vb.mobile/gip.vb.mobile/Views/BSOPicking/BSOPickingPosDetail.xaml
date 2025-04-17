@@ -60,6 +60,8 @@
                 </StackLayout>
 
                 <Button x:Name="BtnWarehouseInfo" Text="{i18n:Translate Text=Btn_FindMaterialInWarehouse}" VerticalOptions="EndAndExpand" Clicked="BtnWarehouseInfo_Clicked" />
+                <!--<Label Text="Signature Driver" Style="{StaticResource LabelForDesc}" />
+                <ctl:SignatureControl  WidthRequest="400" HeightRequest="280" />-->
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>

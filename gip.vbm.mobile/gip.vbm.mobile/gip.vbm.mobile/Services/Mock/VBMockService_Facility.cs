@@ -51,8 +51,15 @@ namespace gip.vbm.mobile.Services
             return await Task.FromResult(_GetFacilityChargeBookings);
         }
 
-        #endregion
+        public async Task<WSResponse<List<FacilityCharge>>> GetOperationLogFacilityChargesAsync(string machineID)
+        {
+            if (string.IsNullOrEmpty(machineID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>>(null, new Msg(eMsgLevel.Error, "machineID is empty")));
 
+            return await Task.FromResult<WSResponse<List<FacilityCharge>>>(null);
+        }
+
+        #endregion
 
         #region FacilityLot
 
@@ -108,7 +115,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Material
 
         private WSResponse<MaterialSumOverview> _GetMaterialSum;
@@ -129,7 +135,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Facility
 
         private WSResponse<FacilitySumOverview> _GetFacilitySum;
@@ -149,7 +154,6 @@ namespace gip.vbm.mobile.Services
         }
 
         #endregion
-
 
         #region FacilityLocation
 
@@ -380,6 +384,17 @@ namespace gip.vbm.mobile.Services
         #endregion
 
         #endregion
+        #endregion
+
+        #region OEEReason
+
+        public async Task<WSResponse<List<core.webservices.ACClassMessage>>> GetOEEReasonsAsync(string acClassID)
+        {
+            if (string.IsNullOrEmpty(acClassID))
+                return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, new Msg(eMsgLevel.Error, "acClassID is empty")));
+            return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, null));
+        }
+
         #endregion
     }
 }

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:BSOPageBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gip.vb.mobile.Views.BSOMaterialUnitCalc"
+             xmlns:v="clr-namespace:gip.vb.mobile.Views"
+               xmlns:ctl="clr-namespace:gip.vb.mobile.Controls"
+               xmlns:i18n="clr-namespace:gip.vb.mobile.Helpers"
+              Title="{Binding Title}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             x:Name="BrowseBSOProdOrderAvaialbleQuants">
+    <v:BSOPageBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary Source="../../Themes/SharedDataTemplates.xaml" />
+        </ResourceDictionary>
+    </v:BSOPageBase.Resources>
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Order="Primary" Priority="0" Text="Refresh" IconImageSource="NavIconQuant.png" Clicked="QuantTBItem_Clicked">
+        </ToolbarItem>-->
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <!--<ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />-->
+        <ListView x:Name="Units"
+                ItemsSource="{Binding UnitCalcs}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding GetMaterialUnitsCommand}"
+                IsPullToRefreshEnabled="false"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                SelectedItem="{Binding SelectedUnitCalc}"
+                ItemTapped="Units_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ctl:ExtendedViewCell SelectedBackgroundColor="{DynamicResource SelectedBackgroundColor}">
+                        <Grid VerticalOptions="Start" Margin="0,2,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="10*"/>
+                            </Grid.ColumnDefinitions>
+                            <BoxView Grid.RowSpan="2" Color="{DynamicResource ControlBackgroundColor}" Grid.ColumnSpan="2" CornerRadius="4" />
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding InputValue}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Unit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding ResultValueInBase}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding BaseUnit.MDUnitName}" Style="{StaticResource LabelForData}" VerticalTextAlignment="Center"  HorizontalTextAlignment="Start"/>
+                        </Grid>
+                    </ctl:ExtendedViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>        
+        </ListView>
+
+        <Button MinimumHeightRequest="40" Text="{i18n:Translate Text=Btn_Select}" x:Name="btnSelectLot" Clicked="btnSelectLot_Clicked"  />
+    </StackLayout>
+</v:BSOPageBase>

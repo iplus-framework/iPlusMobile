@@ -49,6 +49,27 @@ namespace gip.vbm.mobile.Services
             return await Get<Material>(String.Format(VBWebServiceConst.UriMaterial_BarcodeID_F, barcodeID));
         }
 
+        public async Task<WSResponse<List<MDUnit>>> GetMaterialUnitsAsync(string materialID)
+        {
+            if (string.IsNullOrEmpty(materialID))
+                return await Task.FromResult(new WSResponse<List<MDUnit>>(null, new Msg(eMsgLevel.Error, "materialID is empty")));
+            return await Get<List<MDUnit>>(String.Format(VBWebServiceConst.UriMaterialUnitsID_F, materialID));
+        }
+
+        public async Task<WSResponse<MDUnitCalc>> MaterialConvertUnitAsync(MDUnitCalc calcParam)
+        {
+            if (calcParam == null)
+                return await Task.FromResult(new WSResponse<MDUnitCalc>(null, new Msg(eMsgLevel.Error, "calcParam is null")));
+            return await Post<MDUnitCalc, MDUnitCalc>(calcParam, VBWebServiceConst.UriMaterialConvertUnit);
+        }
+
+        public async Task<WSResponse<List<MDUnitCalc>>> MaterialConvertAllUnitsAsync(MDUnitCalc calcParam)
+        {
+            if (calcParam == null)
+                return await Task.FromResult(new WSResponse<List<MDUnitCalc>>(null, new Msg(eMsgLevel.Error, "calcParam is null")));
+            return await Post<List<MDUnitCalc>, MDUnitCalc>(calcParam, VBWebServiceConst.UriMaterialConvertAllUnits);
+        }
+
         #endregion
 
 

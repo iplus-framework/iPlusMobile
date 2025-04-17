@@ -3,6 +3,7 @@
 ﻿using gip.core.datamodel;
 using gip.core.webservices;
 using gip.mes.webservices;
+using gip.vb.mobile.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,17 @@ namespace gip.vb.mobile.ViewModels
 {
     public class BarcodeScanManuModel : BarcodeScanModelBase
     {
+        #region c'tors
+
         public BarcodeScanManuModel() : base()
         {
             InvokeVerifyOrderCommand = new Command(async () => await ExecuteInvokeVerifyOrderCommand());
+            LoadOEEReasonsCommand = new Command(async () => await ExecuteLoadOEEReasons());
         }
+
+        #endregion
+
+        #region Properties
 
         public override BarcodeSequence Item
         {
@@ -40,12 +48,12 @@ namespace gip.vb.mobile.ViewModels
                     List<object> barcodeSequence = Item.Sequence.Where(x => x.MsgResult == null && x.ValidEntity != null)
                                                                 .Select(c => c.ValidEntity)
                                                                 .ToList();
-                    if (   Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
+                    if (Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Selection
                         || Item.State == ActionState.FastSelection
                         || Item.State == ActionState.SelectionScanAgain
                         || Item.State == mes.datamodel.BarcodeSequenceBase.ActionState.Completed)
                     {
-                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos =  Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
+                        List<BarcodeEntity> barcodeEntitiesWithOrderInfos = Item.Sequence.Where(c => c.OrderWFInfos != null && c.OrderWFInfos.Any()).ToList();
                         foreach (BarcodeEntity barcodeEntity in barcodeEntitiesWithOrderInfos)
                         {
                             bool refreshedWithSameReference = false;
@@ -99,6 +107,36 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public BarcodeEntity ScannedMachine
+        {
+            get
+            {
+                if (this.Item == null || !this.Item.Sequence.Any())
+                    return null;
+                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
+            }
+        }
+
+        private List<object> _TempSequenceList;
+
+        private ACClassMessage _SelectedOEEReason;
+        public ACClassMessage SelectedOEEReason
+        {
+            get => _SelectedOEEReason;
+            set => SetProperty(ref _SelectedOEEReason, value);
+        }
+
+        private List<ACClassMessage> _OEEReasonsList;
+        public List<ACClassMessage> OEEReasonsList
+        {
+            get => _OEEReasonsList;
+            set => SetProperty(ref _OEEReasonsList, value);
+        }
+
+        #endregion
+
+        #region Methods
+
         public void ReleaseMachine()
         {
             InvokeVerifyOrderCommand.Execute(null);
@@ -142,9 +180,15 @@ namespace gip.vb.mobile.ViewModels
             if (bEntity != null)
             {
                 if (reset)
+                {
                     bEntity.MachineMalfunction = false;
+                    bEntity.OEEReason = null;
+                }
                 else
+                {
                     bEntity.MachineMalfunction = true;
+                    bEntity.OEEReason = SelectedOEEReason?.ACClassMessageID;
+                }
             }
 
             BarcodeEntity entity = Item.Sequence.LastOrDefault();
@@ -167,7 +211,6 @@ namespace gip.vb.mobile.ViewModels
                 success = await ExecuteInvokeBarcodeCommand();
             }
         }
-
 
         public override void Clear()
         {
@@ -197,21 +240,22 @@ namespace gip.vb.mobile.ViewModels
                 }
                 return;
             }
+            else if (DialogOptions.RequestID == 1000)
+            {
+                FilterSequenceList(entredValue);
+                return;
+            }
 
             base.DialogResponse(result, entredValue);
         }
 
-        public BarcodeEntity ScannedMachine
+        public void SearchSequenceList()
         {
-            get
-            {
-                if (this.Item == null || !this.Item.Sequence.Any())
-                    return null;
-                return this.Item.Sequence.Where(c => c.ACClass != null).FirstOrDefault();
-            }
-        }
+            if (BarcodeSequence == null || !BarcodeSequence.Any())
+                return;
 
-        private List<object> _TempSequenceList;
+            ShowDialog(new Msg(eMsgLevel.QuestionPrompt, Strings.AppStrings.FilterProdOrder_Text), Strings.AppStrings.Filter_Text, null, "", 1000);
+        }
 
         public void FilterSequenceList(string searchWord)
         {
@@ -239,7 +283,8 @@ namespace gip.vb.mobile.ViewModels
 
             result.Add(machine);
 
-            result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)));
+            result.AddRange(_TempSequenceList.OfType<ProdOrderPartslistWFInfo>().Where(c => c.ProdOrderPartslist.Partslist.Material.MaterialName1.ToLower().Contains(searchWord)
+                                                                                         || c.ProdOrderPartslist.ProdOrder.ProgramNo.ToLower().Contains(searchWord)));
 
             BarcodeSequence = result;
         }
@@ -292,5 +337,38 @@ namespace gip.vb.mobile.ViewModels
 
             return success;
         }
+
+        public void InitUserTime(ProdOrderPartslistWFInfo wfInfo)
+        {
+            if (wfInfo.UserTime != null)
+            {
+                wfInfo.UserTime.UserStartDate = wfInfo.UserTime.StartDate;
+
+                //if (!wfInfo.UserTime.UserEndDate.HasValue)
+                //    wfInfo.UserTime.UserEndDate = DateTime.Now;
+            }
+        }
+
+        public Command LoadOEEReasonsCommand { get; set; }
+        public async Task<bool> ExecuteLoadOEEReasons()
+        {
+            if (ScannedMachine != null)
+            {
+                var response = await _WebService.GetOEEReasonsAsync(ScannedMachine.ACClass.ACClassID.ToString());
+                if (response.Suceeded)
+                {
+                    if (response.Message != null)
+                        Message = response.Message;
+                    else
+                    {
+                        OEEReasonsList = response.Data;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

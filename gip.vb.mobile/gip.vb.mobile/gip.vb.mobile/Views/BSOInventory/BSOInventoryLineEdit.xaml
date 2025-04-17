@@ -59,7 +59,7 @@
                 <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityNo}" VerticalTextAlignment="Center" Style="{StaticResource LabelForDesc}" />
                 <Label Text="{Binding SelectedInventoryLine.FacilityNo}" Padding="5,0,0,0" Style="{StaticResource LabelForData}"/>
             </StackLayout>
-            <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Faciltiy, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
+                <Label Text="{i18n:Translate FullQName=gip.mes.webservices.Facility, Text=FacilityName}" Style="{StaticResource LabelForDesc}" />
             <Label Text="{Binding SelectedInventoryLine.FacilityName}" Style="{StaticResource LabelForData}"/>
             <BoxView HeightRequest="1" Color="Red" />
             <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityInventoryPos, Text=StockQuantity}" Style="{StaticResource LabelForDesc}" />

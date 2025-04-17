@@ -2,6 +2,7 @@
 // Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,15 @@ using gip.core.datamodel;
 using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
+using gip.vbm.mobile.ViewModels;
 using gip.vbm.mobile.Helpers;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using gip.vbm.mobile.Strings;
 
 namespace gip.vbm.mobile.ViewModels
 {
-    public class ProdOrderInOutViewModel : BarcodeScanModelBase
+    public class ProdOrderInOutViewModel : BarcodeScanModelBase, IMaterialUnitRecalcReceiver
     {
         #region c'tors
 
@@ -36,6 +39,7 @@ namespace gip.vbm.mobile.ViewModels
             BookFacilityCommand = new Command(async () => await ExecuteBookFacilityCommand());
             PrintCommand = new Command(async () => await ExecutePrintCommand());
             GetMovementReasonsCommand = new Command(async () => await ExecuteGetMovementReasons());
+            LoadAvailableFacilityChargesCommand = new Command(async () => await ExecuteLoadAvailableFacilityCharges());
 
             PostingQuantitySuggestionMode? mode1 = null, mode2 = null;
             string validSeqNo1 = null, validSeqNo2 = null;
@@ -86,7 +90,8 @@ namespace gip.vbm.mobile.ViewModels
                 if (inwardPostSQ != null && inwardPostSQ.Value != null)
                 {
                     _InwardPostingSuggestionQ = inwardPostSQ.ParamAsDouble;
-                    if (Math.Abs(_InwardPostingSuggestionQ) > 0)
+                    IntermediateNotFinalProductFacility = null;
+                    if (Math.Abs(_InwardPostingSuggestionQ) > 0 && !IntermOrIntermBatch.IsFinalMixure)
                     {
                         LoadIntermediateNotFinalProductFacility();
                         BookingQuantity = Math.Abs(_InwardPostingSuggestionQ);
@@ -104,9 +109,17 @@ namespace gip.vbm.mobile.ViewModels
                 ACValue inwardAutoSplitQuant = wfMethod.ParameterValueList.GetACValue("InwardAutoSplitQuant");
                 if (inwardAutoSplitQuant != null && inwardAutoSplitQuant.Value != null)
                     _InwardAutoSplitQuant = inwardAutoSplitQuant.ParamAsInt32;
+
+                ACValue allowEditProductionDate = wfMethod.ParameterValueList.GetACValue("AllowEditProductionTime");
+                if (allowEditProductionDate != null && allowEditProductionDate.Value != null)
+                    AllowEditProductionTime = allowEditProductionDate.ParamAsBoolean;
             }
 
             _Components = components;
+            AvailableFacilityCharges = new ObservableCollection<FacilityCharge>();
+
+            if (_AllowEditProductionTime)
+                SelectedProductionDate = DateTime.Now;
         }
 
         #endregion
@@ -155,6 +168,19 @@ namespace gip.vbm.mobile.ViewModels
             set => SetProperty(ref _IntermediateNotFinalProductFacility, value, nameof(IntermediateNotFinalProductFacility));
         }
 
+        private FacilityBookingChargeOverview _SelectedPosting;
+        public FacilityBookingChargeOverview SelectedPosting
+        {
+            get
+            {
+                return _SelectedPosting;
+            }
+            set
+            {
+                SetProperty(ref _SelectedPosting, value);
+            }
+        }
+
         private PostingOverview _Overview;
         public PostingOverview Overview
         {
@@ -178,6 +204,39 @@ namespace gip.vbm.mobile.ViewModels
             set
             {
                 SetProperty(ref _BookingQuantity, value);
+            }
+        }
+
+        public void SetQuantityFromUnitRecalc(double newValue)
+        {
+            BookingQuantity = newValue;
+        }
+
+        public MDUnit BookingUnit
+        {
+            get
+            {
+                if (IntermOrIntermBatch == null)
+                    return null;
+                if (IntermOrIntermBatch.MDUnit != null)
+                    return IntermOrIntermBatch.MDUnit;
+                if (IntermOrIntermBatch.BookingMaterial != null)
+                    return IntermOrIntermBatch.BookingMaterial.BaseMDUnit;
+                return IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material.BaseMDUnit;
+            }
+        }
+
+        public MDUnit BookingUnitOut
+        {
+            get
+            {
+                if (PosRelation == null || PosRelation.SourcePos == null)
+                    return null;
+                if (PosRelation.SourcePos.MDUnit != null)
+                    return PosRelation.SourcePos.MDUnit;
+                if (PosRelation.SourcePos.Material != null)
+                    return PosRelation.SourcePos.Material.BaseMDUnit;
+                return null;
             }
         }
 
@@ -265,6 +324,28 @@ namespace gip.vbm.mobile.ViewModels
         {
             get => _ShowZeroStockPostings;
             set => SetProperty(ref _ShowZeroStockPostings, value);
+        }
+
+        private bool _AllowEditProductionTime = false;
+        public bool AllowEditProductionTime
+        {
+            get => _AllowEditProductionTime;
+            set
+            {
+                _AllowEditProductionTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime? _SelectedProductionDate;
+        public DateTime? SelectedProductionDate
+        {
+            get => _SelectedProductionDate;
+            set
+            {
+                _SelectedProductionDate = value;
+                OnPropertyChanged();
+            }
         }
 
         private PostingSuggestionMode _OutwardSuggestionMode = new PostingSuggestionMode() { QuantityMode = PostingQuantitySuggestionMode.OrderQuantity };
@@ -484,50 +565,7 @@ namespace gip.vbm.mobile.ViewModels
                         else
                         {
                             this.WSBarcodeEntityResult = facilityChargeEntity;
-                            List<object> entries = new List<object>();
-                            entries.Add(facilityChargeEntity.FacilityCharge);
-                            CurrentBarcodeEntity = entries;
-
-                            if (_OutwardSuggestionMode.QuantityMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
-                                BookingQuantity = 0;
-
-                            PostingQuantitySuggestionMode suggestionMode = _OutwardSuggestionMode.GetPostingSuggestionMode(PosRelation.Sequence);
-
-                            if (suggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity)
-                            {
-                                double stockQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
-
-                                if (stockQuantity > 0.0001)
-                                    BookingQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
-                            }
-                            else if (suggestionMode == PostingQuantitySuggestionMode.ProportionallyAnotherComp)
-                            {
-                                if (_Components != null && _Components.Count() > 1)
-                                {
-                                    var anotherComp = _Components.OrderBy(c => c.Sequence).FirstOrDefault();
-                                    if (anotherComp != null && anotherComp.ActualQuantityUOM > 0.00001
-                                        && anotherComp.ProdOrderPartslistPosRelationID != PosRelation.ProdOrderPartslistPosRelationID)
-                                    {
-                                        ScaleAccordingAnotherComponent(anotherComp);
-                                    }
-                                }
-                            }
-                            else if (suggestionMode == PostingQuantitySuggestionMode.None)
-                            {
-                                BookingQuantity = 0;
-                            }
-                            else if (suggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
-                            {
-                                double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
-                                if (requiredQuantity > facilityChargeEntity.FacilityCharge.StockQuantity && facilityChargeEntity.FacilityCharge.StockQuantity > 0.000001)
-                                {
-                                    BookingQuantity = facilityChargeEntity.FacilityCharge.StockQuantity;
-                                }
-                                else if (requiredQuantity > 0.0000001)
-                                {
-                                    BookingQuantity = requiredQuantity;
-                                }
-                            }
+                            SetOutwardFacilityCharge(facilityChargeEntity.FacilityCharge, false);
 
                             this.Message = null;
                             ResetScanSequence();
@@ -544,6 +582,57 @@ namespace gip.vbm.mobile.ViewModels
                 IsBusy = false;
             }
             return true;
+        }
+
+        public void SetOutwardFacilityCharge(FacilityCharge fc, bool setOnEntity)
+        {
+            if (setOnEntity)
+                this.WSBarcodeEntityResult = new BarcodeEntity() { FacilityCharge = fc };
+
+            List<object> entries = new List<object>();
+            entries.Add(fc);
+            CurrentBarcodeEntity = entries;
+
+            if (_OutwardSuggestionMode.QuantityMode != PostingQuantitySuggestionMode.ProportionallyAnotherComp)
+                BookingQuantity = 0;
+
+            PostingQuantitySuggestionMode suggestionMode = _OutwardSuggestionMode.GetPostingSuggestionMode(PosRelation.Sequence);
+
+            if (suggestionMode == PostingQuantitySuggestionMode.ForceQuantQuantity)
+            {
+                double stockQuantity = fc.StockQuantity;
+
+                if (stockQuantity > 0.0001)
+                    BookingQuantity = fc.StockQuantity;
+            }
+            else if (suggestionMode == PostingQuantitySuggestionMode.ProportionallyAnotherComp)
+            {
+                if (_Components != null && _Components.Count() > 1)
+                {
+                    var anotherComp = _Components.OrderBy(c => c.Sequence).FirstOrDefault();
+                    if (anotherComp != null && anotherComp.ActualQuantityUOM > 0.00001
+                        && anotherComp.ProdOrderPartslistPosRelationID != PosRelation.ProdOrderPartslistPosRelationID)
+                    {
+                        ScaleAccordingAnotherComponent(anotherComp);
+                    }
+                }
+            }
+            else if (suggestionMode == PostingQuantitySuggestionMode.None)
+            {
+                BookingQuantity = 0;
+            }
+            else if (suggestionMode == PostingQuantitySuggestionMode.OrderQuantity)
+            {
+                double requiredQuantity = PosRelation.TargetQuantity - PosRelation.ActualQuantityUOM;
+                if (requiredQuantity > fc.StockQuantity && fc.StockQuantity > 0.000001)
+                {
+                    BookingQuantity = fc.StockQuantity;
+                }
+                else if (requiredQuantity > 0.0000001)
+                {
+                    BookingQuantity = requiredQuantity;
+                }
+            }
         }
 
         public Command BookFacilityCommand { get; set; }
@@ -596,7 +685,7 @@ namespace gip.vbm.mobile.ViewModels
                 aCMethodBooking.InwardFacilityID = CurrentFacility.FacilityID;
                 if (Math.Abs(_InwardPostingSuggestionQ) > 0 && IntermediateNotFinalProductFacility != null)
                 {
-                    var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
+                    //var tempResult = await _WebService.GetNFBatchTargetFacilityAsync(CurrentBarcode);
                     aCMethodBooking.InwardFacilityID = IntermediateNotFinalProductFacility.FacilityID;
                     aCMethodBooking.InwardPartslistID = IntermOrIntermBatch.ProdOrderPartslist.Partslist.PartlistID;
                 }
@@ -609,6 +698,10 @@ namespace gip.vbm.mobile.ViewModels
                 aCMethodBooking.MovementReasonIndex = SelectedMovementReason?.MDMovementReasonIndex;
                 aCMethodBooking.InwardAutoSplitQuant = _InwardAutoSplitQuant;
                 aCMethodBooking.InwardSplitNo = InwardSplitNo;
+
+                if (_AllowEditProductionTime)
+                    aCMethodBooking.ProductionDateNewSublot = SelectedProductionDate;
+
                 BookingQuantity = 0;
                 PropertyACUrl = null;
                 var response = await _WebService.BookFacilityAsync(aCMethodBooking);
@@ -636,6 +729,8 @@ namespace gip.vbm.mobile.ViewModels
                         Message = new Msg(eMsgLevel.Info, Strings.AppStrings.PostingSuccesful_Text);
                         if (!CurrentFacility.SkipPrintQuestion)
                             Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
+
+                        SelectedMovementReason = null;
                     }
                 }
             }
@@ -754,6 +849,8 @@ namespace gip.vbm.mobile.ViewModels
                 Title = "ProdOrderInOutViewModel";
         }
 
+        private PrintEntity _LastPrintEntity;
+
         public override async void DialogResponse(Global.MsgResult result, string entredValue = null)
         {
             if (DialogOptions.RequestID == 1)
@@ -791,6 +888,15 @@ namespace gip.vbm.mobile.ViewModels
                                                         new BarcodeEntity(){ FacilityCharge = fc }
                                                     };
 
+                            if (copies > 25)
+                            {
+                                _LastPrintEntity = printEntity;
+                                Msg question = new Msg(eMsgLevel.Question, string.Format(AppStrings.PrintVerificationQuestion, copies));
+                                question.MessageButton = eMsgButton.YesNo;
+                                ShowDialog(question, "", null, "", 5);
+                                return;
+                            }
+
                             await ExecutePrintCommand(printEntity);
                         }
                     }
@@ -815,6 +921,7 @@ namespace gip.vbm.mobile.ViewModels
 
         public async Task LoadTargetFacilities()
         {
+            CurrentFacility = null;
             if (IntermOrIntermBatch != null)
             {
                 var result = await _WebService.GetPOBatchTargetFacilitiesAsync(IntermOrIntermBatch.ProdOrderPartslistPosID.ToString());
@@ -876,10 +983,18 @@ namespace gip.vbm.mobile.ViewModels
         {
             if (Overview == null || Overview.PostingsFBC == null)
                 return null;
-            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            if (result == null)
-                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            return result;
+
+            if (SelectedPosting != null)
+            {
+                return SelectedPosting;
+            }
+            else
+            {
+                var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                if (result == null)
+                    result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                return result;
+            }
         }
 
         public Command GetMovementReasonsCommand { get; set; }
@@ -947,6 +1062,67 @@ namespace gip.vbm.mobile.ViewModels
             if (!response.Suceeded)
                 Message = response.Message != null ? response.Message : new Msg(eMsgLevel.Error, "Intermediate connected machine not found!");
             IntermediateNotFinalProductFacility = response.Data;
+        }
+
+        private FacilityCharge _SelectedAvailableFC;
+        public FacilityCharge SelectedAvailableFC
+        {
+            get => _SelectedAvailableFC;
+            set
+            {
+                _SelectedAvailableFC = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<FacilityCharge> AvailableFacilityCharges { get; set; }
+        public Command LoadAvailableFacilityChargesCommand
+        {
+            get; set;
+        }
+
+        public async Task ExecuteLoadAvailableFacilityCharges()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                AvailableFacilityCharges.Clear();
+
+                Guid machineID = Guid.Empty, relationID;
+                if (_FromTaskModel != null && _FromTaskModel.ScannedMachine != null)
+                {
+                    machineID = _FromTaskModel.ScannedMachine.ACClass.ACClassID;
+                }
+
+                relationID = PosRelation.ProdOrderPartslistPosRelationID;
+
+                WSResponse<List<FacilityCharge>> response = await _WebService.GetPOAvailableFCAsync(machineID.ToString(), relationID.ToString());
+                if (!response.Suceeded)
+                {
+                    Message = response.Message;
+                    return;
+                }
+
+                if (response.Data == null)
+                    return;
+
+                foreach (FacilityCharge fc in response.Data)
+                {
+                    AvailableFacilityCharges.Add(fc);
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         #endregion

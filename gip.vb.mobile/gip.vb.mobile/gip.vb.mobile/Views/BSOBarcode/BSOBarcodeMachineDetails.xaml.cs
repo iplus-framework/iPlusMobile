@@ -25,12 +25,11 @@ namespace gip.vb.mobile.Views
             BindingContext = _ViewModel;
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+            await _ViewModel.ExecuteLoadOEEReasons();
         }
-
-
 
         #region Properties
 
@@ -38,8 +37,6 @@ namespace gip.vb.mobile.Views
         #endregion
 
         #region Methods
-
-        #endregion
 
         private async void BtnSwitchToRunning_Clicked(object sender, EventArgs e)
         {
@@ -50,5 +47,7 @@ namespace gip.vb.mobile.Views
         {
             await _ViewModel.InvokeMachineMalfuction(false);
         }
+
+        #endregion
     }
 }

@@ -25,7 +25,7 @@ namespace gip.vb.mobile.Helpers
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        ent.CursorPosition = 0;
+                        ent.CursorPosition = 0;     
                         ent.SelectionLength = ent.Text != null ? ent.Text.Length : 0;
                     });
                 }

@@ -50,6 +50,21 @@ namespace gip.vbm.mobile.Services
             return await GetMaterialAsync(barcodeID);
         }
 
+        public async Task<WSResponse<List<MDUnit>>> GetMaterialUnitsAsync(string materialID)
+        {
+            return await Task.FromResult(new WSResponse<List<MDUnit>>(null, new Msg(eMsgLevel.Error, "materialID is empty")));
+        }
+
+        public async Task<WSResponse<MDUnitCalc>> MaterialConvertUnitAsync(MDUnitCalc calcParam)
+        {
+            return await Task.FromResult(new WSResponse<MDUnitCalc>(null, new Msg(eMsgLevel.Error, "calcParam is null")));
+        }
+
+        public async Task<WSResponse<List<MDUnitCalc>>> MaterialConvertAllUnitsAsync(MDUnitCalc calcParam)
+        {
+            return await Task.FromResult(new WSResponse<List<MDUnitCalc>>(null, new Msg(eMsgLevel.Error, "calcParam is null")));
+        }
+
         #endregion
 
 

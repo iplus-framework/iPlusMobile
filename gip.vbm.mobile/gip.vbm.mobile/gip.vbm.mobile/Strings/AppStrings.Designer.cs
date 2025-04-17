@@ -306,6 +306,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Btn_Select {
+            get {
+                return ResourceManager.GetString("Btn_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show orders.
         /// </summary>
         internal static string Btn_ShowPickingOrders {
@@ -657,7 +666,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect details data over scan.
+        ///   Looks up a localized string similar to Collect data via scanning.
         /// </summary>
         internal static string CollectDetOverScan {
             get {
@@ -774,7 +783,7 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explore storage.
+        ///   Looks up a localized string similar to Explore warehouse places.
         /// </summary>
         internal static string ExploreStorage_Text {
             get {
@@ -909,6 +918,15 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search production orders by product name or order number:.
+        /// </summary>
+        internal static string FilterProdOrder_Text {
+            get {
+                return ResourceManager.GetString("FilterProdOrder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From storage location.
         /// </summary>
         internal static string FromStorageLocation_Text {
@@ -986,6 +1004,15 @@ namespace gip.vbm.mobile.Strings {
         internal static string Inv_SelectStorage {
             get {
                 return ResourceManager.GetString("Inv_SelectStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The start date time can not be later than end date time! .
+        /// </summary>
+        internal static string InvalidDate {
+            get {
+                return ResourceManager.GetString("InvalidDate", resourceCulture);
             }
         }
         
@@ -1395,6 +1422,24 @@ namespace gip.vbm.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want print {0} copies?.
+        /// </summary>
+        internal static string PrintVerificationQuestion {
+            get {
+                return ResourceManager.GetString("PrintVerificationQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prod. date.
+        /// </summary>
+        internal static string ProdDate_Text {
+            get {
+                return ResourceManager.GetString("ProdDate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posting.
         /// </summary>
         internal static string ProdOrderInOutBooking_Header {
@@ -1661,6 +1706,15 @@ namespace gip.vbm.mobile.Strings {
         internal static string SelectIntermediate_Text {
             get {
                 return ResourceManager.GetString("SelectIntermediate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select malfunction reason.
+        /// </summary>
+        internal static string SelectOEEReason_Text {
+            get {
+                return ResourceManager.GetString("SelectOEEReason_Text", resourceCulture);
             }
         }
         

@@ -11,6 +11,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using gip.core.datamodel;
 using gip.mes.datamodel;
+using AndroidX.Lifecycle;
 
 namespace gip.vbm.mobile.Views
 {
@@ -142,7 +143,8 @@ namespace gip.vbm.mobile.Views
             if (wfInfo == null || wfInfo.WFMethod == null)
                 return;
             wfInfo.WFMethod.AutoRemove = false;
-            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
+            _ViewModel.InitUserTime(wfInfo);
+            await Navigation.PushAsync(new BSOACMethodEditor(new BarcodeScanACMethodModel(wfInfo)));
         }
 
         private void SendChangedACMethod()
@@ -157,6 +159,7 @@ namespace gip.vbm.mobile.Views
                     _ViewModel.ResetScanSequence();
                     return;
                 }
+                _ViewModel.ExchangedBarcodeSeq.State = BarcodeSequenceBase.ActionState.Selection;
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
                 _ViewModel.InvokeBarcodeSequenceCommand.Execute(null);

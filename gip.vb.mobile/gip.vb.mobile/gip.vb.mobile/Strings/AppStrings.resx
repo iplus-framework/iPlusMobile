@@ -472,7 +472,7 @@
     <value>Assign printer</value>
   </data>
   <data name="ExploreStorage_Text" xml:space="preserve">
-    <value>Explore storage</value>
+    <value>Explore warehouse places</value>
   </data>
   <data name="FacilitySelSearchOnlyList_text" xml:space="preserve">
     <value>Search only in list (filter list)</value>
@@ -747,5 +747,26 @@
   </data>
   <data name="CollectDetOverScan" xml:space="preserve">
     <value>Collect data via scanning</value>
+  </data>
+  <data name="Btn_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="FilterProdOrder_Text" xml:space="preserve">
+    <value>Search production orders by product name or order number:</value>
+  </data>
+  <data name="SelectOEEReason_Text" xml:space="preserve">
+    <value>Select malfunction reason</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>The start date time can not be later than end date time! </value>
+  </data>
+  <data name="ProdDate_Text" xml:space="preserve">
+    <value>Prod. date</value>
+  </data>
+  <data name="ProdTime_Text" xml:space="preserve">
+    <value>Prod. date</value>
+  </data>
+  <data name="PrintVerificationQuestion" xml:space="preserve">
+    <value>Are you sure that you want print {0} copies?</value>
   </data>
 </root>

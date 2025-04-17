@@ -205,6 +205,24 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        public string _LastCrashDump;
+        public string LastCrashDump
+        {
+            get
+            {
+                if (_LastCrashDump == null)
+                {
+                    _LastCrashDump = XLocalSettings.GetValue<string>("LastCrashDump", "");
+                }
+                return _LastCrashDump;
+            }
+            set
+            {
+                _LastCrashDump = value;
+                XLocalSettings.SetValue<string>("LastCrashDump", _LastCrashDump);
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 

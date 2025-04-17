@@ -14,6 +14,7 @@ using Microsoft.Maui.Controls;
 using ZXing.Net.Maui;
 using CommunityToolkit.Maui.Views;
 using gip.vbm.mobile.Controls;
+using gip.core.webservices;
 
 namespace gip.vbm.mobile.Views
 {
@@ -86,6 +87,12 @@ namespace gip.vbm.mobile.Views
                     await NavigateToFacilityLocationOverview(facility);
                 else
                     await NavigateToFacilityOverview(facility);
+            }
+
+            core.webservices.ACClass operationACClass = e.Value as core.webservices.ACClass;
+            if (operationACClass != null)
+            {
+                await NavigateToOperationLogOverview(operationACClass);
             }
         }
 
@@ -209,6 +216,15 @@ namespace gip.vbm.mobile.Views
         {
             await Navigation.PushAsync(new BSOFacilityLotOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = facilityLot } });
         }
+        #endregion
+
+        #region OperationLog
+
+        private async Task NavigateToOperationLogOverview(ACClass acClass)
+        {
+            await Navigation.PushAsync(new BSOOperationLogOverview() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = acClass } });
+        }
+
         #endregion
 
         protected override bool OnBackButtonPressed()

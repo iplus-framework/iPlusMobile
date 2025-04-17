@@ -145,7 +145,8 @@ namespace gip.vb.mobile.Views
                 return;
 
             wfInfo.WFMethod.AutoRemove = false;
-            await Navigation.PushAsync(new BSOACMethodEditor(wfInfo.WFMethod));
+            _ViewModel.InitUserTime(wfInfo);
+            await Navigation.PushAsync(new BSOACMethodEditor(new BarcodeScanACMethodModel(wfInfo)));
         }
 
         private async void SendChangedACMethod()
@@ -160,6 +161,7 @@ namespace gip.vb.mobile.Views
                     _ViewModel.ResetScanSequence();
                     return;
                 }
+                _ViewModel.Item.State = BarcodeSequenceBase.ActionState.Selection;
                 entity.SelectedOrderWF = wfInfo;
                 entity.WFMethod = wfInfo.WFMethod;
                 //_ViewModel.InvokeBarcodeCommand.Execute(null);

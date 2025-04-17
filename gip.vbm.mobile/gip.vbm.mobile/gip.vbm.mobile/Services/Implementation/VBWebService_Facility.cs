@@ -82,8 +82,15 @@ namespace gip.vbm.mobile.Services
             return await Post<bool, FacilityChargeParamItem>(deactivationItem, VBWebServiceConst.UriDeactivateFacilityCharge);
         }
 
-        #endregion
+        public async Task<WSResponse<List<FacilityCharge>>> GetOperationLogFacilityChargesAsync(string machineID)
+        {
+            if (string.IsNullOrEmpty(machineID))
+                return await Task.FromResult(new WSResponse<List<FacilityCharge>>(null, new Msg(eMsgLevel.Error, "machineID is empty")));
 
+            return await Get<List<FacilityCharge>>(string.Format(VBWebServiceConst.UriOperationFacilityChargeID_F, machineID));
+        }
+
+        #endregion
 
         #region FacilityLot
 
@@ -136,7 +143,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Material
 
         public async Task<WSResponse<MaterialSumOverview>> GetMaterialSumAsync(string materialID)
@@ -155,7 +161,6 @@ namespace gip.vbm.mobile.Services
 
         #endregion
 
-
         #region Facility
 
         public async Task<WSResponse<FacilitySumOverview>> GetFacilitySumAsync(string facilityID)
@@ -173,7 +178,6 @@ namespace gip.vbm.mobile.Services
         }
 
         #endregion
-
 
         #region FacilityLocation
 
@@ -306,6 +310,17 @@ namespace gip.vbm.mobile.Services
         public async Task<WSResponse<List<MDMovementReason>>> GetMovementReasonsAsync()
         {
             return await Get<List<MDMovementReason>>(VBWebServiceConst.UriGetMovementReasons);
+        }
+
+        #endregion
+
+        #region OEEReason
+
+        public async Task<WSResponse<List<core.webservices.ACClassMessage>>> GetOEEReasonsAsync(string acClassID)
+        {
+            if (string.IsNullOrEmpty(acClassID))
+                return await Task.FromResult(new WSResponse<List<core.webservices.ACClassMessage>>(null, new Msg(eMsgLevel.Error, "acClassID is empty")));
+            return await Get<List<core.webservices.ACClassMessage>>(String.Format(VBWebServiceConst.UriOEEReasons_F, acClassID));
         }
 
         #endregion

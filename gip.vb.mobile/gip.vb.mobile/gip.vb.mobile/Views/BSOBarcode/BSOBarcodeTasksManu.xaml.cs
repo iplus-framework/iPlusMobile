@@ -94,8 +94,11 @@ namespace gip.vb.mobile.Views
         {
             if (_ViewModel.Item != null)
             {
-                string searchText = _ViewModel.Item.CurrentBarcode;
-                _ViewModel.FilterSequenceList(searchText);
+                _ViewModel.SearchSequenceList();
+
+
+                //string searchText = _ViewModel.Item.CurrentBarcode;
+                //_ViewModel.FilterSequenceList(searchText);
             }
         }
     }

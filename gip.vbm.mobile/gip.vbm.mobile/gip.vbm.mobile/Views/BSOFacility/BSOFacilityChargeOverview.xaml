@@ -124,6 +124,8 @@
                     <Button x:Name="cmdClearRelocationQuantity" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold" FontSize="Large" Clicked="cmdClearBookingQuantity_Clicked" />
                 </StackLayout>
 
+                <Button x:Name="ButtonTakeQuantQuantity1" Text="{i18n:Translate Text=TakeQQuantity_Text}" HeightRequest="35" Clicked="ButtonTakeQuantQuantity_Clicked" />
+                
                 <BoxView HeightRequest="4" />
 
                 <Label Text="{i18n:Translate Text=QuantRelocation_Text}" FontAttributes="Bold"  />
