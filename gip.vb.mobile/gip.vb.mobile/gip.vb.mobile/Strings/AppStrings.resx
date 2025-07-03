@@ -769,4 +769,7 @@
   <data name="PrintVerificationQuestion" xml:space="preserve">
     <value>Are you sure that you want print {0} copies?</value>
   </data>
+  <data name="BtnLastPostingOrder" xml:space="preserve">
+    <value>To last posting order</value>
+  </data>
 </root>

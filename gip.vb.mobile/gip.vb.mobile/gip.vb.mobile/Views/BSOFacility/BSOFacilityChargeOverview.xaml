@@ -56,6 +56,7 @@
                     <Label Text="{i18n:Translate FullQName=gip.mes.webservices.FacilityCharge, Text=NotAvailable}" VerticalOptions="Center" Style="{StaticResource LabelForDesc}" />
                     <CheckBox IsChecked="{Binding Item.NotAvailable}" IsEnabled="False" VerticalOptions="Center" />
                 </StackLayout>
+                <Button x:Name="ButtonNavigateToLastPosting" Text="{i18n:Translate Text=BtnLastPostingOrder}" Clicked="ButtonNavigateToLastPosting_Clicked" />
             </StackLayout>
         </ScrollView>
     </v:BSOPageBase>

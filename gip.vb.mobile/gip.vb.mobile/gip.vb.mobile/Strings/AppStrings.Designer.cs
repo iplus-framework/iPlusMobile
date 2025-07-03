@@ -430,6 +430,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To last posting order.
+        /// </summary>
+        internal static string BtnLastPostingOrder {
+            get {
+                return ResourceManager.GetString("BtnLastPostingOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Less.
         /// </summary>
         internal static string BtnLes_Text {

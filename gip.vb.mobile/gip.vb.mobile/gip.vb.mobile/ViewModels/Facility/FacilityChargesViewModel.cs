@@ -801,6 +801,38 @@ namespace gip.vb.mobile.ViewModels
                 BookingQuantity = Item.StockQuantity;
         }
 
+        public async Task<BarcodeEntity> GetLastPostingData()
+        {
+            if (IsBusy)
+                return null;
+
+            try
+            {
+                IsBusy = true;
+
+                var response = await _WebService.GetLastPostingOrderAsync(Item.FacilityChargeID.ToString());
+                WSResponse = response;
+                if (response.Suceeded)
+                {
+                    BarcodeEntity entity = response.Data;
+                    return entity;
+                }
+                else if (response.Message != null)
+                {
+                    Message = response.Message;
+                }
+            }
+            catch (Exception e)
+            {
+                Message = new Msg(eMsgLevel.Exception, e.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+            return null;
+        }
+
         #region Reassignment
 
         public Command SearchMaterialCommand { get; set; }
