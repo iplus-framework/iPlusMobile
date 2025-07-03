@@ -810,6 +810,9 @@ namespace gip.vb.mobile.ViewModels
             {
                 IsBusy = true;
 
+                if (Item == null)
+                    return null;
+
                 var response = await _WebService.GetLastPostingOrderAsync(Item.FacilityChargeID.ToString());
                 WSResponse = response;
                 if (response.Suceeded)
