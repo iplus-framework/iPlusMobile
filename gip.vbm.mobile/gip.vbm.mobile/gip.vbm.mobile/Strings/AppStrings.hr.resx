@@ -765,4 +765,7 @@
   <data name="PrintVerificationQuestion" xml:space="preserve">
     <value>Jeste li sigurni da želite printati {0} kopija?</value>
   </data>
+  <data name="BtnLastPostingOrder" xml:space="preserve">
+    <value>Na nalog s poslj. knjiženjem</value>
+  </data>
 </root>

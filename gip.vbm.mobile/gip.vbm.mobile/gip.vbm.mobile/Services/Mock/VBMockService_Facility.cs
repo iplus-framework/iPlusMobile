@@ -57,6 +57,14 @@ namespace gip.vbm.mobile.Services
             return await Task.FromResult<WSResponse<List<FacilityCharge>>>(null);
         }
 
+        public async Task<WSResponse<BarcodeEntity>> GetLastPostingOrderAsync(string facilityChargeID)
+        {
+            if (string.IsNullOrEmpty(facilityChargeID))
+                return await Task.FromResult(new WSResponse<BarcodeEntity>(null, new Msg(eMsgLevel.Error, "facilityChargeID is empty")));
+
+            return await Task.FromResult<WSResponse<BarcodeEntity>>(null);
+        }
+
         #endregion
 
         #region FacilityLot
