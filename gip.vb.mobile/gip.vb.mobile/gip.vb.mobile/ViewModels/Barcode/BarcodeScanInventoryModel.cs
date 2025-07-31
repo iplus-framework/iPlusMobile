@@ -88,6 +88,23 @@ namespace gip.vb.mobile.ViewModels
 
         #endregion
 
+        #region Properties
+
+        private bool _IsSearchPanelVisible;
+        public bool IsSearchPanelVisible
+        {
+            get
+            {
+                return _IsSearchPanelVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsSearchPanelVisible, value);
+            }
+        }
+
+        #endregion
+
         #region Methods
 
         public override void Clear()

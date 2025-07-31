@@ -136,6 +136,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set
             {
                 SetProperty(ref _IsSearchPanelVisible, value);
+                if (BarcodeScannerModel != null)
+                    BarcodeScannerModel.IsSearchPanelVisible = value;
             }
         }
 
@@ -475,8 +477,14 @@ namespace gip.vb.mobile.ViewModels.Inventory
             {
                 SelectedInventoryLine = InventoryNavArgument.SelectedInventoryLine;
                 WriteNewStockQuantity();
-                IsEditPanelVisible = true;
-                IsSearchPanelVisible = true;
+                if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                {
+                    IsEditPanelVisible = false;
+                }
+                else
+                {
+                    IsEditPanelVisible = true;
+                }
             }
             else
                 IsEditPanelVisible = false;

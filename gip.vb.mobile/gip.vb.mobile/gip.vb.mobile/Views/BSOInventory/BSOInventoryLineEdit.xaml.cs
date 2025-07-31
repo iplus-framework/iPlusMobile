@@ -33,12 +33,13 @@ namespace gip.vb.mobile.Views
             barcodeScanner._ViewModel = _ViewModel.BarcodeScannerModel;
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-            //_ViewModel.BarcodeScannerModel = barcodeScanner._ViewModel;
             _ViewModel.CleanUpForm();
             _ViewModel.CleanBarcodeAndSetCurrentFacility();
             _ViewModel.Start();
             base.OnAppearing();
-            barcodeScanner.IsVisible = false;
+
+            if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                btnCheckQuant.IsVisible = false;
         }
 
         protected override void OnDisappearing()
@@ -74,7 +75,7 @@ namespace gip.vb.mobile.Views
                         break;
                 }
             }
-            barcodeScanner.IsVisible = false;
+            //barcodeScanner.IsVisible = false;
         }
 
         private void cmdQuantEditAgain_Clicked(object sender, EventArgs e)
@@ -93,7 +94,6 @@ namespace gip.vb.mobile.Views
                 {
                     BarcodeEntity barcodeEntity = _ViewModel.BarcodeScannerModel.Item.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
                     _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
-                    barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
                     bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
                 }
             }
@@ -108,7 +108,6 @@ namespace gip.vb.mobile.Views
                 {
                     _ViewModel.CurrentFacilityCharge = barcodeEntity.FacilityCharge;
                     bool success = await _ViewModel.ExecuteGetFacilityInventorySearchCharge();
-                    barcodeScanner.IsVisible = _ViewModel.IsSearchPanelVisible;
                 }
             }
         }
