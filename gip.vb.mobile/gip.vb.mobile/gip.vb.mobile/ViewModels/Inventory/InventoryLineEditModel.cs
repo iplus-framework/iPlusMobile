@@ -54,7 +54,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties
 
-        private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
+        internal SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         /// <summary>
         /// Inventory navigation argument
@@ -461,9 +461,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         /// </summary>
         public void WriteNewStockQuantity()
         {
-            if (SelectedInventoryLine != null
-                                && !SelectedInventoryLine.NotAvailable
-                                && SelectedInventoryLine.NewStockQuantity == null)
+            if (SelectedInventoryLine != null && !SelectedInventoryLine.NotAvailable && SelectedInventoryLine.NewStockQuantity == null && (InventoryNavArgument.SelectedFacilityInventory == null || InventoryNavArgument.SelectedFacilityInventory.SuggestStockQuantity))
                 SelectedInventoryLine.NewStockQuantity = SelectedInventoryLine.StockQuantity;
         }
 
@@ -493,6 +491,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
             if (sumQuantity.HasValue && SelectedInventoryLine != null)
             {
                 SelectedInventoryLine.NewStockQuantity = sumQuantity.Value;
+                IsEditPanelVisible = true;
                 _SumByBarcodeModel = null;
             }
         }

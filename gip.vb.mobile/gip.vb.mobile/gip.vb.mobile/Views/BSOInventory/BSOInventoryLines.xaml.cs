@@ -53,7 +53,6 @@ namespace gip.vb.mobile.Views
             _ViewModel.SelectedLine = inventoryPos;
             _ViewModel.InventoryNavArgument.SelectedInventoryLine = _ViewModel.SelectedLine;
 
-
             await Navigation.PushAsync(new BSOInventoryLineEdit()
             {
                 NavParam = new NavParameter(PageStateEnum.View)

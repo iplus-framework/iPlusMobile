@@ -33,8 +33,11 @@ namespace gip.vb.mobile.Views
             barcodeScanner._ViewModel = _ViewModel.BarcodeScannerModel;
             barcodeScanner.OnAppearing();
             _ViewModel.InventoryNavArgument = NavParam.Arguments as InventoryNavArgument;
-            _ViewModel.CleanUpForm();
-            _ViewModel.CleanBarcodeAndSetCurrentFacility();
+            if (_ViewModel._SumByBarcodeModel == null)
+            {
+                _ViewModel.CleanUpForm();
+                _ViewModel.CleanBarcodeAndSetCurrentFacility();
+            }
             _ViewModel.Start();
             base.OnAppearing();
 
