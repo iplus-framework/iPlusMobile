@@ -487,11 +487,13 @@ namespace gip.vb.mobile.ViewModels.Inventory
             else
                 IsEditPanelVisible = false;
 
+            if (_SumByBarcodeModel != null && !IsEditPanelVisible)
+                IsEditPanelVisible = true;
+
             double? sumQuantity = GetQuantityFromSumModel();
             if (sumQuantity.HasValue && SelectedInventoryLine != null)
             {
                 SelectedInventoryLine.NewStockQuantity = sumQuantity.Value;
-                IsEditPanelVisible = true;
                 _SumByBarcodeModel = null;
             }
         }
