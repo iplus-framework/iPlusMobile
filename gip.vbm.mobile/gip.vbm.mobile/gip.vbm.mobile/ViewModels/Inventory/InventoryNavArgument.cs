@@ -30,6 +30,8 @@ namespace gip.vbm.mobile.ViewModels.Inventory
 
         public Facility SelectedFacility { get; set; }
 
+        public FacilityInventory SelectedFacilityInventory { get; set; }
+
         public FacilityInventoryPos SelectedInventoryLine { get; set; }
         #endregion
 
