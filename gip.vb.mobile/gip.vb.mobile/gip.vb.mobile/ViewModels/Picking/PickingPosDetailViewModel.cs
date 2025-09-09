@@ -648,7 +648,8 @@ namespace gip.vb.mobile.ViewModels
                             FacilityCharge fc = new FacilityCharge() { FacilityChargeID = facilityChargeID.Value};
                             printEntity.Sequence = new List<BarcodeEntity>()
                                                     {
-                                                        new BarcodeEntity(){ FacilityCharge = fc }
+                                                        new BarcodeEntity(){ FacilityCharge = fc },
+                                                        new BarcodeEntity(){ Picking = PickingItem}
                                                     };
 
                             await ExecutePrintCommand(printEntity);
