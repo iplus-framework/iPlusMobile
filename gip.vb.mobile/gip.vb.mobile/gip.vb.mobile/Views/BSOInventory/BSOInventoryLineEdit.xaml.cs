@@ -162,7 +162,7 @@ namespace gip.vb.mobile.Views
 
         private void btnCheckQuant_Clicked(object sender, EventArgs e)
         {
-            barcodeScanner.IsVisible = !barcodeScanner.IsVisible;
+            _ViewModel.IsSearchPanelVisible = !_ViewModel.IsSearchPanelVisible;
         }
     }
 }
