@@ -276,10 +276,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 try
                 {
                     // CheckIsFacilityChanged();
-                    if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    if (CurrentFacilityCharge != null /*&& !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo)*/)
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo ?? core.webservices.CoreWebServiceConst.EmptyParam, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();
