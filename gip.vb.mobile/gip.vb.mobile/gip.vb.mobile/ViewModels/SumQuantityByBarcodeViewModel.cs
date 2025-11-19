@@ -23,6 +23,7 @@ namespace gip.vb.mobile.ViewModels
         public static GS1.AII AmountInPartsAI = GS1.GetAII("30");
         public static GS1.AII ExternLotNoAI = GS1.GetAII("10");
         public static GS1.AII ExpDateAI = GS1.GetAII("15");
+        public static GS1.AII ExpiryDateAI = GS1.GetAII("17");
 
         public struct SumItem
         {
@@ -123,10 +124,11 @@ namespace gip.vb.mobile.ViewModels
 
             if (parseResult != null && parseResult.Any())
             {
-                GS1.ParseResult externLotNo, expDate, netWeight, grossWeight, amountInParts;
+                GS1.ParseResult externLotNo, expDate, expDate1, netWeight, grossWeight, amountInParts;
 
                 parseResult.TryGetValue(NetWeightInKgAI, out netWeight);
                 parseResult.TryGetValue(ExpDateAI, out expDate);
+                parseResult.TryGetValue(ExpiryDateAI, out expDate1);
                 parseResult.TryGetValue(ExternLotNoAI, out externLotNo);
                 parseResult.TryGetValue(GrossWeightInKgAI, out grossWeight);
                 parseResult.TryGetValue(AmountInPartsAI, out amountInParts);
@@ -160,6 +162,7 @@ namespace gip.vb.mobile.ViewModels
                                 return;
 
                             SumItemsLotNo = externLotNo.StringResult;
+                            SumItemsLotNo = TrimStr(SumItemsLotNo);
                         }
                         else if (SumItemsLotNo != externLotNo.StringResult)
                         {
@@ -171,22 +174,26 @@ namespace gip.vb.mobile.ViewModels
                     DateTime? expirationDate = null;
                     if (expDate.StringResult != null)
                     {
-                        DateTime dt;
-                        if (DateTime.TryParseExact(expDate.StringResult, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
-                        {
-                            expirationDate = dt;
-                            if (SumItemsExpDate == null)
-                            {
-                                if (SumItemQuantites.Count > 0)
-                                    return;
+                        expirationDate = ParseExpirationDate(expDate.StringResult);
 
-                                SumItemsExpDate = dt;
-                            }
-                            else if (dt != SumItemsExpDate)
-                            {
-                                Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentExpDateInList_Text);
+                    }
+                    if (expirationDate == null && expDate1.StringResult != null)
+                    {
+                        expirationDate = ParseExpirationDate(expDate1.StringResult);
+                    }
+
+                    if(expirationDate != null)
+                    {
+                        if (SumItemsExpDate == null)
+                        {
+                            if (SumItemQuantites.Count > 0)
                                 return;
-                            }
+                            SumItemsExpDate = expirationDate;
+                        }
+                        else if (SumItemsExpDate != expirationDate)
+                        {
+                            Message = new Msg(eMsgLevel.Warning, Strings.AppStrings.DifferentExpDateInList_Text);
+                            return;
                         }
                     }
 
@@ -227,6 +234,29 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
             }
+        }
+
+        private DateTime? ParseExpirationDate(string dateStrValue)
+        {
+            DateTime? result = null;
+            DateTime dt;
+            dateStrValue = TrimStr(dateStrValue);
+            if (DateTime.TryParseExact(dateStrValue, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
+            {
+                result = dt;
+            }
+            return result;
+        }
+
+        public string TrimStr(string value)
+        {
+            if(!string.IsNullOrEmpty(value))
+            {
+                char[] separators = { '\u001d', '\u001e', '\u001f' };
+                value = value.Trim(separators);
+            }
+            
+            return value;
         }
 
         public override void Clear()
