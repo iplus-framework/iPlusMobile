@@ -311,6 +311,7 @@ namespace gip.vb.mobile.Droid
                             config.ReaderParams.ReaderSpecific.ImagerSpecific.PickList = ScannerConfig.PickList.Enabled;
                             config.DecoderParams.Code39.Enabled = true;
                             config.DecoderParams.Code128.Enabled = true;
+                            config.DecoderParams.Gs1QrCode.Enabled = true;
                             _Scanner.SetConfig(config);
 
                         }

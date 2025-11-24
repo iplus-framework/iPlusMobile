@@ -32,6 +32,7 @@ namespace gip.vb.mobile.ViewModels
         #endregion
 
         #region Properties
+
         private Picking _PickingItem;
         public Picking PickingItem
         {
@@ -641,6 +642,7 @@ namespace gip.vb.mobile.ViewModels
 
                     if (!string.IsNullOrEmpty(sumItem.ExtLotNo))
                         ExternLotNo = sumItem.ExtLotNo;
+
                 }
                 catch (Exception e)
                 {

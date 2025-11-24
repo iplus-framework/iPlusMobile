@@ -162,7 +162,6 @@ namespace gip.vb.mobile.ViewModels
                                 return;
 
                             SumItemsLotNo = externLotNo.StringResult;
-                            SumItemsLotNo = TrimStr(SumItemsLotNo);
                         }
                         else if (SumItemsLotNo != externLotNo.StringResult)
                         {
@@ -240,23 +239,11 @@ namespace gip.vb.mobile.ViewModels
         {
             DateTime? result = null;
             DateTime dt;
-            dateStrValue = TrimStr(dateStrValue);
             if (DateTime.TryParseExact(dateStrValue, "yyMMdd", null, System.Globalization.DateTimeStyles.None, out dt))
             {
                 result = dt;
             }
             return result;
-        }
-
-        public string TrimStr(string value)
-        {
-            if(!string.IsNullOrEmpty(value))
-            {
-                char[] separators = { '\u001d', '\u001e', '\u001f' };
-                value = value.Trim(separators);
-            }
-            
-            return value;
         }
 
         public override void Clear()
