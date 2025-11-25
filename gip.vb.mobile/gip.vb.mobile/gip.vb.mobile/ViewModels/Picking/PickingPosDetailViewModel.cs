@@ -322,7 +322,10 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
                 else
+                {
+                    Message = response.Message;
                     CurrentBarcodeEntity = new List<object>();
+                }
             }
             catch (Exception ex)
             {
@@ -341,7 +344,14 @@ namespace gip.vb.mobile.ViewModels
             {
                 try
                 {
-                    Dictionary<AII, ParseResult> parsingResult = GS1.Parse(this.CurrentBarcode, false);
+                    string tempBarcode = GS1.TrimBarcodeString(currentBarcode);
+                    char GS = (char)29;
+                    string GS_ESCAPED = "\u001d";
+                    if(tempBarcode.Contains(GS))
+                    {
+                        tempBarcode = tempBarcode.Replace(GS.ToString(), GS_ESCAPED);
+                    }
+                    Dictionary<AII, ParseResult> parsingResult = GS1.Parse(tempBarcode, false);
                     AII aiQuantity = GS1.GetAII("310d");
                     if (parsingResult.Keys.Contains(aiQuantity))
                     {
