@@ -193,16 +193,16 @@ namespace gip.vbm.mobile.Views
         {
             INullableDateTimePickerOptions nullableDateTimePickerOptions = new NullableDateTimePickerOptions
             {
-                NullableDateTime = _ViewModel.ExpirationDate,
+                SelectedDateTime = _ViewModel.ExpirationDate,
                 Mode = PickerModes.Date,
                 ShowWeekNumbers = false
                 // .. other calendar options
             };
 
-            var result = await NullableDateTimePicker.OpenCalendarAsync(nullableDateTimePickerOptions);
+            var result = await NullableDateTimePicker.OpenAsync(nullableDateTimePickerOptions);
             if (result is PopupResult popupResult && popupResult.ButtonResult != PopupButtons.Cancel)
             {
-                _ViewModel.ExpirationDate = popupResult.NullableDateTime;
+                _ViewModel.ExpirationDate = popupResult.SelectedDateTime;
             }
             if (dtEntry != null)
                 dtEntry.Unfocus();

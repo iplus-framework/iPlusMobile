@@ -61,17 +61,17 @@ public partial class BarcodePopup : Popup
         _Results = e.Results;
         if (AutoCloseOnScan)
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 //scanView?.DisconnectCamera();
-                Close(_Results);
+                await CloseAsync();
             });
         }
     }
 
-    void OnOKButtonClicked(object sender, EventArgs e)
+    async void OnOKButtonClicked(object sender, EventArgs e)
     {
         //scanView?.DisconnectCamera();
-        Close(_Results);
+        await CloseAsync();
     }
 }

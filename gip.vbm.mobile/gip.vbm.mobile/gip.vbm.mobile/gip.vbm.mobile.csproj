@@ -1,397 +1,399 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Configurations>Debug;Release;DebugEmulator;DebugDatalogic;ReleaseDatalogic;DebugZebra;ReleaseZebra</Configurations>
-    <UseMaui>true</UseMaui>
-    <TargetFrameworks>;net8.0-android</TargetFrameworks>
-    <OutputType>Library</OutputType>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-android|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net6.0-ios|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net6.0-android|AnyCPU'">
-    <RunAOTCompilation>True</RunAOTCompilation>
-  </PropertyGroup>
-  <ItemGroup>
-    <AndroidResource Remove="Resources\Images\deleteicon.png" />
-    <AndroidResource Remove="Resources\Images\iconcamera.png" />
-    <AndroidResource Remove="Resources\Images\inventories.png" />
-    <AndroidResource Remove="Resources\Images\inventory_search.png" />
-    <AndroidResource Remove="Resources\Images\ipluslogo.png" />
-    <AndroidResource Remove="Resources\Images\naviconcamera.png" />
-    <AndroidResource Remove="Resources\Images\naviconhistory.png" />
-    <AndroidResource Remove="Resources\Images\naviconquant.png" />
-    <AndroidResource Remove="Resources\Images\naviconrefresh.png" />
-    <AndroidResource Remove="Resources\Images\positions.png" />
-    <AndroidResource Remove="Resources\Images\position_edit.png" />
-    <AndroidResource Remove="Resources\Images\position_search.png" />
-    <AndroidResource Remove="Resources\Images\print.png" />
-    <AndroidResource Remove="Resources\Images\removeicon.png" />
-    <AndroidResource Remove="Resources\Images\scanbarcodeicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Controls\BindableRadioGroup.cs" />
-    <Compile Remove="Controls\CheckBox.cs" />
-    <Compile Remove="Controls\ErrorControl.xaml.cs" />
-    <Compile Remove="Controls\GridView.cs" />
-    <Compile Remove="Controls\ImageButton.cs" />
-    <Compile Remove="Controls\RadioButton.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Controls\ErrorControl.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <MauiXaml Remove="Controls\ErrorControl.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Models\JsonMock\Facilities.json" />
-    <None Remove="Models\JsonMock\FacilitiesBookings.json" />
-    <None Remove="Models\JsonMock\FacilitiesSum.json" />
-    <None Remove="Models\JsonMock\FacilityCharges.json" />
-    <None Remove="Models\JsonMock\FacilityChargesBookings.json" />
-    <None Remove="Models\JsonMock\FacilityInventories.json" />
-    <None Remove="Models\JsonMock\FacilityInventoryLines.json" />
-    <None Remove="Models\JsonMock\FacilityLocationBookings.json" />
-    <None Remove="Models\JsonMock\FacilityLocationSum.json" />
-    <None Remove="Models\JsonMock\FacilityLots.json" />
-    <None Remove="Models\JsonMock\FacilityLotsBookings.json" />
-    <None Remove="Models\JsonMock\FacilityLotsSum.json" />
-    <None Remove="Models\JsonMock\Materials.json" />
-    <None Remove="Models\JsonMock\MaterialsBookings.json" />
-    <None Remove="Models\JsonMock\MaterialsSum.json" />
-    <None Remove="Models\JsonMock\MDFacilityInventoryPosStates.json" />
-    <None Remove="Models\JsonMock\MDFacilityInventoryStates.json" />
-    <None Remove="Models\JsonMock\Pickings.json" />
-    <None Remove="Models\JsonMock\POInM-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
-    <None Remove="Models\JsonMock\POInM-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
-    <None Remove="Models\JsonMock\POInM-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
-    <None Remove="Models\JsonMock\POInM-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
-    <None Remove="Models\JsonMock\POInputMaterials.json" />
-    <None Remove="Models\JsonMock\POPLIm-0ffd2763-ed12-4c03-bd7e-3abd82c4cfef.json" />
-    <None Remove="Models\JsonMock\POPLIm-296e02fe-8767-4b85-a4f1-f7d7810ab4c8.json" />
-    <None Remove="Models\JsonMock\POPLIm-bb5f464b-0208-4588-94b1-36037d7e8d7d.json" />
-    <None Remove="Models\JsonMock\POPLIm-d2f415cf-c01f-4a96-9b35-7d0af8f1c192.json" />
-    <None Remove="Models\JsonMock\POPosFB-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
-    <None Remove="Models\JsonMock\POPosFB-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
-    <None Remove="Models\JsonMock\POPosFB-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
-    <None Remove="Models\JsonMock\POPosFB-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
-    <None Remove="Models\JsonMock\PORelFB-3461fa88-4a7d-406a-850c-bd4a0a911772.json" />
-    <None Remove="Models\JsonMock\PORelFB-35e46d81-4282-4e38-bcbc-5c91916d054d.json" />
-    <None Remove="Models\JsonMock\PORelFB-794e9d34-c97c-4b1e-a852-3fc9127aaa92.json" />
-    <None Remove="Models\JsonMock\ProdOrderPartslists.json" />
-    <None Remove="Models\JsonMock\ProdOrderPLIntermediates.json" />
-    <None Remove="Models\JsonMock\VBUserRights.json" />
-    <None Remove="Resources\Images\deleteicon.png" />
-    <None Remove="Resources\Images\iconcamera.png" />
-    <None Remove="Resources\Images\inventories.png" />
-    <None Remove="Resources\Images\inventory_search.png" />
-    <None Remove="Resources\Images\ipluslogo.png" />
-    <None Remove="Resources\Images\naviconcamera.png" />
-    <None Remove="Resources\Images\naviconhistory.png" />
-    <None Remove="Resources\Images\naviconquant.png" />
-    <None Remove="Resources\Images\naviconrefresh.png" />
-    <None Remove="Resources\Images\positions.png" />
-    <None Remove="Resources\Images\position_edit.png" />
-    <None Remove="Resources\Images\position_search.png" />
-    <None Remove="Resources\Images\print.png" />
-    <None Remove="Resources\Images\removeicon.png" />
-    <None Remove="Resources\Images\scanbarcodeicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Models\JsonMock\FacilityInventories.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityInventoryLines.json" />
-    <EmbeddedResource Include="Models\JsonMock\MDFacilityInventoryPosStates.json" />
-    <EmbeddedResource Include="Models\JsonMock\MDFacilityInventoryStates.json" />
-    <EmbeddedResource Include="Models\JsonMock\POInM-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
-    <EmbeddedResource Include="Models\JsonMock\POInM-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
-    <EmbeddedResource Include="Models\JsonMock\POInM-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
-    <EmbeddedResource Include="Models\JsonMock\POInM-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPLIm-0ffd2763-ed12-4c03-bd7e-3abd82c4cfef.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Models\JsonMock\FacilitiesSum.json" />
-    <EmbeddedResource Include="Models\JsonMock\POInputMaterials.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPLIm-296e02fe-8767-4b85-a4f1-f7d7810ab4c8.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPLIm-bb5f464b-0208-4588-94b1-36037d7e8d7d.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPLIm-d2f415cf-c01f-4a96-9b35-7d0af8f1c192.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPosFB-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPosFB-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPosFB-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
-    <EmbeddedResource Include="Models\JsonMock\POPosFB-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
-    <EmbeddedResource Include="Models\JsonMock\PORelFB-3461fa88-4a7d-406a-850c-bd4a0a911772.json" />
-    <EmbeddedResource Include="Models\JsonMock\PORelFB-35e46d81-4282-4e38-bcbc-5c91916d054d.json" />
-    <EmbeddedResource Include="Models\JsonMock\PORelFB-794e9d34-c97c-4b1e-a852-3fc9127aaa92.json" />
-    <EmbeddedResource Include="Models\JsonMock\ProdOrderPartslists.json" />
-    <EmbeddedResource Include="Models\JsonMock\ProdOrderPLIntermediates.json" />
-    <EmbeddedResource Include="Models\JsonMock\VBUserRights.json" />
-    <EmbeddedResource Include="Models\JsonMock\Pickings.json" />
-    <EmbeddedResource Include="Models\JsonMock\Facilities.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilitiesBookings.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityCharges.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityChargesBookings.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityLocationBookings.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityLocationSum.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityLotsBookings.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityLots.json" />
-    <EmbeddedResource Include="Models\JsonMock\FacilityLotsSum.json" />
-    <EmbeddedResource Include="Models\JsonMock\Materials.json" />
-    <EmbeddedResource Include="Models\JsonMock\MaterialsBookings.json" />
-    <EmbeddedResource Include="Models\JsonMock\MaterialsSum.json" />
-    <MauiImage Include="Resources\Images\deleteicon.png" />
-    <MauiImage Include="Resources\Images\iconcamera.png" />
-    <MauiImage Include="Resources\Images\inventories.png" />
-    <MauiImage Include="Resources\Images\inventory_search.png" />
-    <MauiImage Include="Resources\Images\ipluslogo.png" />
-    <MauiImage Include="Resources\Images\naviconcamera.png" />
-    <MauiImage Include="Resources\Images\naviconhistory.png" />
-    <MauiImage Include="Resources\Images\naviconquant.png" />
-    <MauiImage Include="Resources\Images\naviconrefresh.png" />
-    <MauiImage Include="Resources\Images\positions.png" />
-    <MauiImage Include="Resources\Images\position_edit.png" />
-    <MauiImage Include="Resources\Images\position_search.png" />
-    <MauiImage Include="Resources\Images\print.png" />
-    <MauiImage Include="Resources\Images\removeicon.png" />
-    <MauiImage Include="Resources\Images\scanbarcodeicon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-    <PackageReference Include="Sebarslan.Maui.NullableDateTimePicker" Version="2.3.1" />
-    <PackageReference Include="ZXing.Net.Maui" Version="0.3.0-preview.1" />
-    <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.3.0-preview.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Controls\BarcodeScannerView.xaml.cs">
-      <DependentUpon>BarcodeScannerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Strings\AppStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Themes\SharedDataTemplates.xaml.cs">
-      <DependentUpon>SharedDataTemplates.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Themes\LightTheme.xaml.cs">
-      <DependentUpon>LightTheme.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOBarcode\BSOACMethodEditor.xaml.cs">
-      <DependentUpon>BSOACMethodEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
-      <DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOOperationLogOverview.xaml.cs">
-      <DependentUpon>BSOOperationLogOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
-      <DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOFacilityLocationOverview.xaml.cs">
-      <DependentUpon>BSOFacilityLocationOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOFacilityOverview.xaml.cs">
-      <DependentUpon>BSOFacilityOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOFacilityMaterialOverview.xaml.cs">
-      <DependentUpon>BSOFacilityMaterialOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOBarcodeFacilityOverview.xaml.cs">
-      <DependentUpon>BSOBarcodeFacilityOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOBarcode\BSOBarcodeTasksManu.xaml.cs">
-      <DependentUpon>BSOBarcodeTasksManu.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOFacility\BSOFacilityBookingHistory.xaml.cs">
-      <DependentUpon>BSOFacilityBookingHistory.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOInventory\BSOFacilityInventory.xaml.cs">
-      <DependentUpon>BSOFacilityInventory.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOInventory\BSOInventoryLines.xaml.cs">
-      <DependentUpon>BSOInventoryLines.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOPicking\BSOPickingPosDetail.xaml.cs">
-      <DependentUpon>BSOPickingPosDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOProdOrder\BSOProdOrderInward.xaml.cs">
-      <DependentUpon>BSOProdOrderInward.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardMatSel.xaml.cs">
-      <DependentUpon>BSOProdOrderOutwardMatSel.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOProdOrder\BSOProdOrderOutward.xaml.cs">
-      <DependentUpon>BSOProdOrderOutward.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\MainPages\AppShell.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Update="Views\MainPages\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOPicking\BSOPickingDetail.xaml.cs">
-      <DependentUpon>BSOPickingDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BSOPicking\BSOPickingItems.xaml.cs">
-      <DependentUpon>BSOPickingItems.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Pivot\" />
-    <Folder Include="Helpers\Localize\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Strings\AppStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Themes\DarkTheme.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Controls\BarcodeScanner.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOBarcode\BSOBarcodeTaskManuDetails.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeMaker.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeOverview.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySelector.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOFacility\BSOFacilitySortInfoOverLocation.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOInventory\BSOFacilityInventory.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOInventory\BSOInventoryLineEdit.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOInventory\BSOInventoryMode.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPicking.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingByMaterial.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingByMaterialDetail.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingItemsWorkplace.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplace.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplaceActivation.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplaceActivationItems.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOPrinterSettings.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrder.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderBatch.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderInward.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderInOutSelector.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderIntermediate.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderOutward.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\BSOBarcode\BSOSumQuantityByBarcode.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  <ItemGroup>
-    <MauiXaml Update="Controls\BarcodePopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\BSOFacility\BSOOperationLogOverview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="Views\MainPages\AppShell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-  </ItemGroup>
-  <Import Project="..\..\..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.projitems" Label="Shared" />
-  <ItemGroup>
-    <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.40" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Configurations>Debug;Release;DebugEmulator;DebugDatalogic;ReleaseDatalogic;DebugZebra;ReleaseZebra</Configurations>
+		<UseMaui>true</UseMaui>
+		<TargetFrameworks>net10.0-android</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+		<Optimize>false</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugZebra|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+		<Optimize>false</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseZebra|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net10.0-android|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugEmulator|net10.0-ios|AnyCPU'">
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net10.0-android|AnyCPU'">
+		<RunAOTCompilation>True</RunAOTCompilation>
+	</PropertyGroup>
+	<ItemGroup>
+		<AndroidResource Remove="Resources\Images\deleteicon.png" />
+		<AndroidResource Remove="Resources\Images\iconcamera.png" />
+		<AndroidResource Remove="Resources\Images\inventories.png" />
+		<AndroidResource Remove="Resources\Images\inventory_search.png" />
+		<AndroidResource Remove="Resources\Images\ipluslogo.png" />
+		<AndroidResource Remove="Resources\Images\naviconcamera.png" />
+		<AndroidResource Remove="Resources\Images\naviconhistory.png" />
+		<AndroidResource Remove="Resources\Images\naviconquant.png" />
+		<AndroidResource Remove="Resources\Images\naviconrefresh.png" />
+		<AndroidResource Remove="Resources\Images\positions.png" />
+		<AndroidResource Remove="Resources\Images\position_edit.png" />
+		<AndroidResource Remove="Resources\Images\position_search.png" />
+		<AndroidResource Remove="Resources\Images\print.png" />
+		<AndroidResource Remove="Resources\Images\removeicon.png" />
+		<AndroidResource Remove="Resources\Images\scanbarcodeicon.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Controls\BindableRadioGroup.cs" />
+		<Compile Remove="Controls\CheckBox.cs" />
+		<Compile Remove="Controls\ErrorControl.xaml.cs" />
+		<Compile Remove="Controls\GridView.cs" />
+		<Compile Remove="Controls\ImageButton.cs" />
+		<Compile Remove="Controls\RadioButton.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="Controls\ErrorControl.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+		<MauiXaml Remove="Controls\ErrorControl.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Models\JsonMock\Facilities.json" />
+		<None Remove="Models\JsonMock\FacilitiesBookings.json" />
+		<None Remove="Models\JsonMock\FacilitiesSum.json" />
+		<None Remove="Models\JsonMock\FacilityCharges.json" />
+		<None Remove="Models\JsonMock\FacilityChargesBookings.json" />
+		<None Remove="Models\JsonMock\FacilityInventories.json" />
+		<None Remove="Models\JsonMock\FacilityInventoryLines.json" />
+		<None Remove="Models\JsonMock\FacilityLocationBookings.json" />
+		<None Remove="Models\JsonMock\FacilityLocationSum.json" />
+		<None Remove="Models\JsonMock\FacilityLots.json" />
+		<None Remove="Models\JsonMock\FacilityLotsBookings.json" />
+		<None Remove="Models\JsonMock\FacilityLotsSum.json" />
+		<None Remove="Models\JsonMock\Materials.json" />
+		<None Remove="Models\JsonMock\MaterialsBookings.json" />
+		<None Remove="Models\JsonMock\MaterialsSum.json" />
+		<None Remove="Models\JsonMock\MDFacilityInventoryPosStates.json" />
+		<None Remove="Models\JsonMock\MDFacilityInventoryStates.json" />
+		<None Remove="Models\JsonMock\Pickings.json" />
+		<None Remove="Models\JsonMock\POInM-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
+		<None Remove="Models\JsonMock\POInM-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
+		<None Remove="Models\JsonMock\POInM-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
+		<None Remove="Models\JsonMock\POInM-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
+		<None Remove="Models\JsonMock\POInputMaterials.json" />
+		<None Remove="Models\JsonMock\POPLIm-0ffd2763-ed12-4c03-bd7e-3abd82c4cfef.json" />
+		<None Remove="Models\JsonMock\POPLIm-296e02fe-8767-4b85-a4f1-f7d7810ab4c8.json" />
+		<None Remove="Models\JsonMock\POPLIm-bb5f464b-0208-4588-94b1-36037d7e8d7d.json" />
+		<None Remove="Models\JsonMock\POPLIm-d2f415cf-c01f-4a96-9b35-7d0af8f1c192.json" />
+		<None Remove="Models\JsonMock\POPosFB-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
+		<None Remove="Models\JsonMock\POPosFB-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
+		<None Remove="Models\JsonMock\POPosFB-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
+		<None Remove="Models\JsonMock\POPosFB-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
+		<None Remove="Models\JsonMock\PORelFB-3461fa88-4a7d-406a-850c-bd4a0a911772.json" />
+		<None Remove="Models\JsonMock\PORelFB-35e46d81-4282-4e38-bcbc-5c91916d054d.json" />
+		<None Remove="Models\JsonMock\PORelFB-794e9d34-c97c-4b1e-a852-3fc9127aaa92.json" />
+		<None Remove="Models\JsonMock\ProdOrderPartslists.json" />
+		<None Remove="Models\JsonMock\ProdOrderPLIntermediates.json" />
+		<None Remove="Models\JsonMock\VBUserRights.json" />
+		<None Remove="Resources\Images\deleteicon.png" />
+		<None Remove="Resources\Images\iconcamera.png" />
+		<None Remove="Resources\Images\inventories.png" />
+		<None Remove="Resources\Images\inventory_search.png" />
+		<None Remove="Resources\Images\ipluslogo.png" />
+		<None Remove="Resources\Images\naviconcamera.png" />
+		<None Remove="Resources\Images\naviconhistory.png" />
+		<None Remove="Resources\Images\naviconquant.png" />
+		<None Remove="Resources\Images\naviconrefresh.png" />
+		<None Remove="Resources\Images\positions.png" />
+		<None Remove="Resources\Images\position_edit.png" />
+		<None Remove="Resources\Images\position_search.png" />
+		<None Remove="Resources\Images\print.png" />
+		<None Remove="Resources\Images\removeicon.png" />
+		<None Remove="Resources\Images\scanbarcodeicon.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Models\JsonMock\FacilityInventories.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityInventoryLines.json" />
+		<EmbeddedResource Include="Models\JsonMock\MDFacilityInventoryPosStates.json" />
+		<EmbeddedResource Include="Models\JsonMock\MDFacilityInventoryStates.json" />
+		<EmbeddedResource Include="Models\JsonMock\POInM-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
+		<EmbeddedResource Include="Models\JsonMock\POInM-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
+		<EmbeddedResource Include="Models\JsonMock\POInM-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
+		<EmbeddedResource Include="Models\JsonMock\POInM-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPLIm-0ffd2763-ed12-4c03-bd7e-3abd82c4cfef.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Models\JsonMock\FacilitiesSum.json" />
+		<EmbeddedResource Include="Models\JsonMock\POInputMaterials.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPLIm-296e02fe-8767-4b85-a4f1-f7d7810ab4c8.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPLIm-bb5f464b-0208-4588-94b1-36037d7e8d7d.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPLIm-d2f415cf-c01f-4a96-9b35-7d0af8f1c192.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPosFB-4b3e016e-4652-4203-94db-8b5788cbd9f2.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPosFB-6ffd630a-97d9-4ce7-b362-eb59a365a4a1.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPosFB-9dc63e9a-6646-413d-bd63-4482a45901bd.json" />
+		<EmbeddedResource Include="Models\JsonMock\POPosFB-a55a41f1-1113-4032-a9fc-23ae4c6a4636.json" />
+		<EmbeddedResource Include="Models\JsonMock\PORelFB-3461fa88-4a7d-406a-850c-bd4a0a911772.json" />
+		<EmbeddedResource Include="Models\JsonMock\PORelFB-35e46d81-4282-4e38-bcbc-5c91916d054d.json" />
+		<EmbeddedResource Include="Models\JsonMock\PORelFB-794e9d34-c97c-4b1e-a852-3fc9127aaa92.json" />
+		<EmbeddedResource Include="Models\JsonMock\ProdOrderPartslists.json" />
+		<EmbeddedResource Include="Models\JsonMock\ProdOrderPLIntermediates.json" />
+		<EmbeddedResource Include="Models\JsonMock\VBUserRights.json" />
+		<EmbeddedResource Include="Models\JsonMock\Pickings.json" />
+		<EmbeddedResource Include="Models\JsonMock\Facilities.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilitiesBookings.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityCharges.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityChargesBookings.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityLocationBookings.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityLocationSum.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityLotsBookings.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityLots.json" />
+		<EmbeddedResource Include="Models\JsonMock\FacilityLotsSum.json" />
+		<EmbeddedResource Include="Models\JsonMock\Materials.json" />
+		<EmbeddedResource Include="Models\JsonMock\MaterialsBookings.json" />
+		<EmbeddedResource Include="Models\JsonMock\MaterialsSum.json" />
+		<MauiImage Include="Resources\Images\deleteicon.png" />
+		<MauiImage Include="Resources\Images\iconcamera.png" />
+		<MauiImage Include="Resources\Images\inventories.png" />
+		<MauiImage Include="Resources\Images\inventory_search.png" />
+		<MauiImage Include="Resources\Images\ipluslogo.png" />
+		<MauiImage Include="Resources\Images\naviconcamera.png" />
+		<MauiImage Include="Resources\Images\naviconhistory.png" />
+		<MauiImage Include="Resources\Images\naviconquant.png" />
+		<MauiImage Include="Resources\Images\naviconrefresh.png" />
+		<MauiImage Include="Resources\Images\positions.png" />
+		<MauiImage Include="Resources\Images\position_edit.png" />
+		<MauiImage Include="Resources\Images\position_search.png" />
+		<MauiImage Include="Resources\Images\print.png" />
+		<MauiImage Include="Resources\Images\removeicon.png" />
+		<MauiImage Include="Resources\Images\scanbarcodeicon.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls" Version="10.0.30" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
+		<PackageReference Include="Sebarslan.Maui.NullableDateTimePicker" Version="3.1.4" />
+		<PackageReference Include="ZXing.Net.Maui" Version="0.7.4" />
+		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.7.4" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Controls\BarcodeScannerView.xaml.cs">
+			<DependentUpon>BarcodeScannerView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Strings\AppStrings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppStrings.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Themes\SharedDataTemplates.xaml.cs">
+			<DependentUpon>SharedDataTemplates.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Themes\LightTheme.xaml.cs">
+			<DependentUpon>LightTheme.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOBarcode\BSOACMethodEditor.xaml.cs">
+			<DependentUpon>BSOACMethodEditor.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml.cs">
+			<DependentUpon>BSOBarcodeMachineDetails.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOOperationLogOverview.xaml.cs">
+			<DependentUpon>BSOOperationLogOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOFacilityLotOverview.xaml.cs">
+			<DependentUpon>BSOFacilityLotOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOFacilityLocationOverview.xaml.cs">
+			<DependentUpon>BSOFacilityLocationOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOFacilityOverview.xaml.cs">
+			<DependentUpon>BSOFacilityOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOFacilityMaterialOverview.xaml.cs">
+			<DependentUpon>BSOFacilityMaterialOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOBarcodeFacilityOverview.xaml.cs">
+			<DependentUpon>BSOBarcodeFacilityOverview.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOBarcode\BSOBarcodeTasksManu.xaml.cs">
+			<DependentUpon>BSOBarcodeTasksManu.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOFacility\BSOFacilityBookingHistory.xaml.cs">
+			<DependentUpon>BSOFacilityBookingHistory.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOInventory\BSOFacilityInventory.xaml.cs">
+			<DependentUpon>BSOFacilityInventory.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOInventory\BSOInventoryLines.xaml.cs">
+			<DependentUpon>BSOInventoryLines.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOPicking\BSOPickingPosDetail.xaml.cs">
+			<DependentUpon>BSOPickingPosDetail.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOProdOrder\BSOProdOrderInward.xaml.cs">
+			<DependentUpon>BSOProdOrderInward.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOProdOrder\BSOProdOrderOutwardMatSel.xaml.cs">
+			<DependentUpon>BSOProdOrderOutwardMatSel.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOProdOrder\BSOProdOrderOutward.xaml.cs">
+			<DependentUpon>BSOProdOrderOutward.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MainPages\AppShell.xaml.cs">
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MainPages\LoginPage.xaml.cs">
+			<DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOPicking\BSOPickingDetail.xaml.cs">
+			<DependentUpon>BSOPickingDetail.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BSOPicking\BSOPickingItems.xaml.cs">
+			<DependentUpon>BSOPickingItems.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Controls\Pivot\" />
+		<Folder Include="Helpers\Localize\" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Xamarin.Forms.DataGrid\Xamarin.Forms.DataGrid.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Strings\AppStrings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppStrings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Themes\DarkTheme.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Controls\BarcodeScanner.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOBarcode\BSOBarcodeTaskManuDetails.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeMaker.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOFacility\BSOFacilityChargeOverview.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOFacility\BSOFacilitySelector.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOFacility\BSOFacilitySortInfoOverLocation.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOInventory\BSOFacilityInventory.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOInventory\BSOInventoryLineEdit.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOInventory\BSOInventoryMode.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPicking.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingByMaterial.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingByMaterialDetail.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingItemsWorkplace.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplace.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplaceActivation.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPicking\BSOPickingWorkplace\BSOPickingWorkplaceActivationItems.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOPrinterSettings.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrder.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderBatch.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderInward.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderInOutSelector.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderIntermediate.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOProdOrder\BSOProdOrderOutward.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\BSOBarcode\BSOSumQuantityByBarcode.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+	<ItemGroup>
+		<MauiXaml Update="Controls\BarcodePopup.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\BSOBarcode\BSOBarcodeMachineDetails.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\BSOFacility\BSOOperationLogOverview.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPages\AppShell.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+	<Import Project="..\..\..\..\iPlus\gip.core.webservices.shared\gip.core.webservices.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlusMES\gip.mes.facility.shared\gip.mes.facility.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlus\gip.core.autocomponent.shared\gip.core.autocomponent.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlus\gip.core.datamodel.shared\gip.core.datamodel.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlusMES\gip.mes.datamodel.shared\gip.mes.datamodel.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlusMES\gip.mes.webservices.shared\gip.mes.webservices.shared.projitems" Label="Shared" />
+	<Import Project="..\..\..\..\iPlus\gip.core.processapplication.shared\gip.core.processapplication.shared.projitems" Label="Shared" />
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls" Version="10.0.30" />
+	</ItemGroup>
 </Project>
