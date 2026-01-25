@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
+		<TargetFrameworks>net10.0-android</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>gip.vbm.mobileApp</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -29,31 +29,31 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Configurations>Debug;Release;ReleaseDatalogic;DebugDatalogic;DebugZebra;ReleaseZebra</Configurations>
-    <AndroidManifest>Platforms\Android\$(Configuration)\AndroidManifest.xml</AndroidManifest>
+		<AndroidManifest>Platforms\Android\$(Configuration)\AndroidManifest.xml</AndroidManifest>
 	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net7.0-android|AnyCPU'">
-    <DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net7.0-android|AnyCPU'">
+		<DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net7.0-android|AnyCPU'">
-    <DefineConstants>$(DefineConstants)TRACE;ZEBRA</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net7.0-android|AnyCPU'">
+		<DefineConstants>$(DefineConstants)TRACE;ZEBRA</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
-	  <DefineConstants>$(DefineConstants)TRACE;ZXING</DefineConstants>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+		<DefineConstants>$(DefineConstants)TRACE;ZXING</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <DefineConstants>$(DefineConstants)TRACE;ZXING</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;ZXING</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net7.0-android|AnyCPU'">
-	  <DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net7.0-android|AnyCPU'">
-	  <DefineConstants>$(DefineConstants)TRACE;ZEBRA</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;ZEBRA</DefineConstants>
 	</PropertyGroup>
 
 	<!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
@@ -64,54 +64,49 @@
 	  <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
 	</PropertyGroup>-->
 
-  <PropertyGroup>
-    <ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
-    <Description>MAUI App iplus-framework mobile</Description>
-    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
-    <PackageIcon>icon.png</PackageIcon>
-    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
-    <PackageTags>iplus-framework;iplus-MES-mobile</PackageTags>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ILLinkPackVersion>8.0.100-1.23067.1</ILLinkPackVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <DefineConstants>$(DefineConstants);ZXING</DefineConstants>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <DefineConstants>$(DefineConstants);ZXING</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <Optimize>True</Optimize>
-    <DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net8.0-android|AnyCPU'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <Optimize>True</Optimize>
-    <DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="datalogic-xamarin-sdk" Version="1.32.12833" />
-    <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="8.0.6" />
-    <PackageReference Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<Optimize>True</Optimize>
+		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net10.0-android|AnyCPU'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<Optimize>True</Optimize>
+		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls" Version="10.0.30" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="datalogic-xamarin-sdk" Version="1.46.0" />
+		<PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="10.0.2" />
+		<PackageReference Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -131,47 +126,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\gip.vbm.mobile\gip.vbm.mobile\gip.vbm.mobile.csproj" />
+		<ProjectReference Include="..\gip.vbm.mobile\gip.vbm.mobile\gip.vbm.mobile.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
-	</ItemGroup>
-  
-	<ItemGroup Condition="(('$(TargetFramework)' == 'net7.0-android') Or ('$(TargetFramework)' == 'net8.0-android')) And (('$(Configuration)' == 'DebugDatalogic') Or ('$(Configuration)' == 'ReleaseDatalogic'))">
-	  <PackageReference Include="datalogic-xamarin-sdk">
-	    <Version>1.29.8975</Version>
-	  </PackageReference>
-	</ItemGroup>
-  
-	<ItemGroup Condition="(('$(TargetFramework)' == 'net7.0-android') Or ('$(TargetFramework)' == 'net8.0-android')) And (('$(Configuration)' == 'DebugZebra') Or ('$(Configuration)' == 'ReleaseZebra'))">
-	  <PackageReference Include="Symbol.XamarinEMDK" Version="8.0.0.9" />
-  </ItemGroup>
-  
-	<ItemGroup>
-	  <None Include="icon.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-    <None Update="readme.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
-	</ItemGroup>
-  
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.40" />
+		<Folder Include="Resources\Images\" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Platforms\Android\DebugDatalogic\AndroidManifest.xml" LogicalName="DatalogicAndroidManifest.xml" />
-    <None Update="Platforms\Android\ReleaseDatalogic\AndroidManifest.xml">
-      <LogicalName>DatalogicAndroidManifest.xml</LogicalName>
-    </None>
-  </ItemGroup>
+	<ItemGroup Condition="(('$(TargetFramework)' == 'net7.0-android') Or ('$(TargetFramework)' == 'net10.0-android')) And (('$(Configuration)' == 'DebugDatalogic') Or ('$(Configuration)' == 'ReleaseDatalogic'))">
+		<PackageReference Include="datalogic-xamarin-sdk">
+			<Version>1.29.8975</Version>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="(('$(TargetFramework)' == 'net7.0-android') Or ('$(TargetFramework)' == 'net10.0-android')) And (('$(Configuration)' == 'DebugZebra') Or ('$(Configuration)' == 'ReleaseZebra'))">
+		<PackageReference Include="Symbol.XamarinEMDK" Version="8.0.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls" Version="10.0.30" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Platforms\Android\DebugDatalogic\AndroidManifest.xml" LogicalName="DatalogicAndroidManifest.xml" />
+		<None Update="Platforms\Android\ReleaseDatalogic\AndroidManifest.xml">
+			<LogicalName>DatalogicAndroidManifest.xml</LogicalName>
+		</None>
+	</ItemGroup>
 
 </Project>

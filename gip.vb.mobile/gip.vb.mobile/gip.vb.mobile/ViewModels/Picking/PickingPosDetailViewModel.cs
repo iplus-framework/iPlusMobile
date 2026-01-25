@@ -11,6 +11,7 @@ using gip.mes.datamodel;
 using gip.mes.facility;
 using gip.mes.webservices;
 using Xamarin.Forms;
+using static gip.core.datamodel.GS1;
 
 namespace gip.vb.mobile.ViewModels
 {
@@ -33,6 +34,7 @@ namespace gip.vb.mobile.ViewModels
         #endregion
 
         #region Properties
+
         private Picking _PickingItem;
         public Picking PickingItem
         {
@@ -225,7 +227,9 @@ namespace gip.vb.mobile.ViewModels
                 this.WSBarcodeEntityResult = response.Data;
                 if (response.Suceeded)
                 {
-                    if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count() == 1 && Item != null 
+                    double? quanityInBarcode = GetQuanityInBarcode(this.CurrentBarcode);
+
+                    if (CurrentBarcodeEntity != null && CurrentBarcodeEntity.Count() == 1 && Item != null
                         && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
                     {
                         FacilityCharge fcNew = response.Data.ValidEntity as FacilityCharge;
@@ -254,6 +258,10 @@ namespace gip.vb.mobile.ViewModels
                                 {
                                     BookingQuantity = requiredQuantity;
                                 }
+                            }
+                            if (quanityInBarcode != null)
+                            {
+                                BookingQuantity = quanityInBarcode.Value;
                             }
                         }
 
@@ -294,6 +302,11 @@ namespace gip.vb.mobile.ViewModels
                                     BookingQuantity = requiredQuantity;
                                 }
                             }
+
+                            if (quanityInBarcode != null)
+                            {
+                                BookingQuantity = quanityInBarcode.Value;
+                            }
                         }
 
                         if (Item != null && (Item.PostingType == PostingTypeEnum.Relocation || Item.PostingType == PostingTypeEnum.NotDefined))
@@ -311,7 +324,10 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
                 else
+                {
+                    Message = response.Message;
                     CurrentBarcodeEntity = new List<object>();
+                }
             }
             catch (Exception ex)
             {
@@ -323,13 +339,44 @@ namespace gip.vb.mobile.ViewModels
             }
         }
 
+        private double? GetQuanityInBarcode(string currentBarcode)
+        {
+            double? quantityInBarcode = null;
+            if (currentBarcode.Contains("310"))
+            {
+                try
+                {
+                    string tempBarcode = GS1.TrimBarcodeString(currentBarcode);
+                    char GS = (char)29;
+                    string GS_ESCAPED = "\u001d";
+                    if(tempBarcode.Contains(GS))
+                    {
+                        tempBarcode = tempBarcode.Replace(GS.ToString(), GS_ESCAPED);
+                    }
+                    Dictionary<AII, ParseResult> parsingResult = GS1.Parse(tempBarcode, false);
+                    AII aiQuantity = GS1.GetAII("310d");
+                    if (parsingResult.Keys.Contains(aiQuantity))
+                    {
+                        ParseResult prQuantity = parsingResult[aiQuantity];
+                        quantityInBarcode = prQuantity.DoubleResult;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error parsing quantity from barcode: " + ex.Message);
+                }
+            }
+
+            return quantityInBarcode;
+        }
+
         public Command BookFacilityCommand { get; set; }
         public async Task ExecuteBookFacilityCommand()
         {
             BookingMessage = null;
             ScanMessage = null;
 
-            if (IsBusy 
+            if (IsBusy
                 || FacilityConst.IsDoubleZeroForPosting(BookingQuantity))
                 return;
 
@@ -389,7 +436,7 @@ namespace gip.vb.mobile.ViewModels
                     if (response.Data != null && (!String.IsNullOrEmpty(response.Data.DetailsAsText) || response.Data.MessageLevel == eMsgLevel.Question))
                     {
                         BookingQuantity = 0;
-                        
+
 
                         if (response.Data.MessageLevel == eMsgLevel.Question)
                         {
@@ -573,7 +620,7 @@ namespace gip.vb.mobile.ViewModels
 
         public double? GetQuantityFromSumModel()
         {
-            if (_SumByBarcodeModel != null 
+            if (_SumByBarcodeModel != null
                 && !FacilityConst.IsDoubleZeroForPosting(_SumByBarcodeModel.SumQuantity))
                 return _SumByBarcodeModel.SumQuantity;
             return null;
@@ -607,6 +654,7 @@ namespace gip.vb.mobile.ViewModels
 
                     if (!string.IsNullOrEmpty(sumItem.ExtLotNo))
                         ExternLotNo = sumItem.ExtLotNo;
+
                 }
                 catch (Exception e)
                 {
@@ -647,10 +695,12 @@ namespace gip.vb.mobile.ViewModels
                                 return;
                             }
 
-                            FacilityCharge fc = new FacilityCharge() { FacilityChargeID = facilityChargeID.Value};
+                            FacilityCharge fc = new FacilityCharge() { FacilityChargeID = facilityChargeID.Value };
                             printEntity.Sequence = new List<BarcodeEntity>()
                                                     {
-                                                        new BarcodeEntity(){ FacilityCharge = fc }
+                                                        new BarcodeEntity(){ FacilityCharge = fc },
+                                                        new BarcodeEntity(){ Picking = PickingItem},
+                                                        new BarcodeEntity(){ FacilityBookingCharge = new FacilityBookingCharge(){FacilityBookingChargeNo = facilityBookingCharge.FacilityBookingChargeNo, FacilityBookingChargeID =facilityBookingCharge.FacilityBookingChargeID} }
                                                     };
 
                             await ExecutePrintCommand(printEntity);
@@ -658,7 +708,7 @@ namespace gip.vb.mobile.ViewModels
                     }
                 }
             }
-            else if (DialogOptions.RequestID == 2 )
+            else if (DialogOptions.RequestID == 2)
             {
                 if (result == Global.MsgResult.Yes)
                 {

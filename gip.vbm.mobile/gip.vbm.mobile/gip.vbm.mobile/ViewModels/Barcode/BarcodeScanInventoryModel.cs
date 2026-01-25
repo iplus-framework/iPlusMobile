@@ -26,11 +26,28 @@ namespace gip.vbm.mobile.ViewModels
 
         #endregion
 
+        #region Properties
+
         public BSOPageBase ParentBSO
         {
             get;
             private set;
         }
+
+        private bool _IsSearchPanelVisible;
+        public bool IsSearchPanelVisible
+        {
+            get
+            {
+                return _IsSearchPanelVisible;
+            }
+            set
+            {
+                SetProperty(ref _IsSearchPanelVisible, value);
+            }
+        }
+
+        #endregion
 
         #region Tasks
 

@@ -768,4 +768,7 @@
   <data name="PrintVerificationQuestion" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie {0} Exemplare drucken möchten?</value>
   </data>
+  <data name="BtnLastPostingOrder" xml:space="preserve">
+    <value>Zum letzten Buchungsauftrag</value>
+  </data>
 </root>

@@ -90,6 +90,14 @@ namespace gip.vb.mobile.Services
             return await Get<List<FacilityCharge>>(string.Format(VBWebServiceConst.UriOperationFacilityChargeID_F, machineID));
         }
 
+        public async Task<WSResponse<BarcodeEntity>> GetLastPostingOrderAsync(string facilityChargeID)
+        {
+            if (string.IsNullOrEmpty(facilityChargeID))
+                return await Task.FromResult(new WSResponse<BarcodeEntity>(null, new Msg(eMsgLevel.Error, "facilityChargeID is empty")));
+
+            return await Get<BarcodeEntity>(string.Format(VBWebServiceConst.UriGetLastPostingOrder_F, facilityChargeID));
+        }
+
         #endregion
 
 

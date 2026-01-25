@@ -185,5 +185,24 @@ namespace gip.vbm.mobile.Views
             if (_ViewModel != null)
                 _ViewModel.TakeBookingQuantityFromQuant();
         }
+
+        private async void ButtonNavigateToLastPosting_Clicked(object sender, EventArgs e)
+        {
+            if (_ViewModel != null)
+            {
+                BarcodeEntity entity = await _ViewModel.GetLastPostingData();
+                if (entity != null)
+                {
+                    if (entity.SelectedOrderWF != null)
+                    {
+                        ProdOrderInMaterialsViewModel inModel = new ProdOrderInMaterialsViewModel(entity.SelectedOrderWF.IntermediateBatch, null);
+                        BSOProdOrderOutward prodOrderOutward = new BSOProdOrderOutward(entity.SelectedOrderWF.Relation, null, null, inModel);
+                        prodOrderOutward._ViewModel.CurrentBarcodeEntity = new List<object> { _ViewModel.FacilityChargeItem };
+                        prodOrderOutward._ViewModel.WSBarcodeEntityResult = new BarcodeEntity { FacilityCharge = _ViewModel.FacilityChargeItem }; ;
+                        await Navigation.PushAsync(prodOrderOutward);
+                    }
+                }
+            }
+        }
     }
 }

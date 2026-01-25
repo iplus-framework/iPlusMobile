@@ -240,6 +240,10 @@ namespace gip.vb.mobile.ViewModels
                 }
                 return;
             }
+            else if (DialogOptions.RequestID == 30)
+            {
+                return;
+            }
             else if (DialogOptions.RequestID == 1000)
             {
                 FilterSequenceList(entredValue);
@@ -316,9 +320,12 @@ namespace gip.vb.mobile.ViewModels
                 if (response.Suceeded)
                 {
                     Msg msg = response.Data;
-                    if (msg != null && msg.MessageLevel == eMsgLevel.Question)
+                    if (msg != null)
                     {
-                        ShowDialog(msg, "", null, "", 20);
+                        if (msg.MessageLevel == eMsgLevel.Question)
+                            ShowDialog(msg, "", null, "", 20);
+                        else if (msg.MessageLevel == eMsgLevel.Error)
+                            ShowDialog(msg, "", null, "", 30);
                     }
                     else
                     {

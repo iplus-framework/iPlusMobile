@@ -56,7 +56,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
 
         #region Properties
 
-        private SumQuantityByBarcodeViewModel _SumByBarcodeModel;
+        internal SumQuantityByBarcodeViewModel _SumByBarcodeModel;
 
         /// <summary>
         /// Inventory navigation argument
@@ -138,6 +138,8 @@ namespace gip.vb.mobile.ViewModels.Inventory
             set
             {
                 SetProperty(ref _IsSearchPanelVisible, value);
+                if (BarcodeScannerModel != null)
+                    BarcodeScannerModel.IsSearchPanelVisible = value;
             }
         }
 
@@ -276,10 +278,10 @@ namespace gip.vb.mobile.ViewModels.Inventory
                 try
                 {
                     // CheckIsFacilityChanged();
-                    if (CurrentFacilityCharge != null && !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo))
+                    if (CurrentFacilityCharge != null /*&& !string.IsNullOrEmpty(InventoryNavArgument.StorageLocationNo)*/)
                     {
                         string faciltiyNo = InventoryNavArgument.SelectedFacility != null ? InventoryNavArgument.SelectedFacility.FacilityNo : null;
-                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
+                        WSResponse<SearchFacilityCharge> wSResponse = await _WebService.GetFacilityInventorySearchCharge(InventoryNavArgument.FacilityInventoryNo, InventoryNavArgument.StorageLocationNo ?? core.webservices.CoreWebServiceConst.EmptyParam, faciltiyNo, CurrentFacilityCharge.FacilityChargeID.ToString());
                         success = wSResponse.Suceeded;
 
                         HideChargeCommandPanel();
@@ -461,9 +463,7 @@ namespace gip.vb.mobile.ViewModels.Inventory
         /// </summary>
         public void WriteNewStockQuantity()
         {
-            if (SelectedInventoryLine != null
-                                && !SelectedInventoryLine.NotAvailable
-                                && SelectedInventoryLine.NewStockQuantity == null)
+            if (SelectedInventoryLine != null && !SelectedInventoryLine.NotAvailable && SelectedInventoryLine.NewStockQuantity == null && (InventoryNavArgument.SelectedFacilityInventory == null || InventoryNavArgument.SelectedFacilityInventory.SuggestStockQuantity))
                 SelectedInventoryLine.NewStockQuantity = SelectedInventoryLine.StockQuantity;
         }
 
@@ -477,11 +477,20 @@ namespace gip.vb.mobile.ViewModels.Inventory
             {
                 SelectedInventoryLine = InventoryNavArgument.SelectedInventoryLine;
                 WriteNewStockQuantity();
-                IsEditPanelVisible = true;
-                IsSearchPanelVisible = true;
+                if (InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
+                {
+                    IsEditPanelVisible = false;
+                }
+                else
+                {
+                    IsEditPanelVisible = true;
+                }
             }
             else
                 IsEditPanelVisible = false;
+
+            if (_SumByBarcodeModel != null && !IsEditPanelVisible)
+                IsEditPanelVisible = true;
 
             double? sumQuantity = GetQuantityFromSumModel();
             if (sumQuantity.HasValue && SelectedInventoryLine != null)

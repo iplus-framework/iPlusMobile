@@ -6,6 +6,7 @@ using gip.vbm.mobile.ViewModels;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Maui.Extensions;
 
 namespace gip.vbm.mobile.Views
 {

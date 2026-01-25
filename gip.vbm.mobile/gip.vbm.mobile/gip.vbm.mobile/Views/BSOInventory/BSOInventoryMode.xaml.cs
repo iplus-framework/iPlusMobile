@@ -94,7 +94,8 @@ namespace gip.vbm.mobile.Views
                             EditMode = EditModeEnum.GoAndCount,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
                             SelectedFacility = _ViewModel.SelectedFacilityForFilter,
-                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation
+                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation,
+                            SelectedFacilityInventory = _ViewModel.FacilityInventory
                         }
                     }
                 });
@@ -120,7 +121,8 @@ namespace gip.vbm.mobile.Views
                             EditMode = EditModeEnum.Confirm,
                             IsValidateAndComplete = _ViewModel.IsValidateAndComplete,
                             SelectedFacility = _ViewModel.SelectedFacilityForFilter,
-                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation
+                            SelectedStorageLocation = _ViewModel.SelectedStorageLocation,
+                            SelectedFacilityInventory = _ViewModel.FacilityInventory
                         }
                     }
                 });
