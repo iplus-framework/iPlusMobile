@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using static gip.mes.datamodel.BarcodeSequenceBase;
-using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.ViewModels
 {

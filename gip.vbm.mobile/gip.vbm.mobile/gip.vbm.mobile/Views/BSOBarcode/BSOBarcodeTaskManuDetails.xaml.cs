@@ -11,7 +11,6 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using gip.core.datamodel;
 using gip.mes.datamodel;
-using AndroidX.Lifecycle;
 
 namespace gip.vbm.mobile.Views
 {

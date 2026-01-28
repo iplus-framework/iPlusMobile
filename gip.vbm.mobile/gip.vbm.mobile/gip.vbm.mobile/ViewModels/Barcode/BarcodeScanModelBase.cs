@@ -1,6 +1,6 @@
 // Copyright (c) 2024, gipSoft d.o.o.
 // Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
-﻿using gip.core.datamodel;
+using gip.core.datamodel;
 using gip.mes.webservices;
 using gip.vbm.mobile.Strings;
 using System;
@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using static gip.mes.datamodel.BarcodeSequenceBase;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using static Android.Content.ClipData;
 
 namespace gip.vbm.mobile.ViewModels
 {
