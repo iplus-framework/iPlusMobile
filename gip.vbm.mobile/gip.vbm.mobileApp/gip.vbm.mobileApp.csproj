@@ -70,7 +70,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
 	</PropertyGroup>
 
@@ -81,26 +81,27 @@
 		<AndroidLinkMode>None</AndroidLinkMode>
 		<AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
 		<AndroidUseInterpreter>false</AndroidUseInterpreter>
+		<_AndroidIsDebuggable>true</_AndroidIsDebuggable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
 	</PropertyGroup>
