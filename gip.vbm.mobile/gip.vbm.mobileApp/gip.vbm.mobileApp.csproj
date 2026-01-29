@@ -14,7 +14,7 @@
 		<ApplicationTitle>gip.vbm.mobileApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.gip.vbm.mobileapp</ApplicationId>
+		<ApplicationId>com.gipsoft.mobile</ApplicationId>
 		<ApplicationIdGuid>BFD13D1B-20AB-4AAA-B23E-BBE93AA8BBE0</ApplicationIdGuid>
 
 
@@ -30,7 +30,6 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Configurations>Debug;Release;ReleaseDatalogic;DebugDatalogic;DebugZebra;ReleaseZebra</Configurations>
 		<AndroidManifest>Platforms\Android\$(Configuration)\AndroidManifest.xml</AndroidManifest>
-		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net7.0-android|AnyCPU'">
@@ -70,18 +69,18 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
-		<AndroidEnableProfiler>true</AndroidEnableProfiler>
+		<!--<AndroidEnableProfiler>false</AndroidEnableProfiler>
 		<AndroidLinkMode>None</AndroidLinkMode>
-		<AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-		<AndroidUseInterpreter>false</AndroidUseInterpreter>
-		<_AndroidIsDebuggable>true</_AndroidIsDebuggable>
+		<AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
+		<AndroidUseInterpreter>true</AndroidUseInterpreter>
+		<_AndroidIsDebuggable>true</_AndroidIsDebuggable>-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net10.0-android|AnyCPU'">
@@ -95,13 +94,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
 	</PropertyGroup>
