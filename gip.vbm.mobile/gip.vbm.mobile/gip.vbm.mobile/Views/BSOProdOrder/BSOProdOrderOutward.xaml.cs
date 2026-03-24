@@ -38,7 +38,8 @@ namespace gip.vbm.mobile.Views
             _InMaterialsViewModel = inMaterialsViewModel;
             BindingContext = _ViewModel = new ViewModels.ProdOrderInOutViewModel(false, taskModel, relation, null, wfMethod, inMaterialsViewModel?.ProdOrderInMaterials);
 			InitializeComponent();
-		}
+            barcodeScanner.ViewModel = _ViewModel;
+        }
 
         protected override void OnAppearing()
         {

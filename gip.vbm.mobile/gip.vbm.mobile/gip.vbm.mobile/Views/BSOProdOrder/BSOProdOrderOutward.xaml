@@ -29,15 +29,15 @@
     <v:BSOPageBase x:Name="ProdOrderInOutBooking" Title="{i18n:Translate Text=ProdOrderInOutBooking_Header}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
-
                 <StackLayout Orientation="Horizontal">
-                    <Button MinimumWidthRequest="45" Text="Q" TextColor="Red" x:Name="btnShowQuants" Clicked="btnShowQuants_Clicked" FontSize="Large" />
-                    <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                    <Button MinimumWidthRequest="45" MaximumHeightRequest="55" Text="Q" TextColor="Red" x:Name="btnShowQuants" Clicked="btnShowQuants_Clicked" FontSize="Large" VerticalOptions="Start" />
+                    <ctl:BarcodeScannerView MaximumHeightRequest="55"
+                                            VerticalOptions="Start" HorizontalOptions="FillAndExpand"
                                             x:Name="barcodeScanner" 
                                             ShowDecodedEntities="False"
                                             BarcodeServiceMethod="DecodeEntity" />
                 </StackLayout>
-                <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70"
+                <ListView  x:Name="BarcodeListView" ItemsSource="{Binding CurrentBarcodeEntity}" IsGroupingEnabled="false" RowHeight="50" HeightRequest="70" VerticalOptions="StartAndExpand"
                         ItemTemplate="{StaticResource BarcodeEntitySelector}"
                         HasUnevenRows="true"
                         RefreshCommand="{Binding LoadBarcodeEntityCommand}"
