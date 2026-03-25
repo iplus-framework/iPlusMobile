@@ -558,7 +558,7 @@ namespace gip.vbm.mobile.ViewModels
                         if (facilityChargeEntity == null)
                         {
                             this.Message = response.Data.Message;
-                            CurrentBarcodeEntity = ExchangedBarcodeSeq.Sequence.Select(c => c.ValidEntity).ToList();
+                            CurrentBarcodeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
                         }
                         else
                         {
