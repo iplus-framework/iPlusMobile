@@ -34,13 +34,13 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            barcodeScanner.OnAppearing();
+            //barcodeScanner.OnAppearing();
             InitPageOnNavigation();
         }
 
         protected override void OnDisappearing()
         {
-            barcodeScanner.OnDisappearing();
+            //barcodeScanner.OnDisappearing();
             base.OnDisappearing();
         }
 

@@ -106,11 +106,6 @@
     <v:BSOPageBase x:Name="RelocationFCPivotItem" Title="{i18n:Translate Text=Relocate_Text}">
         <ScrollView Orientation="Vertical">
             <StackLayout>
-                <ctl:BarcodeScannerView x:Name="barcodeScanner" 
-                            BindingContext="{Binding Path=FacilityScanViewModel}"
-                            MinimumHeightRequest="70"
-                            BarcodeServiceMethod="UseBarcodeSequences"
-                            ShowDecodedEntities="False"/>
                 <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{i18n:Translate Text=BookingQuantity_Text}" Style="{StaticResource LabelForData}"/>
                 <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
