@@ -252,6 +252,7 @@ namespace gip.vbm.mobile.Controls
             }
             OnNewBarcodeScanned?.Invoke(this, new BarcodeScannerEventArgs(text));
             InvokeBarcodeServiceMethod();
+            //BarcodeSearchBar.Unfocus();
         }
 
         private async void InvokeBarcodeServiceMethod()
@@ -273,6 +274,8 @@ namespace gip.vbm.mobile.Controls
                     success = await ViewModel.ExecuteCustomBarcodeCommand();
             }
             OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
+
+            BarcodeSearchBar.Unfocus();
         }
 
         /// <summary>
