@@ -112,15 +112,20 @@ namespace gip.vbm.mobile.Views
 
         private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
         {
-            _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
-            await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            
             FacilityEntry.Unfocus();
             FacilityEntryReassignment.Unfocus();
         }
 
-        private void cmdClearFacility_Clicked(object sender, EventArgs e)
+        private async void cmdClearFacility_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.SelectedFacility = null;
+            if (_ViewModel.SelectedFacility != null)
+                _ViewModel.SelectedFacility = null;
+            else
+            {
+                _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
+                await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            }
         }
 
         private void ButtonSplit_Clicked(object sender, EventArgs e)

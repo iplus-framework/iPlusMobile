@@ -28,8 +28,8 @@
         <StackLayout Orientation="Vertical" Grid.Row="2" IsVisible="{Binding ScanInventoryModel.ZXingIsScanning, Converter={StaticResource BooleanNegationConverter}}">
             <Label Text="{i18n:Translate Text=LocationSelect_Text}"/>
             <StackLayout Orientation="Horizontal" Grid.Row="5" Margin="2,0,2,2">
-                <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Focused="FacilityEntry_Focused" Text="{Binding SelectedFacility.FacilityName}" />
-                <Button x:Name="cmdClearFacility" WidthRequest="50" Text="X" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked_1" />
+                <Entry x:Name="FacilityEntry" HorizontalOptions="FillAndExpand" Text="{Binding SelectedFacility.FacilityName}" />
+                <Button x:Name="cmdClearFacility" WidthRequest="50" Text="#" TextColor="Red" FontAttributes="Bold"  FontSize="Large" Clicked="cmdClearFacility_Clicked_1" />
             </StackLayout>
         
             <Label Text="{i18n:Translate Text=ValidateAndComplete_Text}"/>
