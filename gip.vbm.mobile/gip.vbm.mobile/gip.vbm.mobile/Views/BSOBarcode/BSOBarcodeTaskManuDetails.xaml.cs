@@ -87,8 +87,27 @@ namespace gip.vbm.mobile.Views
 
                 if (wfInfo.WFMethod != null)
                 {
-                    wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode });
-                    wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
+                    try
+                    {
+                        // Use add-or-update to avoid calling Add() (write lock) when the entry
+                        // already exists, preventing LockRecursionException when a read lock
+                        // is still held by an active MAUI binding evaluation or enumerator.
+                        ACValue pqsmEntry = wfInfo.WFMethod.ParameterValueList.GetACValue(nameof(wfInfo.PostingQSuggestionMode));
+                        if (pqsmEntry == null)
+                            wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode), Value = wfInfo.PostingQSuggestionMode });
+                        else
+                            pqsmEntry.Value = wfInfo.PostingQSuggestionMode;
+
+                        ACValue pqsm2Entry = wfInfo.WFMethod.ParameterValueList.GetACValue(nameof(wfInfo.PostingQSuggestionMode2));
+                        if (pqsm2Entry == null)
+                            wfInfo.WFMethod.ParameterValueList.Add(new core.datamodel.ACValue() { ACIdentifier = nameof(wfInfo.PostingQSuggestionMode2), Value = wfInfo.PostingQSuggestionMode2 });
+                        else
+                            pqsm2Entry.Value = wfInfo.PostingQSuggestionMode2;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[BSOBarcodeTaskManuDetails] Failed to set ParameterValueList entries: {ex.Message}");
+                    }
                 }
 
                 //Intermediate selector with batch
