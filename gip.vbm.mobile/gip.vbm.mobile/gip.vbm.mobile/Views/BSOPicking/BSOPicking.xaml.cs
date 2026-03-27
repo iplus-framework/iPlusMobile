@@ -41,14 +41,26 @@ namespace gip.vbm.mobile.Views
             _ViewModel.SelectedPickingType = null;
         }
 
-        private void cmdClearFacilityFrom_Clicked(object sender, EventArgs e)
+        private async void cmdClearFacilityFrom_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.SelectedStorageLocationFrom = null;
+            if (_ViewModel.SelectedStorageLocationFrom != null)
+                _ViewModel.SelectedStorageLocationFrom = null;
+            else
+            {
+                _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
+                await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            }
         }
 
-        private void cmdClearFacilityTo_Clicked(object sender, EventArgs e)
+        private async void cmdClearFacilityTo_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.SelectedStorageLocationTo = null;
+            if (_ViewModel.SelectedStorageLocationTo != null)
+                _ViewModel.SelectedStorageLocationTo = null;
+            else
+            {
+                _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationTo);
+                await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            }
         }
 
         private async void btnShowOrders_Clicked(object sender, EventArgs e)
@@ -63,22 +75,22 @@ namespace gip.vbm.mobile.Views
             await Navigation.PushAsync(new BSOPickingByMaterial() { NavParam = new NavParameter(PageStateEnum.View) { Arguments = _ViewModel } });
         }
 
+        //Workaround with button: https://github.com/dotnet/maui/issues/21009
+        //private async void FacilityFromEntry_Focused(object sender, FocusEventArgs e)
+        //{
+        //    _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
+        //    await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
 
-        private async void FacilityFromEntry_Focused(object sender, FocusEventArgs e)
-        {
-            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationFrom);
-            await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+        //    FacilityFromEntry.Unfocus();
+        //}
 
-            FacilityFromEntry.Unfocus();
-        }
+        //private async void FacilityToEntry_Focused(object sender, FocusEventArgs e)
+        //{
+        //    _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationTo);
+        //    await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
 
-        private async void FacilityToEntry_Focused(object sender, FocusEventArgs e)
-        {
-            _ViewModel.FacilitySelector = new FacilitySelectorViewModel(PickingViewModel.PN_SelectedStorageLocationTo);
-            await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
-
-            FacilityToEntry.Unfocus();
-        }
+        //    FacilityToEntry.Unfocus();
+        //}
 
         protected override bool OnBackButtonPressed()
         {
