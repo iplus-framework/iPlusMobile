@@ -229,17 +229,23 @@ namespace gip.vbm.mobile.Views
 
         #endregion
 
-        private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
-        {
-            _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
-            await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+        //private async void FacilityEntry_Focused(object sender, FocusEventArgs e)
+        //{
+        //    _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
+        //    await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
 
-            FacilityEntry.Unfocus();
-        }
+        //    FacilityEntry.Unfocus();
+        //}
 
-        private void cmdClearFacility_Clicked_1(object sender, EventArgs e)
+        private async void cmdClearFacility_Clicked_1(object sender, EventArgs e)
         {
-            _ViewModel.SelectedFacility = null;
+            if(_ViewModel.SelectedFacility != null)
+                _ViewModel.SelectedFacility = null;
+            else
+            {
+                _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
+                await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            }
         }
     }
 }
