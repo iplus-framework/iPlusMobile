@@ -241,9 +241,15 @@ namespace gip.vbm.mobile.Views
             FacilityEntry.Unfocus();
         }
 
-        private void cmdClearFacility_Clicked(object sender, EventArgs e)
+        private async void cmdClearFacility_Clicked(object sender, EventArgs e)
         {
-            _ViewModel.SelectedLocation = null;
+            if(_ViewModel.SelectedLocation != null)
+                _ViewModel.SelectedLocation = null;
+            else
+            {
+                _ViewModel.FacilitySelector = new FacilitySelectorViewModel("");
+                await Navigation.PushAsync(new BSOFacilitySelector(_ViewModel.FacilitySelector));
+            }
         }
 
     }

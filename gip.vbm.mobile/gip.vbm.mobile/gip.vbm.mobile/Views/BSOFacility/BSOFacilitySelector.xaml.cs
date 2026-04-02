@@ -96,7 +96,7 @@ namespace gip.vbm.mobile.Views
 
         private void FacilitiesList_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ItemsSource")
+            if (e.PropertyName == nameof(ItemsView.ItemsSource))
             {
                 if (_ViewModel != null && _ViewModel.StorageLocations != null)
                 {

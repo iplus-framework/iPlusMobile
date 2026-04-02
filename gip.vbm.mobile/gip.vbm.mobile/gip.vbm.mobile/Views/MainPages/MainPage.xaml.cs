@@ -43,11 +43,18 @@ namespace gip.vbm.mobile.Views
         {
             if (String.IsNullOrEmpty(pageClassName))
                 pageClassName = pageType.Name;
+
+            // TabbedPage instances must never be reused across NavigationPage switches on Android.
+            // When Detail is replaced, the old ScopedFragment and its child tab-fragments are destroyed.
+            // Reusing the same TabbedPage C# object in a new NavigationPage causes:
+            // "Fragment ScopedFragment has already been destroyed. Nested fragments should always use the child FragmentManager."
+            bool isTabbedPage = typeof(TabbedPage).IsAssignableFrom(pageType);
+
             Page bso = null;
-            if (!MenuPages.ContainsKey(pageClassName))
+            if (isTabbedPage || !MenuPages.ContainsKey(pageClassName))
             {
                 bso = (Page)Activator.CreateInstance(pageType);
-                MenuPages.Add(pageClassName, bso);
+                MenuPages[pageClassName] = bso; // overwrite stale entry for TabbedPage, add for new
             }
             else
                 bso = MenuPages[pageClassName];
@@ -75,7 +82,7 @@ namespace gip.vbm.mobile.Views
                 Detail = currentNavPage;
 
                 //if (Device.RuntimePlatform == Device.Android)
-                    await Task.Delay(100);
+                await Task.Delay(100);
 
                 IsPresented = false;
             }

@@ -281,6 +281,13 @@ namespace gip.vbm.mobile.ViewModels
                         FacilityCharge fc = response.Data.ValidEntity as FacilityCharge;
                         if (fc != null)
                         {
+                            if ((PickingItem.PickingType.PickingType == GlobalApp.PickingType.Issue || PickingItem.PickingType.PickingType == GlobalApp.PickingType.InternalRelocation) && response.Message != null)
+                            {
+                                ShowDialog(response.Message, requestID:10);
+                                Message = null;
+                                return true;
+                            }
+
                             double requiredQuantity = PickingPosItem.TargetQuantity - PickingPosItem.ActualQuantity;
                             if (requiredQuantity > 0)
                             {
@@ -672,6 +679,13 @@ namespace gip.vbm.mobile.ViewModels
                     PickingItem.ReplacePickingPosItem(PickingPosItem);
 
                 Print(Strings.AppStrings.PickingBookSuccAndPrint_Question);
+            }
+            else if (DialogOptions.RequestID == 10)
+            {
+                if (result == Global.MsgResult.No || result == Global.MsgResult.OK)
+                {
+                    DecodedEntitiesList = new List<object>();
+                }
             }
         }
 

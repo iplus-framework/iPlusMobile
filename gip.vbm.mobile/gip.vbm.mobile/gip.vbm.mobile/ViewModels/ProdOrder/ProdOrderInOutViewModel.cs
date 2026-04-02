@@ -560,12 +560,20 @@ namespace gip.vbm.mobile.ViewModels
                         if (facilityChargeEntity == null)
                         {
                             this.Message = response.Data.Message;
-                            CurrentBarcodeEntity = ExchangedBarcodeSeq.Sequence.Select(c => c.ValidEntity).ToList();
+                            CurrentBarcodeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
                         }
                         else
                         {
                             this.WSBarcodeEntityResult = facilityChargeEntity;
-                            SetOutwardFacilityCharge(facilityChargeEntity.FacilityCharge, false);
+
+                            if (response.Message != null)
+                            {
+                                ShowDialog(response.Message, requestID: 10);
+                            }
+                            else
+                            {
+                                SetOutwardFacilityCharge(facilityChargeEntity.FacilityCharge, false);
+                            }
 
                             this.Message = null;
                             ResetScanSequence();
@@ -916,6 +924,13 @@ namespace gip.vbm.mobile.ViewModels
             else if (DialogOptions.RequestID == 4 && result == Global.MsgResult.Yes)
             {
                 await BookFacilityOutward();
+            }
+            else if(DialogOptions.RequestID == 10)
+            {
+                if (result == Global.MsgResult.Yes)
+                {
+                    SetOutwardFacilityCharge(WSBarcodeEntityResult.FacilityCharge, true);
+                }
             }
         }
 

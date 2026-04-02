@@ -11,119 +11,122 @@ namespace gip.vbm.mobile.Helpers
     {
         protected override void OnAttachedTo(Entry entry)
         {
-            //entry.TextChanged += OnEntryTextChanged;
+            entry.TextChanged += OnTextChanged;
             entry.Completed += Entry_Completed;
             entry.Focused += Entry_Focused;
             base.OnAttachedTo(entry);
         }
 
-        private void Entry_Focused(object sender, FocusEventArgs e)
-        {
-            if (SelectAllOnFocus)
-            {
-                Entry ent = sender as Entry;
-                if (ent != null)
-                {
-                    Application.Current?.Dispatcher.Dispatch(() =>
-                    {
-                        ent.CursorPosition = 0;
-                        ent.SelectionLength = ent.Text != null ? ent.Text.Length : 0;
-                    });
-                }
-            }
-        }
-
         protected override void OnDetachingFrom(Entry entry)
         {
-            //entry.TextChanged -= OnEntryTextChanged;
+            entry.TextChanged -= OnTextChanged;
             entry.Completed -= Entry_Completed;
+            entry.Focused -= Entry_Focused;
             base.OnDetachingFrom(entry);
         }
 
-        //void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+        private void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            if (SelectAllOnFocus && sender is Entry ent)
+            {
+                Application.Current?.Dispatcher.Dispatch(() =>
+                {
+                    ent.CursorPosition = 0;
+                    ent.SelectionLength = ent.Text != null ? ent.Text.Length : 0;
+                });
+            }
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is not Entry entry || string.IsNullOrEmpty(e.NewTextValue))
+                return;
+
+            string decimalSeparator = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
+            string wrongSeparator = decimalSeparator == "," ? "." : ",";
+            string normalized = e.NewTextValue.Replace(wrongSeparator, decimalSeparator);
+
+            if (normalized != e.NewTextValue)
+            {
+                entry.TextChanged -= OnTextChanged;
+                entry.Text = normalized;
+                entry.TextChanged += OnTextChanged;
+            }
+        }
+
         private void Entry_Completed(object sender, EventArgs e)
         {
-            Entry tb = sender as Entry;
-            if (tb != null)
+            if (sender is not Entry tb)
+                return;
+
+            CultureInfo culture = CultureInfo.CurrentUICulture;
+
+            if (Precision > 0)
             {
-                if (Precision > 0)
+                if (IsDecimal)
                 {
-                    if (IsDecimal)
+                    decimal decValue = 0;
+
+                    if (string.IsNullOrEmpty(tb.Text)
+                        || decimal.TryParse(tb.Text, NumberStyles.Any, culture, out decValue))
                     {
-                        Decimal value = 0;
-                        if (   string.IsNullOrEmpty(tb.Text)
-                            || Decimal.TryParse(tb.Text, out value))
+                        _lastText = tb.Text;
+                        decimal rounded = Math.Round(decValue, Precision);
+                        if (rounded != decValue)
                         {
-                            _lastText = tb.Text;
-                            Decimal roundedValue = Math.Round(value, Precision);
-                            if (roundedValue != value)
-                            {
-                                _lastText = roundedValue.ToString();
-                                tb.Text = _lastText;
-                            }
-                            return;
+                            _lastText = rounded.ToString(culture);
+                            tb.Text = _lastText;
                         }
-                    }
-                    else
-                    {
-                        double value = 0;
-                        if (   string.IsNullOrEmpty(tb.Text)
-                            || Double.TryParse(tb.Text, out value))
-                        {
-                            _lastText = tb.Text;
-                            double roundedValue = Math.Round(value, Precision);
-                            if (roundedValue != value)
-                            {
-                                _lastText = roundedValue.ToString();
-                                tb.Text = _lastText;
-                            }
-                            return;
-                        }
+                        return;
                     }
                 }
                 else
                 {
-                    if (IsDecimal)
+                    double dblValue = 0;
+
+                    if (string.IsNullOrEmpty(tb.Text)
+                        || double.TryParse(tb.Text, NumberStyles.Any, culture, out dblValue))
                     {
-                        long value;
-                        if (   string.IsNullOrEmpty(tb.Text)
-                            || long.TryParse(tb.Text, out value))
+                        _lastText = tb.Text;
+                        double rounded = Math.Round(dblValue, Precision);
+                        if (rounded != dblValue)
                         {
-                            _lastText = tb.Text;
-                            return;
+                            _lastText = rounded.ToString(culture);
+                            tb.Text = _lastText;
                         }
-                    }
-                    else
-                    {
-                        double value;
-                        if (   string.IsNullOrEmpty(tb.Text)
-                            || double.TryParse(tb.Text, out value))
-                        {
-                            _lastText = tb.Text;
-                            return;
-                        }
+                        return;
                     }
                 }
-
-                tb.Text = _lastText;
+            }
+            else
+            {
+                if (IsDecimal)
+                {
+                    if (string.IsNullOrEmpty(tb.Text)
+                        || long.TryParse(tb.Text, NumberStyles.Any, culture, out _))
+                    {
+                        _lastText = tb.Text;
+                        return;
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(tb.Text)
+                        || double.TryParse(tb.Text, NumberStyles.Any, culture, out _))
+                    {
+                        _lastText = tb.Text;
+                        return;
+                    }
+                }
             }
 
-            //double result;
-            //bool isValid = double.TryParse(args.NewTextValue, out result);
-            //((Entry)sender).TextColor = isValid ? Color.FromRgba(-1,-1,-1,-1) : Color.Red;
+            tb.Text = _lastText;
         }
 
         private string _lastText;
-        //public bool AllowDecimal { get; set;  }
 
         public bool IsDecimal { get; set; }
-
         public int Precision { get; set; }
-
-        public bool SelectAllOnFocus
-        {
-            get;
-            set;
-        }
+        public bool SelectAllOnFocus { get; set; }
     }
 }

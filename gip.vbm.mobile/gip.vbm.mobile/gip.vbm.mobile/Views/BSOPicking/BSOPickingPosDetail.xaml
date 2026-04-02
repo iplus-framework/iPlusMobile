@@ -64,7 +64,7 @@
         <ScrollView Orientation="Vertical">
             <StackLayout>
                 <Label x:Name="ScanMessageLabel" Text="{Binding ScanMessage}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
-                <ctl:BarcodeScannerView VerticalOptions="CenterAndExpand"
+                <ctl:BarcodeScannerView VerticalOptions="FillAndExpand"
                                 x:Name="barcodeScanner" 
                                 OnNewBarcodeScanned="barcodeScanner_OnNewBarcodeScanned"    
                                 />

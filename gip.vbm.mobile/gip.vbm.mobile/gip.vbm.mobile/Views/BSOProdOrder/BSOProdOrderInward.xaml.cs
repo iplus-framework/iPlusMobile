@@ -61,6 +61,9 @@ namespace gip.vbm.mobile.Views
 
         private void BSOTabbedPageBase_CurrentPageChanged(object sender, EventArgs e)
         {
+            if (TBPrint == null)
+                return;
+
             if (CurrentPage == ProdOrderInOutHistory)
             {
                 TBPrint.IsEnabled = true;

@@ -149,8 +149,10 @@ namespace gip.vbm.mobile.Views
 
         protected override bool OnBackButtonPressed()
         {
-            if (_ViewModel.BarcodeScannerModel.IsListVisible)
+            if (!string.IsNullOrEmpty(_ViewModel.BarcodeScannerModel.CurrentBarcode))
             {
+                _ViewModel.Message = null;
+                _ViewModel.CleanUpForm();
                 _ViewModel.CleanBarcodeAndSetCurrentFacility();
                 return true;
             }
