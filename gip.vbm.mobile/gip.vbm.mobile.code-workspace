@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../iPlus/gip.core.autocomponent.shared"
+		},
+		{
+			"path": "../../iPlus/gip.core.datamodel.shared"
+		},
+		{
+			"path": "../../iPlus/gip.core.processapplication.shared"
+		},
+		{
+			"path": "../../iPlus/gip.core.webservices.shared"
+		},
+		{
+			"path": "../../iPlusMES/gip.mes.datamodel.shared"
+		},
+		{
+			"path": "../../iPlusMES/gip.mes.facility.shared"
+		},
+		{
+			"path": "../../iPlusMES/gip.mes.webservices.shared"
+		}
+	],
+	"settings": {}
+}
+	],
+	"settings": {}
+}

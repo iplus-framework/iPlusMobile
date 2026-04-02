@@ -1,0 +1,7 @@
+{
+    "dotnet.autoConfigureAndroidSdk": false,
+    "maui.android.sdkPaths": [
+        "~/Android/Sdk"
+    ],
+    "maui.android.jdkDirPath": "/usr/lib/jvm/java-17-openjdk-amd64"
+}
