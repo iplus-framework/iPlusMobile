@@ -1,0 +1,36 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="DebugDatalogic" />
+    <BuildType Name="DebugZebra" />
+    <BuildType Name="Release" />
+    <BuildType Name="ReleaseDatalogic" />
+    <BuildType Name="ReleaseZebra" />
+  </Configurations>
+  <Project Path="../../iPlus/gip.core.autocomponent.shared/gip.core.autocomponent.shared.shproj" />
+  <Project Path="../../iPlus/gip.core.datamodel.shared/gip.core.datamodel.shared.shproj" />
+  <Project Path="../../iPlus/gip.core.processapplication.shared/gip.core.processapplication.shared.shproj" />
+  <Project Path="../../iPlus/gip.core.webservices.shared/gip.core.webservices.shared.shproj" />
+  <Project Path="../../iPlusMES/gip.mes.datamodel.shared/gip.mes.datamodel.shared.shproj" />
+  <Project Path="../../iPlusMES/gip.mes.facility.shared/gip.mes.facility.shared.shproj" />
+  <Project Path="../../iPlusMES/gip.mes.webservices.shared/gip.mes.webservices.shared.shproj" />
+  <!-- <Project Path="gip.vbm.mobile.tools/gip.vbm.mobile.tools.csproj">
+    <BuildType Solution="DebugDatalogic|*" Project="Debug" />
+    <BuildType Solution="DebugZebra|*" Project="Debug" />
+    <BuildType Solution="ReleaseDatalogic|*" Project="Release" />
+    <BuildType Solution="ReleaseZebra|*" Project="Release" />
+    <Build Solution="DebugZebra|*" Project="false" />
+    <Build Solution="ReleaseDatalogic|*" Project="false" />
+    <Build Solution="ReleaseZebra|*" Project="false" />
+  </Project> -->
+  <Project Path="gip.vbm.mobile/gip.vbm.mobile/gip.vbm.mobile.csproj">
+    <Deploy Solution="Debug|*" />
+    <Deploy Solution="Release|*" />
+  </Project>
+  <Project Path="gip.vbm.mobileApp/gip.vbm.mobileApp.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="Xamarin.Forms.DataGrid/Xamarin.Forms.DataGrid.csproj">
+    <BuildType Solution="DebugDatalogic|*" Project="Debug" />
+  </Project>
+</Solution>

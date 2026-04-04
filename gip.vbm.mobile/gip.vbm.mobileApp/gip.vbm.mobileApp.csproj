@@ -74,7 +74,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="$([MSBuild]::IsOSPlatform('Linux'))">True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="!$([MSBuild]::IsOSPlatform('Linux'))">False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZXING</DefineConstants>
 		<!--<AndroidEnableProfiler>false</AndroidEnableProfiler>
 		<AndroidLinkMode>None</AndroidLinkMode>
@@ -84,12 +85,14 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugDatalogic|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="$([MSBuild]::IsOSPlatform('Linux'))">True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="!$([MSBuild]::IsOSPlatform('Linux'))">False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DebugZebra|net10.0-android|AnyCPU'">
-		<EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="$([MSBuild]::IsOSPlatform('Linux'))">True</EmbedAssembliesIntoApk>
+		<EmbedAssembliesIntoApk Condition="!$([MSBuild]::IsOSPlatform('Linux'))">False</EmbedAssembliesIntoApk>
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
 	</PropertyGroup>
 
