@@ -2,7 +2,25 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run-debug-android",
+            "label": "run-debug-android-usb",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "-t:Run",
+                "${workspaceFolder}/gip.vbm.mobileApp/gip.vbm.mobileApp.csproj",
+                "-p:TargetFramework=net10.0-android",
+                "-p:Configuration=DebugZebra",
+                "-p:AndroidAttachDebugger=true",
+                "-p:AndroidSdbHostPort=10000",
+                "-p:AndroidSdbTargetPort=10000",
+                "-p:AdbTarget=-d"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "run-debug-android-waydroid",
             "command": "dotnet",
             "type": "shell",
             "args": [
@@ -13,7 +31,8 @@
                 "-p:Configuration=Debug",
                 "-p:AndroidAttachDebugger=true",
                 "-p:AndroidSdbHostPort=10000",
-                "-p:AndroidSdbTargetPort=10000"
+                "-p:AndroidSdbTargetPort=10000",
+                "-p:AdbTarget=-s 192.168.240.112:5555"
             ],
             "group": "build",
             "problemMatcher": "$msCompile"

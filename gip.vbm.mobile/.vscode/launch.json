@@ -2,12 +2,20 @@
     "version": "0.2.0",
     "configurations": [
          {
-			"name": "Debug - Android",
+			"name": "Debug - Android (USB)",
 			"type": "mono",
-			"preLaunchTask": "run-debug-android",
+			"preLaunchTask": "run-debug-android-usb",
 			"request": "attach",
       			"address": "localhost",
       			"port": 10000
+		},
+		{
+			"name": "Debug - Android (Waydroid)",
+			"type": "mono",
+			"preLaunchTask": "run-debug-android-waydroid",
+			"request": "attach",
+			"address": "localhost",
+			"port": 10000
 		},
         {
 			"name": "Attach - Android",
