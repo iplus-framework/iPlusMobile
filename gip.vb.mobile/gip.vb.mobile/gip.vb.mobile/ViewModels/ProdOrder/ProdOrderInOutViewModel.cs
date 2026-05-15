@@ -103,6 +103,11 @@ namespace gip.vb.mobile.ViewModels
                 ACValue allowEditProductionDate = wfMethod.ParameterValueList.GetACValue("AllowEditProductionTime");
                 if (allowEditProductionDate != null && allowEditProductionDate.Value != null)
                     AllowEditProductionTime = allowEditProductionDate.ParamAsBoolean;
+
+                ACValue totalPostingTolerance = wfMethod.ParameterValueList.GetACValue("TotalPostingTolerance");
+                if (totalPostingTolerance != null && totalPostingTolerance.Value != null)
+                    _TotalPostingTolerance = totalPostingTolerance.ParamAsDouble;
+
             }
 
             _Components = components;
@@ -340,6 +345,8 @@ namespace gip.vb.mobile.ViewModels
         private double _InwardSuggestionMode;
         private double _InwardPostingSuggestionQ;
         private int _InwardAutoSplitQuant;
+        private double _TotalPostingTolerance;
+
         private IEnumerable<ProdOrderPartslistPosRelation> _Components;
         
         private bool _AllowEditProductionTime = false;
@@ -666,6 +673,20 @@ namespace gip.vb.mobile.ViewModels
 
             if (IsInward)
             {
+                if (_TotalPostingTolerance > 0.001)
+                {
+                    double totalAlreadyPosted = IntermOrIntermBatch.ActualQuantityUOM;
+                    double totalAfterPosting = totalAlreadyPosted + BookingQuantity;
+                    double requiredQuantity = IntermOrIntermBatch.TargetQuantityUOM;
+                    double maxQuantity = (requiredQuantity * _TotalPostingTolerance * 0.01) + requiredQuantity;
+
+                    if (totalAfterPosting > maxQuantity)
+                    {
+                        ShowDialog(new Msg(eMsgLevel.Error, Strings.AppStrings.TotalPostingQuantity_Text) { MessageButton = eMsgButton.OK }, "", null, "", 4);
+                        return;
+                    }
+                }
+
                 await BookFacilityInward();
             }
             else

@@ -772,4 +772,7 @@
   <data name="BtnLastPostingOrder" xml:space="preserve">
     <value>To last posting order</value>
   </data>
+  <data name="TotalPostingQuantity_Text" xml:space="preserve">
+    <value>The total posting quantity has been exceeded!</value>
+  </data>
 </root>

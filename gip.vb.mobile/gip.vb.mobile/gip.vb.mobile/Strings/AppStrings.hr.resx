@@ -771,4 +771,7 @@
   <data name="BtnLastPostingOrder" xml:space="preserve">
     <value>Na nalog s poslj. knjiženjem</value>
   </data>
+  <data name="TotalPostingQuantity_Text" xml:space="preserve">
+    <value>Ukupna količina za knjiženje je prekoračena!</value>
+  </data>
 </root>
