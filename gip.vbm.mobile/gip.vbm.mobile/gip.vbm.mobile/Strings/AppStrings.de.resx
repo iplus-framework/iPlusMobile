@@ -768,4 +768,7 @@
   <data name="BtnLastPostingOrder" xml:space="preserve">
     <value>Zum letzten Buchungsauftrag</value>
   </data>
+  <data name="TotalPostingQuantity_Text" xml:space="preserve">
+    <value>Das maximale Buchungsvolumen wurde überschritten!</value>
+  </data>
 </root>
