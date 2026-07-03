@@ -14,7 +14,7 @@
 		<ApplicationTitle>gip.vbm.mobileApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.gipsoft.mobile</ApplicationId>
+		<ApplicationId>com.gipsoft.mobilemaui</ApplicationId>
 		<ApplicationIdGuid>BFD13D1B-20AB-4AAA-B23E-BBE93AA8BBE0</ApplicationIdGuid>
 
 
@@ -96,22 +96,31 @@
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseDatalogic|net10.0-android|AnyCPU'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);DATALOGIC</DefineConstants>
+		<!-- APK Signing -->
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyAlias>mobilemaui</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>$([System.Environment]::GetEnvironmentVariable("MOBILEMAUI_KEY_PASS"))</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>$([System.Environment]::GetEnvironmentVariable("MOBILEMAUI_STORE_PASS"))</AndroidSigningStorePass>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='ReleaseZebra|net10.0-android|AnyCPU'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<Optimize>True</Optimize>
 		<DefineConstants>$(DefineConstants);ZEBRA</DefineConstants>
+		<!-- APK Signing -->
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyAlias>mobilemaui</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>$([System.Environment]::GetEnvironmentVariable("MOBILEMAUI_KEY_PASS"))</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>$([System.Environment]::GetEnvironmentVariable("MOBILEMAUI_STORE_PASS"))</AndroidSigningStorePass>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Update="Microsoft.Maui.Controls" Version="10.0.30" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
-		<PackageReference Include="datalogic-xamarin-sdk" Version="1.46.0" />
 		<PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="10.0.2" />
 		<PackageReference Include="Microsoft.NET.ILLink.Analyzers" Version="$(ILLinkPackVersion)" />
 	</ItemGroup>

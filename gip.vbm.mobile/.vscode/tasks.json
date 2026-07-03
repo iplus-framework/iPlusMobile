@@ -36,6 +36,36 @@
             ],
             "group": "build",
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish-release-datalogic-apk",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "publish",
+                "${workspaceFolder}/gip.vbm.mobileApp/gip.vbm.mobileApp.csproj",
+                "-p:TargetFramework=net10.0-android",
+                "-p:Configuration=ReleaseDatalogic",
+                "-p:AndroidSigningKeyStore=${env:MOBILEMAUI_KEYSTORE_PATH}",
+                "-o:${workspaceFolder}/publish-datalogic"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish-release-zebra-apk",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "publish",
+                "${workspaceFolder}/gip.vbm.mobileApp/gip.vbm.mobileApp.csproj",
+                "-p:TargetFramework=net10.0-android",
+                "-p:Configuration=ReleaseZebra",
+                "-p:AndroidSigningKeyStore=${env:MOBILEMAUI_KEYSTORE_PATH}",
+                "-o:${workspaceFolder}/publish-zebra"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
         }
     ]
 }
