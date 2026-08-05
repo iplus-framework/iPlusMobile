@@ -10,6 +10,12 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
+		<!-- Suppress MA002 SDK warning -->
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+
+		<!-- Android Optimization & Alignment -->
+		<AndroidZipAlign>true</AndroidZipAlign>		
+
 		<!-- Display name -->
 		<ApplicationTitle>gip.vbm.mobileApp</ApplicationTitle>
 
