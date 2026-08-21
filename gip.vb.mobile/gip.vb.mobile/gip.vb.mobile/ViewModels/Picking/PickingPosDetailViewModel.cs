@@ -347,7 +347,7 @@ namespace gip.vb.mobile.ViewModels
                     string tempBarcode = GS1.TrimBarcodeString(currentBarcode);
                     char GS = (char)29;
                     string GS_ESCAPED = "\u001d";
-                    if(tempBarcode.Contains(GS))
+                    if (tempBarcode.Contains(GS))
                     {
                         tempBarcode = tempBarcode.Replace(GS.ToString(), GS_ESCAPED);
                     }
@@ -592,9 +592,19 @@ namespace gip.vb.mobile.ViewModels
         {
             if (Overview == null || Overview.PostingsFBC == null)
                 return null;
-            var result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
-            if (result == null)
-                result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            FacilityBookingChargeOverview result = null;
+            if (SelectedPosting != null)
+            {
+                result = Overview.PostingsFBC.FirstOrDefault(c => c.FacilityBookingChargeID == SelectedPosting.FacilityBookingChargeID);
+            }
+
+            if (result == null || (result.InwardFacilityChargeID == null && result.OutwardFacilityChargeID == null))
+            {
+                result = Overview.PostingsFBC.Where(c => c.InwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+                if (result == null)
+                    result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
+            }
+            
             return result;
         }
 
