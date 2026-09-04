@@ -1926,6 +1926,15 @@ namespace gip.vb.mobile.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The total posting quantity has been exceeded!.
+        /// </summary>
+        internal static string TotalPostingQuantity_Text {
+            get {
+                return ResourceManager.GetString("TotalPostingQuantity_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Offline-Demodata.
         /// </summary>
         internal static string UseMockDataStore_Text {

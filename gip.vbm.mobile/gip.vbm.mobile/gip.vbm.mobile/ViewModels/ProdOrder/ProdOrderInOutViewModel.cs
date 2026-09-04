@@ -78,6 +78,10 @@ namespace gip.vbm.mobile.ViewModels
                 ACValue seqNo2 = wfMethod.ParameterValueList.GetACValue("ValidSeqNoPostingQSMode2");
                 if (seqNo2 != null)
                     validSeqNo2 = seqNo2.ParamAsString;
+
+                ACValue totalPostingTolerance = wfMethod.ParameterValueList.GetACValue("TotalPostingTolerance");
+                if (totalPostingTolerance != null && totalPostingTolerance.Value != null)
+                    _TotalPostingTolerance = totalPostingTolerance.ParamAsDouble;
             }
             _OutwardSuggestionMode = new PostingSuggestionMode(mode1, validSeqNo1, mode2, validSeqNo2);
 
@@ -352,6 +356,7 @@ namespace gip.vbm.mobile.ViewModels
         private double _InwardSuggestionMode;
         private double _InwardPostingSuggestionQ;
         private int _InwardAutoSplitQuant;
+        private double _TotalPostingTolerance;
         private IEnumerable<ProdOrderPartslistPosRelation> _Components;
 
         #endregion
@@ -658,6 +663,20 @@ namespace gip.vbm.mobile.ViewModels
 
             if (IsInward)
             {
+                if (_TotalPostingTolerance > 0.001)
+                {
+                    double totalAlreadyPosted = IntermOrIntermBatch.ActualQuantityUOM;
+                    double totalAfterPosting = totalAlreadyPosted + BookingQuantity;
+                    double requiredQuantity = IntermOrIntermBatch.TargetQuantityUOM;
+                    double maxQuantity = (requiredQuantity * _TotalPostingTolerance * 0.01) + requiredQuantity;
+
+                    if (totalAfterPosting > maxQuantity)
+                    {
+                        ShowDialog(new Msg(eMsgLevel.Error, Strings.AppStrings.TotalPostingQuantity_Text) { MessageButton = eMsgButton.OK }, "", null, "", 4);
+                        return;
+                    }
+                }
+
                 await BookFacilityInward();
             }
             else

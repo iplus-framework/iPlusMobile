@@ -1,4 +1,4 @@
-// Copyright (c) 2024, gipSoft d.o.o.
+﻿// Copyright (c) 2024, gipSoft d.o.o.
 // Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
 ﻿using System;
 using System.Collections.Generic;
@@ -349,7 +349,7 @@ namespace gip.vb.mobile.ViewModels
                     string tempBarcode = GS1.TrimBarcodeString(currentBarcode);
                     char GS = (char)29;
                     string GS_ESCAPED = "\u001d";
-                    if(tempBarcode.Contains(GS))
+                    if (tempBarcode.Contains(GS))
                     {
                         tempBarcode = tempBarcode.Replace(GS.ToString(), GS_ESCAPED);
                     }
@@ -606,7 +606,7 @@ namespace gip.vb.mobile.ViewModels
                 if (result == null)
                     result = Overview.PostingsFBC.Where(c => c.OutwardFacilityChargeID.HasValue).OrderByDescending(c => c.InsertDate).FirstOrDefault();
             }
-
+            
             return result;
         }
 

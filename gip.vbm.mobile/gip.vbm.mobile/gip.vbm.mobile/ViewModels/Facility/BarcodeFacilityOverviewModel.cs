@@ -276,15 +276,8 @@ namespace gip.vbm.mobile.ViewModels
             this.WSResponse = response;
 
             BarcodeEntity facilityChargeEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.FacilityCharge != null).FirstOrDefault();
-            if (facilityChargeEntity == null)
-            {
-                DecodedEntitiesList = ExchangedBarcodeSeq.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
-                if (ExchangedBarcodeSeq.Sequence.Any(c => c.ACClass != null))
-                    ResetScanSequence();
-                else
-                    this.Message = response.Data.Message;
-            }
-            else
+            BarcodeEntity facilityEntity = ExchangedBarcodeSeq.Sequence.Where(c => c.Facility != null).FirstOrDefault();
+            if (facilityChargeEntity != null)
             {
                 List<object> entries = new List<object>();
                 entries.Add(facilityChargeEntity.FacilityCharge);
@@ -292,6 +285,23 @@ namespace gip.vbm.mobile.ViewModels
 
                 this.Message = null;
                 ResetScanSequence();
+            }
+            else if (facilityEntity != null)
+            {
+                List<object> entries = new List<object>();
+                entries.Add(facilityEntity.Facility);
+                DecodedEntitiesList = entries;
+
+                this.Message = null;
+                ResetScanSequence();
+            }
+            else
+            {
+                DecodedEntitiesList = ExchangedBarcodeSeq.Sequence.Where(c => c.ValidEntity != null).Select(c => c.ValidEntity).ToList();
+                if (ExchangedBarcodeSeq.Sequence.Any(c => c.ACClass != null))
+                    ResetScanSequence();
+                else
+                    this.Message = response.Data.Message;
             }
 
             return true;
@@ -301,7 +311,7 @@ namespace gip.vbm.mobile.ViewModels
         {
             if (FacilitySelector != null)
             {
-                SelectedLocation = FacilitySelector.SelectedStorageLocation;
+                    SelectedLocation = FacilitySelector.SelectedStorageLocation;
                 FacilitySelector = null;
                 //LoadFilteredFacilitiesCommand.Execute(null);
             }
