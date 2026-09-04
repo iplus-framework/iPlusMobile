@@ -20,6 +20,9 @@ namespace gip.vbm.mobile.Views
         public BSOFacilityChargeOverview()
 		{
             BindingContext = _ViewModel = new FacilityChargesViewModel();
+            barcodeScanner = new BarcodeScannerView();
+            barcodeScanner.BarcodeServiceMethod = BarcodeServiceMethodEnum.UseBarcodeSequences;
+            barcodeScanner.ViewModel = _ViewModel.FacilityScanViewModel;
             InitializeComponent();
         }
 
@@ -27,6 +30,7 @@ namespace gip.vbm.mobile.Views
 
         #region Properties
         FacilityChargesViewModel _ViewModel;
+        BarcodeScannerView barcodeScanner;
         #endregion
 
         #region Methods
@@ -34,13 +38,13 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //barcodeScanner.OnAppearing();
+            barcodeScanner.OnAppearing();
             InitPageOnNavigation();
         }
 
         protected override void OnDisappearing()
         {
-            //barcodeScanner.OnDisappearing();
+            barcodeScanner.OnDisappearing();
             base.OnDisappearing();
         }
 

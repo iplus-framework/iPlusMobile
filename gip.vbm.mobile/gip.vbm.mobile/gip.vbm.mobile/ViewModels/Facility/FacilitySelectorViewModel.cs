@@ -55,7 +55,11 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
-        public BarcodeScanFacilityModel FacilityScanViewModel;
+        public BarcodeScanFacilityModel FacilityScanViewModel
+        {
+            get;
+            set;
+        }
 
         private List<Facility> _StorageLocationPath;
 
