@@ -53,10 +53,8 @@ namespace gip.vbm.mobile.Views
 
             if (_ViewModel.InventoryNavArgument.EditMode == EditModeEnum.GoAndCount)
                 btnCheckQuant.IsVisible = false;
-            /*
+
             barcodeScanner.OnAppearing();
-            barcodeScanner.IsVisible = false;
-            */
         }
 
         protected override void OnDisappearing()
