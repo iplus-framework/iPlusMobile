@@ -109,7 +109,7 @@
     <v:BSOPageBase x:Name="BookingHistoryPivotItem" Title="{i18n:Translate Text=BookingHistory_Header}">
         <StackLayout>
             <ctl:MsgLabel Msg="{Binding Message}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" />
-            <dg:DataGrid ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
+            <dg:DataGrid x:Name="PostingsList" ItemsSource="{Binding Overview.PostingsFBC}" RowHeight="40" HeaderHeight="50" BorderColor="{DynamicResource DgBorderColor}" 
                          HeaderBackground="{DynamicResource DgHeaderBackgroundColor}" VerticalOptions="StartAndExpand" 
                          RowsTextColorPalette="{StaticResource DgColorProvider}" SelectedItem="{Binding SelectedPosting}"
                          IsRefreshing="{Binding IsBusy}">

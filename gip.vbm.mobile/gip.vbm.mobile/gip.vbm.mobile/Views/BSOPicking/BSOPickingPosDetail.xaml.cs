@@ -29,6 +29,18 @@ namespace gip.vbm.mobile.Views
             _ViewModel = new PickingPosDetailViewModel();
             BindingContext = _ViewModel;
             InitializeComponent();
+
+            //// force refresh indicator to stop when IsBusy changes to false   
+            _ViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_ViewModel.IsBusy) && !_ViewModel.IsBusy)
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        PostingsList.IsRefreshing = false;
+                    });
+                }
+            };
         }
 
         protected override void OnAppearing()

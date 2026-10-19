@@ -18,6 +18,18 @@ namespace gip.vbm.mobile.Views
             BindingContext = _ViewModel = new PickingsViewModel();
             _ViewModel.SetTitleFromType(typeof(BSOPicking), App.UserRights);
             InitializeComponent();
+
+            //// force refresh indicator to stop when IsBusy changes to false
+            _ViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_ViewModel.IsBusy) && !_ViewModel.IsBusy)
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        PickingsListView.IsRefreshing = false;
+                    });
+                }
+            };
         }
 
         private void InitPageOnNavigation()

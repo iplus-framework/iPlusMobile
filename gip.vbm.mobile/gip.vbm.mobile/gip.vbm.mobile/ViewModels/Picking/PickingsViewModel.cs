@@ -60,13 +60,9 @@ namespace gip.vbm.mobile.ViewModels
         {
             if (IsBusy)
                 return;
-
             IsBusy = true;
-
             try
             {
-                Pickings.Clear();
-
                 string pickingType = "", fromFacility = "", toFacility = "", fromDate = "", toDate = "";
                 if (PickingFilter != null)
                 {
@@ -80,11 +76,10 @@ namespace gip.vbm.mobile.ViewModels
 
                     toDate = PickingFilter.DateTo.ToString("o");
                 }
-
-                await Task.Delay(100); // hack for ListView - because IsRefreshing won't stop
-
+                //await Task.Delay(100); // hack for ListView - because IsRefreshing won't stop
                 var response = await _WebService.SearchPickingsAsync(pickingType, fromFacility, toFacility, fromDate, toDate);
                 this.WSResponse = response;
+                Pickings.Clear();
                 if (response.Suceeded)
                 {
                     foreach (var item in response.Data)
