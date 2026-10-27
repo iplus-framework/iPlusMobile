@@ -25,6 +25,19 @@ namespace gip.vbm.mobile.ViewModels
         {
         }
 
+        public string LastCrashDump
+        {
+            get
+            {
+                return App.SettingsViewModel.LastCrashDump;
+            }
+            set
+            {
+                App.SettingsViewModel.LastCrashDump = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool PerfLoggingOn
         {
             get
@@ -49,21 +62,33 @@ namespace gip.vbm.mobile.ViewModels
 
             try
             {
+                string dump = null;
                 if (!App.PerfLogger.Active)
-                    return;
-                string dump = App.PerfLogger.DumpAndReset();
-                var response = await _WebService.DumpPerfLog(dump);
-
-                if (response.Suceeded)
                 {
-                    if (response.Message != null)
+                    dump = App.PerfLogger.DumpAndReset();
+                }
+                
+                if (!String.IsNullOrEmpty(App.SettingsViewModel.LastCrashDump))
+                {
+                    dump += "\r\n" + App.SettingsViewModel.LastCrashDump;
+                    LastCrashDump = "";
+                }
+
+                if(!string.IsNullOrEmpty(dump))
+                {
+                    var response = await _WebService.DumpPerfLog(dump);
+
+                    if (response.Suceeded)
+                    {
+                        if (response.Message != null)
+                        {
+                            Message = response.Message;
+                        }
+                    }
+                    else if (response.Message != null)
                     {
                         Message = response.Message;
                     }
-                }
-                else if (response.Message != null)
-                {
-                    Message = response.Message;
                 }
             }
             catch (Exception e)

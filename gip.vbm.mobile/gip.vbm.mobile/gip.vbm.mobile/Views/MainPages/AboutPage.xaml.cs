@@ -53,6 +53,20 @@ namespace gip.vbm.mobile.Views
             _ViewModel.SendPerfLog.Execute(null);
         }
 
+        /// <summary>
+        /// </summary>
+        private void TestCrash_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                throw new Exception("Test crash (manual throw) at " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+            }
+            catch (Exception ex)
+            {
+                _ViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
+            }
+        }
+
         public void DisplayPopup()
         {
             var popup = new BarcodePopup();
