@@ -56,6 +56,11 @@ public partial class BarcodePopup : Popup
 
     private BarcodeResult[] _Results;
 
+    /// <summary>
+    /// Barcode results of the last scan (available after the popup has been closed).
+    /// </summary>
+    public BarcodeResult[] Results => _Results;
+
     private void scanView_BarcodesDetected(object sender, ZXing.Net.Maui.BarcodeDetectionEventArgs e)
     {
         if (e == null)
@@ -63,11 +68,9 @@ public partial class BarcodePopup : Popup
         _Results = e.Results;
         if (AutoCloseOnScan)
         {
-            Task.Run(async () =>
-            {
-                //scanView?.DisconnectCamera();
-                await CloseAsync();
-            });
+            // BarcodesDetected is raised on the camera/decode thread; closing the
+            // popup re-shows the underlying page and must run on the main thread.
+            MainThread.BeginInvokeOnMainThread(async () => await CloseAsync());
         }
     }
 

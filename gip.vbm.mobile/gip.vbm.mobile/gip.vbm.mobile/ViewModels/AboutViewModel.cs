@@ -68,9 +68,9 @@ namespace gip.vbm.mobile.ViewModels
                     dump = App.PerfLogger.DumpAndReset();
                 }
                 
-                if (!String.IsNullOrEmpty(App.SettingsViewModel.LastCrashDump))
+                if (!String.IsNullOrEmpty(LastCrashDump))
                 {
-                    dump += "\r\n" + App.SettingsViewModel.LastCrashDump;
+                    dump += "\r\n" + LastCrashDump;
                     LastCrashDump = "";
                 }
 
@@ -80,10 +80,8 @@ namespace gip.vbm.mobile.ViewModels
 
                     if (response.Suceeded)
                     {
-                        if (response.Message != null)
-                        {
-                            Message = response.Message;
-                        }
+                        // Clear the message after a successful send so it doesn't stay on screen
+                        Message = null;
                     }
                     else if (response.Message != null)
                     {

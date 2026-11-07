@@ -224,6 +224,9 @@ namespace gip.vbm.mobile.Views
 
         private void cbCollectDetailsOverScan_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
+            // Auto-apply ("Enter") on camera scan only when details collection is off;
+            // otherwise the scan result is only populated into the input field.
+            barcodeScanner.AutoInvokeOnCameraScan = !cbCollectDetailsOverScan.IsChecked;
             if (cbCollectDetailsOverScan.IsChecked)
             {
                 barcodeScanner.BarcodeServiceMethod = Controls.BarcodeServiceMethodEnum.CustomCommand;

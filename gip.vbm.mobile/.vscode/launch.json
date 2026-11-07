@@ -10,6 +10,14 @@
       			"port": 10000
 		},
 		{
+			"name": "Debug - Android (USB, Camera)",
+			"type": "mono",
+			"preLaunchTask": "run-debug-android-usb-camera",
+			"request": "attach",
+			"address": "localhost",
+			"port": 10000
+		},
+		{
 			"name": "Debug - Android (Waydroid)",
 			"type": "mono",
 			"preLaunchTask": "run-debug-android-waydroid",

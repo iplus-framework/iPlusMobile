@@ -69,6 +69,10 @@ namespace gip.vbm.mobile.Views
 
         public void DisplayPopup()
         {
+#if ZEBRA
+            // Never open the camera popup on ZEBRA builds - see MainPage.OpenBarcodeCamera.
+            return;
+#endif
             var popup = new BarcodePopup();
 
             this.ShowPopup(popup);

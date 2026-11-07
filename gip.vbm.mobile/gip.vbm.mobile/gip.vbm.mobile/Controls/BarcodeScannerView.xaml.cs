@@ -185,6 +185,14 @@ namespace gip.vbm.mobile.Controls
         #endregion
 
         #region Camera-Scanner (ZXing)
+
+        /// <summary>
+        /// When true (default), a camera scan automatically applies the barcode
+        /// (same as pressing the search key). When false, the scan result is only
+        /// populated into the input field.
+        /// </summary>
+        public bool AutoInvokeOnCameraScan { get; set; } = true;
+
         public async Task OpenBarcodeCamera()
         {
             if (ViewModel != null)
@@ -196,7 +204,17 @@ namespace gip.vbm.mobile.Controls
                 if (result != null && result.Any())
                 {
                     scanResult = result.FirstOrDefault().Value;
-                    NewBarcodeScanned(scanResult);
+                    if (AutoInvokeOnCameraScan)
+                    {
+                        NewBarcodeScanned(scanResult);
+                    }
+                    else
+                    {
+                        // Only populate the input field; do not invoke the barcode service
+                        if (ViewModel != null)
+                            ViewModel.CurrentBarcode = scanResult;
+                        OnNewBarcodeScanned?.Invoke(this, new BarcodeScannerEventArgs(scanResult));
+                    }
                 }
             }
             finally

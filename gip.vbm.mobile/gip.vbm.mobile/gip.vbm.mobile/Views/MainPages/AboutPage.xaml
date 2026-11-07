@@ -39,6 +39,8 @@
             <Label Text="Performance logging" />
             <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
             <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>
+            <Button x:Name="TestCrash" Text="Test Crash" Clicked="TestCrash_Clicked"/>
+            <Label Text="{Binding LastCrashDump, Mode=OneWay}" />
         </StackLayout>
 
         <Image x:Name="Image" Source="ipluslogo.png" HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="1" />

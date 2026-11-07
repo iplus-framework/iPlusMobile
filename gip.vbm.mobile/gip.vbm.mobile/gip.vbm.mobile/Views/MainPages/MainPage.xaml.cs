@@ -139,8 +139,45 @@ namespace gip.vbm.mobile.Views
 
         public async Task<object> OpenBarcodeCamera()
         {
+#if ZEBRA
+            // Zebra devices have a hardware barcode scanner. The ZXing camera popup is
+            // unreliable here: CameraX HasCamera() can report true while the camera is
+            // actually busy/disabled, and ZXing.Net.Maui 0.7.4 then throws an uncatchable
+            // IllegalArgumentException ("No available camera can be found") inside a Java
+            // Runnable, crashing the app. So never open the camera popup on ZEBRA builds.
+            await DisplayAlertAsync("Camera", "No available camera on this device. Use the hardware barcode scanner instead.", "OK");
+            return null;
+#elif ANDROID
+            // ZXing.Net.Maui 0.7.4 throws IllegalArgumentException "No available camera can be found"
+            // (inside a Java Runnable -> uncatchable crash) when no back camera is available.
+            if (!await HasBackCameraAvailableAsync())
+            {
+                await DisplayAlertAsync("Camera", "No available camera on this device. Use the hardware barcode scanner instead.", "OK");
+                return null;
+            }
+#endif
             var popup = new BarcodePopup();
-            return await this.ShowPopupAsync(popup);
+            await this.ShowPopupAsync(popup);
+            return popup.Results;
         }
+
+#if ANDROID
+        private static async Task<bool> HasBackCameraAvailableAsync()
+        {
+            try
+            {
+                var future = await Task.Run(() =>
+                    AndroidX.Camera.Lifecycle.ProcessCameraProvider.GetInstance(Platform.AppContext));
+                var cameraProvider = future?.Get() as AndroidX.Camera.Lifecycle.ProcessCameraProvider;
+                if (cameraProvider == null)
+                    return false;
+                return cameraProvider.HasCamera(AndroidX.Camera.Core.CameraSelector.DefaultBackCamera);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+#endif
     }
 }

@@ -212,6 +212,14 @@ namespace gip.vbm.mobile.ViewModels
 
         public override async Task<bool> ExecuteDecodeEntityCommand()
         {
+             // A camera scan can arrive right after the scanner popup closes, while
+            // OnAppearing (re-fired by the popup close) is still refreshing postings
+            // (IsBusy == true). Wait for the pending refresh instead of silently
+            // skipping the decode, otherwise the scanned barcode is never searched.
+            DateTime waitUntil = DateTime.UtcNow.AddSeconds(10);
+            while (IsBusy && DateTime.UtcNow < waitUntil)
+                await Task.Delay(50);
+
             if (IsBusy)
                 return false;
 
@@ -322,6 +330,7 @@ namespace gip.vbm.mobile.ViewModels
             catch (Exception ex)
             {
                 Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
+                App.SettingsViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
             }
             finally
             {

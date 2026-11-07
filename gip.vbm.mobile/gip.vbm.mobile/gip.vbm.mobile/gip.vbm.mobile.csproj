@@ -8,7 +8,7 @@
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG;ZXING</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDatalogic|AnyCPU'">
 		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
@@ -19,7 +19,7 @@
 		<Optimize>false</Optimize>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>
+		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG;ZXING</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDatalogic|AnyCPU'">
 		<DefineConstants>DEBUG;TRACE;NETSTANDARD;MAUIBUG</DefineConstants>

@@ -1,6 +1,6 @@
 // Copyright (c) 2024, gipSoft d.o.o.
 // Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
-﻿using gip.vbm.mobile.DependencyServices;
+using gip.vbm.mobile.DependencyServices;
 using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
@@ -11,6 +11,36 @@ namespace gip.vbm.mobile.Views
     {
         public BSOTabbedPageBase() : base()
         {
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(ex, "Load page exception");
+            }
+        }
+
+        private async void OnCurrentPageChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var activePage = CurrentPage;
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(ex, "Tab change exception");
+            }
+        }
+
+        private async Task HandleExceptionAsync(Exception ex, string title)
+        {
+            App.SettingsViewModel.LastCrashDump = title + "\r\n" + ex.Message + "\r\n" + ex.StackTrace;
         }
 
         public NavParameter NavParam

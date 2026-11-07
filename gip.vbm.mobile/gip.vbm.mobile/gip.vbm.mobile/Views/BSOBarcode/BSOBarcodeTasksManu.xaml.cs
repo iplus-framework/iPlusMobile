@@ -1,6 +1,6 @@
 // Copyright (c) 2024, gipSoft d.o.o.
 // Licensed under the GNU GPLv3 License. See LICENSE file in the project root for full license information.
-﻿using gip.mes.webservices;
+using gip.mes.webservices;
 using gip.vbm.mobile.barcode;
 using gip.vbm.mobile.ViewModels;
 using System;
@@ -15,13 +15,13 @@ using gip.core.webservices;
 
 namespace gip.vbm.mobile.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class BSOBarcodeTasksManu : BSOPageBase
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class BSOBarcodeTasksManu : BSOPageBase
     {
         BarcodeScanManuModel _ViewModel;
 
         public BSOBarcodeTasksManu()
-		{
+        {
             BindingContext = _ViewModel = new BarcodeScanManuModel();
             _ViewModel.SetTitleFromType(this.GetType(), App.UserRights);
             InitializeComponent();
@@ -52,6 +52,8 @@ namespace gip.vbm.mobile.Views
         {
 #if ZXING
             await barcodeScanner.OpenBarcodeCamera();
+#else
+            barcodeScanner.OpenBarcodeCamera();
 #endif
         }
 
