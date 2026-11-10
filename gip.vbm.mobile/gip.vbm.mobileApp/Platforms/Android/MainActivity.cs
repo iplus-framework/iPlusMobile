@@ -31,7 +31,6 @@ namespace gip.vbm.mobileApp
     {
         EMDKManager _EMDKManager = null;
         ProfileManager _ProfileManager = null;
-        private String _ProfileName = "ClockProfile";
         BarcodeManager _BarcodeManager = null;
         Scanner _Scanner = null;
 #else
@@ -75,7 +74,9 @@ namespace gip.vbm.mobileApp
 #if ZXING
             //global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 #endif
+#pragma warning disable CA1416 // base method is annotated android23.0+, runtime guards this callback (only invoked on API 23+)
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+#pragma warning restore CA1416
         }
 
         protected override void OnResume()
@@ -290,7 +291,9 @@ namespace gip.vbm.mobileApp
                             ScannerConfig config = _Scanner.GetConfig();
                             config.SkipOnUnsupported = ScannerConfig.SkipOnUnSupported.None;
                             config.ScanParams.DecodeLEDFeedback = true;
+#pragma warning disable CS0618 // PickList is flagged obsolete by the EMDK binding but still works on the target devices
                             config.ReaderParams.ReaderSpecific.ImagerSpecific.PickList = ScannerConfig.PickList.Enabled;
+#pragma warning restore CS0618
                             config.DecoderParams.Code39.Enabled = true;
                             config.DecoderParams.Code128.Enabled = false;
                             _Scanner.SetConfig(config);
