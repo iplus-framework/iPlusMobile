@@ -63,7 +63,7 @@ namespace gip.vbm.mobile.Views
             }
             catch (Exception ex)
             {
-                _ViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
+                Helpers.CrashLog.Record("AboutPage.TestCrash", ex);
             }
         }
 

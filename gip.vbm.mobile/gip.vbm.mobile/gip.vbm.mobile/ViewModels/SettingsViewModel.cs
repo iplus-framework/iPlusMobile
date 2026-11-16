@@ -230,6 +230,18 @@ namespace gip.vbm.mobile.ViewModels
             }
         }
 
+        const int CrashDumpMaxChars = 50_000;
+
+        /// <summary>
+        /// Appends a crash/exception entry to LastCrashDump instead of overwriting it,
+        /// so chained exceptions (e.g. a caught dialog error followed by a fatal one)
+        /// are all preserved until ExecuteSendPerfLog sends them to the server.
+        /// </summary>
+        public void AppendCrashDump(string source, Exception ex)
+        {
+            Helpers.CrashLog.Record(source, ex);
+        }
+
 
 #endregion
 

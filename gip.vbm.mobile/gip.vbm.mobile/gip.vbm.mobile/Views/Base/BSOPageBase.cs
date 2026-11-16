@@ -20,6 +20,7 @@ namespace gip.vbm.mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            Helpers.CrashLog.AddBreadcrumb($"Navigate -> {GetType().Name}");
             if (BindingContext != null)
             {
                 _BaseViewModel = BindingContext as ViewModels.BaseViewModel;
@@ -119,7 +120,7 @@ namespace gip.vbm.mobile.Views
             }
             catch (Exception ex)
             {
-                App.SettingsViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
+                App.SettingsViewModel.AppendCrashDump("BSOPageBase.DialogEvent", ex);
             }
         }
 

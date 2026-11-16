@@ -25,6 +25,10 @@ namespace gip.vbm.mobileApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+#if MAUI_DEVFLOW
+            builder.AddMauiDevFlowAgent();
+#endif
+
             return builder.Build();
         }
     }

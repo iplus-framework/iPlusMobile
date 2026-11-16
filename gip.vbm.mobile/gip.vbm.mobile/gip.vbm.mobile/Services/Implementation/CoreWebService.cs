@@ -138,6 +138,7 @@ namespace gip.vbm.mobile.Services
 
         protected async Task<WSResponse<TResult>> Get<TResult>(Uri uri)
         {
+            Helpers.CrashLog.AddBreadcrumb($"WS GET {uri.WebServiceMethodName()}");
             using (var cts = new CancellationTokenSource())
             {
                 HttpResponseMessage response = null;
@@ -199,6 +200,7 @@ namespace gip.vbm.mobile.Services
 
         protected async Task<WSResponse<TResult>> Post<TResult, TParam>(TParam item, Uri uri)
         {
+            Helpers.CrashLog.AddBreadcrumb($"WS POST {uri.WebServiceMethodName()}");
             using (var cts = new CancellationTokenSource())
             {
                 JsonSerializerSettings microsoftDateFormatSettings = new JsonSerializerSettings
@@ -276,6 +278,7 @@ namespace gip.vbm.mobile.Services
 
         protected async Task<WSResponse<TResult>> Put<TResult, TParam>(TParam item, Uri uri)
         {
+            Helpers.CrashLog.AddBreadcrumb($"WS PUT {uri.WebServiceMethodName()}");
             using (var cts = new CancellationTokenSource())
             {
                 JsonSerializerSettings microsoftDateFormatSettings = new JsonSerializerSettings
@@ -351,6 +354,7 @@ namespace gip.vbm.mobile.Services
 
         protected async Task<WSResponse<TResult>> Delete<TResult>(Uri uri)
         {
+            Helpers.CrashLog.AddBreadcrumb($"WS DELETE {uri.WebServiceMethodName()}");
             using (var cts = new CancellationTokenSource())
             {
                 HttpResponseMessage response = null;

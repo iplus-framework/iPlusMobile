@@ -73,7 +73,17 @@ namespace gip.vbm.mobile.ViewModels
             DialogOptions.RequestMsg = msg;
 
             if (DialogEvent != null)
-                DialogEvent(this, new Controls.EventArgs<Msg>(msg));
+            {
+                Helpers.CrashLog.AddBreadcrumb($"ShowDialog {msg?.MessageLevel} on {GetType().Name}");
+                // Dialogs (DisplayAlert/DisplayPromptAsync) may only be created on the main
+                // thread - on Android an AlertDialog on a background thread throws
+                // "Can't create handler inside thread that has not called Looper.prepare()".
+                if (Microsoft.Maui.ApplicationModel.MainThread.IsMainThread)
+                    DialogEvent(this, new Controls.EventArgs<Msg>(msg));
+                else
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                        DialogEvent(this, new Controls.EventArgs<Msg>(msg)));
+            }
         }
 
         public abstract void DialogResponse(Global.MsgResult result, string enteredValue = null);

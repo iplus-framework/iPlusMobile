@@ -330,7 +330,7 @@ namespace gip.vbm.mobile.ViewModels
             catch (Exception ex)
             {
                 Message = new core.datamodel.Msg(core.datamodel.eMsgLevel.Exception, ex.Message);
-                App.SettingsViewModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
+                App.SettingsViewModel.AppendCrashDump("PickingPosDetailViewModel", ex);
             }
             finally
             {

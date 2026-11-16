@@ -46,7 +46,7 @@ namespace gip.vbm.mobile
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
             {
                 var exception = e.ExceptionObject as Exception;
-                LogAndSaveCrash(exception, "AppDomain.UnhandledException");
+                LogAndSaveCrash(exception, $"AppDomain.UnhandledException (IsTerminating={e.IsTerminating})");
             };
 
             
@@ -84,43 +84,7 @@ namespace gip.vbm.mobile
         private void LogAndSaveCrash(Exception? ex, string source)
         {
             if (ex == null) return;
-            string crashReport = $"[{DateTime.Now}] [{source}] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}\n\n";
-            try
-            {
-                // Write to a local file on the device so the log survives app termination
-                string filePath = Path.Combine(FileSystem.AppDataDirectory, $"crash_log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
-                File.AppendAllText(filePath, crashReport);
-            }
-            catch
-            {
-                //
-            }
-            try
-            {
-#if ANDROID
-                // The external dir is accessible via adb even for release (non-debuggable) builds:
-                // adb pull /sdcard/Android/data/com.gipsoft.mobilemaui/files/
-                var extDir = Android.App.Application.Context.GetExternalFilesDir(null);
-                if (extDir != null)
-                {
-                    string extPath = Path.Combine(extDir.AbsolutePath, $"crash_log_{DateTime.Now:yyyyMMdd_HHmmss}.txt");
-                    File.AppendAllText(extPath, crashReport);
-                }
-#endif
-            }
-            catch
-            {
-                //
-            }
-            try
-            {
-                if (SettingsViewModel.StaticSettingModel != null)
-                    SettingsViewModel.StaticSettingModel.LastCrashDump = ex.Message + "\r\n" + ex.StackTrace;
-            }
-            catch
-            {
-                // SettingsViewModel may not be initialized yet during early crashes
-            }
+            Helpers.CrashLog.Record(source, ex);
         }
 
 #if ANDROID
@@ -133,6 +97,9 @@ namespace gip.vbm.mobile
             {
                 _log(ex != null ? new JavaExceptionWrapper(ex) : null,
                      $"Java.UncaughtException (thread={thread?.Name})");
+                // The process is about to be killed by Android - give the file/setting
+                // writes in LogAndSaveCrash time to flush to disk.
+                System.Threading.Thread.Sleep(300);
             }
         }
 

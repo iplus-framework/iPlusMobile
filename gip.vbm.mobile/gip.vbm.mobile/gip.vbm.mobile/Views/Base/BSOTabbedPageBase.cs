@@ -16,6 +16,7 @@ namespace gip.vbm.mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Helpers.CrashLog.AddBreadcrumb($"Navigate -> {GetType().Name}");
 
             try
             {
@@ -40,7 +41,7 @@ namespace gip.vbm.mobile.Views
 
         private async Task HandleExceptionAsync(Exception ex, string title)
         {
-            App.SettingsViewModel.LastCrashDump = title + "\r\n" + ex.Message + "\r\n" + ex.StackTrace;
+            App.SettingsViewModel.AppendCrashDump(title, ex);
         }
 
         public NavParameter NavParam
