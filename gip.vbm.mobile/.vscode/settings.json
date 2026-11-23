@@ -3,5 +3,6 @@
     "maui.android.sdkPaths": [
         "~/Android/Sdk"
     ],
-    "maui.android.jdkDirPath": "/usr/lib/jvm/java-17-openjdk-amd64"
+    "maui.android.jdkDirPath": "/usr/lib/jvm/java-17-openjdk-amd64",
+    "dotnet.defaultSolution": "gip.vbm.mobile.slnx"
 }

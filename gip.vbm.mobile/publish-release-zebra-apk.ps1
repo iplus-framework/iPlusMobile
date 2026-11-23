@@ -48,3 +48,25 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Publish succeeded. APK output: $Output" -ForegroundColor Green
+
+# 4. Rename APK(s) to include the app version from the csproj
+$csprojXml = [xml](Get-Content $Project -Raw)
+$displayVersion = $csprojXml.Project.PropertyGroup |
+    Where-Object { $_.ApplicationDisplayVersion } |
+    Select-Object -ExpandProperty ApplicationDisplayVersion -First 1
+$appVersion = $csprojXml.Project.PropertyGroup |
+    Where-Object { $_.ApplicationVersion } |
+    Select-Object -ExpandProperty ApplicationVersion -First 1
+
+if (-not $displayVersion) {
+    Write-Warning "Could not read ApplicationDisplayVersion from csproj - skipping rename."
+    return
+}
+
+Write-Host "Version from csproj: $displayVersion (build $appVersion)" -ForegroundColor Cyan
+
+Get-ChildItem -Path $Output -Filter '*.apk' | ForEach-Object {
+    $newName = $_.Name -replace '\.apk$', "_v$displayVersion.apk"
+    Rename-Item -Path $_.FullName -NewName $newName
+    Write-Host "  Renamed: $($_.Name) -> $newName" -ForegroundColor Green
+}

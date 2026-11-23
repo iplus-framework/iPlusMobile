@@ -9,6 +9,14 @@
       			"address": "localhost",
       			"port": 10000
 		},
+         {
+         	"name": "Debug - Android (Emulator API 36)",
+         	"type": "mono",
+         	"preLaunchTask": "run-debug-android-emulator",
+         	"request": "attach",
+         	"address": "localhost",
+         	"port": 10000
+         },
 		{
 			"name": "Debug - Android (USB, Camera)",
 			"type": "mono",
