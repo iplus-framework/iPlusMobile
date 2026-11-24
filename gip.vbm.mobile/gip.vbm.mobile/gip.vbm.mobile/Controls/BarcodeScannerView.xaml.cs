@@ -256,7 +256,17 @@ namespace gip.vbm.mobile.Controls
         {
             if (e != null)
             {
-                NewBarcodeScanned(e.Text);
+                // Scanner callbacks (ZEBRA/Datalogic Read event) fire on a background
+                // thread. Everything downstream (ViewModel property changes raising
+                // PropertyChanged -> UI, OnNewBarcodeScanned handlers, Unfocus) must
+                // run on the main thread - on Android touching the view hierarchy from
+                // a background thread throws "Only the original thread that created
+                // a view hierarchy can touch its views" (fatal, unhandled).
+                if (Microsoft.Maui.ApplicationModel.MainThread.IsMainThread)
+                    NewBarcodeScanned(e.Text);
+                else
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                        NewBarcodeScanned(e.Text));
             }
         }
         #endregion
@@ -295,7 +305,14 @@ namespace gip.vbm.mobile.Controls
             }
             OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
 
-            BarcodeSearchBar.Unfocus();
+            // Defensive: Unfocus touches the native view hierarchy. Even with the
+            // entry point marshalled to the main thread, continuations after an
+            // await on a non-UI thread resume on the thread pool - force main thread.
+            if (Microsoft.Maui.ApplicationModel.MainThread.IsMainThread)
+                BarcodeSearchBar.Unfocus();
+            else
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                    BarcodeSearchBar.Unfocus());
         }
 
         /// <summary>
