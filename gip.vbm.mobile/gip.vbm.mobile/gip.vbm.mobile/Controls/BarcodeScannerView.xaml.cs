@@ -303,7 +303,15 @@ namespace gip.vbm.mobile.Controls
                 if (ViewModel != null)
                     success = await ViewModel.ExecuteCustomBarcodeCommand();
             }
-            OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
+            // The continuations after the awaits above resume on a thread-pool thread
+            // (no SynchronizationContext on scanner/worker threads), so this event must
+            // be raised on the main thread - subscribers run ViewModel flows and touch
+            // bound UI properties (see BSOSumQuantityByBarcode, BSOPickingWorkplace*).
+            if (Microsoft.Maui.ApplicationModel.MainThread.IsMainThread)
+                OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success));
+            else
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
+                    OnBarcodeCommandInvoked?.Invoke(this, new BarcodeScannerEventArgs(success)));
 
             // Defensive: Unfocus touches the native view hierarchy. Even with the
             // entry point marshalled to the main thread, continuations after an
