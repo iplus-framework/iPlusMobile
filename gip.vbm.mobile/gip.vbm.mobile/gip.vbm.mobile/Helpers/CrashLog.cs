@@ -49,10 +49,23 @@ namespace gip.vbm.mobile.Helpers
             if (ex == null)
                 return;
 
-            string entry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] [{source}] " +
-                $"Thread=#{System.Threading.Thread.CurrentThread.ManagedThreadId}" +
-                $"(main={Microsoft.Maui.ApplicationModel.MainThread.IsMainThread})\r\n" +
-                $"{ex.GetType().Name}: {ex.Message}\r\n{ex.StackTrace}";
+            string entry = string.Format("[{0:yyyy-MM-dd HH:mm:ss.fff}] [{1}] Thread=#{2}(main={3})\r\n{4}: {5}\r\n{6}",
+                DateTime.Now, source, System.Threading.Thread.CurrentThread.ManagedThreadId,
+                Microsoft.Maui.ApplicationModel.MainThread.IsMainThread,
+                ex.GetType().Name, ex.Message, ex.StackTrace);
+
+            // Walk the InnerException chain: wrapper exceptions (TargetInvocationException
+            // from XAML bindings, AggregateException from tasks, JavaProxyThrowable) hide
+            // the real cause several levels deep - without this the dump is diagnosis-proof.
+            Exception inner = ex.InnerException;
+            int depth = 0;
+            while (inner != null && depth < 5)
+            {
+                entry += string.Format("\r\n--- Inner exception {0} ---\r\n{1}: {2}\r\n{3}",
+                    depth + 1, inner.GetType().Name, inner.Message, inner.StackTrace);
+                inner = inner.InnerException;
+                depth++;
+            }
 
             string crumbs = DumpBreadcrumbs();
             if (!string.IsNullOrEmpty(crumbs))

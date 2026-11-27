@@ -226,7 +226,12 @@ namespace gip.vbm.mobile.ViewModels
                     return IntermOrIntermBatch.MDUnit;
                 if (IntermOrIntermBatch.BookingMaterial != null)
                     return IntermOrIntermBatch.BookingMaterial.BaseMDUnit;
-                return IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material.BaseMDUnit;
+                // Every intermediate access must be null-checked: this getter is
+                // evaluated during XAML binding (BookingUnit.MDUnitName) while the
+                // page is constructed, and an exception here surfaces as
+                // TargetInvocationException inside BindingExpression - a fatal,
+                // hard-to-diagnose crash (see error_20261126_150124.md).
+                return IntermOrIntermBatch.ProdOrderPartslist?.Partslist?.Material?.BaseMDUnit;
             }
         }
 

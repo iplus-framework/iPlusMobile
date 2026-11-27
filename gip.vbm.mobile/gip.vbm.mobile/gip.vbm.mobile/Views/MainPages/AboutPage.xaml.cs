@@ -49,7 +49,6 @@ namespace gip.vbm.mobile.Views
 
         private void SendPerfLog_Clicked(object sender, EventArgs e)
         {
-            DisplayPopup();
             _ViewModel.SendPerfLog.Execute(null);
         }
 
