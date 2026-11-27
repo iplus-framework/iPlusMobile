@@ -35,7 +35,7 @@
             <Label x:Name="lblCurrentUser" />
         </StackLayout>
 
-        <StackLayout Grid.Row="1" Grid.ColumnSpan="7" x:Name="Settings">
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="7" x:Name="Settings" IsVisible="False">
             <Label Text="Performance logging" />
             <Switch IsToggled="{Binding PerfLoggingOn, Mode=TwoWay}" HorizontalOptions="Start" />
             <Button x:Name="SendPerfLog" Text="Send Performancelog" Clicked="SendPerfLog_Clicked"/>

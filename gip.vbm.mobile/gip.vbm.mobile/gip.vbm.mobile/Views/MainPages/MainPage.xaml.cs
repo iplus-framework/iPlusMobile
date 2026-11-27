@@ -44,6 +44,12 @@ namespace gip.vbm.mobile.Views
             if (String.IsNullOrEmpty(pageClassName))
                 pageClassName = pageType.Name;
 
+            // Show the performance-logging section only when the user explicitly selects
+            // the About menu item - not when AboutPage appears as the initial page after
+            // login (it is the start page, but the tools are for explicit diagnosis).
+            if (pageType == typeof(AboutPage))
+                aboutPage.ShowPerfLoggingSection();
+
             // TabbedPage instances must never be reused across NavigationPage switches on Android.
             // When Detail is replaced, the old ScopedFragment and its child tab-fragments are destroyed.
             // Reusing the same TabbedPage C# object in a new NavigationPage causes:

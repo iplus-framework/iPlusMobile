@@ -13,8 +13,6 @@ namespace gip.vbm.mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : BSOPageBase
     {
-        static int _AppearingCounter = 0;
-
         internal AboutViewModel _ViewModel;
         public AboutPage()
         {
@@ -24,13 +22,18 @@ namespace gip.vbm.mobile.Views
 
         protected override void OnAppearing()
         {
-            if (_AppearingCounter <= 0)
-                Settings.IsVisible = false;
-            else
-                Settings.IsVisible = true;
-            _AppearingCounter++;
             DisplayVersionInfo();
             base.OnAppearing();
+        }
+
+        /// <summary>
+        /// Shows the "Performance logging" section. Called by MainPage when the user
+        /// explicitly selects the About menu item - the section stays hidden while
+        /// AboutPage is merely displayed as the initial page after login.
+        /// </summary>
+        public void ShowPerfLoggingSection()
+        {
+            Settings.IsVisible = true;
         }
 
         public void DisplayVersionInfo()
