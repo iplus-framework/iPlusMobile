@@ -66,6 +66,9 @@ namespace gip.vbm.mobile.Views
             catch (Exception ex)
             {
                 Helpers.CrashLog.Record("AboutPage.TestCrash", ex);
+                // No dialog: keep this button silent on purpose (it only records into
+                // LastCrashDump, which is displayed above). The recorded entry now
+                // appears in the LastCrashDump label immediately.
             }
         }
 

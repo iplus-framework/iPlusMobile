@@ -17,6 +17,16 @@ namespace gip.vbm.mobile.ViewModels
 
             OpenWebCommand = new Command( async () => await Launcher.Default.OpenAsync(new Uri("https://iplus-framework.com")));
             SendPerfLog = new Command(async () => await ExecuteSendPerfLog());
+
+            // CrashLog.Record writes LastCrashDump directly on
+            // SettingsViewModel.StaticSettingModel - it never goes through this wrapper's
+            // setter, so the Label bound to AboutViewModel.LastCrashDump would never
+            // refresh. Forward the SettingsViewModel notification to this wrapper.
+            App.SettingsViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(LastCrashDump))
+                    OnPropertyChanged(nameof(LastCrashDump));
+            };
         }
 
         public ICommand OpenWebCommand { get; }
