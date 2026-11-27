@@ -24,12 +24,19 @@ namespace gip.vbm.mobile.Views
 
             //ListViewMenu.ItemsSource = RootPage.UserRights.Menu;
             //ListViewMenu.SelectedItem = RootPage.UserRights.Menu.FirstOrDefault();
-            ListViewMenu.ItemSelected += async (sender, e) =>
+            // ItemTapped (not ItemSelected): taps fire on every selection, including
+            // re-tapping the already-selected item. With ItemSelected, tapping the
+            // item whose page is currently displayed (e.g. "About" right after login,
+            // when AboutPage is the initial Detail) did nothing - the selection didn't
+            // change and the flyout stayed open. Resetting SelectedItem allows the
+            // same item to be tapped again later.
+            ListViewMenu.ItemTapped += async (sender, e) =>
             {
-                if (e.SelectedItem == null)
+                if (e.Item == null)
                     return;
 
-                VBMenuItem selectedMenu = (VBMenuItem)e.SelectedItem;
+                ListViewMenu.SelectedItem = null;
+                VBMenuItem selectedMenu = (VBMenuItem)e.Item;
                 await RootPage.NavigateFromMenu(selectedMenu);
             };
         }

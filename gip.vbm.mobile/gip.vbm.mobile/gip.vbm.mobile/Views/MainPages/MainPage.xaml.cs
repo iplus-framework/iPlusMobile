@@ -86,6 +86,13 @@ namespace gip.vbm.mobile.Views
 
                 IsPresented = false;
             }
+            else
+            {
+                // The requested page is already displayed (e.g. tapping "About" right
+                // after login, when AboutPage is the initial Detail). Just close the
+                // flyout - otherwise the tap appears to do nothing.
+                IsPresented = false;
+            }
         }
 
         public NavigationMode NavigationMode

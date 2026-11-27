@@ -53,7 +53,11 @@ namespace gip.vbm.mobile.ViewModels
             {
                 if (_IPlusBackendUrl == null)
                 {
-                    _IPlusBackendUrl = XLocalSettings.GetValue<string>("IPlusBackendUrl", "http://localhost:8730");
+                    // 10.0.2.2 is the Android emulator's alias for the host machine's
+                    // loopback - "localhost" inside the app would mean the device
+                    // itself, so the emulator could never reach a backend on the dev PC.
+                    // A stored (persisted) value always wins over this default.
+                    _IPlusBackendUrl = XLocalSettings.GetValue<string>("IPlusBackendUrl", "http://10.0.2.2:8730");
                 }
                 return _IPlusBackendUrl;
             }
